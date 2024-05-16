@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class DBContext {
     
-   Connection conn;
+    Connection conn;
     PreparedStatement ps;
     ResultSet rs;
     

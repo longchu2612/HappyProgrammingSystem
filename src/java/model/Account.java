@@ -1,0 +1,114 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+import java.time.LocalDate;
+
+/**
+ *
+ * @author asus
+ */
+public class Account {
+    private int account_id;
+    private String account_name;
+    private String email;
+    private String password;
+    private String fullname;
+    private int phone;
+    private LocalDate dateOfBirth;
+    private Boolean sex;
+    private String address;
+
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, LocalDate dateOfBirth, Boolean sex, String address) {
+        this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+    }
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public String getAccount_name() {
+        return account_name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    public void setAccount_name(String account_name) {
+        this.account_name = account_name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "account_id=" + account_id + ", account_name=" + account_name + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", dateOfBirth=" + dateOfBirth + ", sex=" + sex + ", address=" + address + '}';
+    }
+    
+    
+}
