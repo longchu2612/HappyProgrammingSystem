@@ -4,8 +4,16 @@
         <servlet-name>DemoController</servlet-name>
         <servlet-class>controller.DemoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountController</servlet-name>
+        <servlet-class>controller.AccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountController</servlet-name>
+        <url-pattern>/account</url-pattern>
     </servlet-mapping>
 </web-app>
