@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author asus
  */
 public class Account {
+
     private int account_id;
     private String account_name;
     private String email;
@@ -20,8 +21,11 @@ public class Account {
     private LocalDate dateOfBirth;
     private Boolean sex;
     private String address;
+    private String avatar;
+    private Role role;
+    private Boolean status;
 
-    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, LocalDate dateOfBirth, Boolean sex, String address) {
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, LocalDate dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -31,6 +35,33 @@ public class Account {
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
         this.address = address;
+        this.avatar = avatar;
+        this.role = role;
+        this.status = status;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public Boolean getStatus() {
+        return status;
     }
 
     public int getAccount_id() {
@@ -107,8 +138,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "account_id=" + account_id + ", account_name=" + account_name + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", dateOfBirth=" + dateOfBirth + ", sex=" + sex + ", address=" + address + '}';
+        return "Account{" + "account_id=" + account_id + ", account_name=" + account_name + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", dateOfBirth=" + dateOfBirth + ", sex=" + sex + ", address=" + address + ", avatar=" + avatar + ", role=" + role + ", status=" + status + '}';
     }
-    
-    
+
 }

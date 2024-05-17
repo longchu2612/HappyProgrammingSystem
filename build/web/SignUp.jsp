@@ -39,7 +39,7 @@
                 <div class="card card-4">
                     <div class="card-body">
                         <h2 class="title">Sign Up</h2>
-                        <form method="POST">
+                        <form action="account?action=checkregister" method="Post">
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group">
@@ -77,7 +77,7 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Full Name</label>
-                                        <input class="input--style-4" oninvalid="CheckFullName(this);" oninput="CheckFullName(this);" type="text" name="email">
+                                        <input class="input--style-4" oninvalid="CheckFullName(this);" oninput="CheckFullName(this);" type="text" name="full_name">
                                         <span id="span_fullname"></span>
                                     </div>
                                 </div>
@@ -127,10 +127,10 @@
                                     <div class="input-group">
                                         <label class="label">Role</label>
                                         <div class="rs-select2 js-select-simple select--no-search">
-                                            <select name="subject">
+                                            <select name="role">
                                                 <option disabled="disabled" selected="selected">Choose option</option>
-                                                <option>Mentee</option>
-                                                <option>Mentor</option>
+                                                <option value="1">Mentee</option>
+                                                <option value="2">Mentor</option>
                                                 
                                             </select>
                                             <div class="select-dropdown"></div>

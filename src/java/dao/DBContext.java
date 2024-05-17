@@ -38,7 +38,7 @@ public class DBContext {
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private final String serverName = "DESKTOP-O4N34MJ\\SQLEXPRESS";
-    private final String dbName = "Test_Code";
+    private final String dbName = "happy_programming_system";
     private final String portNumber = "1433";
     private final String userID = "sa";
     private final String password = "123";
