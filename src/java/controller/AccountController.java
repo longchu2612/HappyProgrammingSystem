@@ -11,8 +11,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import util.Email;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
 
 /**
  *
@@ -30,48 +38,58 @@ public class AccountController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException, SQLException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
         String action = request.getParameter("action");
-        
-        try {
-            if (action.equals("checkregister")) {
-                String account_name = request.getParameter("account_name");
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
-                String confirm_password = request.getParameter("confirm_password");
-                String full_name = request.getParameter("full_name");
-                String phone_number = request.getParameter("phone");
-                String dob = request.getParameter("birthday");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate dateOfBirth = LocalDate.parse(dob);
-                String gender = request.getParameter("gender");
-                String address = request.getParameter("address");
-                String role = request.getParameter("role");
-                int role_id = Integer.parseInt(role);
-                Boolean sex = Boolean.parseBoolean(gender);
-                boolean status = false;
-                AccountDAO account_dao = new AccountDAO();
-                account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
+        if (action.equals("checkregister")) {
+            
+            String account_name = request.getParameter("account_name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String confirm_password = request.getParameter("confirm_password");
+            String full_name = request.getParameter("full_name");
+            String phone_number = request.getParameter("phone");
+            String dob = request.getParameter("birthday");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateOfBirth = Date.valueOf(sdf2.format(sdf.parse(dob)));
+
+            String gender = request.getParameter("gender");
+
+            String address = request.getParameter("address");
+            String role = request.getParameter("role");
+            int role_id = Integer.parseInt(role);
+            Boolean sex = Boolean.parseBoolean(gender);
+            boolean status = false;
+            AccountDAO account_dao = new AccountDAO();
+            Account account = account_dao.checkAccount(account_name, email);
+            if (account != null) {
+                request.setAttribute("account_name", account_name);
+                request.setAttribute("email", email);
+                request.setAttribute("password", password);
+                request.setAttribute("confirm_password", confirm_password);
+                request.setAttribute("full_name", full_name);
+                request.setAttribute("phone_number", phone_number);
+                request.setAttribute("dob", dateOfBirth.toString());
+                request.setAttribute("address", address);
+                request.setAttribute("error", "Email or username already exists on the system!");
+                request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+            } else {
+
             }
-        } catch (Exception e) {
+        } else {
+            
         }
-//         try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet DemoController</title>");  
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet DemoController at " + action_2 + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+
+//        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
+//        if (result == 1) {
+//            Email.sendEmail(email, "Hello Long");
+//        } else {
+//            response.getWriter().println("Thất bại");
 //        }
-
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,7 +104,13 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        try {
+            processRequest(request, response);
+        } catch (ParseException | SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -101,7 +125,11 @@ public class AccountController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException | SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

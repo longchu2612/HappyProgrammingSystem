@@ -4,7 +4,10 @@
     Author     : asus
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,12 +42,16 @@
                 <div class="card card-4">
                     <div class="card-body">
                         <h2 class="title">Sign Up</h2>
-                        <form action="account?action=checkregister" method="Post">
+                        <h4 style="color: red; align-content: center;">
+                            ${requestScope.error}
+                        </h4>
+                        <form action="account?action=checkregister" method="Post" onsubmit="return validateForm()">
+                            
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Account Name</label>
-                                        <input class="input--style-4" type="text" oninvalid="CheckAccountName(this);" oninput="CheckAccountName(this);" name="account_name">
+                                        <input class="input--style-4" value="${requestScope.account_name}" type="text" oninvalid="CheckAccountName(this);" oninput="CheckAccountName(this);" name="account_name">
                                         <span id="span_accountName"></span>
                                     </div>
 
@@ -52,7 +59,7 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Email</label>
-                                        <input class="input--style-4" oninvalid="CheckEmail(this);" oninput="CheckEmail(this);" type="email" name="email">
+                                        <input class="input--style-4" value="${requestScope.email}" oninvalid="CheckEmail(this);" oninput="CheckEmail(this);" type="email" name="email">
                                         <span id="span_email"></span>
                                     </div>
                                 </div>
@@ -61,14 +68,14 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Password</label>
-                                        <input class="input--style-4" id ="password" oninvalid="CheckPassword(this);" oninput="CheckPassword(this);" type="password" name="password">
+                                        <input class="input--style-4" value="${requestScope.password}" id ="password" oninvalid="CheckPassword(this);" oninput="CheckPassword(this);" type="password" name="password">
                                         <span id = "span_password"></span>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Confirm Password</label>
-                                        <input class="input--style-4" oninvalid="CheckConfirmPassword(this);" oninput="CheckConfirmPassword(this);" type="password" name="confirm_password">
+                                        <input class="input--style-4" value="${requestScope.confirm_password}" oninvalid="CheckConfirmPassword(this);" oninput="CheckConfirmPassword(this);" type="password" name="confirm_password">
                                         <span id="span_rePassword"></span>
                                     </div>
                                 </div>
@@ -77,14 +84,14 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Full Name</label>
-                                        <input class="input--style-4" oninvalid="CheckFullName(this);" oninput="CheckFullName(this);" type="text" name="full_name">
+                                        <input class="input--style-4" value="${requestScope.full_name}" oninvalid="CheckFullName(this);" oninput="CheckFullName(this);" type="text" name="full_name">
                                         <span id="span_fullname"></span>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Phone Number</label>
-                                        <input class="input--style-4" oninvalid="CheckPhoneNumber(this);" oninput="CheckPhoneNumber(this);" type="text" name="phone">
+                                        <input class="input--style-4" value="${requestScope.phone_number}" oninvalid="CheckPhoneNumber(this);" oninput="CheckPhoneNumber(this);" type="text" name="phone">
                                         <span id="span_phoneNumber"></span>
                                     </div>
                                 </div>
@@ -94,7 +101,7 @@
                                     <div class="input-group">
                                         <label class="label">Date Of Birth</label>
                                         <div class="input-group-icon">
-                                            <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                            <input class="input--style-4 js-datepicker" value="${requestScope.dob}" type="text" name="birthday" value="<fmt:formatDate value="" pattern='yyyy-MM-dd'/>">
                                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                         </div>
                                     </div>
@@ -104,11 +111,11 @@
                                         <label class="label">Gender</label>
                                         <div class="p-t-10">
                                             <label class="radio-container m-r-45">Male
-                                                <input type="radio" checked="checked" name="gender">
+                                                <input type="radio" checked="checked" name="gender" value="true">
                                                 <span class="checkmark"></span>
                                             </label>
                                             <label class="radio-container">Female
-                                                <input type="radio" name="gender">
+                                                <input type="radio" name="gender" value="false">
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
@@ -119,7 +126,7 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Address</label>
-                                        <input class="input--style-4" oninvalid="CheckAddress(this);" oninput="CheckAddress(this);" type="text" name="address">
+                                        <input class="input--style-4" value="${requestScope.address}" oninvalid="CheckAddress(this);" oninput="CheckAddress(this);" type="text" name="address">
                                         <span id="span_address"></span>
                                     </div>
                                 </div>
@@ -131,7 +138,7 @@
                                                 <option disabled="disabled" selected="selected">Choose option</option>
                                                 <option value="1">Mentee</option>
                                                 <option value="2">Mentor</option>
-                                                
+
                                             </select>
                                             <div class="select-dropdown"></div>
                                         </div>

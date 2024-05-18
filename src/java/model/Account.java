@@ -5,6 +5,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -18,14 +19,14 @@ public class Account {
     private String password;
     private String fullname;
     private int phone;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private Boolean sex;
     private String address;
     private String avatar;
     private Role role;
     private Boolean status;
 
-    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, LocalDate dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -39,6 +40,18 @@ public class Account {
         this.role = role;
         this.status = status;
     }
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role) {
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+    }
+    
+    
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
@@ -88,7 +101,7 @@ public class Account {
         return phone;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -124,7 +137,7 @@ public class Account {
         this.phone = phone;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
