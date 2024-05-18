@@ -5,14 +5,21 @@
 package dao;
 
 import java.sql.SQLException;
-import java.sql.Date;
+
+import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.internet.ParseException;
+import model.Account;
+import model.Role;
 
 /**
  *
@@ -20,8 +27,9 @@ import java.util.List;
  */
 public class AccountDAO extends DBContext {
 
-    public void Register(String accountName, String email, String password, String fullName, String phoneNumber, LocalDate dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
+    public int Register(String accountName, String email, String password, String fullName, String phoneNumber, java.sql.Date dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
 
+        int result = 0;
         String sql = "Insert into dbo.Account (name, email, password, fullname, phonenumber, dob, sex, address, roleID, status) \n"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
@@ -32,13 +40,13 @@ public class AccountDAO extends DBContext {
             ps.setString(3, password);
             ps.setString(4, fullName);
             ps.setString(5, phoneNumber);
-            Date dobDate = Date.valueOf(dob);
-            ps.setDate(6, dobDate);
+            ps.setDate(6, dob);
             ps.setInt(7, (sex) ? 1 : 0);
             ps.setString(8, address);
             ps.setInt(9, roleId);
+
             ps.setInt(10, (status) ? 1 : 0);
-            ps.execute();
+            result = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -46,10 +54,50 @@ public class AccountDAO extends DBContext {
                 conn.close();
             }
         }
+        return result;
     }
     
-    public static void main(String[] args) throws SQLException {
-        AccountDAO accountDAO = new AccountDAO();
-        accountDAO.Register("longchhe", "ieieee", "345555", "Chu long", "0912345612",LocalDate.MIN, true, "Phu tho", 1, true);
+    public Account checkAccount(String username, String email) throws SQLException{
+        String sql = "select * from dbo.Account where email = ? or name = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2,username);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                int role_id = rs.getInt("roleID");
+                Role role = new Role(role_id);
+                String account_name = rs.getString("name");
+                String email_2 = rs.getString("email");
+                String password = rs.getString("password");
+                String fullname = rs.getString("fullname");
+                int phone_number = rs.getInt("phonenumber");
+                Date dob = rs.getDate("dob");
+                Account account = new Account(account_name,email_2 ,password ,fullname ,phone_number,dob,role );
+                return account;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws SQLException, java.text.ParseException {
+
+        String startDateString = "20/12/2017";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+
+//        String dateTimeString = "20/02/2002"; // Chuỗi ngày và giờ
+        Date dob = Date.valueOf(sdf2.format(sdf.parse(startDateString)));
+//        
+//      
+        AccountDAO account_dao = new AccountDAO();
+        int result = account_dao.Register("khanhlong345", "longche@gmail.com", "12345666", "chu hoang long", "0978271223", dob, true, "Lao Cai", 1, true);
+        System.out.println(result);
     }
 }
