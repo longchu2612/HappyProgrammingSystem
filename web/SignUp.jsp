@@ -45,8 +45,8 @@
                         <h4 style="color: red; align-content: center;">
                             ${requestScope.error}
                         </h4>
-                        <form action="account?action=checkregister" method="Post" onsubmit="return validateForm()">
-                            
+                        <form id="myForm" action="account" method="Post" onsubmit="return validateForm()">
+                            <input type="hidden" name="action" value="checkregister"/>
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group">
@@ -101,9 +101,11 @@
                                     <div class="input-group">
                                         <label class="label">Date Of Birth</label>
                                         <div class="input-group-icon">
-                                            <input class="input--style-4 js-datepicker" value="${requestScope.dob}" type="text" name="birthday" value="<fmt:formatDate value="" pattern='yyyy-MM-dd'/>">
+                                            <input class="input--style-4 js-datepicker" value="${requestScope.dob}" type="text" name="birthday">
                                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+
                                         </div>
+                                        <span id="span_date"></span>
                                     </div>
                                 </div>
                                 <div class="col-2">
@@ -111,11 +113,11 @@
                                         <label class="label">Gender</label>
                                         <div class="p-t-10">
                                             <label class="radio-container m-r-45">Male
-                                                <input type="radio" checked="checked" name="gender" value="true">
+                                                <input ${(requestScope.sex) ? "checked=\"checked\"" : ""} type="radio" name="gender" value="true" required>
                                                 <span class="checkmark"></span>
                                             </label>
                                             <label class="radio-container">Female
-                                                <input type="radio" name="gender" value="false">
+                                                <input ${(!requestScope.sex) ? "checked=\"checked\"" : ""} type="radio" name="gender" value="false" required>
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
@@ -134,13 +136,14 @@
                                     <div class="input-group">
                                         <label class="label">Role</label>
                                         <div class="rs-select2 js-select-simple select--no-search">
-                                            <select name="role">
+                                            <select name="role" id="roleSelect">
                                                 <option disabled="disabled" selected="selected">Choose option</option>
-                                                <option value="1">Mentee</option>
-                                                <option value="2">Mentor</option>
+                                                <option value="1" > Mentee </option>
+                                                <option value="2" > Mentor </option>
 
                                             </select>
                                             <div class="select-dropdown"></div>
+                                            <span id="error-message" class="error-message"></span>
                                         </div>
                                     </div>
                                 </div>
