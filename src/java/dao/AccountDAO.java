@@ -48,23 +48,20 @@ public class AccountDAO extends DBContext {
             ps.setInt(10, (status) ? 1 : 0);
             result = ps.executeUpdate();
         } catch (Exception e) {
+            System.out.println("An error occurred while inserting the account: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
+        } 
         return result;
     }
-    
-    public Account checkAccount(String username, String email) throws SQLException{
+
+    public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
-            ps.setString(2,username);
+            ps.setString(2, username);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int role_id = rs.getInt("roleID");
                 Role role = new Role(role_id);
                 String account_name = rs.getString("name");
@@ -73,22 +70,34 @@ public class AccountDAO extends DBContext {
                 String fullname = rs.getString("fullname");
                 int phone_number = rs.getInt("phonenumber");
                 Date dob = rs.getDate("dob");
-                Account account = new Account(account_name,email_2 ,password ,fullname ,phone_number,dob,role );
+                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role);
                 return account;
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
         }
         return null;
     }
 
+    public int verifyAccount(String email) throws SQLException {
+
+        int result = 0;
+        String sql = "UPDATE dbo.Account SET status = 1 WHERE email = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            result = ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return result;
+
+    }
+
     public static void main(String[] args) throws SQLException, java.text.ParseException {
 
-        String startDateString = "20/12/2017";
+        String startDateString = "08/05/2024";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -97,7 +106,7 @@ public class AccountDAO extends DBContext {
 //        
 //      
         AccountDAO account_dao = new AccountDAO();
-        int result = account_dao.Register("khanhlong345", "longche@gmail.com", "12345666", "chu hoang long", "0978271223", dob, true, "Lao Cai", 1, true);
+        int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
         System.out.println(result);
     }
 }

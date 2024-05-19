@@ -45,7 +45,7 @@ public class AccountController extends HttpServlet {
 
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
-            
+
             String account_name = request.getParameter("account_name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -63,7 +63,7 @@ public class AccountController extends HttpServlet {
             String role = request.getParameter("role");
             int role_id = Integer.parseInt(role);
             Boolean sex = Boolean.parseBoolean(gender);
-            boolean status = false;
+            Boolean status = false;
             AccountDAO account_dao = new AccountDAO();
             Account account = account_dao.checkAccount(account_name, email);
             if (account != null) {
@@ -73,15 +73,28 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("confirm_password", confirm_password);
                 request.setAttribute("full_name", full_name);
                 request.setAttribute("phone_number", phone_number);
-                request.setAttribute("dob", dateOfBirth.toString());
+                String dateStr = dateOfBirth.toString();
+                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+
+                request.setAttribute("dob", date.format(outputFormatter));
                 request.setAttribute("address", address);
+                request.setAttribute("sex", sex);
+                request.setAttribute("role_id", role_id);
                 request.setAttribute("error", "Email or username already exists on the system!");
                 request.getRequestDispatcher("SignUp.jsp").forward(request, response);
             } else {
 
+                account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
+
+                String activationCode = java.util.Base64.getEncoder().encodeToString(email.getBytes());
+                Email.sendEmail(email, activationCode);
+
             }
         } else {
-            
+
         }
 
 //        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);

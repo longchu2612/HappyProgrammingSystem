@@ -163,6 +163,20 @@ function CheckAddress(text) {
 
 }
 
+//function CheckDate(text) { 
+//    var datePattern = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/;
+//    var span_date = document.getElementById('span_date');
+//    if(!datePattern.test(text.value)){
+//        span_date.innerHTML = 'Ngày nhập không đúng(dd/MM/yyyy)';
+//        span_date.style.color = 'red';
+//        return false;
+//    }
+//    span_date.innerHTML = '';
+//    return true;
+//}
+
+
+
 function validateForm() {
 
     if (!CheckEmail(document.getElementsByName("email")[0]) ||
@@ -178,5 +192,45 @@ function validateForm() {
 
     return true;
 }
+
+function validateSelection() {
+    const roleSelect = document.getElementById("roleSelect");
+    const errorMessage = document.getElementById("error-message");
+    const selectedValue = roleSelect.value;
+
+    if (selectedValue === "" || roleSelect.selectedIndex === 0) {
+        errorMessage.innerHTML = 'Bạn chưa chọn role!';
+        errorMessage.style.color = 'red';
+        return false;
+    } else {
+        errorMessage.innerHTML = '';
+        return true; // Trả về true nếu không có lỗi
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const roleSelect = document.getElementById("roleSelect");
+    roleSelect.addEventListener("change", function () {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.innerHTML = '';
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const myForm = document.getElementById('myForm');
+
+    myForm.addEventListener('submit', function (event) {
+        if (!validateSelection()) {
+            event.preventDefault(); // Ngăn chặn form gửi đi nếu có lỗi
+        }
+    });
+});
+
+
+
+
+
+
+
 
 

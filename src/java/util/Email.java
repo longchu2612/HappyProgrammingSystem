@@ -56,7 +56,9 @@ public class Email {
             //QUy dinh ngay gui
             msg.setSentDate(new Date());
             //Noi dung
-            msg.setText(content, "UTF-8");
+           String link = "http://localhost:9999/HappyProgrammingSystem/verify?code="+ content;
+           
+            msg.setText("Please click the following link to activate your account:\n" + link, "UTF-8");
             // Gui email
             Transport.send(msg);
             return true;
