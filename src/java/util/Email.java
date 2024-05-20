@@ -68,6 +68,9 @@ public class Email {
         }
 
     }
+    public static void main(String[] args) {
+        Email.sendEmail("dungduavsbo333@gmail.com", "dungduavsbo333@gmail.com");
+    }
     
 
 }

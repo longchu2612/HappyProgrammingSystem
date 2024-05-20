@@ -569,6 +569,18 @@ function CheckFullName(text) {
     return true;
 }
 
+function CheckDate(text) { 
+    
+    var span_date = document.getElementById('span_date');
+    if(text.value.trim()===""){
+        span_date.innerHTML = 'Vui lòng chọn ngày';
+        span_date.style.color = 'red';
+        return false;
+    }
+    span_date.innerHTML = '';
+    return true;
+}
+
 function CheckAddress(text) {
     var address = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+){0,2}$/;
     var spanAddress = document.getElementById('span_address');
@@ -604,7 +616,7 @@ function validateForm() {
             !CheckAccountName(document.getElementsByName("account_name")[0]) ||
             !CheckPhoneNumber(document.getElementsByName("phone")[0]) ||
             !CheckFullName(document.getElementsByName("full_name")[0]) ||
-            !CheckAddress(document.getElementsByName("address")[0])) {
+            !CheckAddress(document.getElementsByName("address")[0])|| !CheckDate(document.getElementsByName("birthday")[0])) {
 
         return false;
     }
