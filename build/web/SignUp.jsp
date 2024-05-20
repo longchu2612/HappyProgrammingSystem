@@ -46,7 +46,7 @@
                             ${requestScope.error}
                         </h4>
                         <form id="myForm" action="account" method="Post" onsubmit="return validateForm()">
-                            <input type="hidden" name="action" value="checkregister"/>
+<!--                            <input type="hidden" name="action" value="checkregister"/>-->
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group">
