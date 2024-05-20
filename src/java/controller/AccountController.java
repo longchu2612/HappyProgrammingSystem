@@ -85,7 +85,7 @@ public class AccountController extends HttpServlet {
                 
                 String activationCode = java.util.Base64.getEncoder().encodeToString(email.getBytes());
                 Email.sendEmail(email, activationCode);
-                
+                request.getRequestDispatcher("login.html").forward(request, response);
             }
         } else {
 
