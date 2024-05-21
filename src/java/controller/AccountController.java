@@ -53,9 +53,7 @@ public class AccountController extends HttpServlet {
             String full_name = request.getParameter("full_name");
             String phone_number = request.getParameter("phone");
             String dob = request.getParameter("birthday");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateOfBirth = Date.valueOf(sdf2.format(sdf.parse(dob)));
+            Date date = Date.valueOf(dob);
 
             String gender = request.getParameter("gender");
 
@@ -73,25 +71,21 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("confirm_password", confirm_password);
                 request.setAttribute("full_name", full_name);
                 request.setAttribute("phone_number", phone_number);
-                String dateStr = dateOfBirth.toString();
-                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+               
 
-                request.setAttribute("dob", date.format(outputFormatter));
+                request.setAttribute("dob", dob);
                 request.setAttribute("address", address);
                 request.setAttribute("sex", sex);
                 request.setAttribute("role_id", role_id);
                 request.setAttribute("error", "Email or username already exists on the system!");
-                request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
 
-                account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
-
+                account_dao.Register(account_name, email, password, full_name, phone_number, date, sex, address, role_id, false);
+                
                 String activationCode = java.util.Base64.getEncoder().encodeToString(email.getBytes());
                 Email.sendEmail(email, activationCode);
-
+                request.getRequestDispatcher("login.html").forward(request, response);
             }
         } else {
 
@@ -141,6 +135,7 @@ public class AccountController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException | SQLException ex) {
+            System.out.println(ex.getMessage());
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
