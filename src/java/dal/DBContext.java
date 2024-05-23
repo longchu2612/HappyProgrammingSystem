@@ -9,19 +9,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.sql.*;
 /**
  *
  * @author Admin
  */
 public class DBContext {
     public Connection connection;
+    public ResultSet rs;
 
     public DBContext() {
         try {
             String username = "sa";
             String password = "123456";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=[happy_programming_system";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=happy_programming_system";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {

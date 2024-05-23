@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/model/User.java</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/dal/DBContext.java</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/web/index.html</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/model/Demo.java</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/web/META-INF/context.xml</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/web/changepass.jsp</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/until/PasswordUtil.java</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/dao/UserDAO.java</file>
-            <file>file:/D:/HappyProgramming/HappyProgrammingSystem/src/java/controller/ChangePasswordController.java</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/src/java/controller/ChangePasswordController.java</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/web/login.jsp</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/web/register.jsp</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/web/changepass.jsp</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/src/java/controller/AccountController.java</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/src/java/dao/AccountDAO.java</file>
+            <file>file:/D:/Git%20Code/HappyProgramingSystem/HappyProgrammingSystem/src/java/dal/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
