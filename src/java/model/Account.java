@@ -41,7 +41,17 @@ public class Account {
         this.status = status;
     }
 
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role) {
+    public Account(String account_name, String email, String password, String fullname, Role role) {
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
+    
+    
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -49,6 +59,7 @@ public class Account {
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.role = role;
+        this.status = status;
     }
     
     

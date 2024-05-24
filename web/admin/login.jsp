@@ -1,3 +1,11 @@
+<%-- 
+    Document   : login
+    Created on : May 24, 2024, 12:55:56 AM
+    Author     : asus
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +22,9 @@
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="assets/css/style.css">
+        
+        
+        
     </head>
     <body>
 
@@ -28,13 +39,16 @@
                             <div class="login-right-wrap">
                                 <h1>Login</h1>
                                 <p class="account-subtitle">Access to our dashboard</p>
-
-                                <form action="https://mentoring.dreamguystech.com/html/template/admin/index.html">
+                                <h5 style="color: red; align-content: center;">
+                                    ${requestScope.error}
+                                </h5>
+                                <form action="account_admin" method="POST">
+                                    <input type="hidden" name="action_admin" value="login"/>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Email">
+                                        <input class="form-control" name="user_name" type="text" placeholder="UserName">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="password" placeholder="Password">
+                                        <input class="form-control" type="password" name="password" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-block w-100" type="submit">Login</button>
@@ -52,7 +66,7 @@
                                     <a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="google"><i class="fa fa-google"></i></a>
                                 </div>-->
 
-                                <div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+                                <div class="text-center dont-have">Don’t have an account? <a href="register.jsp">Register</a></div>
                             </div>
                         </div>
                     </div>
