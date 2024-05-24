@@ -53,7 +53,26 @@ public class AccountDAO extends DBContext {
         } 
         return result;
     }
-
+    
+    public int registerAdmin(String account_name, String fullName,String email, String password, int role_id ){
+        int result =0;
+        String sql = "Insert into dbo.Account (name, email, password, fullname,roleID) \n"
+                + "VALUES (?, ?, ?, ?, ?);";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, account_name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, fullName);
+            ps.setInt(5, role_id);
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("An error occurred while inserting the account: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {

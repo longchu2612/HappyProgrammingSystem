@@ -8,6 +8,8 @@ import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import model.Account;
  *
  * @author asus
  */
+//@WebServlet(name="AccountController", urlPatterns={"/account"})
 public class AccountController extends HttpServlet {
 
     /**
@@ -89,24 +92,42 @@ public class AccountController extends HttpServlet {
         } else if (action.equals("login")) {
             String user_name = request.getParameter("user_name");
             String password = request.getParameter("password");
+            String remember = request.getParameter("agreeCheckboxUser");
 
             if (user_name.isEmpty() || password.isEmpty()) {
                 request.setAttribute("error", "Bạn chưa nhập tên tài khoản hoặc mật khẩu!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
 
-            }else {
+            } else {
                 AccountDAO accountDAO = new AccountDAO();
                 Account account = accountDAO.login(user_name, password);
-                if(account == null){
+                if (account == null) {
                     request.setAttribute("error", "Tài khoản của bạn không đúng!");
-                    request.setAttribute("user_name",user_name);
+
                     request.getRequestDispatcher("login.jsp").forward(request, response);
-                }else if(account.getStatus() == false){
+                } else if (account.getStatus() == false) {
                     request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
-                    request.setAttribute("user_name", user_name);
+
                     request.getRequestDispatcher("login.jsp").forward(request, response);
-                }else {
-                    
+                } else {
+                   
+                    Cookie cuser_name = new Cookie("cookie_username", user_name);
+                    Cookie cpassword = new Cookie("cookie_password", password);
+                    Cookie cremmember = new Cookie("cookie_remember", remember);
+                    if (remember != null) {
+                        cuser_name.setMaxAge(60 * 60 * 24 * 7);
+                        cpassword.setMaxAge(60 * 60 * 24 * 3);
+                        cremmember.setMaxAge(60 * 60 * 24 * 7);
+                    } else {
+                        cuser_name.setMaxAge(0);
+                        cpassword.setMaxAge(0);
+                        cremmember.setMaxAge(0);
+                    }
+                    response.addCookie(cuser_name);
+                    response.addCookie(cpassword);
+                    response.addCookie(cremmember);
+                    response.sendRedirect("index.html");
+                   
                 }
             }
 
