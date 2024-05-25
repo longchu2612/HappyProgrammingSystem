@@ -105,22 +105,31 @@ public class ProfileController extends HttpServlet {
                     ArrayList<CV_skill> data2 = s.getCVSkillsByCVId(cv.getId());
                     ArrayList<Skill_displayed> data = new ArrayList<Skill_displayed>();
 
-                    for (int i = 0; i < data1.size(); i++) {
+                    if (data2.isEmpty()) {
+
+                        for (int i = 0; i < data1.size(); i++) {
+                            Skill sk = data1.get(i);
+                            data.add(new Skill_displayed("", sk.getId(), sk.getName()));
+                        }
+                    } else {
                         
-                        Skill sk = data1.get(i);
-                        
-                        for (int j = 0; j < data2.size(); j++) {
-                            
-                            CV_skill cs = data2.get(j);
-                            
-                            if (sk.getId().equals(cs.getSkill_id())) {
-                                
-                                data.add(new Skill_displayed("checked=\"\"", sk.getId(), sk.getName()));
-                                break;
-                            }
-                            
-                            if (j == (data2.size() - 1)) {
-                                data.add(new Skill_displayed("", sk.getId(), sk.getName()));
+                        for (int i = 0; i < data1.size(); i++) {
+
+                            Skill sk = data1.get(i);
+
+                            for (int j = 0; j < data2.size(); j++) {
+
+                                CV_skill cs = data2.get(j);
+
+                                if (sk.getId().equals(cs.getSkill_id())) {
+
+                                    data.add(new Skill_displayed("checked=\"\"", sk.getId(), sk.getName()));
+                                    break;
+                                }
+
+                                if (j == (data2.size() - 1)) {
+                                    data.add(new Skill_displayed("", sk.getId(), sk.getName()));
+                                }
                             }
                         }
                     }
@@ -137,8 +146,10 @@ public class ProfileController extends HttpServlet {
                 Account ac = a.getUsersById(String.valueOf(accountID));
 
                 if (ac.getSex()) {
+
                     request.setAttribute("male", "checked=\"checked\"");
                 } else if (ac.getSex()) {
+
                     request.setAttribute("female", "checked=\"checked\"");
                 }
 
@@ -219,21 +230,21 @@ public class ProfileController extends HttpServlet {
             SkillDAO s = new SkillDAO();
             String[] arr = new String[s.getNumberOfSkill()];
             ArrayList<Skill> data = s.getSkills();
-            
+
             for (int i = 0; i < data.size(); i++) {
-                
+
                 Skill sk = data.get(i);
                 arr[i] = request.getParameter("skill" + String.valueOf(sk.getId()));
             }
-            
+
             CV cv = c.getCVByAccountId(String.valueOf(accountID));
             s.deleteAllSelectedSkillById(cv.getId());
-            
+
             for (int i = 0; i < arr.length; i++) {
-                
+
                 s.insertSelectedSkillByCVId(cv.getId(), arr[i]);
             }
-            
+
             c.updateCVByAccountId(String.valueOf(accountID), avatar, job, introduction, achievements);
             a.updateAccountById(String.valueOf(accountID), account_name, email, name, phone, dob, sex, address, avatar);
             response.sendRedirect("/HappyProgrammingSystem/profile");
