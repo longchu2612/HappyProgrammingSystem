@@ -9,31 +9,59 @@ package model;
  * @author catmi
  */
 public class Skill {
-    private int id;
-    private String name;
+    private int skillId;
+    private String skillName;
+    private int status;
+    private String image;
 
     public Skill() {
     }
 
-    public Skill(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Skill(int skillId, String skillName, int status, String image) {
+        this.skillId = skillId;
+        this.skillName = skillName;
+        this.status = status;
+        this.image = image;
     }
 
-    public int getId() {
-        return id;
+    public int getSkillId() {
+        return skillId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSkillId(int skillId) {
+        this.skillId = skillId;
     }
 
-    public String getName() {
-        return name;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + '}';
+    }
+
+    
+
     
 }
