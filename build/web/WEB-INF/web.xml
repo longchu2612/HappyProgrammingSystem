@@ -5,8 +5,6 @@
         <servlet-class>controller.DemoController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CVController</servlet-name>
-        <servlet-class>controller.CVController</servlet-class>
         <servlet-name>AccountController</servlet-name>
         <servlet-class>controller.AccountController</servlet-class>
     </servlet>
@@ -14,18 +12,24 @@
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>controller.VerifyController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.ProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CVController</servlet-name>
-        <url-pattern>/CV</url-pattern>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 </web-app>

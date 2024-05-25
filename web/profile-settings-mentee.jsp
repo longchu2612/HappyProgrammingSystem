@@ -25,7 +25,7 @@
     </head>
 
     <body>
-        <form action="profile" method="get">
+        <form action="profile" method="post">
             <div class="main-wrapper">
                 <header class="header">
                     <div class="header-fixed">
@@ -162,7 +162,7 @@
                                                      class="avatar-img rounded-circle">
                                             </div>
                                             <div class="user-text">
-                                                <h6>Jonathan Doe</h6>
+                                                <h6>${ac.getAccount_name()}</h6>
                                                 <p class="text-muted mb-0">Mentor</p>
                                             </div>
                                         </div>
@@ -171,7 +171,6 @@
                                         <a class="dropdown-item" href="login.html">Logout</a>
                                     </div>
                                 </li>
-
                             </ul>
                         </nav>
                     </div>
@@ -212,8 +211,7 @@
                                             <i class="fas fa-star"></i>
                                         </div>
                                         <div class="user-info-cont">
-                                            <h4 class="usr-name"><input type="text" class="account-name" name="account" value="Jonathan Doe"></h4>
-                                            <p class="mentor-type">English Literature (M.A)</p>
+                                            <h4 class="usr-name"><input type="text" class="account-name" name="account" value="${ac.getAccount_name()}"></h4>
                                         </div>
                                     </div>
                                     <div class="custom-sidebar-nav">
@@ -241,83 +239,70 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <form>
-                                            <div class="row form-row">
-                                                <div class="col-12 col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="change-avatar">
-                                                            <div class="profile-img">
-                                                                <img src="assets/img/user/user.jpg" alt="User Image">
+                                        <div class="row form-row">
+                                            <div class="col-12 col-md-12">
+                                                <div class="form-group">
+                                                    <div class="change-avatar">
+                                                        <div class="profile-img">
+                                                            <img src="assets/img/user/user.jpg" alt="User Image">
+                                                        </div>
+                                                        <div class="upload-img">
+                                                            <div class="change-photo-btn">
+                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
+                                                                <input type="file" class="upload">
                                                             </div>
-                                                            <div class="upload-img">
-                                                                <div class="change-photo-btn">
-                                                                    <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                    <input type="file" class="upload">
-                                                                </div>
-                                                                <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                                                            </div>
+                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Full Name</label>
-                                                        <input type="text" class="form-control" value="Jonathan">
-                                                    </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Full Name</label>
+                                                    <input type="text" name="fullname" class="form-control" value="${ac.getFullname()}">
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Gender</label><br>
-                                                        <p>
-                                                            <input type="radio" name="gender" value="m"> Male &emsp;
-                                                            <input type="radio" name="gender" value="f"> Female
-                                                        </p>
-                                                    </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Sex</label><br>
+                                                    <p>
+                                                        <input type="radio" name="sex" value="m" ${male}> Male &emsp;
+                                                        <input type="radio" name="sex" value="f" ${female}> Female
+                                                    </p>
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Date of Birth</label>
-                                                        <div class="cal-icon">
-                                                            <input type="text" class="form-control datetimepicker"
-                                                                   value="24-07-1983">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Email ID</label>
-                                                        <input type="email" class="form-control"
-                                                               value="jonathandoe@example.com">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Mobile</label>
-                                                        <input type="text" value="+1 202-555-0125" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label>Address</label>
-                                                        <input type="text" class="form-control" value="806 Twin Willow Lane">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label>Introduction</label>
-                                                        <textarea class="form-control" name="description" rows="10" placeholder="Introduction"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label>Achievements</label>
-                                                        <textarea class="form-control" name="description" rows="10" placeholder="Achievements"></textarea>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Date of Birth</label>
+                                                    <div class="cal-icon">
+                                                        <input type="text" name="dob" class="form-control datetimepicker"
+                                                               value="${ac.getDateOfBirth()}">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="submit-section">
-                                                <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" name="email" class="form-control"
+                                                           value="${ac.getEmail()}">
+                                                </div>
                                             </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Phone number</label>
+                                                    <input type="text" name="phone" value="${ac.getPhone()}" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input type="text" name="address" class="form-control" value="${ac.getAddress()}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="submit-section" style="padding: 10px">
+                                            <button name="save" type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@ public class Account {
     private String email;
     private String password;
     private String fullname;
-    private int phone;
+    private String phone;
     private Date dateOfBirth;
     private Boolean sex;
     private String address;
@@ -26,7 +26,21 @@ public class Account {
     private Role role;
     private Boolean status;
 
-    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
+    public Account() {
+    }
+
+    public Account(String account_name, String email, String fullname, String phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+        this.account_name = account_name;
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+    }
+    
+    public Account(int account_id, String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -41,7 +55,7 @@ public class Account {
         this.status = status;
     }
 
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+    public Account(String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Role role,Boolean status) {
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -98,7 +112,7 @@ public class Account {
         return fullname;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -134,7 +148,7 @@ public class Account {
         this.fullname = fullname;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
