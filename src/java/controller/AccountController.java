@@ -8,6 +8,8 @@ import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import model.Account;
  *
  * @author asus
  */
+//@WebServlet(name="AccountController", urlPatterns={"/account"})
 public class AccountController extends HttpServlet {
 
     /**
@@ -53,9 +56,7 @@ public class AccountController extends HttpServlet {
             String full_name = request.getParameter("full_name");
             String phone_number = request.getParameter("phone");
             String dob = request.getParameter("birthday");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateOfBirth = Date.valueOf(sdf2.format(sdf.parse(dob)));
+            Date date = Date.valueOf(dob);
 
             String gender = request.getParameter("gender");
 
@@ -73,27 +74,62 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("confirm_password", confirm_password);
                 request.setAttribute("full_name", full_name);
                 request.setAttribute("phone_number", phone_number);
-                String dateStr = dateOfBirth.toString();
-                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate date = LocalDate.parse(dateStr, inputFormatter);
 
-                request.setAttribute("dob", date.format(outputFormatter));
+                request.setAttribute("dob", dob);
                 request.setAttribute("address", address);
                 request.setAttribute("sex", sex);
                 request.setAttribute("role_id", role_id);
                 request.setAttribute("error", "Email or username already exists on the system!");
-                request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
 
-                account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
+                account_dao.Register(account_name, email, password, full_name, phone_number, date, sex, address, role_id, false);
 
                 String activationCode = java.util.Base64.getEncoder().encodeToString(email.getBytes());
                 Email.sendEmail(email, activationCode);
-
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        } else {
+        } else if (action.equals("login")) {
+            String user_name = request.getParameter("user_name");
+            String password = request.getParameter("password");
+            String remember = request.getParameter("agreeCheckboxUser");
+
+            if (user_name.isEmpty() || password.isEmpty()) {
+                request.setAttribute("error", "Bạn chưa nhập tên tài khoản hoặc mật khẩu!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            } else {
+                AccountDAO accountDAO = new AccountDAO();
+                Account account = accountDAO.login(user_name, password);
+                if (account == null) {
+                    request.setAttribute("error", "Tài khoản của bạn không đúng!");
+
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else if (account.getStatus() == false) {
+                    request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
+
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else {
+                   
+                    Cookie cuser_name = new Cookie("cookie_username", user_name);
+                    Cookie cpassword = new Cookie("cookie_password", password);
+                    Cookie cremmember = new Cookie("cookie_remember", remember);
+                    if (remember != null) {
+                        cuser_name.setMaxAge(60 * 60 * 24 * 7);
+                        cpassword.setMaxAge(60 * 60 * 24 * 3);
+                        cremmember.setMaxAge(60 * 60 * 24 * 7);
+                    } else {
+                        cuser_name.setMaxAge(0);
+                        cpassword.setMaxAge(0);
+                        cremmember.setMaxAge(0);
+                    }
+                    response.addCookie(cuser_name);
+                    response.addCookie(cpassword);
+                    response.addCookie(cremmember);
+                    response.sendRedirect("index.html");
+                   
+                }
+            }
 
         }
 
@@ -141,6 +177,7 @@ public class AccountController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException | SQLException ex) {
+            System.out.println(ex.getMessage());
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

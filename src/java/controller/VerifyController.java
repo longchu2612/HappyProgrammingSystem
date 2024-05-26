@@ -9,6 +9,7 @@ import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
  *
  * @author asus
  */
+//@WebServlet(name="VerifyController", urlPatterns={"/verify"})
 public class VerifyController extends HttpServlet {
    
     /** 
@@ -38,8 +40,12 @@ public class VerifyController extends HttpServlet {
         String activationCode  = request.getParameter("code");
         String email = new String(java.util.Base64.getDecoder().decode(activationCode));
         AccountDAO accountDAO = new AccountDAO();
-        accountDAO.verifyAccount(email);
-        
+        int result = accountDAO.verifyAccount(email);
+        if(result == 1){
+            request.getRequestDispatcher("success-200.html").forward(request, response);
+        }else{
+            request.getRequestDispatcher("fail-500.html").forward(request, response);
+        }
         
     } 
 
