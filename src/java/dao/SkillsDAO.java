@@ -13,7 +13,7 @@ import model.Skill;
  *
  * @author Admin
  */
-public class SkillDAO extends DBContext {
+public class SkillsDAO extends DBContext {
 
     public ArrayList<Skill> getSkills() {
         ArrayList<Skill> data = new ArrayList<Skill>();

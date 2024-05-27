@@ -5,7 +5,7 @@
 package controller;
 
 import dao.AccountDAO;
-import dao.SkillDAO;
+import dao.SkillsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -69,7 +69,7 @@ public class SkillController extends HttpServlet {
         int AccountID = a.getIdByAccountName(String.valueOf(sess.getAttribute("acc")));
         Account ac = a.getUsersById(String.valueOf(AccountID));
         
-        SkillDAO s = new SkillDAO();
+        SkillsDAO s = new SkillsDAO();
         ArrayList<Skill> data1 = s.getSkills();
         ArrayList<Skill> data = new ArrayList<Skill>();
         

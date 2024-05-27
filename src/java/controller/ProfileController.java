@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import dao.AccountDAO;
 import dao.CVDAO;
-import dao.SkillDAO;
+import dao.SkillsDAO;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 import model.Account;
@@ -99,7 +99,7 @@ public class ProfileController extends HttpServlet {
 
                 if (c.checkCVExistanceById(String.valueOf(accountID))) {
 
-                    SkillDAO s = new SkillDAO();
+                    SkillsDAO s = new SkillsDAO();
                     CV cv = c.getCVByAccountId(String.valueOf(accountID));
                     ArrayList<Skill> data1 = s.getSkills();
                     ArrayList<CV_skill> data2 = s.getCVSkillsByCVId(cv.getId());
@@ -227,7 +227,7 @@ public class ProfileController extends HttpServlet {
                 Files.move(source, source.resolveSibling(fullpath), REPLACE_EXISTING);
             }
 
-            SkillDAO s = new SkillDAO();
+            SkillsDAO s = new SkillsDAO();
             String[] arr = new String[s.getNumberOfSkill()];
             ArrayList<Skill> data = s.getSkills();
 
