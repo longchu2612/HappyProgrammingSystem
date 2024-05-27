@@ -28,11 +28,12 @@ public class ResendOtpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long generationTime = System.currentTimeMillis();
-        String email = request.getParameter("email");
+     
         
         
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
+        String email = (String)mySession.getAttribute("email");
 
         if (email != null && !email.equals("")) {
             // sending otp

@@ -32,7 +32,7 @@ public class ForgotPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long generationTime = System.currentTimeMillis();
-        String email = request.getParameter("email");
+        String email = request.getParameter("input");
         AccountDAO dao = new AccountDAO();
         if (!email.contains("@")) {
 
