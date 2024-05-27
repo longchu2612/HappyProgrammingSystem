@@ -16,6 +16,18 @@
     <servlet>
         <servlet-name>AccountManage</servlet-name>
         <servlet-class>controller.admin.AccountManage</servlet-class>
+    <servlet>
+        <servlet-name>SkillController</servlet-name>
+        <servlet-class>controller.SkillController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewSkill</servlet-name>
+        <servlet-class>controller.AddNewSkill</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSkill</servlet-name>
+        <servlet-class>controller.UpdateSkill</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
@@ -33,5 +45,18 @@
     <servlet-mapping>
         <servlet-name>AccountManage</servlet-name>
         <url-pattern>/admin/account_admin</url-pattern>
+
+    <servlet-mapping>
+        <servlet-name>SkillController</servlet-name>
+        <url-pattern>/ListSkill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewSkill</servlet-name>
+        <url-pattern>/addSkill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSkill</servlet-name>
+        <url-pattern>/updateSkill</url-pattern>
+
     </servlet-mapping>
 </web-app>
