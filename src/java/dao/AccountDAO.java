@@ -53,7 +53,26 @@ public class AccountDAO extends DBContext {
         } 
         return result;
     }
-
+    
+    public int registerAdmin(String account_name, String fullName,String email, String password, int role_id ){
+        int result =0;
+        String sql = "Insert into dbo.Account (name, email, password, fullname,roleID) \n"
+                + "VALUES (?, ?, ?, ?, ?);";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, account_name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, fullName);
+            ps.setInt(5, role_id);
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("An error occurred while inserting the account: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {
@@ -70,7 +89,7 @@ public class AccountDAO extends DBContext {
                 String fullname = rs.getString("fullname");
                 int phone_number = rs.getInt("phonenumber");
                 Date dob = rs.getDate("dob");
-                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role);
+                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role,rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {
@@ -93,6 +112,24 @@ public class AccountDAO extends DBContext {
         } 
         return result;
 
+    }
+    
+    public Account login(String username, String password) {
+        String sql = " select * from dbo.Account where name = ? and  password = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            while(rs.next()){ 
+                Role role = new Role(rs.getInt("roleID"));
+                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
+                return account;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) throws SQLException, java.text.ParseException {

@@ -37,7 +37,7 @@
                         <div class="account-box">
                             <div class="login-right">
                                 <div class="login-header">
-                                    <h3><span>Mentoring</span> Register</h3>
+                                    <h3><span></span> Register</h3>
                                     <p class="text-muted">Access to our dashboard</p>
                                 </div>
                                 <h4 style="color: red; align-content: center;">
@@ -70,6 +70,7 @@
                                             <div class="form-group">
                                                 <label class="form-control-label">Password</label>
                                                 <input id="password" value="${requestScope.password}" type="password" oninvalid="CheckPassword(this);" oninput="CheckPassword(this);" class="form-control" name="password">
+
                                                 <span id = "span_password"></span>
                                             </div>
                                         </div>
@@ -77,6 +78,7 @@
                                             <div class="form-group">
                                                 <label class="form-control-label">Confirm Password</label>
                                                 <input id="password-confirm" value="${requestScope.confirm_password}" type="password" oninvalid="CheckConfirmPassword(this);" oninput="CheckConfirmPassword(this);" class="form-control" name="confirm_password">
+
                                                 <span id="span_rePassword"></span>
                                             </div>
                                         </div>
@@ -103,9 +105,10 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Date Of Birth</label>
-                                                <input id="password" type="date" value="${requestScope.dob}" class="form-control" name="birthday">
+                                                <input id="password" type="date" oninvalid="CheckDate(this);" oninput="CheckDate(this);" value="${requestScope.dob}" class="form-control" name="birthday">
+                                                <span id="span_date"></span>
                                             </div>
-                                            <span id="span_date"></span>
+                                            
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -135,7 +138,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Role</label>
-                                                <select name="role" class="form-select form-control" aria-label="Default select example">
+                                                <select name="role" id="roleSelect" class="form-select form-control" aria-label="Default select example">
                                                     <option disabled="disabled" selected>Choose option</option>
                                                     <option value="1">Mentee</option>
                                                     <option value="2">Mentor</option>
@@ -152,9 +155,9 @@
                                                                                 <label class="form-check-label" for="agree_checkbox_user">I agree to Mentoring</label> <a tabindex="-1" href="javascript:void(0);">Privacy Policy</a> &amp; <a tabindex="-1" href="javascript:void(0);"> Terms.</a>
                                                                             </div>
                                                                         </div>-->
-                                    <button class="btn btn-primary login-btn" id="submit" type="submit">Create Account</button>
+                                    <button class="btn btn-primary login-btn" id="submit" type="submit">Sign Up</button>
                                     <div class="account-footer text-center mt-3">
-                                        Already have an account? <a class="forgot-link mb-0" href="login.html">Login</a>
+                                        Already have an account? <a class="forgot-link mb-0" href="login.jsp">Login</a>
                                     </div>
                                 </form>
 

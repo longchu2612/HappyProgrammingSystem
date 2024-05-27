@@ -12,6 +12,14 @@
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>controller.VerifyController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountManage</servlet-name>
+        <servlet-class>controller.admin.AccountManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestController</servlet-name>
+        <servlet-class>controller.RequestController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
@@ -23,5 +31,13 @@
     <servlet-mapping>
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountManage</servlet-name>
+        <url-pattern>/admin/account_admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestController</servlet-name>
+        <url-pattern>/request</url-pattern>
     </servlet-mapping>
 </web-app>
