@@ -77,8 +77,17 @@
                                     <li><a href="map-list.html">Map List</a></li>
                                 </ul>
                             </li>
+
                             <li><a href="search.jsp">Search Mentor</a></li>
                             <li><a href="profile.jsp">Mentor Profile</a></li>
+                            <li class="has-submenu">
+                                <a href="#">Request</a>
+                                <ul class="submenu">
+                                    <li><a href="map-grid.html">List Request</a></li>
+                                    <li><a href="create-request.jsp">Create Request</a></li>
+                                    <li><a href="map-list.html">Update Request</a></li>
+                                </ul>
+                            </li>
                             <li><a href="bookings-mentee.jsp">Bookings</a></li>
                             <li><a href="checkout.jsp">Checkout</a></li>
                             <li><a href="booking-success.jsp">Booking Success</a></li>
