@@ -1,8 +1,16 @@
+<%-- 
+    Document   : profilementee
+    Created on : May 24, 2024, 12:09:40 AM
+    Author     : ngoqu
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+    <!DOCTYPE html>
 <html lang="en">
 
-    <!-- Mirrored from mentoring.dreamguystech.com/html/template/change-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:09 GMT -->
     <head>
         <meta charset="utf-8">
         <title>Mentoring</title>
@@ -58,14 +66,14 @@
                                         <li><a href="index-seven.html">Home 7</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu">
+                                <li class="has-submenu active">
                                     <a href>Mentor <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                         <li><a href="bookings.html">Bookings</a></li>
                                         <li><a href="schedule-timings.html">Schedule Timing</a></li>
                                         <li><a href="mentee-list.html">Mentee List</a></li>
-                                        <li><a href="profile-mentee.html">Mentee Profile</a></li>
+                                        <li class="active"><a href="profile-mentee.html">Mentee Profile</a></li>
                                         <li class="has-submenu">
                                             <a href="blog.html">Blog</a>
                                             <ul class="submenu">
@@ -82,7 +90,7 @@
                                         <li><a href="mentor-register.html">Mentor Register</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu active">
+                                <li class="has-submenu">
                                     <a href>Mentee <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li class="has-submenu">
@@ -101,7 +109,7 @@
                                         <li><a href="favourites.html">Favourites</a></li>
                                         <li><a href="chat-mentee.html">Chat</a></li>
                                         <li><a href="profile-settings-mentee.html">Profile Settings</a></li>
-                                        <li class="active"><a href="change-password.html">Change Password</a></li>
+                                        <li><a href="change-password.html">Change Password</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-submenu">
@@ -177,10 +185,10 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Change Password</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mentee Profile</li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Change Password</h2>
+                            <h2 class="breadcrumb-title">Mentee Profile</h2>
                         </div>
                     </div>
                 </div>
@@ -188,88 +196,227 @@
 
 
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                <div class="container">
 
-                            <div class="profile-sidebar">
-                                <div class="user-widget">
-                                    <div class="pro-avatar">JD</div>
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                    <div class="card col-10 me-auto ms-auto p-0">
+                        <div class="card-body">
+                            <div class="mentor-widget">
+                                <div class="user-info-left align-items-center">
+                                    <div class="mentor-img d-flex flex-wrap justify-content-center">
+                                        <div class="pro-avatar">JD</div>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="mentor-details m-0">
+                                            <p class="user-location m-0"><i class="fas fa-map-marker-alt"></i> Tamil Nadu, India</p>
+                                        </div>
                                     </div>
                                     <div class="user-info-cont">
                                         <h4 class="usr-name">Jonathan Doe</h4>
                                         <p class="mentor-type">English Literature (M.A)</p>
-                                    </div>
-                                </div>
-                                <div class="progress-bar-custom">
-                                    <h6>Complete your profiles ></h6>
-                                    <div class="pro-progress">
-                                        <div class="tooltip-toggle" tabindex="0"></div>
-                                        <div class="tooltip">80%</div>
-                                    </div>
-                                </div>
-                                <div class="custom-sidebar-nav">
-                                    <ul>
-                                        <li><a href="dashboard.html"><i class="fas fa-home"></i>Dashboard <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="bookings.html"><i class="fas fa-clock"></i>Bookings <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="schedule-timings.html"><i class="fas fa-hourglass-start"></i>Schedule Timings <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="chat.html"><i class="fas fa-comments"></i>Messages <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="blog.html"><i class="fab fa-blogger-b"></i>Blog <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="profile.html"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-6">
-                                            <label class="text-center"style="font-size: 19px">------Please enter your user name and password------</label>
-                                            <form action="changepass" method="post">
-                                                 <div class="form-group">
-                                                    <label>Account Name</label>
-                                                    <input type="text" class="form-control" name="username" placeholder="Account Name" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldpass" placeholder="old password" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>New Password</label>
-                                                    <input type="password"class="form-control" name="newpass" placeholder="new password" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Confirm Password</label>
-                                                    <input type="password" class="form-control" name="conpass" placeholder="confirm password" required>
-                                                </div>
-                                               
-                                                <div class="submit-section">
-                                                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                                </div> 
-                                                <%
-                                 if(request.getAttribute("message3")!=null)
-                                 {
-                                 out.print("<p class='text-danger ml-1'>"+request.getAttribute("message3")+"</p>");
-                                 }
-                                
-                                                %>
-                                            </form>
-
+                                        <div class="mentor-action">
+                                            <p class="mentor-type social-title">Contact Me</p>
+                                            <a href="javascript:void(0)" class="btn-blue">
+                                                <i class="fas fa-comments"></i>
+                                            </a>
+                                            <a href="chat.html" class="btn-blue">
+                                                <i class="fas fa-envelope"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn-blue" data-toggle="modal" data-target="#voice_call">
+                                                <i class="fas fa-phone-alt"></i>
+                                            </a> 
+                                          
                                         </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="user-info-right d-flex align-items-end flex-wrap">
+                                    <div class="hireme-btn text-center">
+                                        <span class="hire-rate">$500 / Hour</span>
+                                        <a class="blue-btn-radius" href="booking.html">Hire Me</a>
+                                      
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                      
+
+                    <div class="card col-10 me-auto ms-auto p-0">
+                        <div class="card-body custom-border-card pb-0">
+
+                            <div class="tab-content pt-0">
+
+                                <div role="tabpanel" id="biography" class="tab-pane fade show active">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="widget about-widget custom-about mb-0">
+                                                <h4 class="widget-title">About Me</h4>
+                                                <hr/>
+                                                ${Username}
+                                              
+                                                 <a  href="changepass.jsp">Change Password</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-10 me-auto ms-auto p-0">
+                        <div class="card-body custom-border-card pb-0">
+
+                            <div class="widget education-widget mb-0">
+                                <h4 class="widget-title">Personal Details</h4>
+                                <hr/>
+                                <div class="experience-box">
+                                    <ul class="experience-list profile-custom-list">
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Gender</span>
+                                                    <div class="row-result">Male</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Date of Birth</span>
+                                                    <div class="row-result">01 - 02 - 2000</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Where did you hear about us?</span>
+                                                    <div class="row-result">Through web search</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card col-10 me-auto ms-auto p-0">
+                        <div class="card-body custom-border-card pb-0">
+
+                            <div class="widget experience-widget mb-0">
+                                <h4 class="widget-title">Qualification</h4>
+                                <hr/>
+                                <div class="experience-box">
+                                    <ul class="experience-list profile-custom-list">
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Undergraduate College</span>
+                                                    <div class="row-result">Coimbatore University</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Undergraduate Major</span>
+                                                    <div class="row-result">Mathematics</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Graduate College</span>
+                                                    <div class="row-result">Coimbatore University</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Type of Degree</span>
+                                                    <div class="row-result">B.Sc (Maths)</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card col-10 me-auto ms-auto p-0">
+                        <div class="card-body custom-border-card pb-0">
+
+                            <div class="widget awards-widget m-0">
+                                <h4 class="widget-title">Location</h4>
+                                <hr/>
+                                <div class="experience-box">
+                                    <ul class="experience-list profile-custom-list">
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Address 1</span>
+                                                    <div class="row-result">No : 5 ABC Avenue</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Address 2</span>
+                                                    <div class="row-result">National highway road</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Country</span>
+                                                    <div class="row-result">India</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>City</span>
+                                                    <div class="row-result">Coimbatore</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>State</span>
+                                                    <div class="row-result">Tamil Nadu</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <span>Postal Code</span>
+                                                    <div class="row-result">641001</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -353,7 +500,7 @@
                                         </p>
                                         <p class="mb-0">
                                             <i class="fas fa-envelope"></i>
-                                            <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7bab2b9a3b8a5beb9b097b2afb6baa7bbb2f9b4b8ba">[email&#160;protected]</a>
+                                            <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b060e051f041902050c2b0e130a061b070e45080406">[email&#160;protected]</a>
                                         </p>
                                     </div>
                                 </div>
@@ -362,7 +509,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="footer-bottom">
                     <div class="container-fluid">
@@ -385,15 +532,67 @@
         </div>
 
 
+        <div class="modal fade call-modal" id="voice_call">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <div class="call-box incoming-box">
+                            <div class="call-wrapper">
+                                <div class="call-inner">
+                                    <div class="call-user">
+                                        <img alt="User Image" src="assets/img/user/user.jpg" class="call-avatar">
+                                        <h4>Jonathan Doe</h4>
+                                        <span>Connecting...</span>
+                                    </div>
+                                    <div class="call-items">
+                                        <a href="javascript:void(0);" class="btn call-item call-end" data-dismiss="modal" aria-label="Close"><i class="material-icons">call_end</i></a>
+                                        <a href="voice-call.html" class="btn call-item call-start"><i class="material-icons">call</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade call-modal" id="video_call">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <div class="call-box incoming-box">
+                            <div class="call-wrapper">
+                                <div class="call-inner">
+                                    <div class="call-user">
+                                        <img class="call-avatar" src="assets/img/user/user.jpg" alt="User Image">
+                                        <h4>Dr. Darren Elder</h4>
+                                        <span>Calling ...</span>
+                                    </div>
+                                    <div class="call-items">
+                                        <a href="javascript:void(0);" class="btn call-item call-end" data-dismiss="modal" aria-label="Close"><i class="material-icons">call_end</i></a>
+                                        <a href="video-call.html" class="btn call-item call-start"><i class="material-icons">videocam</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
 
         <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-
         <script src="assets/js/script.js"></script>
     </body>
 
-    <!-- Mirrored from mentoring.dreamguystech.com/html/template/change-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:09 GMT -->
 </html>
+

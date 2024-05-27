@@ -22,6 +22,7 @@ public class ValidateOtpController extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int value = Integer.parseInt(request.getParameter("otp"));
+        
         HttpSession session = request.getSession();
         int otp = (int) session.getAttribute("otp");
         Long generationTime = (Long) session.getAttribute("otpGenerationTime");

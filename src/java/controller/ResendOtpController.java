@@ -30,6 +30,7 @@ public class ResendOtpController extends HttpServlet {
         long generationTime = System.currentTimeMillis();
         String email = request.getParameter("email");
         
+        
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
 

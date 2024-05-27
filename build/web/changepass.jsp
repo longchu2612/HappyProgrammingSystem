@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -232,24 +233,35 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
-
+                                            <label class="text-center"style="font-size: 19px">------Please enter your user name and password------</label>
                                             <form action="changepass" method="post">
-                                                <input type="hidden" name="name" value="<%= request.getParameter("name") %>">
+                                                 <div class="form-group">
+                                                    <label>Account Name</label>
+                                                    <input type="text" class="form-control" name="username" placeholder="Account Name" required>
+                                                </div>
                                                 <div class="form-group">
                                                     <label>Old Password</label>
                                                     <input type="password" class="form-control" name="oldpass" placeholder="old password" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>New Password</label>
-                                                    <input type="password" class="form-control" name="newpass" placeholder="new password" required>
+                                                    <input type="password"class="form-control" name="newpass" placeholder="new password" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Confirm Password</label>
                                                     <input type="password" class="form-control" name="conpass" placeholder="confirm password" required>
                                                 </div>
+                                               
                                                 <div class="submit-section">
                                                     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                                </div>
+                                                </div> 
+                                                <%
+                                 if(request.getAttribute("message3")!=null)
+                                 {
+                                 out.print("<p class='text-danger ml-1'>"+request.getAttribute("message3")+"</p>");
+                                 }
+                                
+                                                %>
                                             </form>
 
                                         </div>
@@ -350,7 +362,7 @@
                         </div>
                     </div>
                 </div>
-
+                
 
                 <div class="footer-bottom">
                     <div class="container-fluid">

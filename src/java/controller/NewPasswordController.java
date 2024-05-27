@@ -35,7 +35,7 @@ public class NewPasswordController extends HttpServlet {
             if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
                 AccountDAO ac = new AccountDAO();
                 ac.updatePassword(webemail, confPassword);
-                dispatcher = request.getRequestDispatcher("login.jsp");
+                dispatcher = request.getRequestDispatcher("success-200.html");
             } else {
                request.setAttribute("message1","New Password And Confirm Password Are Not Match");
 			

@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
@@ -19,7 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import DAO.*;
+
 import dao.AccountDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -34,22 +33,36 @@ public class ForgotPasswordController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long generationTime = System.currentTimeMillis();
         String email = request.getParameter("email");
-        if (!email.contains("@")){
-            AccountDAO dao = new AccountDAO();
+        AccountDAO dao = new AccountDAO();
+        if (!email.contains("@")) {
+
             try {
                 email = dao.getEmailByUser(email);
-                if (email == null){
+                if (email == null) {
                     throw new Exception();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                 request.setAttribute("message2", "Account name is wrong or not exist");
-                 RequestDispatcher  dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
-            dispatcher.forward(request, response);
+                request.setAttribute("message2", "Account name is wrong or not exist");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
+                dispatcher.forward(request, response);
 
             }
         }
+        try {
+            if (!dao.isEmailExist(email)) {
+                throw new Exception();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            request.setAttribute("message2", "EMAIL IS NOT IN DATABASE");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         RequestDispatcher dispatcher = null;
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
@@ -80,6 +93,7 @@ public class ForgotPasswordController extends HttpServlet {
                 MimeMessage message = new MimeMessage(session);
                 message.setFrom(new InternetAddress("ngoquochuyvn2004@gmail.com")); // change accordingly
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
                 message.setSubject("OTP for Password Reset");
                 message.setText("\nYour OTP is: " + otpvalue
                         + ". Please note that your OTP will expired in 15 minutes ");

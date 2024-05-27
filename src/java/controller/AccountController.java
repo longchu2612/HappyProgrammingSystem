@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -44,6 +45,7 @@ public class AccountController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+         HttpSession session = request.getSession();
 
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
@@ -108,8 +110,11 @@ public class AccountController extends HttpServlet {
                     request.setAttribute("user_name", user_name);
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }else {
-                    response.sendRedirect("index-four.html");
+                     
+                    session.setAttribute("username",account.getAccount_name());
+                   request.getRequestDispatcher("index-five.html").forward(request, response);
                 }
+                
             }
 
         }

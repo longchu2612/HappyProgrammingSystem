@@ -164,4 +164,27 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+    public String getPassByUser(String user) throws SQLException{
+        String sql = "Select password from Account where name = ?";
+        String password = "";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, user);
+        rs =  ps.executeQuery();
+        if (rs.next()){
+            password = rs.getString("password");
+            return password;
+        }
+        return null;
+    }
+    
+    public boolean isEmailExist(String email) throws SQLException{
+        String sql = "Select email from Account where email = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        if (rs.next()){
+            return true;
+        }
+        return false;
+    }
 }
