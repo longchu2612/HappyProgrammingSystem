@@ -1,7 +1,15 @@
+<%-- 
+    Document   : dashboard-mentee
+    Created on : May 26, 2024, 5:31:14 PM
+    Author     : asus
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
-    <!-- Mirrored from mentoring.dreamguystech.com/html/template/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:07 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/dashboard-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
     <head>
         <meta charset="utf-8">
         <title>Mentoring</title>
@@ -20,7 +28,7 @@
 
         <div class="main-wrapper">
 
-
+            <jsp:include page="layout_header.jsp"/>
 
 
             <div class="breadcrumb-bar">
@@ -69,14 +77,11 @@
                                 </div>
                                 <div class="custom-sidebar-nav">
                                     <ul>
-                                        <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i>Dashboard <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="bookings.html"><i class="fas fa-clock"></i>Bookings <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="schedule-timings.html"><i class="fas fa-hourglass-start"></i>Schedule Timings <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="chat.html"><i class="fas fa-comments"></i>Messages <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="invoices.html"><i class="fas fa-file-invoice"></i>Invoices <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="reviews.html"><i class="fas fa-eye"></i>Reviews <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="blog.html"><i class="fab fa-blogger-b"></i>Blog <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="profile.html"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="dashboard-mentee.html" class="active"><i class="fas fa-home"></i>Dashboard <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="bookings-mentee.html"><i class="fas fa-clock"></i>Bookings <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="chat-mentee.html"><i class="fas fa-comments"></i>Messages <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="favourites.html"><i class="fas fa-star"></i>Favourites <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="profile-mentee.html"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
                                         <li><a href="login.html"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
                                     </ul>
                                 </div>
@@ -89,12 +94,12 @@
                                     <div class="dash-widget">
                                         <div class="circle-bar">
                                             <div class="icon-col">
-                                                <i class="fas fa-users"></i>
+                                                <i class="fas fa-calendar-check"></i>
                                             </div>
                                         </div>
                                         <div class="dash-widget-info">
                                             <h3>23</h3>
-                                            <h6>Members</h6>
+                                            <h6>Appointments</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -102,12 +107,12 @@
                                     <div class="dash-widget">
                                         <div class="circle-bar">
                                             <div class="icon-col">
-                                                <i class="fas fa-calendar-check"></i>
+                                                <i class="fas fa-star"></i>
                                             </div>
                                         </div>
                                         <div class="dash-widget-info">
                                             <h3>33</h3>
-                                            <h6>Appointments</h6>
+                                            <h6>Mentoring Points</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -115,19 +120,19 @@
                                     <div class="dash-widget">
                                         <div class="circle-bar">
                                             <div class="icon-col">
-                                                <i class="fas fa-wallet"></i>
+                                                <i class="fas fa-graduation-cap"></i>
                                             </div>
                                         </div>
                                         <div class="dash-widget-info">
-                                            <h3>$14</h3>
-                                            <h6>Total Earned</h6>
+                                            <h3>14</h3>
+                                            <h6>Rank</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4 class="mb-4">Mentee Lists</h4>
+                                    <h4 class="mb-4">Mentor Lists</h4>
                                     <div class="card card-table">
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -144,79 +149,79 @@
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user2.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Tyrone Roberts<span><span class="__cf_email__" data-cfemail="ec98959e8382899e838e899e989fac8d88838e89c28f8381">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user14.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">Tyrone Roberts<span><span class="__cf_email__" data-cfemail="12666b607d7c77607d70776066615273767d70773c717d7f">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="pending">PENDING</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user1.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Julie Pennington <span><span class="__cf_email__" data-cfemail="761c031a1f133617121914135815191b">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user15.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">Julie Pennington <span><span class="__cf_email__" data-cfemail="046e71686d614465606b66612a676b69">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="pending">PENDING</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user3.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Allen Davis <span><span class="__cf_email__" data-cfemail="cfaea3a3aaa1abaeb9a6bc8faeaba0adaae1aca0a2">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user12.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">Allen Davis <span><span class="__cf_email__" data-cfemail="98f9f4f4fdf6fcf9eef1ebd8f9fcf7fafdb6fbf7f5">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="pending">PENDING</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user4.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Patricia Manzi <span><span class="__cf_email__" data-cfemail="1161706563787278707c707f6b785170757e73743f727e7c">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user13.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">Patricia Manzi <span><span class="__cf_email__" data-cfemail="54243520263d373d3539353a2e3d1435303b36317a373b39">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user5.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Olive Lawrence <span><span class="__cf_email__" data-cfemail="c9a6a5a0bfaca5a8bebbaca7aaac89a8ada6abace7aaa6a4">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html">Olive Lawrence <span><span class="__cf_email__" data-cfemail="7a1516130c1f161b0d081f14191f3a1b1e15181f54191517">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user6.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Frances Foster <span><span class="__cf_email__" data-cfemail="610713000f0204122100050e03044f020e0c">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user10.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">Frances Foster <span><span class="__cf_email__" data-cfemail="7d1b0f1c131e180e3d1c19121f18531e1210">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user7.jpg" alt="User Image"></a>
-                                                                    <a href="profile.html">Deloris Briscoe <span><span class="__cf_email__" data-cfemail="254140494a574c5647574c56464a406544414a47400b464a48">[email&#160;protected]</span></span></a>
+                                                                    <a href="profile.html">Deloris Briscoe <span><span class="__cf_email__" data-cfemail="2246474e4d504b5140504b51414d476243464d40470c414d4f">[email&#160;protected]</span></span></a>
                                                                 </h2>
                                                             </td>
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="reject">REJECTED</span></td>
-                                                            <td class="text-center"><a href="profile.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -310,7 +315,7 @@
                                         </p>
                                         <p class="mb-0">
                                             <i class="fas fa-envelope"></i>
-                                            <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83eee6edf7ecf1eaede4c3e6fbe2eef3efe6ade0ecee">[email&#160;protected]</a>
+                                            <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="38555d564c574a51565f785d40595548545d165b5755">[email&#160;protected]</a>
                                         </p>
                                     </div>
                                 </div>
@@ -352,5 +357,5 @@
         <script src="assets/js/script.js"></script>
     </body>
 
-    <!-- Mirrored from mentoring.dreamguystech.com/html/template/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:08 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/dashboard-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
 </html>
