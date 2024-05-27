@@ -17,7 +17,7 @@ public class SkillDAO extends DBContext {
 
     public ArrayList<Skill> getSkills() {
         ArrayList<Skill> data = new ArrayList<Skill>();
-        String sql = "SELECT * FROM Skill";
+        String sql = "SELECT id, [name] FROM Skill ORDER BY [name]";
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();

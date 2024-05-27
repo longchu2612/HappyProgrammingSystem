@@ -16,6 +16,10 @@
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>controller.ProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SkillController</servlet-name>
+        <servlet-class>controller.SkillController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
@@ -31,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
         <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SkillController</servlet-name>
+        <url-pattern>/skills</url-pattern>
     </servlet-mapping>
 </web-app>
