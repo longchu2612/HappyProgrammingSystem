@@ -1,15 +1,15 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:21 GMT -->
 
     <head>
         <meta charset="utf-8">
-        <title>Update CV of mentor</title>
+        <title>View all skills</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -29,7 +29,7 @@
     </head>
 
     <body>
-        <form action="profile" method="post">
+        <form action="skill" method="post">
             <div class="main-wrapper">
                 <header class="header">
                     <div class="header-fixed">
@@ -155,14 +155,13 @@
                                 <li class="nav-item dropdown has-arrow logged-item">
                                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                                         <span class="user-img">
-                                            <img class="rounded-circle" src="assets/img/user/user.jpg" width="31"
-                                                 alt="Darren Elder">
+                                            <img class="rounded-circle" src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%" width="31">
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div class="user-header">
                                             <div class="avatar avatar-sm">
-                                                <img src="assets/img/user/user.jpg" alt="User Image"
+                                                <img src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%"
                                                      class="avatar-img rounded-circle">
                                             </div>
                                             <div class="user-text">
@@ -206,107 +205,18 @@
 
                                 <div class="profile-sidebar">
                                     <div class="user-widget">
-                                        <div class="pro-avatar">JD</div>
-                                        <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
+                                        <div class="pro-avatar"><image src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
                                         <div class="user-info-cont">
                                             <h4 class="usr-name"><input type="text" class="account-name" name="account" value="${ac.getAccount_name()}"></h4>
                                         </div>
                                     </div>
                                     <div class="custom-sidebar-nav">
                                         <ul>
-                                            <li><a href="dashboard.html"><i class="fas fa-home"></i>Dashboard <span><i
+                                            <c:forEach items="${data}" var="sd">
+                                                <li><a href="/HappyProgrammingSystem/skills?mod=${sd.getId()}">${sd.getName()} <span><i
                                                             class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="bookings.html"><i class="fas fa-clock"></i>Bookings <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="schedule-timings.html"><i class="fas fa-hourglass-start"></i>Schedule Timings <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="chat.html"><i class="fas fa-comments"></i>Messages <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="blog.html"><i class="fab fa-blogger-b"></i>Blog <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="profile.html"><i class="fas fa-user-cog"></i>Profile <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
-                                            <li><a href="login.html"><i class="fas fa-sign-out-alt"></i>Logout <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
+                                            </c:forEach>
                                         </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        <div class="row form-row">
-                                            <div class="col-12 col-md-12">
-                                                <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img src="assets/img/user/user.jpg" alt="User Image">
-                                                        </div>
-                                                        <div class="upload-img">
-                                                            <div class="change-photo-btn">
-                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input type="file" class="upload">
-                                                            </div>
-                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Full Name</label>
-                                                    <input type="text" name="fullname" class="form-control" value="${ac.getFullname()}">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Sex</label><br>
-                                                    <p>
-                                                        <input type="radio" name="sex" value="m" ${male}> Male &emsp;
-                                                        <input type="radio" name="sex" value="f" ${female}> Female
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Date of Birth</label>
-                                                    <div class="cal-icon">
-                                                        <input type="text" name="dob" class="form-control datetimepicker"
-                                                               value="${ac.getDateOfBirth()}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" class="form-control"
-                                                           value="${ac.getEmail()}">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Phone number</label>
-                                                    <input type="text" name="phone" value="${ac.getPhone()}" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Address</label>
-                                                    <input type="text" name="address" class="form-control" value="${ac.getAddress()}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="submit-section" style="padding: 10px">
-                                            <button name="save" type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -439,6 +349,7 @@
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <script src="assets/js/script.js"></script>
+
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:22 GMT -->

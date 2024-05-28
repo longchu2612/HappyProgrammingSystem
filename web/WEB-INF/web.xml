@@ -12,32 +12,52 @@
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>controller.VerifyController</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>AccountManage</servlet-name>
         <servlet-class>controller.admin.AccountManage</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>RequestController</servlet-name>
-        <servlet-class>controller.RequestController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DemoController</servlet-name>
-        <url-pattern>/DemoController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccountController</servlet-name>
-        <url-pattern>/account</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VerifyController</servlet-name>
-        <url-pattern>/verify</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccountManage</servlet-name>
-        <url-pattern>/admin/account_admin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RequestController</servlet-name>
-        <url-pattern>/request</url-pattern>
-    </servlet-mapping>
+        <servlet>
+            <servlet-name>ProfileController</servlet-name>
+            <servlet-class>controller.ProfileController</servlet-class>
+        </servlet>
+        <servlet>
+            <servlet-name>SkillController</servlet-name>
+            <servlet-class>controller.SkillController</servlet-class>
+
+        </servlet>
+        <servlet>
+            <servlet-name>RequestController</servlet-name>
+            <servlet-class>controller.RequestController</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>DemoController</servlet-name>
+            <url-pattern>/DemoController</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>AccountController</servlet-name>
+            <url-pattern>/account</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>VerifyController</servlet-name>
+            <url-pattern>/verify</url-pattern>
+        </servlet-mapping>
+
+        <servlet-mapping>
+            <servlet-name>AccountManage</servlet-name>
+            <url-pattern>/admin/account_admin/account_admin</url-pattern>
+        </servlet-mapping>
+            <servlet-mapping>
+                <servlet-name>ProfileController</servlet-name>
+                <url-pattern>/profile</url-pattern>
+            </servlet-mapping>
+            <servlet-mapping>
+                <servlet-name>SkillController</servlet-name>
+                <url-pattern>/skills</url-pattern>
+
+            </servlet-mapping>
+            <servlet-mapping>
+                <servlet-name>RequestController</servlet-name>
+                <url-pattern>/request</url-pattern>
+            </servlet-mapping>
 </web-app>

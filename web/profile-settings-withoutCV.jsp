@@ -1,7 +1,5 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +27,7 @@
     </head>
 
     <body>
-        <form action="profile" method="post">
+        <form action="profile" method="post" enctype='multipart/form-data'>
             <div class="main-wrapper">
                 <header class="header">
                     <div class="header-fixed">
@@ -155,14 +153,13 @@
                                 <li class="nav-item dropdown has-arrow logged-item">
                                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                                         <span class="user-img">
-                                            <img class="rounded-circle" src="assets/img/user/user.jpg" width="31"
-                                                 alt="Darren Elder">
+                                            <img class="rounded-circle" src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%" width="31">
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div class="user-header">
                                             <div class="avatar avatar-sm">
-                                                <img src="assets/img/user/user.jpg" alt="User Image"
+                                                <img src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%"
                                                      class="avatar-img rounded-circle">
                                             </div>
                                             <div class="user-text">
@@ -206,14 +203,7 @@
 
                                 <div class="profile-sidebar">
                                     <div class="user-widget">
-                                        <div class="pro-avatar">JD</div>
-                                        <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
+                                        <div class="pro-avatar"><image src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
                                         <div class="user-info-cont">
                                             <h4 class="usr-name"><input type="text" class="account-name" name="account" value="${ac.getAccount_name()}"></h4>
                                         </div>
@@ -246,16 +236,16 @@
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img src="assets/img/user/user.jpg" alt="User Image">
+                                                    <div class="change-avatar" id="AvatarFileUpload">
+                                                        <div class="selected-image-holder">
+                                                            <img src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; margin-right: 15px">
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
                                                                 <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input type="file" class="upload">
+                                                                <input type="file" name="avatar" class="upload">
                                                             </div>
-                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                                            <small class="form-text text-muted">Allowed PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -278,8 +268,8 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Date of Birth</label>
-                                                    <div class="cal-icon">
-                                                        <input type="text" name="dob" class="form-control datetimepicker"
+                                                    <div class="form-group">
+                                                        <input type="date" name="dob" class="form-control"
                                                                value="${ac.getDateOfBirth()}">
                                                     </div>
                                                 </div>
@@ -303,9 +293,14 @@
                                                     <input type="text" name="address" class="form-control" value="${ac.getAddress()}">
                                                 </div>
                                             </div>
+                                            <div class="col-12" style="background: #E4E4E4">
+                                                <div class="form-group"  style="text-align: center; margin: auto; padding: 10px">
+                                                    <button name="do" type="submit" class="btn btn-primary submit-btn" value="cv"> + Create CV </button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="submit-section" style="padding: 10px">
-                                            <button name="save" type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                            <button name="do" type="submit" class="btn btn-primary submit-btn" value="save">Save Changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -439,6 +434,27 @@
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <script src="assets/js/script.js"></script>
+
+        <script>
+            // Main Wrapper Selector
+            const avatarFileUpload = document.getElementById('AvatarFileUpload')
+            // Preview Wrapper Selector
+            const imageViewer = avatarFileUpload.querySelector('.selected-image-holder>img')
+            // Image Input File Selector
+            const imageInput = avatarFileUpload.querySelector('input[name="avatar"]')
+
+            /** IF Selected Image has change */
+            imageInput.addEventListener('change', e => {
+                // Open File eader
+                var reader = new FileReader();
+                reader.onload = function () {
+                    // Preview Image
+                    imageViewer.src = reader.result;
+                };
+                // Read Selected Image as DataURL
+                reader.readAsDataURL(e.target.files[0]);
+            })
+        </script>
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:22 GMT -->
