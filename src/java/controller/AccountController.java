@@ -31,7 +31,7 @@ import model.Account;
  * @author asus
  */
 //@WebServlet(name="AccountController", urlPatterns={"/account"})
-@WebServlet("/account")
+//@WebServlet("/account")
 
 public class AccountController extends HttpServlet {
 
@@ -141,6 +141,8 @@ public class AccountController extends HttpServlet {
         }
 
     }
+    
+    
 
 //        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
 //        if (result == 1) {
@@ -148,6 +150,33 @@ public class AccountController extends HttpServlet {
 //        } else {
 //            response.getWriter().println("Thất bại");
 //        }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            processRequest(req, resp);
+        } catch (ParseException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            processRequest(req, resp);
+        } catch (ParseException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
 }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -159,11 +188,7 @@ public class AccountController extends HttpServlet {
  * @throws ServletException if a servlet-specific error occurs
  * @throws IOException if an I/O error occurs
  */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            processRequest(request,respnse);
-    }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -173,20 +198,13 @@ public class AccountController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-    }
+    
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
 
-}
+
