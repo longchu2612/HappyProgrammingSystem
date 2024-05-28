@@ -4,9 +4,9 @@
  */
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
@@ -23,12 +23,18 @@ import java.util.logging.Logger;
 import javax.mail.internet.ParseException;
 import model.Account;
 import model.Role;
+import java.sql.*;
+
+import model.Account;
+
+
 
 /**
  *
  * @author asus
  */
 public class AccountDAO extends DBContext {
+    
 
     public int Register(String accountName, String email, String password, String fullName, String phoneNumber, java.sql.Date dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
 
@@ -260,5 +266,62 @@ public class AccountDAO extends DBContext {
         AccountDAO account_dao = new AccountDAO();
         int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
         System.out.println(result);
+    }
+    public void updatePasswordbyusername(String name, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE name = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, name);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updatePassword: " + e.getMessage());
+        }
+    }
+    public void updatePassword(String email, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE email = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updatePassword: " + e.getMessage());
+        }
+    }
+    public String getEmailByUser(String user) throws SQLException{
+        String sql = "Select email from Account where name = ?";
+        String email = "";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, user);
+        rs =  ps.executeQuery();
+        if (rs.next()){
+            email = rs.getString("email");
+            return email;
+        }
+        return null;
+    }
+    public String getPassByUser(String user) throws SQLException{
+        String sql = "Select password from Account where name = ?";
+        String password = "";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, user);
+        rs =  ps.executeQuery();
+        if (rs.next()){
+            password = rs.getString("password");
+            return password;
+        }
+        return null;
+    }
+    
+    public boolean isEmailExist(String email) throws SQLException{
+        String sql = "Select email from Account where email = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        if (rs.next()){
+            return true;
+        }
+        return false;
     }
 }

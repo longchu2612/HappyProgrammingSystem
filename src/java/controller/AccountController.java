@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -30,6 +31,7 @@ import jakarta.servlet.http.HttpSession;
  * @author asus
  */
 //@WebServlet(name="AccountController", urlPatterns={"/account"})
+//@WebServlet("/account")
 public class AccountController extends HttpServlet {
 
     /**
@@ -46,6 +48,7 @@ public class AccountController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
@@ -110,8 +113,10 @@ public class AccountController extends HttpServlet {
                     request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
 
                     request.getRequestDispatcher("login.jsp").forward(request, response);
+
                 } else {
                     HttpSession sess = request.getSession();
+                    session.setAttribute("username", account.getAccount_name());
                     sess.setAttribute("acc", user_name);
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
@@ -129,8 +134,8 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
                     response.sendRedirect("index.html");
-
                 }
+
             }
 
         }
