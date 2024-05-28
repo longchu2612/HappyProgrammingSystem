@@ -15,7 +15,7 @@ public class Skill {
     private String skillName;
     private int status;
     private String image;
-    private List<Request_Skill> requestSkills;
+    private List<Request> requests;
 
     public Skill() {
     }
@@ -27,24 +27,21 @@ public class Skill {
         this.image = image;
     }
 
-    public Skill(int skillId, String skillName, int status, String image, List<Request_Skill> requestSkills) {
+    public Skill(int skillId, String skillName, int status, String image, List<Request> requests) {
         this.skillId = skillId;
         this.skillName = skillName;
         this.status = status;
         this.image = image;
-        this.requestSkills = requestSkills;
+        this.requests = requests;
     }
 
-    public List<Request_Skill> getRequestSkills() {
-        return requestSkills;
+    public List<Request> getRequests() {
+        return requests;
     }
 
-    public void setRequestSkills(List<Request_Skill> requestSkills) {
-        this.requestSkills = requestSkills;
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
-
-    
-
     
     public int getSkillId() {
         return skillId;
@@ -80,8 +77,10 @@ public class Skill {
 
     @Override
     public String toString() {
-        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + ", requestSkills=" + requestSkills + '}';
+        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + ", requests=" + requests + '}';
     }
+
+    
 
     
     

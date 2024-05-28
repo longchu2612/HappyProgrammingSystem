@@ -5,6 +5,10 @@
 package dao;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -12,31 +16,64 @@ import java.sql.SQLException;
  */
 public class RequestDAO extends DBContext{
     
-//    public int insertRequest(String title,String deadline, String content, boolean status,int createdBy ) throws SQLException {
-//
-//        int result = 0;
-//        String sql = "Insert into dbo.Account (name, email, password, fullname, phonenumber, dob, sex, address, roleID, status) \n"
-//                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-//        try {
-//
-//            ps = conn.prepareStatement(sql);
-//            ps.setString(1, accountName);
-//            ps.setString(2, email);
-//            ps.setString(3, password);
-//            ps.setString(4, fullName);
-//            ps.setString(5, phoneNumber);
-//            ps.setD(6, dob);
-//            ps.setInt(7, (sex) ? 1 : 0);
-//            ps.setString(8, address);
-//            ps.setInt(9, roleId);
-//
-//            ps.setInt(10, (status) ? 1 : 0);
-//            result = ps.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println("An error occurred while inserting the account: " + e.getMessage());
-//            e.printStackTrace();
-//        } 
-//        return result;
-//    }
+    public int insertRequest(String title,String deadline, String content, String status,int createdBy )  {
+
+        
+        int result = -1;
+        String sql = "Insert into Request (title, deadline, content, status, createdBy, createdDate) \n" +
+                     "Values (?,?,?,?,?,?)";
+        LocalDateTime localDateTime = LocalDateTime.parse(deadline);
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        try {
+
+            ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, title);
+            Timestamp timestamp = Timestamp.valueOf(localDateTime);
+            ps.setTimestamp(2, timestamp);
+            ps.setString(3, content);
+            ps.setString(4, status);
+            ps.setInt(5, createdBy);
+            ps.setTimestamp(6, currentTimestamp);
+            int affectedRows = ps.executeUpdate();
+            if(affectedRows > 0){ 
+                try(ResultSet rs = ps.getGeneratedKeys()){
+                    if(rs.next()){
+                        result = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("An error occurred while inserting the account: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("An error occurred while inserting the account: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
+    public int insertRequestSkill (int requestId, int skillId) {
+        
+        int result = 0; 
+        String sql ="  Insert into dbo.Request_skill (requestID, skillID) Values (?, ?)";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, requestId);
+            ps.setInt(2, skillId);
+            result = ps.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println("An error occurred while inserting the account: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+        
+    }
+    public static void main(String[] args) throws SQLException {
+
+//        RequestDAO request_dao = new RequestDAO();
+//        int result = request_dao.insertRequest("ABCCC", "2024-05-03T21:58", "MNNNN", "1", 50);
+//        System.out.println(result);
+    }
     
 }

@@ -82,6 +82,7 @@ public class AccountDAO extends DBContext {
             rs = ps.executeQuery();
             while (rs.next()) {
                 int role_id = rs.getInt("roleID");
+                int account_id = rs.getInt("id");
                 Role role = new Role(role_id);
                 String account_name = rs.getString("name");
                 String email_2 = rs.getString("email");
@@ -89,7 +90,7 @@ public class AccountDAO extends DBContext {
                 String fullname = rs.getString("fullname");
                 int phone_number = rs.getInt("phonenumber");
                 Date dob = rs.getDate("dob");
-                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role,rs.getBoolean("status"));
+                Account account = new Account(account_id,account_name, email_2, password, fullname, phone_number, dob, role,rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {
@@ -123,7 +124,7 @@ public class AccountDAO extends DBContext {
             rs = ps.executeQuery();
             while(rs.next()){ 
                 Role role = new Role(rs.getInt("roleID"));
-                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
+                Account account = new Account(rs.getInt("id"),rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {

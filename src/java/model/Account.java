@@ -51,7 +51,8 @@ public class Account {
     
     
 
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+    public Account(int account_id,String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+        this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
         this.password = password;
