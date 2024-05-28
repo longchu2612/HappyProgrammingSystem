@@ -117,41 +117,29 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label class="mb-8">Skills</label>
-                                                    <div class="form-inline">
-                                                        <input type="checkbox" name="" value="Java">
-                                                        <label for="">Java</label><br>
 
-                                                    </div>
+                                                    <c:forEach var="skill" items="${list_skill}">
+                                                        <div class="form-inline">
+                                                            <input type="checkbox" name="skill" value="${skill.skillName}">
+                                                            <label for="skill">${skill.skillName}</label><br>
 
-                                                    <div class="form-inline">
-                                                        <input type="checkbox"  name="" value="C#">
-                                                        <label for="">C#</label><br>
+                                                        </div>
+                                                    </c:forEach>
 
-                                                    </div>
 
-                                                    <div class="form-inline">
-                                                        <input type="checkbox"  name="" value="javascript">
-                                                        <label for="">Javascript</label><br>
 
-                                                    </div>
-                                                    <div class="form-inline">
-                                                        <input type="checkbox"  name="" value="html-css">
-                                                        <label for="">Html-Css</label><br>
 
-                                                    </div>
-                                                    <div class="form-inline">
-                                                        <input type="checkbox"  name="" value="angular">
-                                                        <label for="">Angular</label><br>
 
-                                                    </div>
+
+
                                                 </div>
 
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Content</label>
 

@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -45,7 +46,7 @@ public class AccountController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
 
@@ -110,7 +111,8 @@ public class AccountController extends HttpServlet {
 
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {
-                   
+                    session.setAttribute("account", account);
+                    
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);

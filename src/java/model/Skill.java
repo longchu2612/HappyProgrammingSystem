@@ -4,51 +4,64 @@
  */
 package model;
 
-import java.util.List;
-
 /**
  *
- * @author asus
+ * @author catmi
  */
 public class Skill {
-    private int id;
-    private String skill_name;
-    private List<Request> requets;
+    private int skillId;
+    private String skillName;
+    private int status;
+    private String image;
 
-    public Skill(int id, String skill_name, List<Request> requets) {
-        this.id = id;
-        this.skill_name = skill_name;
-        this.requets = requets;
+    public Skill() {
     }
 
-    public int getId() {
-        return id;
+    public Skill(int skillId, String skillName, int status, String image) {
+        this.skillId = skillId;
+        this.skillName = skillName;
+        this.status = status;
+        this.image = image;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getSkillId() {
+        return skillId;
     }
 
-    public String getSkill_name() {
-        return skill_name;
+    public void setSkillId(int skillId) {
+        this.skillId = skillId;
     }
 
-    public void setSkill_name(String skill_name) {
-        this.skill_name = skill_name;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public List<Request> getRequets() {
-        return requets;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 
-    public void setRequets(List<Request> requets) {
-        this.requets = requets;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
     public String toString() {
-        return "Skill{" + "id=" + id + ", skill_name=" + skill_name + ", requets=" + requets + '}';
+        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + '}';
     }
+
     
+
     
 }
