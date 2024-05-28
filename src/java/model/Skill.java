@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author catmi
@@ -13,6 +15,7 @@ public class Skill {
     private String skillName;
     private int status;
     private String image;
+    private List<Request_Skill> requestSkills;
 
     public Skill() {
     }
@@ -24,6 +27,25 @@ public class Skill {
         this.image = image;
     }
 
+    public Skill(int skillId, String skillName, int status, String image, List<Request_Skill> requestSkills) {
+        this.skillId = skillId;
+        this.skillName = skillName;
+        this.status = status;
+        this.image = image;
+        this.requestSkills = requestSkills;
+    }
+
+    public List<Request_Skill> getRequestSkills() {
+        return requestSkills;
+    }
+
+    public void setRequestSkills(List<Request_Skill> requestSkills) {
+        this.requestSkills = requestSkills;
+    }
+
+    
+
+    
     public int getSkillId() {
         return skillId;
     }
@@ -58,9 +80,10 @@ public class Skill {
 
     @Override
     public String toString() {
-        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + '}';
+        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + ", requestSkills=" + requestSkills + '}';
     }
 
+    
     
 
     

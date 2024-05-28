@@ -103,7 +103,11 @@
                                                 <div class="form-group">
                                                     <h4>Create Request</h4>
                                                 </div>
+
                                             </div>
+                                            <h4 style="color: red; align-content: center;">
+                                                ${requestScope.error}
+                                            </h4>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Title</label>

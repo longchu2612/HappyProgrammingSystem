@@ -17,15 +17,17 @@ public class Request {
     private String title;
     private LocalDateTime date_dealine;
     private String content;
-    private List<Skill> skills;
+    private List<Request_Skill> requestSkills;
 
-    public Request(int id, String title, LocalDateTime date_dealine, String content, List<Skill> skills) {
+    public Request(int id, String title, String content, List<Request_Skill> requestSkills) {
         this.id = id;
         this.title = title;
-        this.date_dealine = date_dealine;
         this.content = content;
-        this.skills = skills;
+        this.requestSkills = requestSkills;
     }
+    
+    
+    
 
     public int getId() {
         return id;
@@ -59,18 +61,22 @@ public class Request {
         this.content = content;
     }
 
-    public List<Skill> getSkills() {
-        return skills;
+    public List<Request_Skill> getRequestSkills() {
+        return requestSkills;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setRequestSkills(List<Request_Skill> requestSkills) {
+        this.requestSkills = requestSkills;
     }
 
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", title=" + title + ", date_dealine=" + date_dealine + ", content=" + content + ", skills=" + skills + '}';
+        return "Request{" + "id=" + id + ", title=" + title + ", date_dealine=" + date_dealine + ", content=" + content + ", requestSkills=" + requestSkills + '}';
     }
+
+    
+
+    
     
     
 }
