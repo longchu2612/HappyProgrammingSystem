@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +14,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -50,7 +53,7 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
             System.out.println("An error occurred while inserting the account: " + e.getMessage());
             e.printStackTrace();
-        } 
+        }
         return result;
     }
     
@@ -87,9 +90,9 @@ public class AccountDAO extends DBContext {
                 String email_2 = rs.getString("email");
                 String password = rs.getString("password");
                 String fullname = rs.getString("fullname");
-                int phone_number = rs.getInt("phonenumber");
+                String phone_number = rs.getString("phonenumber");
                 Date dob = rs.getDate("dob");
-                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role,rs.getBoolean("status"));
+                Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role, rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {
@@ -109,11 +112,11 @@ public class AccountDAO extends DBContext {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
         return result;
 
     }
-    
+
     public Account login(String username, String password) {
         String sql = " select * from dbo.Account where name = ? and  password = ?";
         try {
@@ -121,15 +124,127 @@ public class AccountDAO extends DBContext {
             ps.setString(1, username);
             ps.setString(2, password);
             rs = ps.executeQuery();
-            while(rs.next()){ 
+            while (rs.next()) {
                 Role role = new Role(rs.getInt("roleID"));
-                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
+                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getString("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int getIdByAccountName(String Name) {
+        String sql = "select id from account where name = ?";
+        try {
+            int count = 0;
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, Name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+                if (count == 1) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public Account getUsersById(String id) {
+        Account ac = new Account();
+        String sql = "SELECT * FROM Account WHERE id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String Name = rs.getString(2);
+                String Email = rs.getString(3);
+                String Fullname = rs.getString(5);
+                String Phone = rs.getString(6);
+                Date Dob = rs.getDate(7);
+                Boolean Sex = rs.getBoolean(8);
+                String Address = rs.getString(9);
+                String Avatar = "";
+                if (rs.getString(10) == null) {
+                    Avatar = "uploads/0.png";
+                } else {
+                    Avatar = rs.getString(10);
+                }
+                ac = new Account(Name, Email, Fullname, Phone, Dob, Sex, Address, Avatar);
+            }
+        } catch (SQLException e) {
+            System.out.println("getUsersByAccount:" + e.getMessage());
+        }
+        return ac;
+    }
+
+    public int getRoleById(String id) {
+        String sql = "select roleID from account where id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void updateAccountById(String id, String name, String email, String fullname, String phonenumber, String dob, String sex, String address, String avatar) {
+        if (name.equals("")) {
+            return;
+        }
+        String sql = """
+                     UPDATE Account
+                     SET name = ?, email = ?, fullname = ?, phonenumber = ?, dob = ?, sex = ?, address = ?, avatar = ?, modified_at = CURRENT_TIMESTAMP
+                     WHERE id = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, fullname);
+            ps.setString(4, phonenumber);
+            ps.setDate(5, java.sql.Date.valueOf(dob));
+            ps.setInt(6, Integer.parseInt(sex));
+            ps.setString(7, address);
+            if (avatar == "") {
+                ps.setString(8, null);
+            } else {
+                ps.setString(8, avatar);
+            }
+            ps.setInt(9, Integer.parseInt(id));
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getAvatarById(String id) {
+        String sql = """
+                     SELECT avatar
+                     FROM Account
+                     WHERE ID = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String avatar = rs.getString(1);
+                System.out.println(avatar);
+                return avatar;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static void main(String[] args) throws SQLException, java.text.ParseException {
