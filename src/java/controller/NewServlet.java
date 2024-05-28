@@ -15,10 +15,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
+<<<<<<< HEAD
  * @author asus
  */
 //@WebServlet(name="NewServlet", urlPatterns={"/NewServlet"})
 public class NewServlet extends HttpServlet {
+=======
+ * @author ngoqu
+ */
+<<<<<<<< HEAD:src/java/controller/DemoController.java
+//@WebServlet(name="DemoController", urlPatterns={"/DemoController"})
+public class DemoController extends HttpServlet {
+========
+public class NewServlet extends HttpServlet {
+>>>>>>>> huyng:src/java/controller/NewServlet.java
+>>>>>>> huyng
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.

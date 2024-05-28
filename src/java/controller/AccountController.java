@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie; 
+
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -29,6 +31,8 @@ import model.Account;
  * @author asus
  */
 //@WebServlet(name="AccountController", urlPatterns={"/account"})
+@WebServlet("/account")
+
 public class AccountController extends HttpServlet {
 
     /**
@@ -45,6 +49,7 @@ public class AccountController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
@@ -109,8 +114,10 @@ public class AccountController extends HttpServlet {
                     request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
 
                     request.getRequestDispatcher("login.jsp").forward(request, response);
+
                 } else {
-                   
+
+                    session.setAttribute("username", account.getAccount_name());
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);
@@ -127,11 +134,13 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
                     response.sendRedirect("index.html");
-                   
+
                 }
             }
 
         }
+
+    }
 
 //        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
 //        if (result == 1) {
@@ -139,27 +148,21 @@ public class AccountController extends HttpServlet {
 //        } else {
 //            response.getWriter().println("Thất bại");
 //        }
-    }
+}
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try {
-            processRequest(request, response);
-        } catch (ParseException | SQLException ex) {
-            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+            processRequest(request,respnse);
     }
 
     /**
@@ -172,15 +175,8 @@ public class AccountController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try {
-            processRequest(request, response);
-        } catch (ParseException | SQLException ex) {
-            System.out.println(ex.getMessage());
-            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    throws ServletException, IOException {
+        
     }
 
     /**

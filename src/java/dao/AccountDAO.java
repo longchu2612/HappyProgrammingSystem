@@ -4,7 +4,11 @@
  */
 package dao;
 
+
 import java.sql.Connection;
+
+import dal.DBContext;
+
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
@@ -23,12 +27,14 @@ import java.util.logging.Logger;
 import javax.mail.internet.ParseException;
 import model.Account;
 import model.Role;
+import java.sql.*;
 
 /**
  *
  * @author asus
  */
 public class AccountDAO extends DBContext {
+    
 
     public int Register(String accountName, String email, String password, String fullName, String phoneNumber, java.sql.Date dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
 
@@ -37,7 +43,7 @@ public class AccountDAO extends DBContext {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
 
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, accountName);
             ps.setString(2, email);
             ps.setString(3, password);
@@ -62,7 +68,7 @@ public class AccountDAO extends DBContext {
         String sql = "Insert into dbo.Account (name, email, password, fullname,roleID) \n"
                 + "VALUES (?, ?, ?, ?, ?);";
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, account_name);
             ps.setString(2, email);
             ps.setString(3, password);
@@ -79,7 +85,7 @@ public class AccountDAO extends DBContext {
     public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, username);
             rs = ps.executeQuery();
@@ -106,7 +112,7 @@ public class AccountDAO extends DBContext {
         int result = 0;
         String sql = "UPDATE dbo.Account SET status = 1 WHERE email = ?";
         try {
-            ps = conn.prepareStatement(sql);
+                  PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
             result = ps.executeUpdate();
 
@@ -120,7 +126,7 @@ public class AccountDAO extends DBContext {
     public Account login(String username, String password) {
         String sql = " select * from dbo.Account where name = ? and  password = ?";
         try {
-            ps = conn.prepareStatement(sql);
+                 PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             rs = ps.executeQuery();
@@ -139,7 +145,7 @@ public class AccountDAO extends DBContext {
         String sql = "select id from account where name = ?";
         try {
             int count = 0;
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, Name);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -158,7 +164,7 @@ public class AccountDAO extends DBContext {
         Account ac = new Account();
         String sql = "SELECT * FROM Account WHERE id = ?";
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -186,7 +192,7 @@ public class AccountDAO extends DBContext {
     public int getRoleById(String id) {
         String sql = "select roleID from account where id = ?";
         try {
-            ps = conn.prepareStatement(sql);
+           PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -207,7 +213,7 @@ public class AccountDAO extends DBContext {
                      SET name = ?, email = ?, fullname = ?, phonenumber = ?, dob = ?, sex = ?, address = ?, avatar = ?, modified_at = CURRENT_TIMESTAMP
                      WHERE id = ?""";
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, fullname);
@@ -233,7 +239,7 @@ public class AccountDAO extends DBContext {
                      FROM Account
                      WHERE ID = ?""";
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -260,5 +266,62 @@ public class AccountDAO extends DBContext {
         AccountDAO account_dao = new AccountDAO();
         int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
         System.out.println(result);
+    }
+    public void updatePasswordbyusername(String name, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE name = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, name);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updatePassword: " + e.getMessage());
+        }
+    }
+    public void updatePassword(String email, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE email = ?";
+        try {
+             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updatePassword: " + e.getMessage());
+        }
+    }
+    public String getEmailByUser(String user) throws SQLException{
+        String sql = "Select email from Account where name = ?";
+        String email = "";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, user);
+        rs =  ps.executeQuery();
+        if (rs.next()){
+            email = rs.getString("email");
+            return email;
+        }
+        return null;
+    }
+    public String getPassByUser(String user) throws SQLException{
+        String sql = "Select password from Account where name = ?";
+        String password = "";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, user);
+        rs =  ps.executeQuery();
+        if (rs.next()){
+            password = rs.getString("password");
+            return password;
+        }
+        return null;
+    }
+    
+    public boolean isEmailExist(String email) throws SQLException{
+        String sql = "Select email from Account where email = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        if (rs.next()){
+            return true;
+        }
+        return false;
     }
 }
