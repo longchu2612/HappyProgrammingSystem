@@ -116,7 +116,7 @@ public class AccountController extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 } else {
-
+                    
                     session.setAttribute("username", account.getAccount_name());
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
