@@ -3,13 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/DBContext.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/AccountController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/SkillController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/CVDAO.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ValidateOtpController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/NewPasswordController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/VerifyController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/RequestController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ResendOtpController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/AccountManage.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/SkillsDAO.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/AccountDAO.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ProfileController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/register.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/NewServlet.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ForgotPasswordController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Account.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/util/Email.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ChangePasswordController.java</file>
         </group>
     </open-files>
 </project-private>
