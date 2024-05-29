@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -110,7 +111,8 @@ public class AccountController extends HttpServlet {
 
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {
-                   
+                    HttpSession sess = request.getSession();
+                    sess.setAttribute("acc", user_name);
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);
@@ -127,7 +129,7 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
                     response.sendRedirect("index.html");
-                   
+
                 }
             }
 

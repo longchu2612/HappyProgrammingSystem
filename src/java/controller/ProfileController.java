@@ -74,7 +74,6 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession sess = request.getSession();
-        sess.setAttribute("acc", "Oreh");
 
         if (sess.getAttribute("acc") != null) {
 

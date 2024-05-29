@@ -90,7 +90,7 @@ public class AccountDAO extends DBContext {
                 String email_2 = rs.getString("email");
                 String password = rs.getString("password");
                 String fullname = rs.getString("fullname");
-                String phone_number = rs.getString("phonenumber");
+                int phone_number = Integer.parseInt(rs.getString("phonenumber"));
                 Date dob = rs.getDate("dob");
                 Account account = new Account(account_name, email_2, password, fullname, phone_number, dob, role, rs.getBoolean("status"));
                 return account;
@@ -126,7 +126,7 @@ public class AccountDAO extends DBContext {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Role role = new Role(rs.getInt("roleID"));
-                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getString("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
+                Account account = new Account(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
                 return account;
             }
         } catch (Exception e) {
@@ -165,7 +165,7 @@ public class AccountDAO extends DBContext {
                 String Name = rs.getString(2);
                 String Email = rs.getString(3);
                 String Fullname = rs.getString(5);
-                String Phone = rs.getString(6);
+                int Phone = rs.getInt(6);
                 Date Dob = rs.getDate(7);
                 Boolean Sex = rs.getBoolean(8);
                 String Address = rs.getString(9);
