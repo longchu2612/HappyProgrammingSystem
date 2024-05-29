@@ -85,7 +85,7 @@
                                 <ul class="submenu">
                                     <li><a href="map-grid.html">List Request</a></li>
                                     <li><a href="create-request.jsp">Create Request</a></li>
-                                    <li><a href="map-list.html">Update Request</a></li>
+                                    <li><a href="update-request.jsp">Update Request</a></li>
                                 </ul>
                             </li>
                             <li><a href="bookings-mentee.jsp">Bookings</a></li>

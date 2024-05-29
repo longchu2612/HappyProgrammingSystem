@@ -1,4 +1,10 @@
 <%-- 
+    Document   : update-request
+    Created on : May 29, 2024, 10:34:49 PM
+    Author     : asus
+--%>
+
+<%-- 
     Document   : create-request
     Created on : May 27, 2024, 11:56:19 AM
     Author     : asus
@@ -98,11 +104,11 @@
                                 <div class="card-body">
 
                                     <form action="request" method="POST"> 
-                                        <input type="hidden" name="action" value="create"/>
+                                        <input type="hidden" name="action" value="update"/>
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <h4>Create Request</h4>
+                                                    <h4>Update Request</h4>
                                                 </div>
 
                                             </div>
@@ -214,7 +220,7 @@
                                                                                         </div>-->
                                         </div>
                                         <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Create</button>
+                                            <button type="submit" class="btn btn-primary submit-btn">Update</button>
                                         </div>
                                     </form>
 
@@ -354,4 +360,5 @@
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
 </html>
+
 
