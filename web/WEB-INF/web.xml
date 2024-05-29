@@ -17,7 +17,7 @@
     <servlet>
         <servlet-name>AccountManage</servlet-name>
         <servlet-class>controller.admin.AccountManage</servlet-class>
-
+    </servlet>
     <servlet>
         <servlet-name>SkillController</servlet-name>
         <servlet-class>controller.SkillController</servlet-class>
@@ -48,7 +48,7 @@
     <servlet-mapping>
         <servlet-name>AccountManage</servlet-name>
         <url-pattern>/admin/account_admin</url-pattern>
-
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SkillController</servlet-name>
         <url-pattern>/ListSkill</url-pattern>

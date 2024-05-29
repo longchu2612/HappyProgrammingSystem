@@ -17,7 +17,7 @@ public class SkillDAO extends DBContext {
 
     public ArrayList<Skill> getAllSkill() {
 
-        ArrayList listSkill = new ArrayList<Skill>();
+        ArrayList<Skill> listSkill = new ArrayList<>();
         String query = "SELECT * FROM happy_programming_system.dbo.Skill";
         try {
             conn = new DBContext().conn;
@@ -170,16 +170,5 @@ public class SkillDAO extends DBContext {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        SkillDAO dao = new SkillDAO();
-        // ArrayList list = dao.getAllSkill();
-        //Skill s = dao.getSkillById("2");
-        //boolean check = dao.addNewSkill("PhP", "1");
-//        for (Object skill : list) {
-//            System.out.println(skill);
-//        }
-        //System.out.println(s);
     }
 }
