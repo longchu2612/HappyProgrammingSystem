@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -32,7 +36,10 @@ import model.Account;
  */
 //@WebServlet(name="AccountController", urlPatterns={"/account"})
 //@WebServlet("/account")
+<<<<<<< HEAD
 
+=======
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
 public class AccountController extends HttpServlet {
 
     /**
@@ -116,8 +123,14 @@ public class AccountController extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 } else {
+<<<<<<< HEAD
                     
                     session.setAttribute("username", account.getAccount_name());
+=======
+                    HttpSession sess = request.getSession();
+                    session.setAttribute("username", account.getAccount_name());
+                    sess.setAttribute("acc", user_name);
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);
@@ -134,8 +147,13 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
                     response.sendRedirect("index.html");
+<<<<<<< HEAD
 
                 }
+=======
+                }
+
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
             }
 
         }

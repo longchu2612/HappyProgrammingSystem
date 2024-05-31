@@ -74,7 +74,10 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession sess = request.getSession();
+<<<<<<< HEAD
         sess.setAttribute("acc", "longchhe1533444");
+=======
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
 
         if (sess.getAttribute("acc") != null) {
 
@@ -86,13 +89,14 @@ public class ProfileController extends HttpServlet {
 
                 Account ac = a.getUsersById(String.valueOf(accountID));
                 CVDAO c = new CVDAO();
-
+                String checkGender = "checked=\"\"";
+                
                 if (ac.getSex()) {
 
-                    request.setAttribute("male", "checked=\"checked\"");
-                } else if (ac.getSex() == false) {
+                    request.setAttribute("male", checkGender);
+                } else {
 
-                    request.setAttribute("female", "checked=\"checked\"");
+                    request.setAttribute("female", checkGender);
                 }
 
                 request.setAttribute("ac", ac);
@@ -112,7 +116,7 @@ public class ProfileController extends HttpServlet {
                             data.add(new Skill_displayed("", sk.getId(), sk.getName()));
                         }
                     } else {
-                        
+
                         for (int i = 0; i < data1.size(); i++) {
 
                             Skill sk = data1.get(i);
@@ -148,7 +152,7 @@ public class ProfileController extends HttpServlet {
                 if (ac.getSex()) {
 
                     request.setAttribute("male", "checked=\"checked\"");
-                } else if (ac.getSex()) {
+                } else {
 
                     request.setAttribute("female", "checked=\"checked\"");
                 }
@@ -241,8 +245,9 @@ public class ProfileController extends HttpServlet {
             s.deleteAllSelectedSkillById(cv.getId());
 
             for (int i = 0; i < arr.length; i++) {
-
-                s.insertSelectedSkillByCVId(cv.getId(), arr[i]);
+                if (arr[i] != null) {
+                    s.insertSelectedSkillByCVId(cv.getId(), arr[i]);
+                }
             }
 
             c.updateCVByAccountId(String.valueOf(accountID), avatar, job, introduction, achievements);

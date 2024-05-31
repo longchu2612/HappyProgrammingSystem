@@ -59,7 +59,7 @@ public class CVDAO extends DBContext {
             ps.setString(1, AccountID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String id = rs.getString(1);
+                String id = String.valueOf(rs.getInt(1));
                 String avatar = rs.getString(3);
                 String job = rs.getString(4);
                 String introduction = rs.getString(5);

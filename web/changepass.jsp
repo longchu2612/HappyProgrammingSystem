@@ -233,7 +233,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
-                                            <label class="text-center"style="font-size: 19px">------Please enter your user name and password------</label>
+                                            <label class="text-center"style="font-size:16px">------Please enter your user name and password------</label>
                                             <form action="changepass" method="post">
                                                  <div class="form-group">
                                                     <label>Account Name</label>

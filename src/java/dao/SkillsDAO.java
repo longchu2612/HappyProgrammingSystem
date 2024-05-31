@@ -41,9 +41,9 @@ public class SkillsDAO extends DBContext {
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String cv_id = String.valueOf(rs.getInt(1));
-                String skill_id = rs.getString(2);
-                CV_skill cvs = new CV_skill(cv_id, skill_id);
+                String cvId = String.valueOf(rs.getInt(1));
+                String skillId = rs.getString(2);
+                CV_skill cvs = new CV_skill(cvId, skillId);
                 data.add(cvs);
             }
         } catch (SQLException e) {
@@ -77,15 +77,15 @@ public class SkillsDAO extends DBContext {
         }
     }
 
-    public void insertSelectedSkillByCVId(String cv_id, String Skill_id) {
+    public void insertSelectedSkillByCVId(String cvId, String skillId) {
         String sql = """
                      INSERT CV_Skill
                      VALUES
                      (?, ?, 5)""";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, cv_id);
-            ps.setString(2, Skill_id);
+            ps.setString(1, cvId);
+            ps.setString(2, skillId);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("insertSelectedSkillByCVId:" + e.getMessage());

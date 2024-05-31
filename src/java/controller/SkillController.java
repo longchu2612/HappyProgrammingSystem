@@ -4,83 +4,49 @@
  */
 package controller;
 
-import dao.AccountDAO;
-import dao.SkillsDAO;
+import dao.SkillDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import model.Account;
+import java.util.*;
 import model.Skill;
 
 /**
  *
- * @author Admin
+ * @author catmi
  */
+@WebServlet(name = "SkillController", urlPatterns = {"/ListSkill"})
 public class SkillController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SkillController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SkillController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession sess = request.getSession();
-        sess.setAttribute("acc", "Oreh");
-        
-        AccountDAO a = new AccountDAO();
-        int AccountID = a.getIdByAccountName(String.valueOf(sess.getAttribute("acc")));
-        Account ac = a.getUsersById(String.valueOf(AccountID));
-        
-        SkillsDAO s = new SkillsDAO();
-        ArrayList<Skill> data1 = s.getSkills();
-        ArrayList<Skill> data = new ArrayList<Skill>();
-        
-        for (int i = 0; i < data1.size(); i++) {
-            Skill sk = data1.get(i);
-            data.add(new Skill(sk.getId(), String.valueOf(i+1) + ". " + sk.getName()));
+
+        String task = request.getParameter("task");
+        SkillDAO dao = new SkillDAO();
+
+        if (task == null) {
+            ArrayList list = dao.getAllSkill();
+            request.setAttribute("listSkill", list);
+            request.getRequestDispatcher("ListSkill.jsp").forward(request, response);
         }
-        
-        request.setAttribute("ac", ac);
-        request.setAttribute("data", data);
-        request.getRequestDispatcher("list-skill.jsp").forward(request, response);
+        else if (task.equals("detail")) {
+            String skillId = request.getParameter("skillId");
+            Skill s = dao.getSkillById(skillId);
+            request.setAttribute("skill", s);
+            request.getRequestDispatcher("UpdateSkill.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -94,7 +60,7 @@ public class SkillController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

@@ -18,7 +18,7 @@ public class Account {
     private String email;
     private String password;
     private String fullname;
-    private String phone;
+    private int phone;
     private Date dateOfBirth;
     private Boolean sex;
     private String address;
@@ -29,7 +29,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String account_name, String email, String fullname, String phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+    public Account(String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_name = account_name;
         this.email = email;
         this.fullname = fullname;
@@ -40,7 +40,7 @@ public class Account {
         this.avatar = avatar;
     }
     
-    public Account(int account_id, String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -55,9 +55,23 @@ public class Account {
         this.status = status;
     }
 
+<<<<<<< HEAD
 
     public Account(String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Role role,Boolean status) {
 
+=======
+    public Account(String account_name, String email, String password, String fullname, Role role) {
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
+    
+    
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -114,7 +128,7 @@ public class Account {
         return fullname;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
@@ -150,7 +164,7 @@ public class Account {
         this.fullname = fullname;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
