@@ -63,7 +63,6 @@ public class SkillsController extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession sess = request.getSession();
-        sess.setAttribute("acc", "Oreh");
         
         AccountDAO a = new AccountDAO();
         int AccountID = a.getIdByAccountName(String.valueOf(sess.getAttribute("acc")));
