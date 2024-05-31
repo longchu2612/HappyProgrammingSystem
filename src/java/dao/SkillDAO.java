@@ -17,8 +17,13 @@ public class SkillDAO extends DBContext {
 
     public ArrayList<Skill> getAllSkill() {
 
+<<<<<<< HEAD
         ArrayList listSkill = new ArrayList<Skill>();
         String query = "select * from dbo.Skill";
+=======
+        ArrayList<Skill> listSkill = new ArrayList<>();
+        String query = "SELECT * FROM happy_programming_system.dbo.Skill";
+>>>>>>> dev
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
@@ -171,6 +176,7 @@ public class SkillDAO extends DBContext {
         }
         return false;
     }
+<<<<<<< HEAD
 
     public static void main(String[] args) {
         SkillDAO dao = new SkillDAO();
@@ -183,3 +189,6 @@ public class SkillDAO extends DBContext {
         //System.out.println(s);
     }
 }
+=======
+}
+>>>>>>> dev

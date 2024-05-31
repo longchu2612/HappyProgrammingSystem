@@ -26,6 +26,20 @@ public class Account {
     private Role role;
     private Boolean status;
 
+    public Account() {
+    }
+
+    public Account(String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+        this.account_name = account_name;
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+    }
+    
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
@@ -41,6 +55,11 @@ public class Account {
         this.status = status;
     }
 
+<<<<<<< HEAD
+
+    public Account(String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Role role,Boolean status) {
+
+=======
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
         this.email = email;
@@ -51,8 +70,13 @@ public class Account {
     
     
 
+<<<<<<< HEAD
     public Account(int account_id,String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
         this.account_id = account_id;
+=======
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
+>>>>>>> dev
         this.account_name = account_name;
         this.email = email;
         this.password = password;

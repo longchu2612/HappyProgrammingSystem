@@ -4,7 +4,10 @@
  */
 package controller;
 
+<<<<<<< HEAD
 import dao.RequestDAO;
+=======
+>>>>>>> dev
 import dao.SkillDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,14 +23,26 @@ import model.Skill;
 
 /**
  *
+<<<<<<<< HEAD:src/java/controller/RequestController.java
  * @author asus
  */
 public class RequestController extends HttpServlet {
+<<<<<<< HEAD
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
+=======
+========
+ * @author catmi
+ */
+public class AddNewSkill extends HttpServlet {
+>>>>>>>> e264cca65e09acb803367da550acde22bd8390c0:src/java/controller/AddNewSkill.java
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+>>>>>>> dev
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,6 +51,7 @@ public class RequestController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+<<<<<<<< HEAD:src/java/controller/RequestController.java
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -48,7 +64,14 @@ public class RequestController extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+<<<<<<< HEAD
     }
+=======
+========
+        
+>>>>>>>> e264cca65e09acb803367da550acde22bd8390c0:src/java/controller/AddNewSkill.java
+    } 
+>>>>>>> dev
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -78,6 +101,7 @@ public class RequestController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+<<<<<<< HEAD
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
@@ -119,6 +143,20 @@ public class RequestController extends HttpServlet {
         }
         request.getRequestDispatcher("create-request.jsp").forward(request, response);
 
+=======
+    throws ServletException, IOException {
+        SkillDAO dao = new SkillDAO();
+        String name = request.getParameter("skillname");
+        String status = request.getParameter("status");
+        boolean check = dao.addNewSkill(name, status);
+        if(check){
+           response.sendRedirect(request.getContextPath() + "/ListSkill");
+        }else{
+            request.setAttribute("mess", "Something went wrong!");
+        request.getRequestDispatcher("AddNewSkill.jsp").forward(request, response);
+        }
+        
+>>>>>>> dev
     }
 
     /**

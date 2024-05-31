@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/nbproject/private/private.properties</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/nbproject/genfiles.properties</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/nbproject/project.xml</file>
+=======
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/Test/HappyProgrammingSystem/src/java/controller/VerifyController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/Test/HappyProgrammingSystem/src/java/controller/SkillsController.java</file>
+>>>>>>> e264cca65e09acb803367da550acde22bd8390c0
+        </group>
+>>>>>>> dev
     </open-files>
 </project-private>

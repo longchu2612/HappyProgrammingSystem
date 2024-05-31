@@ -86,4 +86,8 @@ public class UpdateSkill extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

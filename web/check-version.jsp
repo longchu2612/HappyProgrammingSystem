@@ -1,7 +1,7 @@
 <%-- 
-    Document   : demo
-    Created on : May 18, 2024, 10:16:42 PM
-    Author     : asus
+    Document   : check-version
+    Created on : May 25, 2024, 3:02:14 AM
+    Author     : Admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+        <%= session.getServletContext().getMajorVersion() %>.
+        <%= session.getServletContext().getMinorVersion() %>
     </body>
 </html>
