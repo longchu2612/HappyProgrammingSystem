@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-
     <servlet>
         <servlet-name>DemoController</servlet-name>
         <servlet-class>controller.DemoController</servlet-class>
@@ -13,10 +12,6 @@
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>controller.VerifyController</servlet-class>
     </servlet>
-<<<<<<< HEAD
-
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
     <servlet>
         <servlet-name>AccountManage</servlet-name>
         <servlet-class>controller.admin.AccountManage</servlet-class>
@@ -28,13 +23,10 @@
     <servlet>
         <servlet-name>SkillController</servlet-name>
         <servlet-class>controller.SkillController</servlet-class>
-<<<<<<< HEAD
-
     </servlet>
     <servlet>
         <servlet-name>RequestController</servlet-name>
         <servlet-class>controller.RequestController</servlet-class>
-=======
     </servlet>
     <servlet>
         <servlet-name>AddNewSkill</servlet-name>
@@ -47,7 +39,10 @@
     <servlet>
         <servlet-name>SkillsController</servlet-name>
         <servlet-class>controller.SkillsController</servlet-class>
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateRequestController</servlet-name>
+        <servlet-class>controller.UpdateRequestController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
@@ -61,16 +56,10 @@
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/verify</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
-
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
     <servlet-mapping>
         <servlet-name>AccountManage</servlet-name>
-        <url-pattern>/admin/account_admin/account_admin</url-pattern>
+        <url-pattern>/admin/account_admin</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
-=======
     <servlet-mapping>
         <servlet-name>SkillController</servlet-name>
         <url-pattern>/ListSkill</url-pattern>
@@ -83,7 +72,6 @@
         <servlet-name>UpdateSkill</servlet-name>
         <url-pattern>/updateSkill</url-pattern>
     </servlet-mapping>
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
         <url-pattern>/profile</url-pattern>
@@ -91,18 +79,16 @@
     <servlet-mapping>
         <servlet-name>SkillsController</servlet-name>
         <url-pattern>/skills</url-pattern>
-
     </servlet-mapping>
-<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>RequestController</servlet-name>
         <url-pattern>/request</url-pattern>
     </servlet-mapping>
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
-
+    <servlet-mapping>
+        <servlet-name>UpdateRequestController</servlet-name>
+        <url-pattern>/update_request</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index-five.html</welcome-file>
     </welcome-file-list>
-
 </web-app>

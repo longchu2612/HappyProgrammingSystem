@@ -39,8 +39,7 @@ public class SkillController extends HttpServlet {
             ArrayList list = dao.getAllSkill();
             request.setAttribute("listSkill", list);
             request.getRequestDispatcher("ListSkill.jsp").forward(request, response);
-        }
-        else if (task.equals("detail")) {
+        } else if (task.equals("detail")) {
             String skillId = request.getParameter("skillId");
             Skill s = dao.getSkillById(skillId);
             request.setAttribute("skill", s);
@@ -60,7 +59,7 @@ public class SkillController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -73,8 +72,4 @@ public class SkillController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev

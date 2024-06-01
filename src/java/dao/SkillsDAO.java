@@ -22,7 +22,7 @@ public class SkillsDAO extends DBContext {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String id = String.valueOf(rs.getInt(1));
+                int id =rs.getInt(1);
                 String name = rs.getString(2);
                 Skill s = new Skill(id, name);
                 data.add(s);

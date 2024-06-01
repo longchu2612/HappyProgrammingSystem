@@ -4,11 +4,10 @@
  */
 package model;
 
-<<<<<<< HEAD
+
 import java.util.List;
 
-=======
->>>>>>> dev
+
 /**
  *
  * @author catmi
@@ -18,24 +17,21 @@ public class Skill {
     private String skillName;
     private int status;
     private String image;
-<<<<<<< HEAD
     private List<Request> requests;
-=======
-    String id;
-    String name;
->>>>>>> dev
+
+//    String id;
+//    String name;
+
 
     public Skill() {
     }
 
-<<<<<<< HEAD
-=======
-    public Skill(String id, String name) {
-        this.id = id;
-        this.name = name;
+
+    public Skill(int skillId, String skillName) {
+        this.skillId = skillId;
+        this.skillName = this.skillName; 
     }
 
->>>>>>> dev
     public Skill(int skillId, String skillName, int status, String image) {
         this.skillId = skillId;
         this.skillName = skillName;
@@ -43,7 +39,6 @@ public class Skill {
         this.image = image;
     }
 
-<<<<<<< HEAD
     public Skill(int skillId, String skillName, int status, String image, List<Request> requests) {
         this.skillId = skillId;
         this.skillName = skillName;
@@ -60,24 +55,26 @@ public class Skill {
         this.requests = requests;
     }
     
-=======
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
+    public int getId() {
+        return skillId;
+    }
+    
+    
+
+    public void setId(int skillId) {
+        this.skillId = skillId;
     }
 
     public String getName() {
-        return name;
+        return skillName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String skillName) {
+        this.skillName = skillName;
     }
 
->>>>>>> dev
+
     public int getSkillId() {
         return skillId;
     }
@@ -112,21 +109,11 @@ public class Skill {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
+
         return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + ", requests=" + requests + '}';
-=======
-        return "Skill{" + "skillId=" + skillId + ", skillName=" + skillName + ", status=" + status + ", image=" + image + '}';
->>>>>>> dev
+
     }
 
-    
-
-    
-<<<<<<< HEAD
-    
-
-    
 }
-=======
-}
->>>>>>> dev
+
+

@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-<<<<<<< HEAD
 
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,10 +33,6 @@ import jakarta.servlet.http.HttpSession;
  */
 //@WebServlet(name="AccountController", urlPatterns={"/account"})
 //@WebServlet("/account")
-<<<<<<< HEAD
-
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
 public class AccountController extends HttpServlet {
 
     /**
@@ -57,10 +50,7 @@ public class AccountController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
 
@@ -126,19 +116,16 @@ public class AccountController extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 } else {
-<<<<<<< HEAD
+
                     session.setAttribute("account", account);
                     session.setMaxInactiveInterval(1800);
-=======
-<<<<<<< HEAD
-                    
+
                     session.setAttribute("username", account.getAccount_name());
-=======
+
                     HttpSession sess = request.getSession();
                     session.setAttribute("username", account.getAccount_name());
                     sess.setAttribute("acc", user_name);
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
->>>>>>> dev
+
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);
@@ -155,27 +142,14 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
                     response.sendRedirect("index.html");
-<<<<<<< HEAD
 
                 }
-=======
-                }
 
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
             }
 
         }
 
     }
-    
-    
-
-//        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
-//        if (result == 1) {
-//            Email.sendEmail(email, "Hello Long");
-//        } else {
-//            response.getWriter().println("Thất bại");
-//        }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -198,13 +172,20 @@ public class AccountController extends HttpServlet {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }
+
 }
 
+//        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
+//        if (result == 1) {
+//            Email.sendEmail(email, "Hello Long");
+//        } else {
+//            response.getWriter().println("Thất bại");
+//        }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 /**
  * Handles the HTTP <code>GET</code> method.
@@ -214,23 +195,16 @@ public class AccountController extends HttpServlet {
  * @throws ServletException if a servlet-specific error occurs
  * @throws IOException if an I/O error occurs
  */
-    
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    
-
-
+/**
+ * Handles the HTTP <code>POST</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+/**
+ * Returns a short description of the servlet.
+ *
+ * @return a String containing servlet description
+ */

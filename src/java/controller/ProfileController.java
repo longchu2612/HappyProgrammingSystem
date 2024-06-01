@@ -74,10 +74,9 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession sess = request.getSession();
-<<<<<<< HEAD
+
         sess.setAttribute("acc", "longchhe1533444");
-=======
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
+
 
         if (sess.getAttribute("acc") != null) {
 
@@ -125,7 +124,7 @@ public class ProfileController extends HttpServlet {
 
                                 CV_skill cs = data2.get(j);
 
-                                if (sk.getId().equals(cs.getSkill_id())) {
+                                if (sk.getId() == Integer.parseInt(cs.getSkill_id())) {
 
                                     data.add(new Skill_displayed("checked=\"\"", sk.getId(), sk.getName()));
                                     break;

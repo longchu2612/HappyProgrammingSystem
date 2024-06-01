@@ -55,11 +55,24 @@ public class Account {
         this.status = status;
     }
 
-<<<<<<< HEAD
+    
+    
+    
+    
 
-    public Account(String account_name, String email, String password, String fullname, String phone, Date dateOfBirth, Role role,Boolean status) {
 
-=======
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth =  dateOfBirth;
+        this.role = role;
+        this.status = status;
+    }
+
+
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
         this.email = email;
@@ -69,14 +82,9 @@ public class Account {
     }
     
     
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
 
-<<<<<<< HEAD
-    public Account(int account_id,String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
         this.account_id = account_id;
-=======
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
->>>>>>> dev
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -86,6 +94,19 @@ public class Account {
         this.role = role;
         this.status = status;
     }
+
+//    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
+//        this.account_name = account_name;
+//        this.email = email;
+//        this.password = password;
+//        this.fullname = fullname;
+//        this.phone = phone;
+//        this.dateOfBirth = dateOfBirth;
+//        this.role = role;
+//        this.status = status;
+//    }
+//    
+      
     
     
 
