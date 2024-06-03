@@ -144,6 +144,7 @@
                                                             <th>Deadline Date</th>
                                                             <th>Deadline Hour</th>
                                                             <th>Skills</th>
+                                                            <th>Status</th>
 <!--                                                            <th class="text-center">TAGS</th>-->
                                                             <th class="text-center">ACTION</th>
                                                         </tr>
@@ -151,16 +152,22 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <h2 class="table-avatar">
+<!--                                                            <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user14.jpg" alt="User Image"></a>
                                                                     <a href="profile.html">Tyrone Roberts<span><span class="__cf_email__" data-cfemail="12666b607d7c77607d70776066615273767d70773c717d7f">[email&#160;protected]</span></span></a>
-                                                                </h2>
+                                                                </h2>-->
+                                                                Đăng ký học C#
                                                             </td>
                                                             <td>08 April 2020</td>
-                                                            <td class="text-center"><span class="pending">PENDING</span></td>
-                                                            <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
+                                                            <td>16:40 PM</td>
+                                                            <td>C#,Java,NodeJs</td>
+                                                            <td><span class="accept">Accept</span></td>
+                                                            <td class="text-center">
+                                                                <button type="button" class="btn btn-outline-primary">Update</button>
+                                                                <button type="button" class="btn btn-outline-danger">Delete</button>
+                                                            </td>
                                                         </tr>
-                                                        <tr>
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user15.jpg" alt="User Image"></a>
@@ -170,8 +177,8 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="pending">PENDING</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
-                                                        <tr>
+                                                        </tr>-->
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user12.jpg" alt="User Image"></a>
@@ -181,8 +188,8 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="pending">PENDING</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
-                                                        <tr>
+                                                        </tr>-->
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user13.jpg" alt="User Image"></a>
@@ -192,8 +199,8 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
-                                                        <tr>
+                                                        </tr>-->
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user5.jpg" alt="User Image"></a>
@@ -203,8 +210,8 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
-                                                        <tr>
+                                                        </tr>-->
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user10.jpg" alt="User Image"></a>
@@ -214,8 +221,8 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="accept">ACCEPTED</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
-                                                        <tr>
+                                                        </tr>-->
+<!--                                                        <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user7.jpg" alt="User Image"></a>
@@ -225,7 +232,7 @@
                                                             <td>08 April 2020</td>
                                                             <td class="text-center"><span class="reject">REJECTED</span></td>
                                                             <td class="text-center"><a href="profile-mentee.html" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> View</a></td>
-                                                        </tr>
+                                                        </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>

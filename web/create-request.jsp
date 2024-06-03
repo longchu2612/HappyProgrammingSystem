@@ -125,15 +125,15 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label class="mb-8">Skills</label>
-
+                                                    <div class="row">
                                                     <c:forEach var="skill" items="${list_skill}">
-                                                        <div class="form-inline">
+                                                        <div class="col-4 form-inline">
                                                             <input type="checkbox" name="skill" value="${skill.skillId}">
                                                             <label for="skill">${skill.skillName}</label><br>
 
                                                         </div>
                                                     </c:forEach>
-
+                                                    </div>
 
 
 

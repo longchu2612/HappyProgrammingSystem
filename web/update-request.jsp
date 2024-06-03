@@ -132,14 +132,15 @@
                                                 <div class="form-group">
                                                     <label class="mb-8">Skills</label>
 
-                                                    <c:forEach var="skill" items="${list_skill}">
-                                                        <div class="form-inline">
-                                                            <input type="checkbox" name="skill" value="${skill.skillId}">
-                                                            <label for="skill">${skill.skillName}</label><br>
+                                                    <div class="row">
+                                                        <c:forEach var="skill" items="${list_skill}">
+                                                            <div class="col-4 form-inline">
+                                                                <input type="checkbox" name="skill" value="${skill.skillId}">
+                                                                <label for="skill">${skill.skillName}</label><br>
 
-                                                        </div>
-                                                    </c:forEach>
-
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
 
 
 
@@ -157,7 +158,36 @@
                                                     <textarea id="user-content" class="form-control" name="content" rows="5" cols="100"></textarea>
 
                                                 </div>
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <select class="form-control select">
+                                                        <option>Open</option>
+                                                        <option>Processing</option>
+                                                        <option>Closed</option>
+
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <!--                                            <div class="col-12 col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>-->
+
+                                            <!--                                            <div class="col-12 col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label>Status</label>
+                                                                                                <select class="form-control select">
+                                                                                                    <option>Open</option>
+                                                                                                    <option>Processing</option>
+                                                                                                    <option>Closed</option>
+                                                               
+                                                                                                </select>
+                                                                                            </div>
+                                            
+                                                                                        </div>-->
 
 
                                             <!--                                            <div
