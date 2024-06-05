@@ -15,11 +15,7 @@ import java.io.IOException;
  */
 public class DemoRequest extends RequestController{
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response); 
-        request.getRequestDispatcher(LEGACY_DO_HEAD).forward(request, response);
-    }
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

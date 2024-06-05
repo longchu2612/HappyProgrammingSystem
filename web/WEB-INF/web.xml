@@ -44,6 +44,10 @@
         <servlet-name>UpdateRequestController</servlet-name>
         <servlet-class>controller.UpdateRequestController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScheduleController</servlet-name>
+        <servlet-class>controller.ScheduleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>UpdateRequestController</servlet-name>
         <url-pattern>/update_request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleController</servlet-name>
+        <url-pattern>/schedule</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index-five.html</welcome-file>

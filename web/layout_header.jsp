@@ -47,10 +47,10 @@
                         <a href>Mentor <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                            <li><a href="bookings.html">Bookings</a></li>
-                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                            <li><a href="mentee-list.html">Mentee List</a></li>
-                            <li><a href="profile-mentee.html">Mentee Profile</a></li>
+                            <li><a href="bookings.jsp">Bookings</a></li>
+                            <li><a href="schedule-timings.jsp">Schedule Timing</a></li>
+                            <li><a href="mentee-list.jsp">Mentee List</a></li>
+                            <li><a href="profile-mentee.jsp">Mentee Profile</a></li>
                             <li class="has-submenu">
                                 <a href="blog.html">Blog</a>
                                 <ul class="submenu">
@@ -60,6 +60,17 @@
                                     <li><a href="edit-blog.html">Edit Blog</a></li>
                                 </ul>
                             </li>
+                            
+                            <li class="has-submenu">
+                                <a href="#">Course</a>
+                                <ul class="submenu">
+                                    <li><a href="blog.html">List Course</a></li>
+                                    <li><a href="create-course.jsp">Create Course</a></li>
+                                    <li><a href="add-blog.html">Update Course</a></li>
+                                    
+                                </ul>
+                            </li>
+                            
                             <li><a href="chat.html">Chat</a></li>
                             <li><a href="invoices.html">Invoices</a></li>
                             <li><a href="profile-settings.html">Profile Settings</a></li>

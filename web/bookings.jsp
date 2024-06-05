@@ -1,3 +1,11 @@
+<%-- 
+    Document   : bookings.jsp
+    Created on : Jun 3, 2024, 10:07:23 PM
+    Author     : asus
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,7 +176,7 @@
                 </div>
             </header>-->
          
-
+            <jsp:include page="layout_header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">

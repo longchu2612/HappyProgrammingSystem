@@ -97,7 +97,7 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <form action="request" method="POST"> 
+                                    <form id="createRequestForm" action="request" method="POST"> 
                                         <input type="hidden" name="action" value="create"/>
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
@@ -112,13 +112,19 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Title</label>
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="title" id="titleRequest">
+                                                    <div class="invalid-feedback">
+                                                        Content cannot be empty or exceed 50 characters.
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Deadline Date</label>
-                                                    <input type="datetime-local" class="form-control" name="deadline">
+                                                    <input type="datetime-local" class="form-control" name="deadline" id="deadlineDate">
+                                                    <div class="invalid-feedback">
+                                                        Date cannot be empty.
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -126,13 +132,13 @@
                                                 <div class="form-group">
                                                     <label class="mb-8">Skills</label>
                                                     <div class="row">
-                                                    <c:forEach var="skill" items="${list_skill}">
-                                                        <div class="col-4 form-inline">
-                                                            <input type="checkbox" name="skill" value="${skill.skillId}">
-                                                            <label for="skill">${skill.skillName}</label><br>
+                                                        <c:forEach var="skill" items="${list_skill}">
+                                                            <div class="col-4 form-inline">
+                                                                <input type="checkbox" name="skill" value="${skill.skillId}">
+                                                                <label for="skill">${skill.skillName}</label><br>
 
-                                                        </div>
-                                                    </c:forEach>
+                                                            </div>
+                                                        </c:forEach>
                                                     </div>
 
 
@@ -148,8 +154,10 @@
                                                 <div class="form-group">
                                                     <label>Content</label>
 
-                                                    <textarea id="user-content" class="form-control" name="content" rows="5" cols="100"></textarea>
-
+                                                    <textarea class="form-control" name="content" rows="5" cols="100" id="contentRequest"></textarea>
+                                                    <div class="invalid-feedback">
+                                                        Content cannot be empty or exceed 500 characters.
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -350,6 +358,46 @@
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <script src="assets/js/script.js"></script>
+        <script>
+            document.getElementById('createRequestForm').addEventListener('submit', function (event) {
+                var inputTitle = document.getElementById('titleRequest');
+                var inputContent = document.getElementById('contentRequest');
+                var inputDate = document.getElementById('deadlineDate');
+
+
+                var title = inputTitle.value.trim();
+                var content = inputContent.value.trim();
+                var date = inputDate.value.trim();
+                var isValid = true;
+
+                if (title === '' || title.length > 50) {
+                    inputTitle.classList.add('is-invalid');
+                    isValid = false;
+                    
+                } else {
+                    inputTitle.classList.remove('is-invalid');
+                    
+                }
+
+                if (content === '' || content.length > 500) {
+                    inputContent.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                     inputContent.classList.remove('is-invalid');
+                }
+                if(date === ''){
+                    inputDate.classList.add('is-invalid');
+                    isValid = false;
+                    
+                }else{
+                    inputDate.classList.remove('is-invalid');
+                }
+                
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        </script>
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
