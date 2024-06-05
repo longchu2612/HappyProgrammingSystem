@@ -6,28 +6,19 @@
                                 <span><i class="fe fe-home"></i> Main</span>
                             </li>
                             <li class="active">
-                                <a href="index.html"><span>Dashboard</span></a>
+                                <a href="home"><span>Dashboard</span></a>
                             </li>
                             <li>
-                                <a href="mentor.html"><span>Mentor</span></a>
+                                <a href="admin-mentorlist"><span>Mentors</span></a>
                             </li>
                             <li>
-                                <a href="mentee.html"><span>Mentee</span></a>
+                                <a href="admin/mentee.html"><span>Mentees</span></a>
                             </li>
                             <li>
-                                <a href="../ListSkill"><span>Skill</span></a>
+                                <a href="ListSkill"><span>Skills</span></a>
                             </li>
                             <li>
-                                <a href="booking-list.html"><span>Booking List</span></a>
-                            </li>
-                            <li>
-                                <a href="categories.html"><span>Categories</span></a>
-                            </li>
-                            <li>
-                                <a href="transactions-list.html"><span>Transactions</span></a>
-                            </li>
-                            <li>
-                                <a href="settings.html"><span>Settings</span></a>
+                                <a href="admin/settings.html"><span>Settings</span></a>
                             </li>
                             <li class="submenu">
                                 <a href="#"><span> Reports</span> <span class="menu-arrow"></span></a>
@@ -39,9 +30,6 @@
                                     <li><a href="view-invoice.html">Invoice Details</a></li>
                                     <li><a href="invoices-settings.html">invoice settings</a></li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="invoice-items.html"><span>Items</span></a>
                             </li>
                             <li class="menu-title">
                                 <span><i class="fe fe-document"></i> Pages</span>

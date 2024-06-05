@@ -121,16 +121,16 @@
                             <a href="admin/index.html" target="_blank">Admin</a>
                         </li>
                         <li class="login-link">
-                            <a href="login.html">Login / Signup</a>
+                            <a href="login.html">Login / Sign up</a>
                         </li>
                     </ul>
                 </div>
                 <ul class="nav header-navbar-rht">
                     <li class="nav-item">
-                        <a class="nav-link header-login-two" href="login.html">Login</a>
+                        <a class="nav-link header-login-two" href="login.jsp">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="register.html">Sign up</a>
+                        <a class="nav-link header-login" href="register.jsp">Sign up</a>
                     </li>
                 </ul>
             </div>

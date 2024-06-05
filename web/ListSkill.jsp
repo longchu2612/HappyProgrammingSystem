@@ -16,9 +16,9 @@
     <body>
         <div class="main-wrapper">
 
-            <jsp:include page="admin-header.jsp"></jsp:include>
+            <jsp:include page="admin/admin-header.jsp"></jsp:include>
 
-            <jsp:include page="admin-sidebar.jsp"></jsp:include>
+            <jsp:include page="admin/admin-sidebar.jsp"></jsp:include>
 
                 <!--Start content-->
                 <div class="page-wrapper">
