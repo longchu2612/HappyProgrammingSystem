@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +35,7 @@
                         <div class="account-box">
                             <div class="login-right">
                                 <div class="login-header text-center">
+                                    <c:set var="cookie" value="${pageContext.request.cookies}"/>
                                     <h3> <span>Happy Programming</span></h3>
                                     <p class="text-muted"></p>
                                 </div>
@@ -44,25 +46,25 @@
                                     <input type="hidden" name="action" value="login"/>
                                     <div class="form-group">
                                         <label class="form-control-label">UserName</label>
-                                        <input type="text" value="${requestScope.user_name}" name="user_name" class="form-control">
+                                        <input type="text" value="${cookie.cookie_username.value}" name="user_name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">Password</label>
                                         <div class="pass-group">
-                                            <input type="password" name="password" class="form-control pass-input">
+                                            <input type="password" name="password" value="${cookie.cookie_password.value}" class="form-control pass-input">
                                             <span class="fas fa-eye toggle-password"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-check form-check-xs custom-checkbox">
-                                            <input type="checkbox" class="form-check-input" name="agreeCheckboxUser" id="agree_checkbox_user">
+                                            <input type="checkbox" ${(cookie.cookie_remember.value!=null)?'checked':''} class="form-check-input" name="agreeCheckboxUser" value="ON" id="agree_checkbox_user">
                                             <label class="form-check-label" for="agree_checkbox_user">Remember Password
                                         </div>
                                     </div>
                                     <div class="text-end">
                                         <a class="forgot-link" href="forgotPassword.jsp">Forgot Password ?</a>
                                     </div>
-                                    <button class="btn btn-primary login-btn" type="submit">Login</button>
+                                    <button class="btn btn-primary login-btn" type="submit">Sign In</button>
                                     <div class="text-center dont-have">Don’t have an account? <a href="register.jsp">Register</a></div>
                                 </form>
                             </div>

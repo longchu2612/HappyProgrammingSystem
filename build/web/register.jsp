@@ -155,7 +155,7 @@
                                                                                 <label class="form-check-label" for="agree_checkbox_user">I agree to Mentoring</label> <a tabindex="-1" href="javascript:void(0);">Privacy Policy</a> &amp; <a tabindex="-1" href="javascript:void(0);"> Terms.</a>
                                                                             </div>
                                                                         </div>-->
-                                    <button class="btn btn-primary login-btn" id="submit" type="submit">Create Account</button>
+                                    <button class="btn btn-primary login-btn" id="submit" type="submit">Sign Up</button>
                                     <div class="account-footer text-center mt-3">
                                         Already have an account? <a class="forgot-link mb-0" href="login.jsp">Login</a>
                                     </div>

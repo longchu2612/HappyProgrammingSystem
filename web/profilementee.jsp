@@ -41,7 +41,7 @@
                                 </span>
                             </a>
                             <a href="index.html" class="navbar-brand logo">
-                                <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                                <img src="assets/img/logo-7.png" class="img-fluid" alt="Logo">
                             </a>
                         </div>
                         <div class="main-menu-wrapper">
@@ -55,17 +55,7 @@
                             </div>
                             <ul class="main-nav">
                                 <li class="has-submenu">
-                                    <a href="index.html">Home <i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="index-two.html">Home 2</a></li>
-                                        <li><a href="index-three.html">Home 3</a></li>
-                                        <li><a href="index-four.html">Home 4</a></li>
-                                        <li><a href="index-five.html">Home 5</a></li>
-                                        <li><a href="index-six.html">Home 6</a></li>
-                                        <li><a href="index-seven.html">Home 7</a></li>
-                                    </ul>
-                                </li>
+                                    <a href="index.html">Home</a>
                                 <li class="has-submenu active">
                                     <a href>Mentor <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">

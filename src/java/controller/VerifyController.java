@@ -21,7 +21,9 @@ import java.util.logging.Logger;
  *
  * @author asus
  */
-@WebServlet("/verify")
+
+@WebServlet(name="VerifyController", urlPatterns={"/verify"})
+
 public class VerifyController extends HttpServlet {
    
     /** 
