@@ -78,34 +78,58 @@ public class ScheduleController extends HttpServlet {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         
         int mentor_id = account.getAccount_id();
-        
+        String message ="";
         String[] checkboxDay = request.getParameterValues("selecteDay");
+        String month = request.getParameter("month");
         if(checkboxDay != null){ 
             for(String day : checkboxDay){
                 if(Integer.parseInt(day) == 2){
                     String startMonday = request.getParameter("startDateMonday");
                     String endMonday = request.getParameter("enDateMonday");
-                    scheduleDAO.createNewSchedule(startMonday, endMonday, 2, mentor_id);
+                    int result = scheduleDAO.createNewSchedule(startMonday, endMonday, 2, mentor_id,Integer.parseInt(month));
+                    if(result == 0){
+                        message += "Failed to add schedule for Monday";
+                    }
                 }else if(Integer.parseInt(day) == 3){
                     String startTuesday = request.getParameter("startDateTuesday");
                     String endTuesday = request.getParameter("enDateTuesday");
-                    scheduleDAO.createNewSchedule(startTuesday, endTuesday, 3, mentor_id);
+                    int result = scheduleDAO.createNewSchedule(startTuesday, endTuesday, 3, mentor_id, Integer.parseInt(month));
+                    if(result == 0){
+                        message += "Failed to add schedule for Tuesday";
+                    }
                 }else if(Integer.parseInt(day) == 4){
                     String startWed = request.getParameter("startWednesday");
                     String endWed = request.getParameter("endWednesday");
-                    scheduleDAO.createNewSchedule(startWed, endWed, 4, mentor_id);
+                    int result = scheduleDAO.createNewSchedule(startWed, endWed, 4, mentor_id, Integer.parseInt(month));
+                    if(result == 0){
+                        message += "Failed to add schedule for Wednesday";
+                    }
                 }else if(Integer.parseInt(day) == 5){
                     String startThurs = request.getParameter("startThursday");
                     String endThurs = request.getParameter("endThursday");
-                    scheduleDAO.createNewSchedule(startThurs, endThurs, 5, mentor_id);
+                    int result = scheduleDAO.createNewSchedule(startThurs, endThurs, 5, mentor_id, Integer.parseInt(month));
+                    if(result == 0){
+                        message += "Failed to add schedule for Thursday";
+                    }
                 }else {
                     String startFriday = request.getParameter("startFriday");
                     String endFriday = request.getParameter("endFriday");
-                    scheduleDAO.createNewSchedule(startFriday, endFriday, 6, mentor_id);
+                    int result = scheduleDAO.createNewSchedule(startFriday, endFriday, 6, mentor_id, Integer.parseInt(month));
+                    if(result == 0){
+                        message += "Failed to add schedule for Friday";
+                    }
                 }
             }
+            if(message.isEmpty()){
+                message = "Your class schedule is processing";
+            }
+            
+            
+        }else{
+            message = "";
         }
-        
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
         
         
 //        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);

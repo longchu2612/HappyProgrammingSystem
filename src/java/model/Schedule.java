@@ -5,6 +5,7 @@
 package model;
 
 import java.time.LocalTime;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,11 @@ public class Schedule {
     private int dayOfWeek;
     private Account account;
 
+    public Schedule() {
+    }
+    
+    
+
     public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account) {
         this.id = id;
         this.month = month;
@@ -26,6 +32,8 @@ public class Schedule {
         this.dayOfWeek = dayOfWeek;
         this.account = account;
     }
+    
+    
 
     public int getId() {
         return id;

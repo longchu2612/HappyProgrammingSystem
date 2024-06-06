@@ -5,12 +5,24 @@
         <group>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/AccountController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/index.html</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createSchedule.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/create-course.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/list-schedule.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/RequestController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/layout_header.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/AccountManage.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/AccountDAO.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/create-request.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/tables-basic.html</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/ScheduleManage.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Schedule.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/ScheduleDAO.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/RequestController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/AddNewSkill.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/register.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/layout_sidebar.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/index.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Account.java</file>
         </group>
     </open-files>

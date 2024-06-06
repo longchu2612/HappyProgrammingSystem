@@ -112,14 +112,33 @@
                                                 </div>
 
                                             </div>
+                                            <h4 style="color: red; align-content: center;">
+                                                ${requestScope.message}
+                                            </h4>
 
-                                            <div class="col-12 col-md-6">
-
+                                            <div class="col-12 col-md-5">
+                                                <div class="form-group">
+                                                    <label>Month</label>
+                                                    <select class="form-control select" name="month">
+                                                        <option value="1" selected>January</option>
+                                                        <option value="2">February</option>
+                                                        <option value="3">March</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">June</option>
+                                                        <option value="7">July</option>
+                                                        <option value="8">August</option>
+                                                        <option value="9">September</option>
+                                                        <option value="10">October</option>
+                                                        <option value="11">November</option>
+                                                        <option value="12">December</option>
+                                                    </select>
+                                                </div>
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkBoxMonday" onchange="toggleDates()" name="selecteDay" value="2"/> Monday
 
                                                 </div>
-                                                
+
                                                 <div class="form-row mt-3" id="dateMonday" style="display: none;">
                                                     <div class="form-group col-md-6">
                                                         <lable>Start Date</lable>
@@ -134,12 +153,12 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkBoxTuesday" onchange="toggleDates()" name="selecteDay" value="3"/> Tuesday
 
                                                 </div>
-                                                
+
                                                 <div class="form-row mt-3" id="dateTuesday" style="display: none;">
                                                     <div class="form-group col-md-6">
                                                         <lable>Start Date</lable>
@@ -154,12 +173,12 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkBoxWed" onchange="toggleDates()" name="selecteDay" value="4"/> Wednesday
 
                                                 </div>
-                                                
+
                                                 <div class="form-row mt-3" id="dateWed" style="display: none;">
                                                     <div class="form-group col-md-6">
                                                         <lable>Start Date</lable>
@@ -174,12 +193,12 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkBoxThurs" onchange="toggleDates()" name="selecteDay" value="5"/> Thursday
 
                                                 </div>
-                                                
+
                                                 <div class="form-row mt-3" id="dateThurs" style="display: none;">
                                                     <div class="form-group col-md-6">
                                                         <lable>Start Date</lable>
@@ -194,12 +213,12 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkBoxFriday" onchange="toggleDates()" name="selecteDay" value="6"/> Friday
 
                                                 </div>
-                                                
+
                                                 <div class="form-row mt-3" id="dateFriday" style="display: none;">
                                                     <div class="form-group col-md-6">
                                                         <lable>Start Date</lable>
@@ -370,129 +389,129 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-            document.getElementById('createScheduleForm').addEventListener('submit', function (event) {
-             
-            var isValid = true;
-            var checkBoxMonday = document.getElementById('checkBoxMonday');
-            var startMonday = document.getElementById('startMonday');
-            var endMonday = document.getElementById('endMonday');
-            var startMon = startMonday.value.trim();
-            var endMon = endMonday.value.trim(); 
-            if(checkBoxMonday.checked){
-                if(startMon === '' || endMon === ''){
-                  startMonday.classList.add('is-invalid');
-                  endMonday.classList.add('is-invalid');
-                  isValid = false;
-               }else if(startMon >= endMon){
-                  startMonday.classList.add('is-invalid');
-                  endMonday.classList.add('is-invalid');
-                  isValid = false;
-               }else{
-                   startMonday.classList.remove('is-invalid');
-                   endMonday.classList.remove('is-invalid');
-                   
-               }
-            }
-            
-            var checkBoxWed = document.getElementById('checkBoxWed');
-            var startWednesday = document.getElementById('startWed');
-            var endWednesday = document.getElementById('endWed');
-            var startWed = startWednesday.value.trim();
-            var endWed = endWednesday.value.trim();
-            if(checkBoxWed.checked){
-                if(startWed === '' || endWed === ''){
-                  startWednesday.classList.add('is-invalid');
-                  endWednesday.classList.add('is-invalid');
-                  isValid = false;
-               }else if(startWed >= endWed){
-                  startWednesday.classList.add('is-invalid');
-                  endWednesday.classList.add('is-invalid');
-                  isValid = false;
-               }else{
-                   startWednesday.classList.remove('is-invalid');
-                   endWednesday.classList.remove('is-invalid');
-                   
-               }
-            }
-            
-            
-            var checkBoxThurs = document.getElementById('checkBoxThurs');
-            var startThursday = document.getElementById('startThurs');
-            var endThursday = document.getElementById('endThurs');
-            var startThurs = startThursday.value.trim();
-            var endThurs = endThursday.value.trim();
-            if(checkBoxThurs.checked){
-                if(startThurs === '' || endThurs === ''){
-                  startThursday.classList.add('is-invalid');
-                  endThursday.classList.add('is-invalid');
-                  isValid = false;
-               }else if(startThurs >= endThurs){
-                  startThursday.classList.add('is-invalid');
-                  endThursday.classList.add('is-invalid');
-                  isValid = false;
-               }else{
-                   startWednesday.classList.remove('is-invalid');
-                   endWednesday.classList.remove('is-invalid');
-                   
-               }
-            }
-            
-            var checkBoxFriday = document.getElementById('checkBoxFriday');
-            var startFriday = document.getElementById('startFriday');
-            var endFriday = document.getElementById('endFriday');
-            var startFri = startFriday.value.trim();
-            var endFri = endFriday.value.trim();
-            if(checkBoxFriday.checked){
-                if(startFri === '' || endFri === ''){
-                  startFriday.classList.add('is-invalid');
-                  endFriday.classList.add('is-invalid');
-                  isValid = false;
-               }else if(startFri >= endFri){
-                  startFriday.classList.add('is-invalid');
-                  endFriday.classList.add('is-invalid');
-                  isValid = false;
-               }else{
-                   startFriday.classList.remove('is-invalid');
-                   endFriday.classList.remove('is-invalid');
-                   
-               }
-            }
-            
-            
-            var checkboxTuesday = document.getElementById('checkBoxTuesday');
-            var startTuesday = document.getElementById('startTuesday');
-            var endTuesday = document.getElementById('endTuesday');
-            var startTue = startTuesday.value.trim();
-            var endTue = endTuesday.value.trim();
-           
-            
-            if(checkboxTuesday.checked){
-               if(startTue === '' || endTue === ''){
-                  startTuesday.classList.add('is-invalid');
-                  endTuesday.classList.add('is-invalid');
-                  isValid = false;
-               }else if(startTue >= endTue){
-                  startTuesday.classList.add('is-invalid');
-                  endTuesday.classList.add('is-invalid');
-                  isValid = false;
-               }else{
-                   startTuesday.classList.remove('is-invalid');
-                   endTuesday.classList.remove('is-invalid');
-                   
-               }
-                
-                
-            }
-            
-            
-                  
-                  
-                  
-            if(!isValid){
-                 event.preventDefault();
-            }    
-                  
-            });
+                                                        document.getElementById('createScheduleForm').addEventListener('submit', function (event) {
+
+                                                            var isValid = true;
+                                                            var checkBoxMonday = document.getElementById('checkBoxMonday');
+                                                            var startMonday = document.getElementById('startMonday');
+                                                            var endMonday = document.getElementById('endMonday');
+                                                            var startMon = startMonday.value.trim();
+                                                            var endMon = endMonday.value.trim();
+                                                            if (checkBoxMonday.checked) {
+                                                                if (startMon === '' || endMon === '') {
+                                                                    startMonday.classList.add('is-invalid');
+                                                                    endMonday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else if (startMon >= endMon) {
+                                                                    startMonday.classList.add('is-invalid');
+                                                                    endMonday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else {
+                                                                    startMonday.classList.remove('is-invalid');
+                                                                    endMonday.classList.remove('is-invalid');
+
+                                                                }
+                                                            }
+
+                                                            var checkBoxWed = document.getElementById('checkBoxWed');
+                                                            var startWednesday = document.getElementById('startWed');
+                                                            var endWednesday = document.getElementById('endWed');
+                                                            var startWed = startWednesday.value.trim();
+                                                            var endWed = endWednesday.value.trim();
+                                                            if (checkBoxWed.checked) {
+                                                                if (startWed === '' || endWed === '') {
+                                                                    startWednesday.classList.add('is-invalid');
+                                                                    endWednesday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else if (startWed >= endWed) {
+                                                                    startWednesday.classList.add('is-invalid');
+                                                                    endWednesday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else {
+                                                                    startWednesday.classList.remove('is-invalid');
+                                                                    endWednesday.classList.remove('is-invalid');
+
+                                                                }
+                                                            }
+
+
+                                                            var checkBoxThurs = document.getElementById('checkBoxThurs');
+                                                            var startThursday = document.getElementById('startThurs');
+                                                            var endThursday = document.getElementById('endThurs');
+                                                            var startThurs = startThursday.value.trim();
+                                                            var endThurs = endThursday.value.trim();
+                                                            if (checkBoxThurs.checked) {
+                                                                if (startThurs === '' || endThurs === '') {
+                                                                    startThursday.classList.add('is-invalid');
+                                                                    endThursday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else if (startThurs >= endThurs) {
+                                                                    startThursday.classList.add('is-invalid');
+                                                                    endThursday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else {
+                                                                    startWednesday.classList.remove('is-invalid');
+                                                                    endWednesday.classList.remove('is-invalid');
+
+                                                                }
+                                                            }
+
+                                                            var checkBoxFriday = document.getElementById('checkBoxFriday');
+                                                            var startFriday = document.getElementById('startFriday');
+                                                            var endFriday = document.getElementById('endFriday');
+                                                            var startFri = startFriday.value.trim();
+                                                            var endFri = endFriday.value.trim();
+                                                            if (checkBoxFriday.checked) {
+                                                                if (startFri === '' || endFri === '') {
+                                                                    startFriday.classList.add('is-invalid');
+                                                                    endFriday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else if (startFri >= endFri) {
+                                                                    startFriday.classList.add('is-invalid');
+                                                                    endFriday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else {
+                                                                    startFriday.classList.remove('is-invalid');
+                                                                    endFriday.classList.remove('is-invalid');
+
+                                                                }
+                                                            }
+
+
+                                                            var checkboxTuesday = document.getElementById('checkBoxTuesday');
+                                                            var startTuesday = document.getElementById('startTuesday');
+                                                            var endTuesday = document.getElementById('endTuesday');
+                                                            var startTue = startTuesday.value.trim();
+                                                            var endTue = endTuesday.value.trim();
+
+
+                                                            if (checkboxTuesday.checked) {
+                                                                if (startTue === '' || endTue === '') {
+                                                                    startTuesday.classList.add('is-invalid');
+                                                                    endTuesday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else if (startTue >= endTue) {
+                                                                    startTuesday.classList.add('is-invalid');
+                                                                    endTuesday.classList.add('is-invalid');
+                                                                    isValid = false;
+                                                                } else {
+                                                                    startTuesday.classList.remove('is-invalid');
+                                                                    endTuesday.classList.remove('is-invalid');
+
+                                                                }
+
+
+                                                            }
+
+
+
+
+
+                                                            if (!isValid) {
+                                                                event.preventDefault();
+                                                            }
+
+                                                        });
         </script>
     </body>
 
