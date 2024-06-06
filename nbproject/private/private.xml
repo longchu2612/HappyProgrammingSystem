@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/HappyProgrammingSystem/src/java/controller/admin/HomeController.java</file>
             <file>file:/F:/HappyProgrammingSystem/src/java/controller/AdminMentorController.java</file>
+            <file>file:/F:/HappyProgrammingSystem/web/admin/admin-sidebar.jsp</file>
+            <file>file:/F:/HappyProgrammingSystem/web/admin/login.jsp</file>
             <file>file:/F:/HappyProgrammingSystem/web/admin/mentor.jsp</file>
         </group>
     </open-files>

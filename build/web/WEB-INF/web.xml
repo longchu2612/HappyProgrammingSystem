@@ -34,7 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminMentorController</servlet-name>
-        <servlet-class>controller.AdminMentorController</servlet-class>
+        <servlet-class>controller.admin.AdminMentorController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>

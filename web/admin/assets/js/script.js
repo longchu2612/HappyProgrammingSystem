@@ -410,7 +410,7 @@ function validateForm() {
             !CheckConfirmPassword(document.getElementsByName("confirm_password")[0]) ||
             !CheckAccountName(document.getElementsByName("account_name")[0]) ||
             !CheckFullName(document.getElementsByName("full_name")[0])
-         ) {
+            ) {
 
         return false;
     }

@@ -14,15 +14,15 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="admin/assets/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="assets/css/feathericon.min.css">
+        <link rel="stylesheet" href="admin/assets/css/feathericon.min.css">
 
-        <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+        <link rel="stylesheet" href="admin/assets/plugins/morris/morris.css">
 
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="admin/assets/css/style.css">
     </head>
     <body>
 
@@ -507,20 +507,20 @@
         </div>
 
 
-        <script src="assets/js/jquery-3.6.0.min.js"></script>
+        <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
 
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="admin/assets/js/bootstrap.bundle.min.js"></script>
 
-        <script src="assets/js/feather.min.js"></script>
+        <script src="admin/assets/js/feather.min.js"></script>
 
-        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <script src="assets/plugins/raphael/raphael.min.js"></script>
+        <script src="admin/assets/plugins/raphael/raphael.min.js"></script>
 
-        <script src="assets/plugins/morris/morris.min.js"></script>
+        <script src="admin/assets/plugins/morris/morris.min.js"></script>
 
-        <script src="assets/js/chart.morris.js"></script>
+        <script src="admin/assets/js/chart.morris.js"></script>
 
-        <script src="assets/js/script.js"></script>
+        <script src="admin/assets/js/script.js"></script>
     </body>
 </html>

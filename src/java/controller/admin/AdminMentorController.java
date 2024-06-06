@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.admin;
 
 import dao.AdminMentorDAO;
 import java.io.IOException;
@@ -37,9 +37,12 @@ public class AdminMentorController extends HttpServlet {
         if (null == service) {
             ArrayList<Mentor> list = amDAO.getAllMentor();
             request.setAttribute("mentors", list);
-            request.getRequestDispatcher("admin/mentor.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/mentor.jsp").forward(request, response);
         } else {
             switch (service) {
+                case "list":
+
+                    break;
                 case "search":
                     String name = request.getParameter("txtSearch").trim();
                     ArrayList<Mentor> listByFullname = amDAO.searchByFullName(name);

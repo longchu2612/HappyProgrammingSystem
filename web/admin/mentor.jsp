@@ -191,6 +191,7 @@
                                                     <th>ID</th>
                                                     <th>Full Name</th>
                                                     <th>Username</th>
+                                                    <th>Profession</th>
                                                     <th>Number of Request</th>
                                                     <th>Rating</th>
                                                     <th>Account Status</th>
@@ -207,7 +208,7 @@
                                                         <td>${mentor.rating}/5</td>
                                                         <td>
                                                             <form action="admin-mentorlist?service=setStatus&id=${mentor.id}&status=${mentor.status}" method="post">
-                                                                <button class="btn btn-outline-danger" type="submit">
+                                                                <button class="btn btn-outline-danger" type="submit" onclick="">
                                                                     <c:if test="${mentor.status == 1}">
                                                                         Active
                                                                     </c:if>
