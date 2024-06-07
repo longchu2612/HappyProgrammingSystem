@@ -62,11 +62,11 @@
                             </li>
                             
                             <li class="has-submenu">
-                                <a href="#">Course</a>
+                                <a href="#">Schedule</a>
                                 <ul class="submenu">
-                                    <li><a href="blog.html">List Course</a></li>
-                                    <li><a href="create-course.jsp">Create Course</a></li>
-                                    <li><a href="add-blog.html">Update Course</a></li>
+                                    <li><a href="listSchedule.jsp">List Schedule</a></li>
+                                    <li><a href="createSchedule.jsp">Create Schedule</a></li>
+                                    <li><a href="add-blog.html">Update Schedule</a></li>
                                     
                                 </ul>
                             </li>

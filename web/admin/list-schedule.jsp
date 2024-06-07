@@ -244,7 +244,7 @@
                                                                     December
                                                                 </c:when>
                                                             </c:choose>
-                                                        
+
                                                         </td>
 
 
@@ -269,14 +269,15 @@
                                                                 </c:choose>
                                                                 <span class="text-primary d-block">${schedule.getStartTime()} - ${schedule.getEndTime()}</span>
                                                             </c:forEach>
-                                                             
-                                                             
+
+
                                                         </td>
 
 
                                                         <td>
-                                                            <button type="submit" class="btn btn-outline-success" onclick="window.location.href = 'manage_schedule?action=accept'">Accept</button>
-                                                            <button type="button" class="btn btn-outline-danger" onclick="window.location.href = 'manage_schedule?action=reject'">Reject</button>
+                                                            
+                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'manage_schedule?action=accept&id=' + ${a.getAccount_id()}">Accept</button>
+                                                            <button type="button" class="btn btn-outline-danger" onclick="window.location.href = 'manage_schedule?action=reject&id=' + ${a.getAccount_id()}">Reject</button>
                                                         </td>
 
 
@@ -300,6 +301,27 @@
 
         </div>
 
+<!--        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         Modal body content 
+                        This is the modal body content.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
 
         <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -316,6 +338,7 @@
         <script src="assets/js/chart.morris.js"></script>
 
         <script src="assets/js/script.js"></script>
+        
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:02 GMT -->
