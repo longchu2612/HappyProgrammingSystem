@@ -4,8 +4,9 @@
     Author     : asus
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +30,7 @@
         <div class="main-wrapper">
 
 
-         
+
             <jsp:include page="layout_header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
@@ -102,10 +103,9 @@
                                             <table class="table table-hover table-center mb-0">
                                                 <thead>
                                                     <tr>
-                                                       
+
                                                         <th>FullName</th>
-                                                        <th>Role</th>
-                                                        <th>Month</th>
+                                                        <th>Date</th>
                                                         <th>Booking Time</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -113,94 +113,65 @@
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach items="${accounts}" var="a">
-                                                    <tr>
-                                                        
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user2.jpg" alt="User Image"></a>
-                                                                <a href="profile.html">${a.getFullname()}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>${a.getRole().getRoleName()}</td>
-                                                        <td>
-                                                            <c:choose>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 1}">
-                                                                    January
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 2}">
-                                                                    February
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 3}">
-                                                                    March
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 4}">
-                                                                    April
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 5}">
-                                                                    May
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 6}">
-                                                                    June
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 7}">
-                                                                    July
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 8}">
-                                                                    August
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 9}">
-                                                                    September
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 10}">
-                                                                    October
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 11}">
-                                                                    November
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 12}">
-                                                                    December
-                                                                </c:when>
-                                                            </c:choose>
-                                                        </td>
-                                                        <td>
-                                                            <c:forEach items="${a.getSchedules()}" var="schedule">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="profile.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user2.jpg" alt="User Image"></a>
+                                                                    <a href="profile.html">${a.getFullname()}</a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>
+                                                                ${a.getSchedules()[0].getCreateTime()}
+
+                                                            </td>
+
+                                                            <td>
+                                                                <c:forEach items="${a.getSchedules()}" var="schedule">
+                                                                    <c:choose>
+                                                                        <c:when test="${schedule.getDayOfWeek() eq 2}">
+                                                                            Monday
+                                                                        </c:when>
+                                                                        <c:when test="${schedule.getDayOfWeek() eq 3}">
+                                                                            Tuesday
+                                                                        </c:when>
+                                                                        <c:when test="${schedule.getDayOfWeek() eq 4}">
+                                                                            Wednesday
+                                                                        </c:when>
+                                                                        <c:when test="${schedule.getDayOfWeek() eq 5}">
+                                                                            Thursday
+                                                                        </c:when>
+                                                                        <c:when test="${schedule.getDayOfWeek() eq 6}">
+                                                                            Friday
+                                                                        </c:when>
+                                                                    </c:choose>
+                                                                    <span class="text-primary d-block">${schedule.getStartTime()} - ${schedule.getEndTime()}</span>
+                                                                </c:forEach>
+                                                            </td>
+                                                            <td>
                                                                 <c:choose>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 2}">
-                                                                        Monday
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1}">
+                                                                        <span style="color: #3498db; font-size: 1rem">Processing</span>
                                                                     </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 3}">
-                                                                        Tuesday
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 2}">
+                                                                        <span style="color: #2ecc71; font-size: 1rem">Accept</span>
                                                                     </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 4}">
-                                                                        Wednesday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 5}">
-                                                                        Thursday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 6}">
-                                                                        Friday
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 3}">
+                                                                        <span style="color: #e74c3c; font-size: 1rem">Reject</span>
                                                                     </c:when>
                                                                 </c:choose>
-                                                                <span class="text-primary d-block">${schedule.getStartTime()} - ${schedule.getEndTime()}</span>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <td>
-                                                            <c:choose>
-                                                                <c:when test="${a.getSchedules()[0].getStatus() eq 1}">
-                                                                    <span style="color: #3498db; font-size: 1rem">Processing</span>
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getStatus() eq 2}">
-                                                                    <span style="color: #2ecc71; font-size: 1rem">Accept</span>
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getStatus() eq 3}">
-                                                                    <span style="color: #e74c3c; font-size: 1rem">Reject</span>
-                                                                </c:when>
-                                                            </c:choose>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-outline-success">Update</button>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                            <td>
+                                                                <c:choose>
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1 || a.getSchedules()[0].getStatus() eq 3 }">
+                                                                        <button type="button" class="btn btn-outline-success">Update</button>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-danger">Update not allowed</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
+                                                        </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>

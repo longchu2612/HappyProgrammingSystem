@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,23 +46,29 @@ public class ScheduleDAO extends DBContext {
     }
 
     public List<Account> getAllAccountWithSchedule() {
-        Map<Integer, Account> accountMap = new HashMap<>();
-        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id "
-                + "where schedule.status = 1";
+
+        Map<String, Account> accountMap = new HashMap<>();
+        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time, schedule.status\n"
+                + "  from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id \n"
+                + "  where schedule.status = 1 order by schedule.create_time";
 
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int account_id = rs.getInt("id");
-                Account account = accountMap.get(account_id);
+                int account_id = rs.getInt(1);
+                String fullName = rs.getString("fullname");
+
+                LocalDateTime creatTime = rs.getTimestamp("create_time").toLocalDateTime();
+                String key = creatTime.toString() + account_id;
+                Account account = accountMap.get(key);
 
                 if (account == null) {
                     account = new Account();
                     account.setAccount_id(account_id);
                     account.setFullname(rs.getString("fullname"));
                     account.setSchedules(new ArrayList<>());
-                    accountMap.put(account_id, account);
+                    accountMap.put(key, account);
                 }
                 Schedule schedule = new Schedule();
                 schedule.setId(rs.getInt(7));
@@ -69,6 +76,7 @@ public class ScheduleDAO extends DBContext {
                 schedule.setMonth(rs.getInt("month"));
                 schedule.setStartTime(rs.getTime("start_time").toLocalTime());
                 schedule.setEndTime(rs.getTime("end_time").toLocalTime());
+                schedule.setCreateTime(creatTime);
                 account.getSchedules().add(schedule);
             }
 
@@ -76,15 +84,25 @@ public class ScheduleDAO extends DBContext {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
-        return new ArrayList<>(accountMap.values());
+        List<Account> accounts = new ArrayList<>(accountMap.values());
+        accounts.sort(Comparator.comparing(account -> {
+            List<Schedule> schedules = account.getSchedules();
+            if (schedules != null && !schedules.isEmpty()) {
+                return schedules.get(0).getCreateTime();
+            } else {
+                return LocalDateTime.MAX; // Để những account không có schedule sẽ đứng cuối danh sách
+            }
+        }));
+        return accounts;
     }
 
-    public int updateScheduleAcceptByMentorId(int mentor_id) {
-        String sql = "Update dbo.Schedules set status = 2 where mentor_id = ?";
+    public int updateScheduleAcceptByMentorId(int mentor_id, LocalDateTime create_time) {
+        String sql = "Update dbo.Schedules set status = 2 where mentor_id = ? and create_time = ?";
         int result = 0;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
+            ps.setString(2, create_time.toString());
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -93,12 +111,13 @@ public class ScheduleDAO extends DBContext {
         return result;
     }
 
-    public int updateScheduleRejectByMentorId(int mentor_id) {
-        String sql = "Update dbo.Schedules set status = 3 where mentor_id = ?";
+    public int updateScheduleRejectByMentorId(int mentor_id, LocalDateTime create_time) {
+        String sql = "Update dbo.Schedules set status = 3 where mentor_id = ? and create_time = ?";
         int result = 0;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
+            ps.setString(2, create_time.toString());
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -108,31 +127,34 @@ public class ScheduleDAO extends DBContext {
     }
 
     public List<Account> getAllScheduleOfMentor(int mentor_id) {
-        Map<Integer, Account> accountMap = new HashMap<>();
-        String sql = "select account.id,account.fullname,account.phonenumber,role.roleName,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.status from dbo.Schedules as schedule inner join dbo.Account as account on "
-                + "schedule.mentor_id = account.id inner join dbo.Role as role on account.roleID = role.roleID where account.id = ?";
+        Map<LocalDateTime, Account> accountMap = new HashMap<>();
+        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time, schedule.status from dbo.Schedules as schedule inner join "
+                + "dbo.Account as account on schedule.mentor_id = account.id where account.id = ? order by schedule.create_time";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Account account = accountMap.get(mentor_id);
+                
+                String account_name = rs.getString("fullname");
+                LocalDateTime createTime = rs.getTimestamp("create_time").toLocalDateTime();
+                Account account = accountMap.get(createTime);
                 if (account == null) {
                     account = new Account();
                     account.setAccount_id(mentor_id);
-                    account.setFullname(rs.getString("fullname"));
-                    account.setPhone(Integer.parseInt(rs.getString("phonenumber")));
-                    Role role = new Role();
-                    role.setRoleName(rs.getString("roleName"));
-                    account.setRole(role);
+                    account.setFullname(account_name);
+                    
+                    
+                  
                     account.setSchedules(new ArrayList<>());
-                    accountMap.put(mentor_id, account);
+                    accountMap.put(createTime, account);
                 }
                 Schedule schedule = new Schedule();
-                schedule.setId(rs.getInt(9));
+                schedule.setId(rs.getInt(7));
                 schedule.setDayOfWeek(rs.getInt("day_of_week"));
                 schedule.setMonth(rs.getInt("month"));
                 schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+                schedule.setCreateTime(createTime);
                 schedule.setEndTime(rs.getTime("end_time").toLocalTime());
                 schedule.setStatus(rs.getString("status"));
                 account.getSchedules().add(schedule);
@@ -141,17 +163,66 @@ public class ScheduleDAO extends DBContext {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
+        List<Account> accounts = new ArrayList<>(accountMap.values());
+        accounts.sort(Comparator.comparing(account -> {
+            List<Schedule> schedules = account.getSchedules();
+            if (schedules != null && !schedules.isEmpty()) {
+                return schedules.get(0).getCreateTime();
+            } else {
+                return LocalDateTime.MAX; // Để những account không có schedule sẽ đứng cuối danh sách
+            }
+        }));
+        return accounts;
+    }
+
+    public List<Account> getAllAccountWithSchedule_2() {
+        Map<LocalDateTime, Account> accountMap = new HashMap<>();
+        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time from dbo.Schedules as schedule inner join dbo.Account as "
+                + "account on schedule.mentor_id = account.id where schedule.status = 1 order by schedule.create_time";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int account_id = rs.getInt("id");
+                String fullname = rs.getString("fullname");
+                LocalDateTime creatTime = rs.getTimestamp("create_time").toLocalDateTime();
+                Account account = accountMap.get(creatTime);
+
+                if (account == null) {
+                    account = new Account();
+                    account.setAccount_id(account_id);
+                    account.setFullname(fullname);
+                    account.setSchedules(new ArrayList<>());
+                    accountMap.put(creatTime, account);
+
+                }
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt(7));
+                schedule.setDayOfWeek(rs.getInt("day_of_week"));
+                schedule.setMonth(rs.getInt("month"));
+                schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+                schedule.setEndTime(rs.getTime("end_time").toLocalTime());
+
+                account.getSchedules().add(schedule);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
         return new ArrayList<>(accountMap.values());
     }
 
     public static void main(String[] args) {
 //        ScheduleDAO scheduleDAO = new ScheduleDAO();
-//        List<Account> accounts = scheduleDAO.getAllScheduleOfMentor(41);
+//        List<Account> accounts = scheduleDAO.getAllAccountWithSchedule_2();
 //        for (Account account : accounts) {
 //            System.out.println("Account ID: " + account.getAccount_id());
 //            System.out.println("Fullname: " + account.getFullname());
 //            System.out.println("PhoneNumber: " + account.getPhone());
-//            System.out.println("Role: " + account.getRole().getRoleName());
+//
 //            System.out.println("Schedules:");
 //            for (Schedule schedule : account.getSchedules()) {
 //                System.out.println("  Day of Week: " + schedule.getDayOfWeek());

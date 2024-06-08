@@ -4,11 +4,7 @@
     Author     : asus
 --%>
 
-<%-- 
-    Document   : index
-    Created on : Jun 6, 2024, 12:23:43 AM
-    Author     : asus
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
@@ -191,7 +187,7 @@
                                                     <th>#</th>
                                                     <th>Mentor Name</th>
                                                     <th>Month</th>
-
+                                                    <th>Date</th>
                                                     <th>Booking Time</th>
 
                                                     <th>Action</th>
@@ -246,7 +242,10 @@
                                                             </c:choose>
 
                                                         </td>
-
+                                                        <td>
+                                                            ${a.getSchedules()[0].getCreateTime()}
+                                                            
+                                                        </td>
 
                                                         <td>
                                                             <c:forEach items="${a.getSchedules()}" var="schedule">
@@ -276,8 +275,8 @@
 
                                                         <td>
                                                             
-                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'manage_schedule?action=accept&id=' + ${a.getAccount_id()}">Accept</button>
-                                                            <button type="button" class="btn btn-outline-danger" onclick="window.location.href = 'manage_schedule?action=reject&id=' + ${a.getAccount_id()}">Reject</button>
+                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'manage_schedule?action=accept&id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Accept</button>
+                                                            <button type="button" class="btn btn-outline-danger"  onclick="window.location.href = 'manage_schedule?action=reject&id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Reject</button>
                                                         </td>
 
 

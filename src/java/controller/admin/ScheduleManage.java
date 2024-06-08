@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
@@ -61,14 +62,19 @@ public class ScheduleManage extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String id = request.getParameter("id");
+        String createtime = request.getParameter("createtime");
+
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         List<Account> accounts = new ArrayList<>();
-        if (action != null && id != null) {
+        if (action != null && id != null && createtime != null) {
             int mentor_id = Integer.parseInt(id);
+            LocalDateTime createTime = LocalDateTime.parse(createtime);
             if (action.equals("accept")) {
-                scheduleDAO.updateScheduleAcceptByMentorId(mentor_id);
+
+                scheduleDAO.updateScheduleAcceptByMentorId(mentor_id, createTime);
             } else if (action.equals("reject")) {
-                scheduleDAO.updateScheduleRejectByMentorId(mentor_id);
+
+                scheduleDAO.updateScheduleRejectByMentorId(mentor_id, createTime);
             }
             response.sendRedirect(request.getContextPath() + "/admin/manage_schedule");
             return;
