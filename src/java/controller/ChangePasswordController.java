@@ -29,7 +29,7 @@ public class ChangePasswordController extends HttpServlet {
         String newPassword = request.getParameter("newpass");
         String confirmPassword = request.getParameter("conpass");
         String username = request.getParameter("username");
-        
+         if(userLogin.isEmpty())
         if (userLogin == null || !userLogin.equals(username)) {
             request.setAttribute("message3", "Account name you just entered does not match the account name you used to log in.");
             request.getRequestDispatcher("changepass.jsp").forward(request, response);

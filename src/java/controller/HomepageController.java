@@ -9,23 +9,20 @@ import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import model.Account;
 
 /**
  *
  * @author ngoqu
  */
-@WebServlet(name="ImgController", urlPatterns={"/Imgcontroller"})
-@MultipartConfig(maxFileSize = 16177215) // 16MB
-public class ImgController extends HttpServlet {
+@WebServlet(name="HomepageController", urlPatterns={"/home"})
+public class HomepageController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,9 +34,7 @@ public class ImgController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-           
-        }
+     
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,7 +48,11 @@ public class ImgController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        AccountDAO ac = new AccountDAO();
+        List<Account> list = new ArrayList<>();
+        list = ac.getAllUsersByRolleId("2");
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 
@@ -67,43 +66,7 @@ public class ImgController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
-        
-        HttpSession session = request.getSession();
-        String userLogin = (String) session.getAttribute("username");
-
-  
-        AccountDAO ac = new AccountDAO();
-    
-   
-        Part filePart = request.getPart("avaimage");
-        String fileName = filePart.getSubmittedFileName();
-        InputStream inputStream = filePart.getInputStream();
-byte[] imageData = readInputStreamToByteArray(inputStream);
-    
-        String message;
-        if (ac.saveImage(fileName, imageData,userLogin)) {
-            message = "File uploaded and saved into database";
-        } else {
-            message = "File upload failed";
-        }
-
-        request.setAttribute("Message", message);
-        getServletContext().getRequestDispatcher("profile-settings-mentee.jsp").forward(request, response);
     }
-
-    private byte[] readInputStreamToByteArray(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int bytesRead;
-        byte[] data = new byte[1024];
-
-        while ((bytesRead = inputStream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, bytesRead);
-        }
-
-        buffer.flush();
-        return buffer.toByteArray();
-    }
-
 
     /** 
      * Returns a short description of the servlet.

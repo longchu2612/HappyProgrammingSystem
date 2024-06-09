@@ -135,20 +135,7 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args) throws SQLException, java.text.ParseException {
-
-        String startDateString = "08/05/2024";
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-
-//        String dateTimeString = "20/02/2002"; // Chuỗi ngày và giờ
-        Date dob = Date.valueOf(sdf2.format(sdf.parse(startDateString)));
-//        
-//      
-        AccountDAO account_dao = new AccountDAO();
-        int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
-        System.out.println(result);
-    }
+    
 
     public void updatePasswordbyusername(String name, String newPassword) {
         String sql = "UPDATE Account SET password = ? WHERE name = ?";
@@ -255,7 +242,6 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-
     public boolean isEmailExist(String email) throws SQLException {
         String sql = "Select email from Account where email = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -314,6 +300,24 @@ public class AccountDAO extends DBContext {
 
         }
     }
+ public int getIdByAccountName(String Name) {
+        String sql = "select id from account where name = ?";
+        try {
+            int count = 0;
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, Name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+                if (count == 1) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     public int getSexByUser(String name) throws SQLException {
         String sql = "Select sex from Account where name = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -326,6 +330,7 @@ public class AccountDAO extends DBContext {
         int sex1 = sex ? 1 : 0;
         return sex1;
     }
+
     public void updateSex(String name, int sex) {
         String sql = "UPDATE Account SET sex = ? WHERE name = ?";
         try {
@@ -336,6 +341,7 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
         }
     }
+
     public void updateDOB(String name, Date date) {
         String sql = "UPDATE Account SET dob = ? WHERE name = ?";
         try {
@@ -346,7 +352,8 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
         }
     }
-     public int getBalanceByUser(String name) throws SQLException {
+
+    public int getBalanceByUser(String name) throws SQLException {
         String sql = "Select balance from Account where name = ?";
         int balance = 0;
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -355,25 +362,164 @@ public class AccountDAO extends DBContext {
         if (rs.next()) {
             balance = rs.getInt("balance");
             return balance;
-        } 
+        }
         return 0;
-}
-         public boolean saveImage(String fileName, byte[] imageData, String name) {
-       
-        String sql = "INSERT INTO avatar (file_name, image) VALUES (?, ?) where name = ?";
+    }
+
+    public String saveImage(String fileName, int id) {
+
+        String sql = "Update Account SET avatar =? where id = ?";
 
         try {
-             PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, fileName);
-            ps.setBytes(2, imageData);
-              ps.setString(3,name);
-
+            ps.setInt(2, id);
             int row = ps.executeUpdate();
-            return row > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return false;
-        } 
-}
-}
+        }
+        return null;
+    }
 
+    public String getAvatarById(String id) {
+        String sql = """
+                     SELECT avatar
+                     FROM Account
+                     WHERE id = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String avatar = rs.getString(1);
+                System.out.println(avatar);
+                return avatar;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+     public Account getUsersById(String id) {
+        Account ac = new Account();
+        String sql = "SELECT * FROM Account WHERE id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String Name = rs.getString(2);
+                String Email = rs.getString(3);
+                String Fullname = rs.getString(5);
+                int Phone = rs.getInt(6);
+                Date Dob = rs.getDate(7);
+                Boolean Sex = rs.getBoolean(8);
+                String Address = rs.getString(9);
+                String Avatar = rs.getString(10);;
+                ac = new Account(Name, Email, Fullname, Phone, Dob, Sex, Address, Avatar);
+            }
+        } catch (SQLException e) {
+            System.out.println("getUsersByAccount:" + e.getMessage());
+        }
+        return ac;
+    }
+     
+     public List<Account> getAllUsersByRolleId(String roleid) {
+        Account ac = new Account();
+        List<Account> list = new ArrayList<>();
+        String sql = "SELECT * FROM Account WHERE   roleID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, roleid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int ID = rs.getInt(1);
+                String Name = rs.getString(2);
+                String Email = rs.getString(3);
+                String Fullname = rs.getString(5);
+                int Phone = rs.getInt(6);
+                Date Dob = rs.getDate(7);
+                Boolean Sex = rs.getBoolean(8);
+                String Address = rs.getString(9);
+                String Avatar = "";
+                 if (rs.getString(10) == null) {
+                    Avatar = "uploads/0.png";
+                } else {
+                    Avatar = rs.getString(10);
+                }
+                ac = new Account(ID,Name, Email, Fullname, Phone, Dob, Sex, Address, Avatar);
+                list.add(ac);
+            }
+        } catch (SQLException e) {
+            System.out.println("getUsersByAccount:" + e.getMessage());
+        }
+        return list;
+    }
+     
+     
+     public int getRoleByname(String name) {
+        String sql = "select roleID from account where name = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+      public int getRoleById(String id) {
+        String sql = "select roleID from account where id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+     public void updateAccountById(String id, String name, String email, String fullname, String phonenumber, String dob, String sex, String address, String avatar) {
+        if (name.equals("")) {
+            return;
+        }
+        String sql = """
+                     UPDATE Account
+                     SET name = ?, email = ?, fullname = ?, phonenumber = ?, dob = ?, sex = ?, address = ?, avatar = ?, modified_at = CURRENT_TIMESTAMP
+                     WHERE id = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, fullname);
+            ps.setString(4, phonenumber);
+            ps.setDate(5, java.sql.Date.valueOf(dob));
+            ps.setInt(6, Integer.parseInt(sex));
+            ps.setString(7, address);
+            if (avatar == "") {
+                ps.setString(8, null);
+            } else {
+                ps.setString(8, avatar);
+            }
+            ps.setInt(9, Integer.parseInt(id));
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     
+       public static void main(String[] args) {
+        AccountDAO ac = new AccountDAO();
+        List<Account> list = new ArrayList<>();
+        list = ac.getAllUsersByRolleId("2");
+        for(Account a : list){
+            System.out.println(a);
+        }
+    }
+}

@@ -32,7 +32,7 @@
     <body>
 
         <div class="main-wrapper">
-            <jsp:include page="layout_header.jsp"/>
+
 
 
 
@@ -56,7 +56,7 @@
 
                             <div class="profile-sidebar">
                                 <div class="user-widget">
-                                    <div class="pro-avatar">${fln}</div>
+                                    <div class="pro-avatar"><image src="${avatar}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
                                     <div class="user-info-cont">
                                         <h4 class="usr-name">${fullname}</h4>
                                     </div>
@@ -81,34 +81,24 @@
 
 
                                     <div class="row form-row">
-                                        <form action="Imgcontroller" method="post" enctype="multipart/form-data">
+                                        <form action="profilementee" method="post" enctype="multipart/form-data">
 
                                             <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img src="assets/img/user/user.jpg" alt="User Image">
+                                                    <div class="change-avatar" id="AvatarFileUpload">
+                                                        <div class="selected-image-holder" class="rounded">
+                                                            <img src="${avatar}" class="rounded" alt="User Image" style="height: 100px; width: 100px; margin-right: 15px">
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
                                                                 <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input name="fullname"  class="upload" >
-                                                                <input type="file" name="avaimage" class="upload" accept="image/*" required>
-                                                                <%
-                if(request.getAttribute("message")!=null)
-                {
-                out.print("<p class='text-danger ml-1'>"+request.getAttribute("message3")+"</p>");
-                }
-                                
-                                                                %>
+                                                                <input type="file" name="avatar" class="upload">
                                                             </div>
-                                                            <button type="submit" class="btn btn-primary submit-btn">Upload</button>
+                                                            <small class="form-text text-muted">Allowed PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form> 
-                                        <form action="profile" method="post">
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Account Name</label>
@@ -184,10 +174,11 @@
 
                                 <div class="footer-widget footer-about">
                                     <div class="footer-logo">
-                                        <img src="assets/img/logo.png" alt="logo">
+                                        <img src="assets/img/logo-7.png" alt="logo">
                                     </div>
                                     <div class="footer-about-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p>“Study, learn more, learn forever .”
+                                            ― V.I.Lenin</p>
                                         <div class="social-icon">
                                             <ul>
                                                 <li>
@@ -264,112 +255,26 @@
                     </div>
                 </div>
 
-                <footer class="footer">
-                    <div class="footer-top">
-                        <div class="container-fluid">
+
+
+
+                <div class="footer-bottom">
+                    <div class="container-fluid">
+
+                        <div class="copyright">
                             <div class="row">
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-about">
-                                        <div class="footer-logo">
-                                            <img src="assets/img/logo.png" alt="logo">
-                                        </div>
-                                        <div class="footer-about-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                            <div class="social-icon">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Mentee</h2>
-                                        <ul>
-                                            <li><a href="search.html">Search Mentors</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="booking.html">Booking</a></li>
-                                            <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Mentors</h2>
-                                        <ul>
-                                            <li><a href="appointments.html">Appointments</a></li>
-                                            <li><a href="chat.html">Chat</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-contact">
-                                        <h2 class="footer-title">Contact Us</h2>
-                                        <div class="footer-contact-info">
-                                            <div class="footer-address">
-                                                <span><i class="fas fa-map-marker-alt"></i></span>
-                                                <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
-                                            </div>
-                                            <p>
-                                                <i class="fas fa-phone-alt"></i>
-                                                +1 315 369 5943
-                                            </p>
-                                            <p class="mb-0">
-                                                <i class="fas fa-envelope"></i>
-                                                <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="08656d667c677a61666f486d70696578646d266b6765">[email&#160;protected]</a>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="footer-bottom">
-                        <div class="container-fluid">
-
-                            <div class="copyright">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <div class="copyright-text">
-                                            <p class="mb-0">&copy; 2020 Mentoring. All rights reserved.</p>
-                                        </div>
+                                <div class="col-12 text-center">
+                                    <div class="copyright-text">
+                                        <p class="mb-0">&copy; 2020 Mentoring. All rights reserved.</p>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
 
-                </footer>
+                    </div>
+                </div>
+
+            </footer>
 
         </div>
 
@@ -387,6 +292,26 @@
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <script src="assets/js/script.js"></script>
+        <script>
+            // Main Wrapper Selector
+            const avatarFileUpload = document.getElementById('AvatarFileUpload')
+            // Preview Wrapper Selector
+            const imageViewer = avatarFileUpload.querySelector('.selected-image-holder>img')
+            // Image Input File Selector
+            const imageInput = avatarFileUpload.querySelector('input[name="avatar"]')
+
+            /** IF Selected Image has change */
+            imageInput.addEventListener('change', e => {
+                // Open File eader
+                var reader = new FileReader();
+                reader.onload = function () {
+                    // Preview Image
+                    imageViewer.src = reader.result;
+                };
+                // Read Selected Image as DataURL
+                reader.readAsDataURL(e.target.files[0]);
+            })
+        </script>
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->

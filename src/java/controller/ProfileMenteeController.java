@@ -9,10 +9,16 @@ import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +31,7 @@ import model.Account;
  *
  * @author ngoqu
  */
+@MultipartConfig
 public class ProfileMenteeController extends HttpServlet {
 
     /**
@@ -54,6 +61,7 @@ public class ProfileMenteeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+                 response.sendRedirect("profile-settings-mentee.jsp");
     }
 
     /**
@@ -66,7 +74,8 @@ public class ProfileMenteeController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {   
+        
         processRequest(request, response);
         HttpSession session = request.getSession();
         String userLogin = (String) session.getAttribute("username");
@@ -84,6 +93,27 @@ public class ProfileMenteeController extends HttpServlet {
          java.sql.Date date = java.sql.Date.valueOf(newdob);
         AccountDAO ac = new AccountDAO();
           java.sql.Date   dob = null;
+          
+         Part part = request.getPart("avatar");
+            String tempPath = request.getServletContext().getRealPath("/temp");
+            String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
+            String avatar = "";
+             int accountID = ac.getIdByAccountName(userLogin);
+            if (filename.equals("")) {
+                avatar = ac.getAvatarById(String.valueOf(accountID));
+            } else {
+                part.write(tempPath + "/" + filename);
+                Path source = Paths.get(tempPath + "/" + filename);
+                String realPath = request.getServletContext().getRealPath("/uploads");
+                String fullpath = realPath + "\\" + String.valueOf(accountID) + ".png";
+                System.out.println(fullpath);
+                avatar = "uploads/" + String.valueOf(accountID) + ".png";
+             
+                Files.move(source, source.resolveSibling(fullpath), REPLACE_EXISTING);
+            }
+            ac.saveImage(avatar, accountID);
+            session.setAttribute("avatar", avatar);
+    
         try {
             dob = ac.getDOBByUser(userLogin);
         } catch (SQLException ex) {

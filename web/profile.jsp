@@ -109,6 +109,14 @@
                                                         </div>
                                                     </div>
                                                 </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            
+                                                             <a href="changepass.jsp">Change Password</a> 
+                                                        </div>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

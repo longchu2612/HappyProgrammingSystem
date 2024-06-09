@@ -1,4 +1,4 @@
-
+//
 
 package controller;
 
@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import jakarta.servlet.http.HttpSession;
+import model.Role;
 
 /**
  *
@@ -62,7 +63,7 @@ public class AccountController extends HttpServlet {
             Date date = Date.valueOf(dob);
 
             String gender = request.getParameter("gender");
-
+           
             String address = request.getParameter("address");
             String role = request.getParameter("role");
             int role_id = Integer.parseInt(role);
@@ -120,7 +121,7 @@ public class AccountController extends HttpServlet {
                     session.setAttribute("username", account.getAccount_name());
 
                     HttpSession sess = request.getSession();
-                    session.setAttribute("username", account.getAccount_name());
+                    
                     sess.setAttribute("acc", user_name);
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
@@ -129,6 +130,9 @@ public class AccountController extends HttpServlet {
                     String fullname = ac.getFullnameByUser(user_name);
                     String address = ac.getAddressByUser(user_name);
                     String email = ac.getEmailByUser(user_name);
+                    int id = ac.getIdByAccountName(user_name);
+                    String  avatar = ac.getAvatarById(String.valueOf(id));
+                    int role = ac.getRoleByname(user_name);
                     Date dob = ac.getDOBByUser(user_name);
                     int sex = ac.getSexByUser(user_name);
                     int balance= ac.getBalanceByUser(user_name);
@@ -142,6 +146,8 @@ public class AccountController extends HttpServlet {
                     session.setAttribute("fln", fln);
                     session.setAttribute("sex", sex);
                     session.setAttribute("balance", balance);
+                     session.setAttribute("avatar", avatar);
+                     session.setAttribute("role", role);
                     if (remember != null) {
                         cuser_name.setMaxAge(60 * 60 * 24 * 7);
                         cpassword.setMaxAge(60 * 60 * 24 * 3);
@@ -151,10 +157,13 @@ public class AccountController extends HttpServlet {
                         cpassword.setMaxAge(0);
                         cremmember.setMaxAge(0);
                     }
+                    Role roleid= account.getRole();
                     response.addCookie(cuser_name);
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
-                    response.sendRedirect("index.html");
+                         response.sendRedirect("home1");
+                    
+                   
 
                 }
 
