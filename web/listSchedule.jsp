@@ -164,7 +164,7 @@
                                                             <td>
                                                                 <c:choose>
                                                                     <c:when test="${a.getSchedules()[0].getStatus() eq 1 || a.getSchedules()[0].getStatus() eq 3 }">
-                                                                        <button type="button" class="btn btn-outline-success">Update</button>
+                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Update</button>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <span class="text-danger">Update not allowed</span>

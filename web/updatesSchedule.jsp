@@ -1,11 +1,14 @@
 <%-- 
-    Document   : createSchedule
-    Created on : Jun 5, 2024, 3:56:42 AM
+    Document   : updatesSchedule
+    Created on : Jun 9, 2024, 11:15:11 AM
     Author     : asus
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Schedule" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,12 +101,12 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <form id="createScheduleForm" action="schedule" method="Post"> 
+                                    <form id="updateScheduleForm" action="update_schedule" method="Post"> 
                                         <input type="hidden" name="action" value="create"/>
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <h4>Create Schedule</h4>
+                                                    <h4>Update Schedule</h4>  
                                                 </div>
 
                                             </div>
@@ -129,19 +132,48 @@
                                                         <option value="12">December</option>
                                                     </select>
                                                 </div>
+                                                <%
+                                                    List<Integer> scheduledDays = new ArrayList<>();
+                                                    List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
+    
+                                                    for (Schedule schedule : schedules) {
+                                                         scheduledDays.add(schedule.getDayOfWeek());
+                                                    }
+                                                
+                                                %>
+                                                <%!
+                                                     String getStartTime(List<Schedule> schedules, String day) {
+                                                     for (Schedule schedule : schedules) {
+                                                        if (Integer.toString(schedule.getDayOfWeek()).equals(day)) {
+                                                         return schedule.getStartTime().toString(); 
+                                                        }
+                                                     }
+                                                     return "";                                                    
+                                                    }
+    
+                                                    String getEndTime(List<Schedule> schedules, String day) {
+                                                    for (Schedule schedule : schedules) {
+                                                        if (Integer.toString(schedule.getDayOfWeek()).equals(day)) {
+                                                           return schedule.getEndTime().toString();
+                                                        }
+                                                    }
+                                                        return "";
+                                                    }
+                                                
+                                                %>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxMonday" onchange="toggleDates()" name="selecteDay" value="2"/> Monday
+                                                    <input type="checkbox" class="form-check-input" id="checkBoxMonday" onchange="toggleDates()" name="selecteDay" value="2" <% if (scheduledDays.contains(2)) { %> checked <% } %>/> Monday
 
                                                 </div>
 
-                                                <div class="form-row mt-3" id="dateMonday" style="display: none;">
+                                                <div class="form-row mt-3" id="dateMonday" <% if (scheduledDays.contains(2)) { %> style="display: block;" <% } else { %> style="display: none;" <% } %>>
                                                     <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startMonday" name="startDateMonday"  class="form-control"/>
+                                                        <lable>Start Date</lable>
+                                                        <input type="time" id="startMonday" name="startDateMonday" value="<%= getStartTime(schedules, "2") %>"  class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endMonday" name="enDateMonday" class="form-control"/>
+                                                        <label>End Date</label>
+                                                        <input type="time" id="endMonday" name="enDateMonday" value="<%= getEndTime(schedules, "2") %>" class="form-control"/>
                                                         <div class="invalid-feedback">
                                                             Time cannot be empty and startdate must be less than endDate
                                                         </div>
@@ -150,18 +182,18 @@
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxTuesday" onchange="toggleDates()" name="selecteDay" value="3"/> Tuesday
+                                                    <input type="checkbox" class="form-check-input" id="checkBoxTuesday" onchange="toggleDates()" name="selecteDay" value="3" <% if (scheduledDays.contains(3)) { %> checked <% } %>/> Tuesday
 
                                                 </div>
 
-                                                <div class="form-row mt-3" id="dateTuesday" style="display: none;">
+                                                <div class="form-row mt-3" id="dateTuesday"  <% if (scheduledDays.contains(3)) { %> style="display: block;" <% } else { %> style="display: none;" <% } %>>
                                                     <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startTuesday" name="startDateTuesday"  class="form-control"/>
+                                                        <lable>Start Date</lable>
+                                                        <input type="time" id="startTuesday" name="startDateTuesday" value="<%= getStartTime(schedules, "3") %>"  class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endTuesday" name="enDateTuesday" class="form-control"/>
+                                                        <label>End Date</label>
+                                                        <input type="time" id="endTuesday" name="enDateTuesday" value="<%= getEndTime(schedules, "3") %>" class="form-control"/>
                                                         <div class="invalid-feedback">
                                                             Time cannot be empty and startdate must be less than endDate
                                                         </div>
@@ -170,18 +202,18 @@
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxWed" onchange="toggleDates()" name="selecteDay" value="4"/> Wednesday
+                                                    <input type="checkbox" class="form-check-input" id="checkBoxWed" onchange="toggleDates()" name="selecteDay" value="4" <% if (scheduledDays.contains(4)) { %> checked <% } %>/> Wednesday
 
                                                 </div>
 
-                                                <div class="form-row mt-3" id="dateWed" style="display: none;">
+                                                <div class="form-row mt-3" id="dateWed" <% if (scheduledDays.contains(4)) { %> style="display: block;" <% } else { %> style="display: none;" <% } %>>
                                                     <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startWed" name="startWednesday"  class="form-control"/>
+                                                        <lable>Start Date</lable>
+                                                        <input type="time" id="startWed" name="startWednesday" value="<%= getStartTime(schedules, "4") %>"  class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endWed" name="endWednesday" class="form-control"/>
+                                                        <label>End Date</label>
+                                                        <input type="time" id="endWed" name="endWednesday" value="<%= getEndTime(schedules, "4") %>" class="form-control"/>
                                                         <div class="invalid-feedback">
                                                             Time cannot be empty and startdate must be less than endDate
                                                         </div>
@@ -190,18 +222,18 @@
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxThurs" onchange="toggleDates()" name="selecteDay" value="5"/> Thursday
+                                                    <input type="checkbox" class="form-check-input" id="checkBoxThurs" onchange="toggleDates()" name="selecteDay" value="5" <% if (scheduledDays.contains(5)) { %> checked <% } %>/> Thursday
 
                                                 </div>
 
-                                                <div class="form-row mt-3" id="dateThurs" style="display: none;">
+                                                <div class="form-row mt-3" id="dateThurs" <% if (scheduledDays.contains(5)) { %> style="display: block;" <% } else { %> style="display: none;" <% } %>>
                                                     <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startThurs" name="startThursday"  class="form-control"/>
+                                                        <lable>Start Date</lable>
+                                                        <input type="time" id="startThurs" name="startThursday"  value="<%= getStartTime(schedules, "5") %>" class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endThurs" name="endThursday" class="form-control"/>
+                                                        <label>End Date</label>
+                                                        <input type="time" id="endThurs" name="endThursday" value="<%= getEndTime(schedules, "5") %>" class="form-control"/>
                                                         <div class="invalid-feedback">
                                                             Time cannot be empty and startdate must be less than endDate
                                                         </div>
@@ -210,18 +242,18 @@
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxFriday" onchange="toggleDates()" name="selecteDay" value="6"/> Friday
+                                                    <input type="checkbox" class="form-check-input" id="checkBoxFriday" onchange="toggleDates()" name="selecteDay" value="6" <% if (scheduledDays.contains(6)) { %> checked <% } %>/> Friday
 
                                                 </div>
 
-                                                <div class="form-row mt-3" id="dateFriday" style="display: none;">
+                                                <div class="form-row mt-3" id="dateFriday" <% if (scheduledDays.contains(6)) { %> style="display: block;" <% } else { %> style="display: none;" <% } %>>
                                                     <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startFriday" name="startFriday"  class="form-control"/>
+                                                        <lable>Start Date</lable>
+                                                        <input type="time" id="startFriday" name="startFriday" value="<%= getStartTime(schedules, "6") %>"  class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endFriday" name="endFriday" class="form-control"/>
+                                                        <label>End Date</label>
+                                                        <input type="time" id="endFriday" name="endFriday" value="<%= getEndTime(schedules, "6") %>" class="form-control"/>
                                                         <div class="invalid-feedback">
                                                             Time cannot be empty and startdate must be less than endDate
                                                         </div>
@@ -384,7 +416,7 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                        document.getElementById('createScheduleForm').addEventListener('submit', function (event) {
+                                                        document.getElementById('updateScheduleForm').addEventListener('submit', function (event) {
 
                                                             var isValid = true;
                                                             var checkBoxMonday = document.getElementById('checkBoxMonday');
@@ -512,5 +544,6 @@
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
 </html>
+
 
 

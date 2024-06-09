@@ -214,6 +214,29 @@ public class ScheduleDAO extends DBContext {
 
         return new ArrayList<>(accountMap.values());
     }
+    
+    public List<Schedule> getAllSchdeduleByMentorCreatTime(String mentor_id, String createTime){
+        List<Schedule> schedules = new ArrayList<>();
+        String sql = "select month,day_of_week,start_time, end_time,status from dbo.Schedules where mentor_id = ? and create_time = ? " ;
+        try{ 
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(mentor_id));
+            ps.setString(2, createTime);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Schedule schedule = new Schedule();
+                schedule.setMonth(rs.getInt("month"));
+                schedule.setDayOfWeek(rs.getInt("day_of_week"));
+                schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+                schedule.setEndTime(rs.getTime("end_time").toLocalTime());
+                schedules.add(schedule);
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return schedules;
+    }
 
     public static void main(String[] args) {
 //        ScheduleDAO scheduleDAO = new ScheduleDAO();

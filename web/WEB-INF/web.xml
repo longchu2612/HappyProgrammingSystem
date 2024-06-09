@@ -56,6 +56,10 @@
         <servlet-name>ScheduleMentorController</servlet-name>
         <servlet-class>controller.ScheduleMentorController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateScheduleController</servlet-name>
+        <servlet-class>controller.UpdateScheduleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DemoController</servlet-name>
         <url-pattern>/DemoController</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>ScheduleMentorController</servlet-name>
         <url-pattern>/schedule_mentor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateScheduleController</servlet-name>
+        <url-pattern>/update_schedule</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index-five.html</welcome-file>
