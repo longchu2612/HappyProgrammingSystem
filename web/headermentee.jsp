@@ -38,8 +38,6 @@
                                 <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                 <li><a href="bookings.html">Bookings</a></li>
                                 <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                                <li><a href="mentee-list.html">Mentee List</a></li>
-                                <li><a href="profile-mentee.html">mentor Profile</a></li>
                                 <li class="has-submenu">
                                     <a href="blog.html">Blog</a>
                                     <ul class="submenu">
@@ -57,7 +55,7 @@
                             </ul>
                         </li>
                         <li class="has-submenu">
-                            <a href>Mentee <i class="fas fa-chevron-down"></i></a>
+                            <a href> Mentee <i class="fas fa-chevron-down"></i></a>
                             <ul class="submenu">
                                 <li class="has-submenu">
                                     <a href="#">Mentors</a>
@@ -67,15 +65,13 @@
                                     </ul>
                                 </li>
                                 <li><a href="search.html">Search Mentor</a></li>
-                                <li><a href="profile.html">mentee Profile</a></li>
+                                <li><a href="profile.jsp">mentee Profile</a></li>
                                 <li><a href="bookings-mentee.html">Bookings</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="booking-success.html">Booking Success</a></li>
                                 <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
                                 <li><a href="favourites.html">Favourites</a></li>
                                 <li><a href="chat-mentee.html">Chat</a></li>
-                                <li><a href="profile-settings-mentee.jsp">Profile Settings</a></li>
-                                <li><a href="changepass.jsp">Change Password</a></li>
                             </ul>
                         </li>
                         
@@ -87,21 +83,30 @@
                                 <li><a href="blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="admin/index.html" target="_blank">Admin</a>
-                        </li>
-                        <li class="login-link">
-                            <a href="login.jsp">Login / Signup</a>
-                        </li>
+                        
                     </ul>
                 </div>
-                <ul class="nav header-navbar-rht">
-                    <li class="nav-item">
-                        <a class="nav-link header-login-two" href="login.jsp">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link header-login" href="register.jsp">Sign up</a>
-                    </li>
+                <ul class="nav header-navbar-rht" style="margin: 10px">
+                     <li class="nav-item dropdown has-arrow logged-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="${avatar}" width="31" alt="User Image">
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="${avatar}" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>${username}</h6>
+                              
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="dashboard.html">Dashboard</a>
+                        <a class="dropdown-item" href="profile-settings-mentee.jsp">Profile Settings</a>
+                        <a class="dropdown-item" href="login.jsp">Logout</a>
+                    </div>
                 </ul>
             </div>
         </nav>

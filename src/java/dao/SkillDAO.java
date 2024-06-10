@@ -88,7 +88,18 @@ public class SkillDAO extends DBContext {
         }
         return null;
     }
-
+ public String getskillbySkillID(String id) throws SQLException {
+        String sql = "Select name from Skill where id = ?";
+        String name = "";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, id);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            name = rs.getString("name");
+            return name;
+        }
+        return null;
+    }
     public boolean addNewSkill(String name, String status) {
         String query = "Insert into [dbo].[Skill]([name], [status]) values(?,?)";
         try {

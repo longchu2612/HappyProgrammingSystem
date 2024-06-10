@@ -23,6 +23,11 @@ public class NewPasswordController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -37,7 +42,7 @@ public class NewPasswordController extends HttpServlet {
                 ac.updatePassword(webemail, confPassword);
                 dispatcher = request.getRequestDispatcher("success-200.html");
             } else {
-               request.setAttribute("message1","New Password And Confirm Password Are Not Match");
+               request.setAttribute("message1","NEW PASSWORD AND CONFIRM PASSWORD ARE NOT MATCH");
 			
 		   dispatcher=request.getRequestDispatcher("newPassword.jsp");
             }

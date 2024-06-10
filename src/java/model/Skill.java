@@ -18,10 +18,8 @@ public class Skill {
     private int status;
     private String image;
     private List<Request> requests;
-
-//    String id;
-//    String name;
-
+    String id;
+    String name;
 
     public Skill() {
     }
@@ -30,6 +28,10 @@ public class Skill {
     public Skill(int skillId, String skillName) {
         this.skillId = skillId;
         this.skillName = this.skillName; 
+    }
+    public Skill(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Skill(int skillId, String skillName, int status, String image) {
@@ -55,25 +57,22 @@ public class Skill {
         this.requests = requests;
     }
     
-
-    public int getId() {
-        return skillId;
+  
+    public String getId() {
+        return id;
     }
-    
-    
 
-    public void setId(int skillId) {
-        this.skillId = skillId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
-        return skillName;
+        return name;
     }
 
-    public void setName(String skillName) {
-        this.skillName = skillName;
+    public void setName(String name) {
+        this.name = name;
     }
-
 
     public int getSkillId() {
         return skillId;

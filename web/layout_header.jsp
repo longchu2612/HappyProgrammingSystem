@@ -18,7 +18,7 @@
                     </span>
                 </a>
                 <a href="index.html" class="navbar-brand logo">
-                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="assets/img/logo-7.png" class="img-fluid" alt="Logo">
                 </a>
             </div>
             <div class="main-menu-wrapper">
@@ -159,12 +159,12 @@
                                 <img src="assets/img/user/user.jpg" alt="User Image" class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6>Jonathan Doe</h6>
+                                <h6>J</h6>
                                 <p class="text-muted mb-0">Mentor</p>
                             </div>
                         </div>
                         <a class="dropdown-item" href="dashboard.html">Dashboard</a>
-                        <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+                        <a class="dropdown-item" href="profile-settings-mentee.jsp">Profile Settings</a>
                         <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
                 </li>

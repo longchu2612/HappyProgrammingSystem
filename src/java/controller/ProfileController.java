@@ -124,7 +124,7 @@ public class ProfileController extends HttpServlet {
 
                                 CV_skill cs = data2.get(j);
 
-                                if (sk.getId() == Integer.parseInt(cs.getSkill_id())) {
+                                if (sk.getId().equals(Integer.parseInt(cs.getSkill_id()))) {
 
                                     data.add(new Skill_displayed("checked=\"\"", sk.getId(), sk.getName()));
                                     break;

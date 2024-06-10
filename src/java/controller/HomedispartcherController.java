@@ -7,10 +7,13 @@ package controller;
 
 
 import dao.SkillDAO;
+
 import dao.AccountDAO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,13 +27,15 @@ import model.Skill;
  *
  * @author asus
  */
-public class UpdateRequestController extends HttpServlet {
+
 
 
 /**
  *
  * @author ngoqu
  */
+@WebServlet(name="HomedispartcherController", urlPatterns={"/home1"})
+public class HomedispartcherController extends HttpServlet {
 
    
     /** 
@@ -71,11 +76,26 @@ public class UpdateRequestController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        SkillDAO skill_dao = new SkillDAO();
-        List<Skill> listSkill = skill_dao.getAllSkill();
-        request.setAttribute("list_skill", listSkill);
-        request.getRequestDispatcher("update-request.jsp").forward(request, response);
- } 
+        
+
+       HttpSession session = request.getSession();
+        int role = 0;
+       
+       role= (int) session.getAttribute("role");
+        AccountDAO ac = new AccountDAO();
+        List<Account> list = new ArrayList<>();
+        list = ac.getAllUsersByRolleId("2");
+        request.setAttribute("list", list);
+        if(role==1){
+             request.getRequestDispatcher("homementee.jsp").forward(request, response);
+             return;
+        }
+        if(role==2){
+             request.getRequestDispatcher("homementor.jsp").forward(request, response);
+             return;
+        }
+
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.

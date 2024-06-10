@@ -5,33 +5,24 @@
 
 package controller;
 
-
-import dao.SkillDAO;
 import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
-import model.Skill;
-
-/**
- *
- * @author asus
- */
-public class UpdateRequestController extends HttpServlet {
-
 
 /**
  *
  * @author ngoqu
  */
-
+@WebServlet(name="HomepageController", urlPatterns={"/home"})
+public class HomepageController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,20 +34,7 @@ public class UpdateRequestController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateRequestController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateRequestController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-
+     
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,12 +48,12 @@ public class UpdateRequestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
-        SkillDAO skill_dao = new SkillDAO();
-        List<Skill> listSkill = skill_dao.getAllSkill();
-        request.setAttribute("list_skill", listSkill);
-        request.getRequestDispatcher("update-request.jsp").forward(request, response);
- } 
+        AccountDAO ac = new AccountDAO();
+        List<Account> list = new ArrayList<>();
+        list = ac.getAllUsersByRolleId("2");
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
