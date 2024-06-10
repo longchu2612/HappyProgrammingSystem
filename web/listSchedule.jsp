@@ -106,6 +106,7 @@
 
                                                         <th>FullName</th>
                                                         <th>Date</th>
+                                                        <th>Month</th>
                                                         <th>Booking Time</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -125,7 +126,46 @@
                                                                 ${a.getSchedules()[0].getCreateTime()}
 
                                                             </td>
-
+                                                            <td>
+                                                                <c:choose>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 1}">
+                                                                    January
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 2}">
+                                                                    February
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 3}">
+                                                                    March
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 4}">
+                                                                    April
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 5}">
+                                                                    May
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 6}">
+                                                                    June
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 7}">
+                                                                    July
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 8}">
+                                                                    August
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 9}">
+                                                                    September
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 10}">
+                                                                    October
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 11}">
+                                                                    November
+                                                                </c:when>
+                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 12}">
+                                                                    December
+                                                                </c:when>
+                                                            </c:choose>
+                                                            </td>
                                                             <td>
                                                                 <c:forEach items="${a.getSchedules()}" var="schedule">
                                                                     <c:choose>
@@ -163,8 +203,11 @@
                                                             </td>
                                                             <td>
                                                                 <c:choose>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1 || a.getSchedules()[0].getStatus() eq 3 }">
-                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Update</button>
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1 }">
+                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}&status=1'">Update</button>
+                                                                    </c:when>
+                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 3 }">
+                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}&status=3'">Update</button>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <span class="text-danger">Update not allowed</span>

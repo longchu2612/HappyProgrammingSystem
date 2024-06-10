@@ -117,24 +117,28 @@
                                             <div class="col-12 col-md-5">
                                                 <div class="form-group">
                                                     <label>Month</label>
+                                                <% 
+                                                  List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
+                                                   
+                                                %>
                                                     <select class="form-control select" name="month">
-                                                        <option value="1" selected>January</option>
-                                                        <option value="2">February</option>
-                                                        <option value="3">March</option>
-                                                        <option value="4">April</option>
-                                                        <option value="5">May</option>
-                                                        <option value="6">June</option>
-                                                        <option value="7">July</option>
-                                                        <option value="8">August</option>
-                                                        <option value="9">September</option>
-                                                        <option value="10">October</option>
-                                                        <option value="11">November</option>
-                                                        <option value="12">December</option>
+                                                        <option value="1" <% if (schedules.get(0).getMonth() == 1) { %> selected <% } %>>January</option>
+                                                        <option value="2" <% if (schedules.get(0).getMonth() == 2) { %> selected <% } %>>February</option>
+                                                        <option value="3" <% if (schedules.get(0).getMonth() == 3) { %> selected <% } %>>March</option>
+                                                        <option value="4" <% if (schedules.get(0).getMonth() == 4) { %> selected <% } %>>April</option>
+                                                        <option value="5" <% if (schedules.get(0).getMonth() == 5) { %> selected <% } %>>May</option>
+                                                        <option value="6" <% if (schedules.get(0).getMonth() == 6) { %> selected <% } %>>June</option>
+                                                        <option value="7" <% if (schedules.get(0).getMonth() == 7) { %> selected <% } %>>July</option>
+                                                        <option value="8" <% if (schedules.get(0).getMonth() == 8) { %> selected <% } %>>August</option>
+                                                        <option value="9" <% if (schedules.get(0).getMonth() == 9) { %> selected <% } %>>September</option>
+                                                        <option value="10"<% if (schedules.get(0).getMonth() == 10) { %> selected <% } %>>October</option>
+                                                        <option value="11"<% if (schedules.get(0).getMonth() == 11) { %> selected <% } %>>November</option>
+                                                        <option value="12"<% if (schedules.get(0).getMonth() == 12) { %> selected <% } %>>December</option>
                                                     </select>
                                                 </div>
                                                 <%
                                                     List<Integer> scheduledDays = new ArrayList<>();
-                                                    List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
+                                                    
     
                                                     for (Schedule schedule : schedules) {
                                                          scheduledDays.add(schedule.getDayOfWeek());
