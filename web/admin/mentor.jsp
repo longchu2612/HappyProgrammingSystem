@@ -12,7 +12,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>Mentoring - Mentor List Page</title>
-        
+
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png">
 
         <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
@@ -194,7 +194,7 @@
                                                     <th>Profession</th>
                                                     <th>Number of Request</th>
                                                     <th>Rating</th>
-                                                    <th>Account Status</th>
+                                                    <th colspan="2">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -204,8 +204,9 @@
                                                         <td>${mentor.id}</td>
                                                         <td>${mentor.fullname}</td>
                                                         <td>${mentor.username}</td>
+                                                        <td>${mentor.job}</td>
                                                         <td>${mentor.numOfReq}</td>
-                                                        <td>${mentor.rating}/5</td>
+                                                        <td>${mentor.rating} / 5</td>
                                                         <td>
                                                             <form action="admin-mentorlist?service=setStatus&id=${mentor.id}&status=${mentor.status}" method="post">
                                                                 <button class="btn btn-outline-danger" type="submit" onclick="">
@@ -218,6 +219,7 @@
                                                                 </button>
                                                             </form>
                                                         </td>
+                                                        <td><button class="btn btn-outline-success" type="submit" onclick="">Details</button></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -245,6 +247,6 @@
         <script src="admin/assets/plugins/datatables/datatables.min.js"></script>
 
         <script src="admin/assets/js/script.js"></script>
-        
+
     </body>
 </html>

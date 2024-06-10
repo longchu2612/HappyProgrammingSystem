@@ -12,6 +12,7 @@ public class Mentor {
     private int id;
     private String fullname;
     private String username;
+    private String job;
     private int status;
     private int numOfReq;
     private float rating;
@@ -19,10 +20,11 @@ public class Mentor {
     public Mentor() {
     }
 
-    public Mentor(int id, String fullname, String username, int status, int numOfReq, float rating) {
+    public Mentor(int id, String fullname, String username, String job, int status, int numOfReq, float rating) {
         this.id = id;
         this.fullname = fullname;
         this.username = username;
+        this.job = job;
         this.status = status;
         this.numOfReq = numOfReq;
         this.rating = rating;
@@ -74,6 +76,14 @@ public class Mentor {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 
     @Override

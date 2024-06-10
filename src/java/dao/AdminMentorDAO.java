@@ -18,7 +18,7 @@ public class AdminMentorDAO extends DBContext {
     public ArrayList<Mentor> getAllMentor() {
         ArrayList<Mentor> list = new ArrayList<>();
         String query = "WITH AccountFiltered AS (\n"
-                + "    SELECT id, fullname, name, status\n"
+                + "    SELECT id, fullname, name,job, status\n"
                 + "    FROM Account \n"
                 + "    WHERE roleID = 2\n"
                 + "),\n"
@@ -48,10 +48,11 @@ public class AdminMentorDAO extends DBContext {
                 int id = rs.getInt("id");
                 String fullname = rs.getString("fullname");
                 String username = rs.getString("name");
+                String job = rs.getString("job");
                 int status = rs.getInt("status");
                 int nOR = rs.getInt("NOR");
                 float rating = rs.getFloat("Rating");
-                list.add(new Mentor(id, fullname, username, status, nOR, rating));
+                list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -76,7 +77,7 @@ public class AdminMentorDAO extends DBContext {
     public ArrayList<Mentor> searchByFullName(String name) {
         ArrayList<Mentor> list = new ArrayList<>();
         String query = "WITH AccountFiltered AS (\n"
-                + "    SELECT id, fullname, name, status\n"
+                + "    SELECT id, fullname, name,job, status\n"
                 + "    FROM Account \n"
                 + "    WHERE roleID = 2 and fullname like ?\n"
                 + "),\n"
@@ -107,10 +108,11 @@ public class AdminMentorDAO extends DBContext {
                 int id = rs.getInt("id");
                 String fullname = rs.getString("fullname");
                 String username = rs.getString("name");
+                String job = rs.getString("job");
                 int status = rs.getInt("status");
                 int nOR = rs.getInt("NOR");
                 float rating = rs.getFloat("Rating");
-                list.add(new Mentor(id, fullname, username, status, nOR, rating));
+               list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -138,7 +140,7 @@ public class AdminMentorDAO extends DBContext {
                 + "if @name <> ''\n"
                 + "begin\n"
                 + "WITH AccountFiltered AS (\n"
-                + "    SELECT id, fullname, name, status\n"
+                + "    SELECT id, fullname, name,job, status\n"
                 + "    FROM Account \n"
                 + "    WHERE roleID = 2 AND [name] LIKE '%' + @name + '%'\n"
                 + "),\n"
@@ -180,10 +182,11 @@ public class AdminMentorDAO extends DBContext {
                 int id = rs.getInt("id");
                 String fullname = rs.getString("fullname");
                 String username = rs.getString("name");
+                String job = rs.getString("job");
                 int status = rs.getInt("status");
                 int nOR = rs.getInt("NOR");
                 float rating = rs.getFloat("Rating");
-                list.add(new Mentor(id, fullname, username, status, nOR, rating));
+               list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
             }
             return list;
         } catch (Exception e) {
