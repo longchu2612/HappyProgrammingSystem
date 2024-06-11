@@ -60,7 +60,7 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
+        request.getRequestDispatcher("createScheduleTwo.jsp").forward(request, response);
     }
 
     /**
@@ -74,71 +74,32 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Account account = (Account) session.getAttribute("account");
-        if (session == null || session.getAttribute("account") == null || account.getRole().getRole_id() == 1) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-
-        int mentor_id = account.getAccount_id();
-        String message = "";
-        String[] checkboxDay = request.getParameterValues("selecteDay");
-        String month = request.getParameter("month");
+        String[] checkBoxSlotOne = request.getParameterValues("slot_1");
+        String[] checkBoxSlotTwo = request.getParameterValues("slot_2");
+        String[] checkBoxSlotThree = request.getParameterValues("slot_3");
+        String[] checkBoxSlotFour = request.getParameterValues("slot_4");
+        String[] checkBoxSlotFive = request.getParameterValues("slot_5");
         
-        if (checkboxDay != null) {
-            LocalDateTime currentTime = LocalDateTime.now();
-            for (String day : checkboxDay) {
-                
-                if (Integer.parseInt(day) == 2) {
-                    String startMonday = request.getParameter("startDateMonday");
-                    String endMonday = request.getParameter("enDateMonday");
-                    int result = scheduleDAO.createNewSchedule(startMonday, endMonday, 2, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Monday\n";
-                    }
-                } else if (Integer.parseInt(day) == 3) {
-                    String startTuesday = request.getParameter("startDateTuesday");
-                    String endTuesday = request.getParameter("enDateTuesday");
-                    int result = scheduleDAO.createNewSchedule(startTuesday, endTuesday, 3, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Tuesday\n";
-                    }
-                } else if (Integer.parseInt(day) == 4) {
-                    String startWed = request.getParameter("startWednesday");
-                    String endWed = request.getParameter("endWednesday");
-                    int result = scheduleDAO.createNewSchedule(startWed, endWed, 4, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Wednesday\n";
-                    }
-                } else if (Integer.parseInt(day) == 5) {
-                    String startThurs = request.getParameter("startThursday");
-                    String endThurs = request.getParameter("endThursday");
-                    int result = scheduleDAO.createNewSchedule(startThurs, endThurs, 5, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Thursday\n";
-                    }
-                } else {
-                    String startFriday = request.getParameter("startFriday");
-                    String endFriday = request.getParameter("endFriday");
-                    int result = scheduleDAO.createNewSchedule(startFriday, endFriday, 6, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Friday\n";
-                    }
-                }
-            }
-            if (message.isEmpty()) {
-                message = "Your class schedule is processing";
-            }
-
-        } else {
-            message = "";
+        for(String valueOne : checkBoxSlotOne){
+            response.getWriter().println(valueOne);
         }
-        request.setAttribute("message", message);
-        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
-
-//        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
+        
+        for(String valueTwo : checkBoxSlotTwo){
+            response.getWriter().println(valueTwo);
+        }
+        for(String valueThree : checkBoxSlotThree){
+            response.getWriter().println(valueThree);
+        }
+        
+        for(String valueFour : checkBoxSlotFour){
+            response.getWriter().println(valueFour);
+        }
+        for(String valueFive : checkBoxSlotFive){
+            response.getWriter().println(valueFive);
+        }
+         
+        
+        
     }
 
     /**
