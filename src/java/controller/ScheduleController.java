@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import model.Account;
 
 /**
@@ -74,28 +75,18 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String[] checkBoxSlotOne = request.getParameterValues("slot_1");
-        String[] checkBoxSlotTwo = request.getParameterValues("slot_2");
-        String[] checkBoxSlotThree = request.getParameterValues("slot_3");
-        String[] checkBoxSlotFour = request.getParameterValues("slot_4");
-        String[] checkBoxSlotFive = request.getParameterValues("slot_5");
+       
+         Map<String, String[]> parameterMap = request.getParameterMap();
         
-        for(String valueOne : checkBoxSlotOne){
-            response.getWriter().println(valueOne);
-        }
-        
-        for(String valueTwo : checkBoxSlotTwo){
-            response.getWriter().println(valueTwo);
-        }
-        for(String valueThree : checkBoxSlotThree){
-            response.getWriter().println(valueThree);
-        }
-        
-        for(String valueFour : checkBoxSlotFour){
-            response.getWriter().println(valueFour);
-        }
-        for(String valueFive : checkBoxSlotFive){
-            response.getWriter().println(valueFive);
+        // Duyệt qua tất cả các tham số
+        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+            String name = entry.getKey();
+            String[] values = entry.getValue();
+            
+            // Chỉ lấy các giá trị của checkbox được chọn
+            for (String value : values) {
+                response.getWriter().println("Checkbox ID: " + name + ", Value: " + value + "<br>");
+            }
         }
          
         

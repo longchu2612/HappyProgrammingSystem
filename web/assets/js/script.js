@@ -724,8 +724,8 @@ function updateWeekDays() {
         var day = daysInWeek[dayIndex];
         checkbox.value = slot+'_'+day;
     });
-
-   
+    
+    saveCheckboxState();
 }
 
 //updateWeekDays();
@@ -754,6 +754,21 @@ function updateWeekDays() {
 //    }
 //}
 //setCurrentWeek();
+
+function saveCheckboxState() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const state = {};
+    checkboxes.forEach(checkbox => {
+        state[checkbox.id] = {
+            checked: checkbox.checked,
+            value: checkbox.value
+        };
+    });
+    localStorage.setItem('checkboxState', JSON.stringify(state));
+}
+
+
+
 
 function getDaysInWeek(selectedWeek) {
     var weekRanges = {
@@ -811,8 +826,32 @@ function getDaysInWeek(selectedWeek) {
         52: ["23/12", "24/12", "25/12", "26/12", "27/12", "28/12", "29/12"]
 
     };
-    return weekRanges[selectedWeek];
+        return weekRanges[selectedWeek];
+    
 }
+
+document.querySelector('form').addEventListener('submit', function() {
+    saveCheckboxState();
+    
+    // Adding localStorage data to form
+    const state = JSON.parse(localStorage.getItem('checkboxState'));
+    if (state) {
+        Object.keys(state).forEach(id => {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = id;
+            hiddenInput.value = state[id].value;
+            this.appendChild(hiddenInput);
+        });
+    }
+});
+
+localStorage.clear();
+
+    
+    
+    
+
 
 
 //function checkDateValidity() {
