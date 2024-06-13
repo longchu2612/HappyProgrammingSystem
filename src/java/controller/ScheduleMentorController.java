@@ -58,17 +58,17 @@ public class ScheduleMentorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Account account = (Account) session.getAttribute("account");
-        if (session == null || session.getAttribute("account") == null || account.getRole().getRole_id() == 1) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        List<Account> accounts = new ArrayList<>();
-        accounts = scheduleDAO.getAllScheduleOfMentor(account.getAccount_id());
-        request.setAttribute("accounts", accounts);
-        request.getRequestDispatcher("listSchedule.jsp").forward(request, response);
+//        HttpSession session = request.getSession(false);
+//        Account account = (Account) session.getAttribute("account");
+//        if (session == null || session.getAttribute("account") == null || account.getRole().getRole_id() == 1) {
+//            response.sendRedirect("login.jsp");
+//            return;
+//        }
+//        ScheduleDAO scheduleDAO = new ScheduleDAO();
+//        List<Account> accounts = new ArrayList<>();
+//        accounts = scheduleDAO.getAllScheduleOfMentor(account.getAccount_id());
+//        request.setAttribute("accounts", accounts);
+//        request.getRequestDispatcher("listSchedule.jsp").forward(request, response);
     } 
 
     /** 

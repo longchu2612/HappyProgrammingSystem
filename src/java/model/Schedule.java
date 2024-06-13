@@ -7,6 +7,7 @@ package model;
 import java.time.LocalTime;
 import java.util.List;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,7 +22,28 @@ public class Schedule {
     private int dayOfWeek;
     private Account account;
     private String status;
-    private LocalDateTime createTime;
+    private LocalDate createTime;
+
+    public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account, String status, LocalDate createTime) {
+        this.id = id;
+        this.month = month;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.dayOfWeek = dayOfWeek;
+        this.account = account;
+        this.status = status;
+        this.createTime = createTime;
+    }
+
+    public LocalDate getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDate createTime) {
+        this.createTime = createTime;
+    }
+    
+    
 
     public Schedule() {
     }
@@ -34,16 +56,7 @@ public class Schedule {
         this.status = status;
     }
 
-    public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account, String status, LocalDateTime createTime) {
-        this.id = id;
-        this.month = month;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.dayOfWeek = dayOfWeek;
-        this.account = account;
-        this.status = status;
-        this.createTime = createTime;
-    }
+    
     
     
     
@@ -70,13 +83,8 @@ public class Schedule {
         this.account = account;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
+   
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
     
     
 

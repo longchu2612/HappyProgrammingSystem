@@ -723,9 +723,12 @@ function updateWeekDays() {
         var dayIndex = checkbox.getAttribute("data-day-index");
         var day = daysInWeek[dayIndex];
         checkbox.value = slot+'_'+day;
+        checkbox.checked = false;
     });
     
-    saveCheckboxState();
+    
+    
+  
 }
 
 //updateWeekDays();
@@ -755,17 +758,7 @@ function updateWeekDays() {
 //}
 //setCurrentWeek();
 
-function saveCheckboxState() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const state = {};
-    checkboxes.forEach(checkbox => {
-        state[checkbox.id] = {
-            checked: checkbox.checked,
-            value: checkbox.value
-        };
-    });
-    localStorage.setItem('checkboxState', JSON.stringify(state));
-}
+
 
 
 
@@ -830,23 +823,9 @@ function getDaysInWeek(selectedWeek) {
     
 }
 
-document.querySelector('form').addEventListener('submit', function() {
-    saveCheckboxState();
-    
-    // Adding localStorage data to form
-    const state = JSON.parse(localStorage.getItem('checkboxState'));
-    if (state) {
-        Object.keys(state).forEach(id => {
-            const hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = id;
-            hiddenInput.value = state[id].value;
-            this.appendChild(hiddenInput);
-        });
-    }
-});
 
-localStorage.clear();
+
+
 
     
     

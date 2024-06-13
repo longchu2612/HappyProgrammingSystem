@@ -98,7 +98,7 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <form id="createScheduleForm" action="schedule" method="Post"> 
+                                    <form id="createScheduleTwo" action="schedule" method="Post"> 
                                         <input type="hidden" name="action" value="create"/>
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
@@ -107,127 +107,109 @@
                                                 </div>
 
                                             </div>
-                                            <h4 style="color: red; align-content: center;">
-                                                ${requestScope.message}
-                                            </h4>
-
-                                            <div class="col-12 col-md-5">
-                                                <div class="form-group">
-                                                    <label>Month</label>
-                                                    <select class="form-control select" name="month">
-                                                        <option value="1" selected>January</option>
-                                                        <option value="2">February</option>
-                                                        <option value="3">March</option>
-                                                        <option value="4">April</option>
-                                                        <option value="5">May</option>
-                                                        <option value="6">June</option>
-                                                        <option value="7">July</option>
-                                                        <option value="8">August</option>
-                                                        <option value="9">September</option>
-                                                        <option value="10">October</option>
-                                                        <option value="11">November</option>
-                                                        <option value="12">December</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxMonday" onchange="toggleDates()" name="selecteDay" value="2"/> Monday
-
-                                                </div>
-
-                                                <div class="form-row mt-3" id="dateMonday" style="display: none;">
-                                                    <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startMonday" name="startDateMonday"  class="form-control"/>
+                                            <div class="col-12 col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label>Start Date</label>
+                                                        <input type="date" class="form-control"/>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endMonday" name="enDateMonday" class="form-control"/>
-                                                        <div class="invalid-feedback">
-                                                            Time cannot be empty and startdate must be less than endDate
-                                                        </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label>End Date</label>
+                                                        <input type="date" class="form-control"/>
                                                     </div>
 
                                                 </div>
+                                            </div>
+                                            <div class="col-12 col-md-12">
+                                                <h4 style="color: red; align-content: center;">
+                                                    ${requestScope.message}
+                                                </h4>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                Year 2024
+                                                            </th>
+                                                            <th>Monday</th>
+                                                            <th>Tuesday</th>
+                                                            <th>Wednesday</th>
+                                                            <th>Thursday</th>
+                                                            <th>Friday</th>
+                                                            <th>Saturday</th>
+                                                            <th>Sunday</th>
+                                                        </tr>
 
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxTuesday" onchange="toggleDates()" name="selecteDay" value="3"/> Tuesday
+                                                    </thead>
+                                                    <tbody>
 
-                                                </div>
 
-                                                <div class="form-row mt-3" id="dateTuesday" style="display: none;">
-                                                    <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startTuesday" name="startDateTuesday"  class="form-control"/>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endTuesday" name="enDateTuesday" class="form-control"/>
-                                                        <div class="invalid-feedback">
-                                                            Time cannot be empty and startdate must be less than endDate
-                                                        </div>
-                                                    </div>
+                                                        <tr>
+                                                            <td>Slot 1 (7h30 --> 9h30)</td>
+                                                            <td><input type="checkbox" id="mon1" name="slot_1" data-slot="1" data-day-index="0"></td>
+                                                            <td><input type="checkbox" id="tue1" name="slot_1" data-slot="1" data-day-index="1"></td>
+                                                            <td><input type="checkbox" id="wed1" name="slot_1" data-slot="1" data-day-index="2"></td>
+                                                            <td><input type="checkbox" id="thu1" name="slot_1" data-slot="1" data-day-index="3"></td>
+                                                            <td><input type="checkbox" id="fri1" name="slot_1" data-slot="1" data-day-index="4"></td>
+                                                            <td><input type="checkbox" id="sat1" name="slot_1" data-slot="1" data-day-index="5"></td>
+                                                            <td><input type="checkbox" id="sun1" name="slot_1" data-slot="1" data-day-index="6"></td>
+                                                        </tr>
 
-                                                </div>
+                                                        <tr>
+                                                            <td>Slot 2 (9h45 --> 11h45)</td>
+                                                            <td><input type="checkbox" id="mon2" name="slot_2" data-slot="2" data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue2" name="slot_2" data-slot="2" data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed2" name="slot_2" data-slot="2" data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu2" name="slot_2" data-slot="2" data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri2" name="slot_2" data-slot="2" data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat2" name="slot_2" data-slot="2" data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun2" name="slot_2" data-slot="2" data-day-index="6" ></td>
+                                                        </tr>
 
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxWed" onchange="toggleDates()" name="selecteDay" value="4"/> Wednesday
+                                                        <tr>
+                                                            <td>Slot 3 (13h30 --> 15h30)</td>
+                                                            <td><input type="checkbox" id="mon3" name="slot_3" data-slot="3" data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue3" name="slot_3" data-slot="3" data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed3" name="slot_3" data-slot="3" data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu3" name="slot_3" data-slot="3" data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri3" name="slot_3" data-slot="3" data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat3" name="slot_3" data-slot="3" data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun3" name="slot_3" data-slot="3" data-day-index="6" ></td>
+                                                        </tr>
 
-                                                </div>
+                                                        <tr>
+                                                            <td>Slot 4 (16h --> 18h)</td>
+                                                            <td><input type="checkbox" id="mon4" name="slot_4" data-slot="4" data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue4" name="slot_4" data-slot="4" data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed4" name="slot_4" data-slot="4" data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu4" name="slot_4" data-slot="4" data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri4" name="slot_4" data-slot="4" data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat4" name="slot_4" data-slot="4" data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun4" name="slot_4" data-slot="4" data-day-index="6" ></td>
+                                                        </tr>
 
-                                                <div class="form-row mt-3" id="dateWed" style="display: none;">
-                                                    <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startWed" name="startWednesday"  class="form-control"/>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endWed" name="endWednesday" class="form-control"/>
-                                                        <div class="invalid-feedback">
-                                                            Time cannot be empty and startdate must be less than endDate
-                                                        </div>
-                                                    </div>
+                                                        <tr>
+                                                            <td>Slot 5 (19h --> 21h)</td>
+                                                            <td><input type="checkbox" id="mon5" name="slot_5" data-slot="5" data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue5" name="slot_5" data-slot="5" data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed5" name="slot_5" data-slot="5" data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu5" name="slot_5" data-slot="5" data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri5" name="slot_5" data-slot="5" data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat5" name="slot_5" data-slot="5" data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun5" name="slot_5" data-slot="5" data-day-index="6" ></td>
+                                                        </tr>
+                                                        <!--                                                    <tr>
+                                                                                                                <td>Slot 6</td>
+                                                                                                                <td><input type="checkbox" id="mon6"></td>
+                                                                                                                <td><input type="checkbox" id="tue6"></td>
+                                                                                                                <td><input type="checkbox" id="wed6"></td>
+                                                                                                                <td><input type="checkbox" id="thu6"></td>
+                                                                                                                <td><input type="checkbox" id="fri6"></td>
+                                                                                                                <td><input type="checkbox" id="sat6"></td>
+                                                                                                                <td><input type="checkbox" id="sun6"></td>
+                                                                                                            </tr>-->
+                                                    </tbody>
 
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxThurs" onchange="toggleDates()" name="selecteDay" value="5"/> Thursday
-
-                                                </div>
-
-                                                <div class="form-row mt-3" id="dateThurs" style="display: none;">
-                                                    <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startThurs" name="startThursday"  class="form-control"/>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endThurs" name="endThursday" class="form-control"/>
-                                                        <div class="invalid-feedback">
-                                                            Time cannot be empty and startdate must be less than endDate
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="checkBoxFriday" onchange="toggleDates()" name="selecteDay" value="6"/> Friday
-
-                                                </div>
-
-                                                <div class="form-row mt-3" id="dateFriday" style="display: none;">
-                                                    <div class="form-group col-md-6">
-                                                        <lable>Start Time</lable>
-                                                        <input type="time" id="startFriday" name="startFriday"  class="form-control"/>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>End Time</label>
-                                                        <input type="time" id="endFriday" name="endFriday" class="form-control"/>
-                                                        <div class="invalid-feedback">
-                                                            Time cannot be empty and startdate must be less than endDate
-                                                        </div>
-                                                    </div>
-
-                                                </div>
+                                                </table>
                                             </div>
 
 
@@ -245,9 +227,13 @@
 
 
                                         </div>
-                                        <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Create</button>
-                                        </div>
+                                        <div class="col-12 col-md-8 mt-4">   
+                                            <div class="row">
+                                                <div class="submit-section col-md-2">
+                                                    <button type="button" id="createButton" class="btn btn-primary">Create</button>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </form>
 
                                 </div>
@@ -384,129 +370,129 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                        document.getElementById('createScheduleForm').addEventListener('submit', function (event) {
+            document.getElementById('createScheduleForm').addEventListener('submit', function (event) {
 
-                                                            var isValid = true;
-                                                            var checkBoxMonday = document.getElementById('checkBoxMonday');
-                                                            var startMonday = document.getElementById('startMonday');
-                                                            var endMonday = document.getElementById('endMonday');
-                                                            var startMon = startMonday.value.trim();
-                                                            var endMon = endMonday.value.trim();
-                                                            if (checkBoxMonday.checked) {
-                                                                if (startMon === '' || endMon === '') {
-                                                                    startMonday.classList.add('is-invalid');
-                                                                    endMonday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else if (startMon >= endMon) {
-                                                                    startMonday.classList.add('is-invalid');
-                                                                    endMonday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else {
-                                                                    startMonday.classList.remove('is-invalid');
-                                                                    endMonday.classList.remove('is-invalid');
+                var isValid = true;
+                var checkBoxMonday = document.getElementById('checkBoxMonday');
+                var startMonday = document.getElementById('startMonday');
+                var endMonday = document.getElementById('endMonday');
+                var startMon = startMonday.value.trim();
+                var endMon = endMonday.value.trim();
+                if (checkBoxMonday.checked) {
+                    if (startMon === '' || endMon === '') {
+                        startMonday.classList.add('is-invalid');
+                        endMonday.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (startMon >= endMon) {
+                        startMonday.classList.add('is-invalid');
+                        endMonday.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        startMonday.classList.remove('is-invalid');
+                        endMonday.classList.remove('is-invalid');
 
-                                                                }
-                                                            }
+                    }
+                }
 
-                                                            var checkBoxWed = document.getElementById('checkBoxWed');
-                                                            var startWednesday = document.getElementById('startWed');
-                                                            var endWednesday = document.getElementById('endWed');
-                                                            var startWed = startWednesday.value.trim();
-                                                            var endWed = endWednesday.value.trim();
-                                                            if (checkBoxWed.checked) {
-                                                                if (startWed === '' || endWed === '') {
-                                                                    startWednesday.classList.add('is-invalid');
-                                                                    endWednesday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else if (startWed >= endWed) {
-                                                                    startWednesday.classList.add('is-invalid');
-                                                                    endWednesday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else {
-                                                                    startWednesday.classList.remove('is-invalid');
-                                                                    endWednesday.classList.remove('is-invalid');
+                var checkBoxWed = document.getElementById('checkBoxWed');
+                var startWednesday = document.getElementById('startWed');
+                var endWednesday = document.getElementById('endWed');
+                var startWed = startWednesday.value.trim();
+                var endWed = endWednesday.value.trim();
+                if (checkBoxWed.checked) {
+                    if (startWed === '' || endWed === '') {
+                        startWednesday.classList.add('is-invalid');
+                        endWednesday.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (startWed >= endWed) {
+                        startWednesday.classList.add('is-invalid');
+                        endWednesday.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        startWednesday.classList.remove('is-invalid');
+                        endWednesday.classList.remove('is-invalid');
 
-                                                                }
-                                                            }
-
-
-                                                            var checkBoxThurs = document.getElementById('checkBoxThurs');
-                                                            var startThursday = document.getElementById('startThurs');
-                                                            var endThursday = document.getElementById('endThurs');
-                                                            var startThurs = startThursday.value.trim();
-                                                            var endThurs = endThursday.value.trim();
-                                                            if (checkBoxThurs.checked) {
-                                                                if (startThurs === '' || endThurs === '') {
-                                                                    startThursday.classList.add('is-invalid');
-                                                                    endThursday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else if (startThurs >= endThurs) {
-                                                                    startThursday.classList.add('is-invalid');
-                                                                    endThursday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else {
-                                                                    startWednesday.classList.remove('is-invalid');
-                                                                    endWednesday.classList.remove('is-invalid');
-
-                                                                }
-                                                            }
-
-                                                            var checkBoxFriday = document.getElementById('checkBoxFriday');
-                                                            var startFriday = document.getElementById('startFriday');
-                                                            var endFriday = document.getElementById('endFriday');
-                                                            var startFri = startFriday.value.trim();
-                                                            var endFri = endFriday.value.trim();
-                                                            if (checkBoxFriday.checked) {
-                                                                if (startFri === '' || endFri === '') {
-                                                                    startFriday.classList.add('is-invalid');
-                                                                    endFriday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else if (startFri >= endFri) {
-                                                                    startFriday.classList.add('is-invalid');
-                                                                    endFriday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else {
-                                                                    startFriday.classList.remove('is-invalid');
-                                                                    endFriday.classList.remove('is-invalid');
-
-                                                                }
-                                                            }
+                    }
+                }
 
 
-                                                            var checkboxTuesday = document.getElementById('checkBoxTuesday');
-                                                            var startTuesday = document.getElementById('startTuesday');
-                                                            var endTuesday = document.getElementById('endTuesday');
-                                                            var startTue = startTuesday.value.trim();
-                                                            var endTue = endTuesday.value.trim();
+                var checkBoxThurs = document.getElementById('checkBoxThurs');
+                var startThursday = document.getElementById('startThurs');
+                var endThursday = document.getElementById('endThurs');
+                var startThurs = startThursday.value.trim();
+                var endThurs = endThursday.value.trim();
+                if (checkBoxThurs.checked) {
+                    if (startThurs === '' || endThurs === '') {
+                        startThursday.classList.add('is-invalid');
+                        endThursday.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (startThurs >= endThurs) {
+                        startThursday.classList.add('is-invalid');
+                        endThursday.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        startWednesday.classList.remove('is-invalid');
+                        endWednesday.classList.remove('is-invalid');
+
+                    }
+                }
+
+                var checkBoxFriday = document.getElementById('checkBoxFriday');
+                var startFriday = document.getElementById('startFriday');
+                var endFriday = document.getElementById('endFriday');
+                var startFri = startFriday.value.trim();
+                var endFri = endFriday.value.trim();
+                if (checkBoxFriday.checked) {
+                    if (startFri === '' || endFri === '') {
+                        startFriday.classList.add('is-invalid');
+                        endFriday.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (startFri >= endFri) {
+                        startFriday.classList.add('is-invalid');
+                        endFriday.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        startFriday.classList.remove('is-invalid');
+                        endFriday.classList.remove('is-invalid');
+
+                    }
+                }
 
 
-                                                            if (checkboxTuesday.checked) {
-                                                                if (startTue === '' || endTue === '') {
-                                                                    startTuesday.classList.add('is-invalid');
-                                                                    endTuesday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else if (startTue >= endTue) {
-                                                                    startTuesday.classList.add('is-invalid');
-                                                                    endTuesday.classList.add('is-invalid');
-                                                                    isValid = false;
-                                                                } else {
-                                                                    startTuesday.classList.remove('is-invalid');
-                                                                    endTuesday.classList.remove('is-invalid');
-
-                                                                }
+                var checkboxTuesday = document.getElementById('checkBoxTuesday');
+                var startTuesday = document.getElementById('startTuesday');
+                var endTuesday = document.getElementById('endTuesday');
+                var startTue = startTuesday.value.trim();
+                var endTue = endTuesday.value.trim();
 
 
-                                                            }
+                if (checkboxTuesday.checked) {
+                    if (startTue === '' || endTue === '') {
+                        startTuesday.classList.add('is-invalid');
+                        endTuesday.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (startTue >= endTue) {
+                        startTuesday.classList.add('is-invalid');
+                        endTuesday.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        startTuesday.classList.remove('is-invalid');
+                        endTuesday.classList.remove('is-invalid');
+
+                    }
 
 
+                }
 
 
 
-                                                            if (!isValid) {
-                                                                event.preventDefault();
-                                                            }
 
-                                                        });
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+
+            });
         </script>
     </body>
 
