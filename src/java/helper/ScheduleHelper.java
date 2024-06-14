@@ -29,4 +29,15 @@ public class ScheduleHelper {
         }
         return "";
     }
+    
+    public static String isCheckedValue(String[] checkedValues, int value){
+        if(checkedValues != null){
+           for(String val : checkedValues){
+               if(Integer.parseInt(val) == value){
+                   return "checked";
+               }
+           }
+        }
+        return "";
+    }
 }

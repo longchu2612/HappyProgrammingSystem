@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import model.Account;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import model.Role;
 import java.time.temporal.WeekFields;
 import model.Schedule;
@@ -262,10 +263,12 @@ public class ScheduleDAO extends DBContext {
 //        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
 //        int result = scheduleDAO.createNewSchedule(2, 41, LocalDateTime.now(), "2", dateTime);
 //        System.out.println(result);
-          LocalDate currentDate = LocalDate.now();
-          WeekFields weekFields = WeekFields.ISO;
-          int weekNumber = currentDate.get(weekFields.weekOfWeekBasedYear());
-          
+//          String start_time = "2024-06-12";
+//          String end_time = "2024-07-25";
+//          LocalDate startDate = LocalDate.parse(start_time);
+//          LocalDate endDate = LocalDate.parse(end_time);
+//          long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+//          System.out.println(daysBetween);
           
     }
 
