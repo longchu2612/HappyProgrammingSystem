@@ -186,10 +186,8 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Mentor Name</th>
-                                                    <th>Month</th>
-                                                    <th>Date</th>
-                                                    <th>Booking Time</th>
-
+                                                    <th>Create Time</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -202,84 +200,18 @@
 
                                                         <td>${a.getFullname()}</td>
                                                         <td>
-                                                            <c:choose>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 1}">
-                                                                    January
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 2}">
-                                                                    February
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 3}">
-                                                                    March
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 4}">
-                                                                    April
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 5}">
-                                                                    May
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 6}">
-                                                                    June
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 7}">
-                                                                    July
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 8}">
-                                                                    August
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 9}">
-                                                                    September
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 10}">
-                                                                    October
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 11}">
-                                                                    November
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 12}">
-                                                                    December
-                                                                </c:when>
-                                                            </c:choose>
+                                                            ${a.getSchedules().get(0).getCreateTime()}
 
                                                         </td>
                                                         <td>
-                                                            ${a.getSchedules()[0].getCreateTime()}
+                                                            Pending
                                                             
                                                         </td>
 
                                                         <td>
-                                                            <c:forEach items="${a.getSchedules()}" var="schedule">
-                                                                <c:choose>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 2}">
-                                                                        Monday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 3}">
-                                                                        Tuesday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 4}">
-                                                                        Wednesday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 5}">
-                                                                        Thursday
-                                                                    </c:when>
-                                                                    <c:when test="${schedule.getDayOfWeek() eq 6}">
-                                                                        Friday
-                                                                    </c:when>
-                                                                </c:choose>
-                                                                <span class="text-primary d-block">${schedule.getStartTime()} - ${schedule.getEndTime()}</span>
-                                                            </c:forEach>
-
-
-                                                        </td>
-
-
-                                                        <td>
+                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}'">Detail</button>
                                                             
-                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'manage_schedule?action=accept&id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Accept</button>
-                                                            <button type="button" class="btn btn-outline-danger"  onclick="window.location.href = 'manage_schedule?action=reject&id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}'">Reject</button>
                                                         </td>
-
-
                                                     </tr>
                                                 </c:forEach>
 

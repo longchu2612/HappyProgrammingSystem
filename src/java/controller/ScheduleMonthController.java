@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import model.Account;
 
 /**
@@ -96,7 +97,7 @@ public class ScheduleMonthController extends HttpServlet {
 //            request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
 //            return;
 //        }
-
+        String sessionId = UUID.randomUUID().toString();
         String[] checkedValuesSlotOne = request.getParameterValues("slot_1");
         String[] checkedValuesSlotTwo = request.getParameterValues("slot_2");
         String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
@@ -125,7 +126,7 @@ public class ScheduleMonthController extends HttpServlet {
                         ///ínert
                         LocalDateTime currentDateTime = LocalDateTime.now();
 
-                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "1", date);
+                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "1", date, sessionId);
                         if (result != 1) {
                             check = false;
                         }
@@ -136,7 +137,7 @@ public class ScheduleMonthController extends HttpServlet {
                 for (String slot_day : checkedValuesSlotTwo) {
                     if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                         LocalDateTime currentDateTime = LocalDateTime.now();
-                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "2", date);
+                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "2", date, sessionId);
                         if (result != 1) {
                             check = false;
                         }
@@ -149,7 +150,7 @@ public class ScheduleMonthController extends HttpServlet {
                     if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                         //insert
                         LocalDateTime currentDateTime = LocalDateTime.now();
-                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "3", date);
+                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "3", date, sessionId);
                         if (result != 1) {
                             check = false;
                         }
@@ -162,7 +163,7 @@ public class ScheduleMonthController extends HttpServlet {
                     if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                         //insert
                         LocalDateTime currentDateTime = LocalDateTime.now();
-                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "4", date);
+                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "4", date, sessionId);
                         if (result != 1) {
                             check = false;
                         }
@@ -175,7 +176,7 @@ public class ScheduleMonthController extends HttpServlet {
                     if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                         //insert
                         LocalDateTime currentDateTime = LocalDateTime.now();
-                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "5", date);
+                        int result = scheduleDAO.createNewSchedule(dayOfWeekValue, account.getAccount_id(), currentDateTime, "5", date, sessionId);
                         if (result != 1) {
                             check = false;
                         }

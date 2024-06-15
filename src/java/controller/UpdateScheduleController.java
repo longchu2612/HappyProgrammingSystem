@@ -58,17 +58,8 @@ public class UpdateScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String create_time = request.getParameter("createtime");
-        List<Schedule> schedules = new ArrayList<>();
-        if(id != null && create_time != null){
-            ScheduleDAO scheduleDAO = new ScheduleDAO();
-            schedules = scheduleDAO.getAllSchdeduleByMentorCreatTime(id, create_time);
-            
-            
-        }
-        request.setAttribute("schedules", schedules);
-        request.getRequestDispatcher("updatesSchedule.jsp").forward(request, response);
+           
+           
     } 
 
     /** 

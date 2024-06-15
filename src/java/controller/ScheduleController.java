@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.temporal.WeekFields;
 import java.util.Map;
+import java.util.UUID;
 import model.Account;
 
 /**
@@ -89,7 +90,7 @@ public class ScheduleController extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
-        
+         String sessionId = UUID.randomUUID().toString();
         String[] checkedValuesSlotOne = request.getParameterValues("slot_1");
         String[] checkedValuesSlotTwo = request.getParameterValues("slot_2");
         String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
@@ -118,7 +119,7 @@ public class ScheduleController extends HttpServlet {
                     LocalDate teachingDate = LocalDate.parse(formattedDate);
                     int dayOfWeek = localDate.getDayOfWeek().getValue();
                     
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "1",teachingDate);
+                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "1",teachingDate, sessionId);
                     if(result != 1){
                         check = false;
                     }
@@ -134,7 +135,7 @@ public class ScheduleController extends HttpServlet {
                     LocalDate teachingDate = LocalDate.parse(formattedDate);
                     int dayOfWeek = localDate.getDayOfWeek().getValue();
                     
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "2",teachingDate);
+                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "2",teachingDate, sessionId);
                     if(result != 1){
                         check = false;
                     }
@@ -150,7 +151,7 @@ public class ScheduleController extends HttpServlet {
                     LocalDate teachingDate = LocalDate.parse(formattedDate);
                     int dayOfWeek = localDate.getDayOfWeek().getValue();
                     
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "3",teachingDate);
+                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "3",teachingDate, sessionId);
                     if(result != 1){
                         check = false;
                     }
@@ -166,7 +167,7 @@ public class ScheduleController extends HttpServlet {
                     LocalDate teachingDate = LocalDate.parse(formattedDate);
                     int dayOfWeek = localDate.getDayOfWeek().getValue();
                     
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "4",teachingDate);
+                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "4",teachingDate, sessionId);
                     if(result != 1){
                         check = false;
                     }
@@ -182,7 +183,7 @@ public class ScheduleController extends HttpServlet {
                     LocalDate teachingDate = LocalDate.parse(formattedDate);
                     int dayOfWeek = localDate.getDayOfWeek().getValue();
                 
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "5",teachingDate);
+                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "5",teachingDate, sessionId);
                     if(result != 1){
                         check = false;
                     }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -16,35 +17,83 @@ import java.time.LocalDateTime;
  */
 public class Schedule {
     private int id;
-    private int month;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private String sessionId;
     private int dayOfWeek;
     private Account account;
+    private Date teach_date;
+    private List<String> slots;
     private String status;
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 
-    public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account, String status, LocalDate createTime) {
+    public Schedule(int id, String sessionId, int dayOfWeek, Account account, Date teach_date, List<String> slots, String status, LocalDateTime createTime) {
         this.id = id;
-        this.month = month;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.sessionId = sessionId;
         this.dayOfWeek = dayOfWeek;
         this.account = account;
+        this.teach_date = teach_date;
+        this.slots = slots;
         this.status = status;
         this.createTime = createTime;
     }
 
-    public LocalDate getCreateTime() {
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Date getTeach_date() {
+        return teach_date;
+    }
+
+    public void setTeach_date(Date teach_date) {
+        this.teach_date = teach_date;
+    }
+
+    public List<String> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<String> slots) {
+        this.slots = slots;
+    }
+
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDate createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
     
-    
-
     public Schedule() {
     }
 
@@ -56,90 +105,10 @@ public class Schedule {
         this.status = status;
     }
 
-    
-    
-    
-    
-
-    public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account, String status) {
-        this.id = id;
-        this.month = month;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.dayOfWeek = dayOfWeek;
-        this.account = account;
-        this.status = status;
-    }
-    
-    
-    
-
-    public Schedule(int id, int month, LocalTime startTime, LocalTime endTime, int dayOfWeek, Account account) {
-        this.id = id;
-        this.month = month;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.dayOfWeek = dayOfWeek;
-        this.account = account;
-    }
-
-   
-
-    
-    
-
-    public int getId() {
-        return id;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public int getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public void setDayOfWeek(int dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     @Override
     public String toString() {
-        return "Schedule{" + "id=" + id + ", month=" + month + ", startTime=" + startTime + ", endTime=" + endTime + ", dayOfWeek=" + dayOfWeek + ", account=" + account + '}';
+        return "Schedule{" + "id=" + id + ", sessionId=" + sessionId + ", dayOfWeek=" + dayOfWeek + ", account=" + account + ", teach_date=" + teach_date + ", slots=" + slots + ", status=" + status + ", createTime=" + createTime + '}';
     }
-    
+
     
 }

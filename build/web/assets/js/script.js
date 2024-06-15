@@ -723,7 +723,7 @@ function updateWeekDays() {
         var dayIndex = checkbox.getAttribute("data-day-index");
         var day = daysInWeek[dayIndex];
         checkbox.value = slot+'_'+day;
-        checkbox.checked = false;
+        
     });
     
     
