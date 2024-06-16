@@ -126,7 +126,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateScheduleController</servlet-name>
-        <url-pattern>/update_schedule</url-pattern>
+        <url-pattern>/update_mentor_schedule</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ScheduleMonthController</servlet-name>

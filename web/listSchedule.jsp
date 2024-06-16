@@ -93,7 +93,7 @@
                             </div>
                         </div>
 
-                    
+
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <h3 class="pb-3">List Register Schedule </h3>
 
@@ -124,19 +124,46 @@
                                                                 </h2>
                                                             </td>
                                                             <td>
-                                                                 ${requestScope.startDate}
+                                                                ${requestScope.startDatesMap[a]}
                                                             </td>
                                                             <td>
-                                                                ${requestScope.endDate}
+                                                                ${requestScope.endDatesMap[a]}
                                                             </td>
                                                             <td>
                                                                 ${a.getSchedules().get(0).getCreateTime()}
                                                             </td>
                                                             <td>
-                                                                ${a.getSchedules().get(0).getStatus()}
+                                                                
+                                                                <c:choose>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '1'}">
+                                                                        <p class="text-primary">Pending</p>
+                                                                    </c:when>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '2'}">
+                                                                        <p class="text-success">Accept</p>
+                                                                    </c:when>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '3'}">
+                                                                        <p class="text-danger">Reject</p>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        Unknown Status
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                             <td>
-                                                                Action
+                                                                <c:choose>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '1'}">
+                                                                       <button type="button" class="btn btn-outline-primary" onclick="window.location.href = 'update_mentor_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}&startDate=${requestScope.startDatesMap[a]}&endDate=${requestScope.endDatesMap[a]}'">Update</button>
+                                                                    </c:when>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '2'}">
+                                                                        No Action
+                                                                    </c:when>
+                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '3'}">
+                                                                        <button type="button" class="btn btn-outline-primary" onclick="window.location.href = 'update_mentor_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}&startDate=${requestScope.startDatesMap[a]}&endDate=${requestScope.endDatesMap[a]}'">Update</button>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        Unknown Status
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

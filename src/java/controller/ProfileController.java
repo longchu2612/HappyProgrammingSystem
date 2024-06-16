@@ -75,9 +75,6 @@ public class ProfileController extends HttpServlet {
 
         HttpSession sess = request.getSession();
 
-        sess.setAttribute("acc", "longchhe1533444");
-
-
         if (sess.getAttribute("acc") != null) {
 
             String acc = String.valueOf(sess.getAttribute("acc"));
@@ -89,7 +86,7 @@ public class ProfileController extends HttpServlet {
                 Account ac = a.getUsersById(String.valueOf(accountID));
                 CVDAO c = new CVDAO();
                 String checkGender = "checked=\"\"";
-                
+
                 if (ac.getSex()) {
 
                     request.setAttribute("male", checkGender);
@@ -124,7 +121,7 @@ public class ProfileController extends HttpServlet {
 
                                 CV_skill cs = data2.get(j);
 
-                                if (sk.getId() == Integer.parseInt(cs.getSkill_id())) {
+                                if (sk.getId().equals(cs.getSkill_id())) {
 
                                     data.add(new Skill_displayed("checked=\"\"", sk.getId(), sk.getName()));
                                     break;
@@ -251,6 +248,9 @@ public class ProfileController extends HttpServlet {
 
             c.updateCVByAccountId(String.valueOf(accountID), avatar, job, introduction, achievements);
             a.updateAccountById(String.valueOf(accountID), account_name, email, name, phone, dob, sex, address, avatar);
+            if (account_name.equals("") == false) {
+                sess.setAttribute("acc", account_name);
+            }
             response.sendRedirect("/HappyProgrammingSystem/profile");
         }
 

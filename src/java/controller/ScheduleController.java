@@ -68,9 +68,11 @@ public class ScheduleController extends HttpServlet {
             throws ServletException, IOException {
         LocalDate currentDate = LocalDate.now();
         WeekFields weekFields = WeekFields.ISO;
-        int selectWeek = currentDate.get(weekFields.weekOfWeekBasedYear()); 
+        int selectWeek = currentDate.get(weekFields.weekOfWeekBasedYear());
+        String startDate = getStartDate(String.valueOf(selectWeek));
+        request.setAttribute("startDate", startDate);
         request.setAttribute("selectWeek", selectWeek);
-        request.getRequestDispatcher("createScheduleTwo.jsp").forward(request, response);
+        request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
     /**
@@ -84,144 +86,124 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Account account = (Account) session.getAttribute("account");
-        if (session == null || session.getAttribute("account") == null || account.getRole().getRole_id() == 1)  {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-         String sessionId = UUID.randomUUID().toString();
-        String[] checkedValuesSlotOne = request.getParameterValues("slot_1");
-        String[] checkedValuesSlotTwo = request.getParameterValues("slot_2");
-        String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
-        String[] checkedValuesSlotFour  = request.getParameterValues("slot_4");
-        String[] checkedValuesSlotFive = request.getParameterValues("slot_5");
-        int selectWeek = Integer.parseInt(request.getParameter("selectedWeek"));
-        
-        String message = "";
-        Boolean check = true;
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        
-        if(checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null && checkedValuesSlotFour ==null
-        && checkedValuesSlotFive == null){
-            check = false;
-           
-            
-        }else{
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            if(checkedValuesSlotOne != null){
-                for(String value : checkedValuesSlotOne){
-                    String[] parts = value.split("_");
-                    String date = parts[1];
-                    int currentYear = LocalDate.now().getYear(); 
-                    LocalDate localDate = LocalDate.parse(date + "/" + currentYear, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate teachingDate = LocalDate.parse(formattedDate);
-                    int dayOfWeek = localDate.getDayOfWeek().getValue();
-                    
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "1",teachingDate, sessionId);
-                    if(result != 1){
-                        check = false;
-                    }
-                }
-            }
-            if(checkedValuesSlotTwo != null){
-                for(String value : checkedValuesSlotTwo){
-                    String[] parts = value.split("_");
-                    String date = parts[1];
-                    int currentYear = LocalDate.now().getYear(); 
-                    LocalDate localDate = LocalDate.parse(date + "/" + currentYear, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate teachingDate = LocalDate.parse(formattedDate);
-                    int dayOfWeek = localDate.getDayOfWeek().getValue();
-                    
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "2",teachingDate, sessionId);
-                    if(result != 1){
-                        check = false;
-                    }
-                }
-            }
-            if(checkedValuesSlotThree != null){
-                for(String value : checkedValuesSlotThree){
-                    String[] parts = value.split("_");
-                    String date = parts[1];
-                    int currentYear = LocalDate.now().getYear(); 
-                    LocalDate localDate = LocalDate.parse(date + "/" + currentYear, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate teachingDate = LocalDate.parse(formattedDate);
-                    int dayOfWeek = localDate.getDayOfWeek().getValue();
-                    
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "3",teachingDate, sessionId);
-                    if(result != 1){
-                        check = false;
-                    }
-                }
-            }
-            if(checkedValuesSlotFour != null){
-                for(String value : checkedValuesSlotFour){
-                    String[] parts = value.split("_");
-                    String date = parts[1];
-                    int currentYear = LocalDate.now().getYear(); 
-                    LocalDate localDate = LocalDate.parse(date + "/" + currentYear, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate teachingDate = LocalDate.parse(formattedDate);
-                    int dayOfWeek = localDate.getDayOfWeek().getValue();
-                    
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "4",teachingDate, sessionId);
-                    if(result != 1){
-                        check = false;
-                    }
-                }
-            }
-            if(checkedValuesSlotFive != null){
-                for(String value : checkedValuesSlotFive){
-                    String[] parts = value.split("_");
-                    String date = parts[1];
-                    int currentYear = LocalDate.now().getYear(); 
-                    LocalDate localDate = LocalDate.parse(date + "/" + currentYear, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate teachingDate = LocalDate.parse(formattedDate);
-                    int dayOfWeek = localDate.getDayOfWeek().getValue();
-                
-                    int result = scheduleDAO.createNewSchedule(dayOfWeek, account.getAccount_id(), currentDateTime, "5",teachingDate, sessionId);
-                    if(result != 1){
-                        check = false;
-                    }
-                }
-            }
-                    
-            
-            
-            
-            
-        }
-        if(check == false){
-            message = "<span style=\"color: red;\">Add failed class schedule!</span>";
-        }else {
-            message = "<span style=\"color: green;\">Add class schedule successfully!</span>";
-            
-        }
+        String selectWeek = request.getParameter("selectedWeek");
+        String startDate = getStartDate(selectWeek);
+        request.setAttribute("startDate", startDate);
         request.setAttribute("selectWeek", selectWeek);
-        request.setAttribute("checkedValuesOne", checkedValuesSlotOne);
-        request.setAttribute("checkedValuesTwo", checkedValuesSlotTwo);
-        request.setAttribute("checkedValuesThree", checkedValuesSlotThree);
-        request.setAttribute("checkedValuesFour", checkedValuesSlotFour);
-        request.setAttribute("checkedValuesFive", checkedValuesSlotFive);
-        
-        request.setAttribute("message", message);
-        request.getRequestDispatcher("createScheduleTwo.jsp").forward(request, response);
+        request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-            () {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
-        }// </editor-fold>
+    }// </editor-fold>
 
+    private String getStartDate(String selectWeek) {
+        String startDate = "";
+        switch (selectWeek) {
+            case "1":
+                startDate = "01/01"; // Ngày bắt đầu của tuần 1
+                break;
+            case "2":
+                startDate = "08/01"; // Ngày bắt đầu của tuần 2
+                break;
+            case "3":
+                startDate = "15/01"; // Ngày bắt đầu của tuần 3
+                break;
+            case "4":
+                startDate = "22/01"; // Ngày bắt đầu của tuần 4
+                break;
+            case "5":
+                startDate = "29/01"; // Ngày bắt đầu của tuần 4
+                break;
+            case "6":
+                startDate = "05/02"; // Ngày bắt đầu của tuần 4
+                break;
+            case "7":
+                startDate = "12/02"; // Ngày bắt đầu của tuần 4
+                break;
+            case "8":
+                startDate = "19/02"; // Ngày bắt đầu của tuần 4
+                break;
+            case "9":
+                startDate = "26/02"; // Ngày bắt đầu của tuần 4
+                break;
+            case "10":
+                startDate = "04/03"; // Ngày bắt đầu của tuần 4
+                break;
+            case "11":
+                startDate = "11/03"; // Ngày bắt đầu của tuần 4
+                break;
+            case "12":
+                startDate = "18/03"; // Ngày bắt đầu của tuần 4
+                break;
+            case "13":
+                startDate = "25/03"; // Ngày bắt đầu của tuần 4
+                break;
+            case "14":
+                startDate = "01/04"; // Ngày bắt đầu của tuần 4
+                break;
+            case "15":
+                startDate = "08/04"; // Ngày bắt đầu của tuần 4
+                break;
+            case "16":
+                startDate = "15/04"; // Ngày bắt đầu của tuần 4
+                break;
+            case "17":
+                startDate = "22/04"; // Ngày bắt đầu của tuần 4
+                break;
+            case "18":
+                startDate = "29/04"; // Ngày bắt đầu của tuần 4
+                break;
+            case "19":
+                startDate = "06/05"; // Ngày bắt đầu của tuần 4
+                break;
+            case "20":
+                startDate = "13/05"; // Ngày bắt đầu của tuần 4
+                break;
+            case "21":
+                startDate = "20/05"; // Ngày bắt đầu của tuần 4
+                break;
+            case "22":
+                startDate = "27/05"; // Ngày bắt đầu của tuần 4
+                break;
+            case "23":
+                startDate = "03/06"; // Ngày bắt đầu của tuần 4
+                break;
+            case "24":
+                startDate = "10/06"; // Ngày bắt đầu của tuần 4
+                break;
+            case "25":
+                startDate = "17/06"; // Ngày bắt đầu của tuần 4
+                break;
+            case "26":
+                startDate = "24/06"; // Ngày bắt đầu của tuần 4
+                break;
+            case "27":
+                startDate = "01/07"; // Ngày bắt đầu của tuần 4
+                break;
+            case "28":
+                startDate = "08/07"; // Ngày bắt đầu của tuần 4
+                break;
+            case "29":
+                startDate = "15/07"; // Ngày bắt đầu của tuần 4
+                break;
+            case "30":
+                startDate = "22/07"; // Ngày bắt đầu của tuần 4
+                break;
+            case "31":
+                startDate = "29/07"; // Ngày bắt đầu của tuần 4
+                break;
+                
+            default:
+                startDate = "";
+        }
+        return startDate;
     }
+
+}

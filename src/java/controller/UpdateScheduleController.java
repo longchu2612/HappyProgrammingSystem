@@ -58,8 +58,15 @@ public class UpdateScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+           String id = request.getParameter("id");
+           String sessionId = request.getParameter("sessionId");
+           String startDate = request.getParameter("startDate");
+           String endDate = request.getParameter("endDate");
            
            
+           request.setAttribute("startDate", startDate);
+           request.setAttribute("endDate", endDate);
+           request.getRequestDispatcher("updatesSchedule.jsp").forward(request, response);
     } 
 
     /** 

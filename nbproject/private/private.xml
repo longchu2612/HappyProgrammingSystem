@@ -4,22 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleController.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/assets/js/script.js</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/update-schedule.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/helper/ScheduleHelper.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/SkillDAO.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createScheduleDemo.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/create-request.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createSchedule.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createScheduleTwo.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/list-schedule.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/listSchedule.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/AccountManage.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleMonthController.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/create-request.jsp</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/UpdateScheduleManage.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/admin/ScheduleManage.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/ScheduleDAO.java</file>
-            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/update-request.jsp</file>
         </group>
     </open-files>
 </project-private>
