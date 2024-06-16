@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import model.Role;
 import java.time.temporal.WeekFields;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import model.Schedule;
@@ -51,15 +52,16 @@ public class ScheduleDAO extends DBContext {
         return result;
     }
 
-    public List<Account> getAllAccountWithSchedule() {
+    public List<Account> getAllAccountWithSchedule(String status) {
 
         List<Account> accounts = new ArrayList<>();
         String sql = "select account.id , account.fullname, MAX(schedule.create_time) AS last_create_time , schedule.status , schedule.sessionId\n"
-                + "  from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where schedule.status = 1 \n"
+                + "  from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where schedule.status = ? \n"
                 + "  group by account.id , account.fullname , schedule.status, schedule.sessionId order by last_create_time asc";
 
         try {
             ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Account account = new Account();
@@ -88,31 +90,79 @@ public class ScheduleDAO extends DBContext {
         List<String> slots = new ArrayList<>();
         String sql = " select Distinct schedule.slot from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ? \n"
                 + "  and schedule.sessionId = ? and schedule.day_of_week = ?";
-        try{
+        try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, account_id);
             ps.setString(2, sessionId);
             ps.setInt(3, dayOfWeek);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String slot = new String();
                 slot = rs.getString("slot");
                 slots.add(slot);
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
         return slots;
     }
 
-    public int updateScheduleAcceptByMentorId(int mentor_id, LocalDateTime create_time) {
-        String sql = "Update dbo.Schedules set status = 2 where mentor_id = ? and create_time = ?";
+    public Date getTeachDateStart(int account_id, String sessionId) {
+        String sql = "SELECT MIN(schedule.teach_date) AS start_date\n"
+                + "FROM dbo.Schedules AS schedule\n"
+                + "INNER JOIN dbo.Account AS account ON schedule.mentor_id = account.id\n"
+                + "WHERE account.id = ? \n"
+                + "  AND schedule.sessionId = ? ;";
+        Date startDate = new Date();
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, account_id);
+            ps.setString(2, sessionId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                startDate = rs.getDate("start_date");
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return startDate;
+    }
+
+    public Date getTeachDateEnd(int account_id, String sessionId) {
+        String sql = "SELECT MAX(schedule.teach_date) AS end_date\n"
+                + "FROM dbo.Schedules AS schedule\n"
+                + "INNER JOIN dbo.Account AS account ON schedule.mentor_id = account.id\n"
+                + "WHERE account.id = ? \n"
+                + "  AND schedule.sessionId = ? ;";
+        Date endDate = new Date();
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, account_id);
+            ps.setString(2, sessionId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                endDate = rs.getDate("end_date");
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return endDate;
+    }
+
+    public int updateScheduleAcceptByMentorId(int mentor_id, String sessionId) {
+        String sql = "Update dbo.Schedules set status = 2 where mentor_id = ? and sessionId = ?";
         int result = 0;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
-            ps.setString(2, create_time.toString());
+            ps.setString(2, sessionId);
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -121,19 +171,49 @@ public class ScheduleDAO extends DBContext {
         return result;
     }
 
-    public int updateScheduleRejectByMentorId(int mentor_id, LocalDateTime create_time) {
-        String sql = "Update dbo.Schedules set status = 3 where mentor_id = ? and create_time = ?";
+    public int updateScheduleRejectByMentorId(int mentor_id, String sessionId) {
+        String sql = "Update dbo.Schedules set status = 3 where mentor_id = ? and sessionId = ?";
         int result = 0;
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
-            ps.setString(2, create_time.toString());
+            ps.setString(2, sessionId);
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
         return result;
+    }
+
+    public List<Account> getScheduleOfMentor(int mentor_id) {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "select account.id , account.fullname, MAX(schedule.create_time) AS last_create_time , schedule.status , schedule.sessionId\n"
+                + " from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ? \n"
+                + " group by account.id , account.fullname , schedule.status, schedule.sessionId order by last_create_time asc";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, mentor_id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("id"));
+                account.setFullname(rs.getString("fullname"));
+                ArrayList<Schedule> schedules = new ArrayList<>();
+                Schedule schedule = new Schedule();
+                schedule.setCreateTime(rs.getTimestamp("last_create_time").toLocalDateTime());
+                schedule.setStatus(rs.getString("status"));
+                schedule.setSessionId(rs.getString("sessionId"));
+                schedules.add(schedule);
+                account.setSchedules(schedules);
+                accounts.add(account);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return accounts;
     }
 
 //    public List<Account> getAllScheduleOfMentor(int mentor_id) {
@@ -222,8 +302,9 @@ public class ScheduleDAO extends DBContext {
 //        return new ArrayList<>(accountMap.values());
 //    }
     public static void main(String[] args) {
-        
-
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        int result = scheduleDAO.updateScheduleRejectByMentorId(43, "11698148-30e7-4806-b370-c111b8986bc2");
+        System.out.println(result);
     }
 
 }

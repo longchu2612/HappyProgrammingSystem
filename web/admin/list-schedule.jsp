@@ -174,6 +174,18 @@
                         </div>
                     </div>
 
+                    <form id="statusForm" action="manage_schedule" method="Post"> 
+                        <div class="row">
+                            <div class="col-md-3 mb-3 d-flex align-items-center">
+                                <label for="statusFilter">Status:</label>
+                                <select class="form-select ms-3" name="selectStatus" id="statusFilter" aria-label="Default select example">
+                                    <option value="1" ${requestScope.status == '1' ? 'selected' : ''}>Pending</option>
+                                    <option value="2" ${requestScope.status == '2' ? 'selected' : ''}>Accept</option>
+                                    <option value="3" ${requestScope.status == '3' ? 'selected' : ''}>Reject</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                     <div class="row">
                         <div class="col-md-12">
 
@@ -204,13 +216,37 @@
 
                                                         </td>
                                                         <td>
-                                                            Pending
-                                                            
-                                                        </td>
+                                                            <c:choose>
+                                                                <c:when test="${requestScope.status == '1'}">
+                                                                     <p class="text-primary">Pending</p>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == '2'}">
+                                                                     <p class="text-success">Accept</p>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == '3'}">
+                                                                     <p class="text-danger">Reject</p>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    Unknown Status
+                                                                </c:otherwise>
+                                                            </c:choose>
 
+                                                        </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}'">Detail</button>
-                                                            
+                                                             <c:choose>
+                                                                <c:when test="${requestScope.status == '1'}">
+                                                                      <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}'">Detail</button>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == '2'}">
+                                                                     <p>No Action</p>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == '3'}">
+                                                                     <p>No Action</p>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    Unknown Status
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -232,26 +268,26 @@
 
         </div>
 
-<!--        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <!--        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                 Modal body content 
+                                This is the modal body content.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                         Modal body content 
-                        This is the modal body content.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+                </div>-->
 
 
         <script src="assets/js/jquery-3.6.0.min.js"></script>
@@ -269,7 +305,13 @@
         <script src="assets/js/chart.morris.js"></script>
 
         <script src="assets/js/script.js"></script>
-        
+        <script>
+                                                                document.getElementById('statusFilter').addEventListener('change', function () {
+                                                                    document.getElementById('statusForm').submit();
+                                                                });
+
+        </script>
+
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:02 GMT -->

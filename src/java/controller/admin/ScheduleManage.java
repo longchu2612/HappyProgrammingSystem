@@ -62,8 +62,8 @@ public class ScheduleManage extends HttpServlet {
             throws ServletException, IOException {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         List<Account> accounts = new ArrayList<>();
-        accounts = scheduleDAO.getAllAccountWithSchedule();
-        
+        accounts = scheduleDAO.getAllAccountWithSchedule("1");
+        request.setAttribute("status","1");
         request.setAttribute("accounts", accounts);
         request.getRequestDispatcher("list-schedule.jsp").forward(request, response);
 
@@ -80,7 +80,15 @@ public class ScheduleManage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String selectStatus = request.getParameter("selectStatus");
+        List<Account> accounts = new ArrayList<>();
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        if(selectStatus != null){
+           accounts = scheduleDAO.getAllAccountWithSchedule(selectStatus);
+        }
+        request.setAttribute("status", selectStatus);
+        request.setAttribute("accounts", accounts);
+        request.getRequestDispatcher("list-schedule.jsp").forward(request, response);
     }
 
     /**

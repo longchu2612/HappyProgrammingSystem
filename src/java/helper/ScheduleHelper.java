@@ -6,6 +6,7 @@ package helper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  *
@@ -37,6 +38,16 @@ public class ScheduleHelper {
                    return "checked";
                }
            }
+        }
+        return "";
+    }
+    public static String isCheckedSlot(List<String> checkedSlots, int value){
+        if(checkedSlots != null){
+            for(String slot : checkedSlots){
+                if(Integer.parseInt(slot) == value){
+                    return "checked";
+                }
+            }
         }
         return "";
     }

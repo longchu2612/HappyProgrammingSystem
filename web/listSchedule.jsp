@@ -7,6 +7,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date, dao.ScheduleDAO" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,7 +93,7 @@
                             </div>
                         </div>
 
-
+                    
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <h3 class="pb-3">List Register Schedule </h3>
 
@@ -105,15 +106,15 @@
                                                     <tr>
 
                                                         <th>FullName</th>
-                                                        <th>Date</th>
-                                                        <th>Month</th>
+                                                        <th>Start Date</th>
+                                                        <th>End Date</th>
                                                         <th>Booking Time</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${accounts}" var="a">
+                                                    <c:forEach items="${requestScope.accounts}" var="a">
                                                         <tr>
 
                                                             <td>
@@ -123,96 +124,19 @@
                                                                 </h2>
                                                             </td>
                                                             <td>
-                                                                ${a.getSchedules()[0].getCreateTime()}
-
+                                                                 ${requestScope.startDate}
                                                             </td>
                                                             <td>
-                                                                <c:choose>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 1}">
-                                                                    January
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 2}">
-                                                                    February
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 3}">
-                                                                    March
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 4}">
-                                                                    April
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 5}">
-                                                                    May
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 6}">
-                                                                    June
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 7}">
-                                                                    July
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 8}">
-                                                                    August
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 9}">
-                                                                    September
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 10}">
-                                                                    October
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 11}">
-                                                                    November
-                                                                </c:when>
-                                                                <c:when test="${a.getSchedules()[0].getMonth() eq 12}">
-                                                                    December
-                                                                </c:when>
-                                                            </c:choose>
+                                                                ${requestScope.endDate}
                                                             </td>
                                                             <td>
-                                                                <c:forEach items="${a.getSchedules()}" var="schedule">
-                                                                    <c:choose>
-                                                                        <c:when test="${schedule.getDayOfWeek() eq 2}">
-                                                                            Monday
-                                                                        </c:when>
-                                                                        <c:when test="${schedule.getDayOfWeek() eq 3}">
-                                                                            Tuesday
-                                                                        </c:when>
-                                                                        <c:when test="${schedule.getDayOfWeek() eq 4}">
-                                                                            Wednesday
-                                                                        </c:when>
-                                                                        <c:when test="${schedule.getDayOfWeek() eq 5}">
-                                                                            Thursday
-                                                                        </c:when>
-                                                                        <c:when test="${schedule.getDayOfWeek() eq 6}">
-                                                                            Friday
-                                                                        </c:when>
-                                                                    </c:choose>
-                                                                    <span class="text-primary d-block">${schedule.getStartTime()} - ${schedule.getEndTime()}</span>
-                                                                </c:forEach>
+                                                                ${a.getSchedules().get(0).getCreateTime()}
                                                             </td>
                                                             <td>
-                                                                <c:choose>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1}">
-                                                                        <span style="color: #3498db; font-size: 1rem">Processing</span>
-                                                                    </c:when>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 2}">
-                                                                        <span style="color: #2ecc71; font-size: 1rem">Accept</span>
-                                                                    </c:when>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 3}">
-                                                                        <span style="color: #e74c3c; font-size: 1rem">Reject</span>
-                                                                    </c:when>
-                                                                </c:choose>
+                                                                ${a.getSchedules().get(0).getStatus()}
                                                             </td>
                                                             <td>
-                                                                <c:choose>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 1 }">
-                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}&status=1'">Update</button>
-                                                                    </c:when>
-                                                                    <c:when test="${a.getSchedules()[0].getStatus() eq 3 }">
-                                                                        <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&createtime=${a.getSchedules()[0].getCreateTime()}&status=3'">Update</button>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <span class="text-danger">Update not allowed</span>
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                                Action
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

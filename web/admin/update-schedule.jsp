@@ -6,6 +6,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ page import="helper.ScheduleHelper" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -177,8 +181,8 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                    <form id="createScheduleMonth" action="schedule_month" method="Post"> 
-                                        <input type="hidden" name="action" value="create"/>
+                                    <form id="updateStatusSchedule" action="update_schedule" method="Post"> 
+
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
                                                 <h4 style="color: red; align-content: center;">
@@ -189,15 +193,19 @@
                                                 <div class="row">
                                                     <div class="col-md-3 mb-3">
                                                         <label>Start Date</label>
-                                                        <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate"/>
+                                                        <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate" readonly />
                                                         <div class="invalid-feedback">
                                                             Please choose a end date,start date and start date before end date.
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 mb-3">
                                                         <label>End Date</label>
-                                                        <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate"/>
+                                                        <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate" readonly />
 
+                                                    </div>
+                                                    <div>
+                                                        <input type="hidden"  name="account_id" id="account_id" value="${requestScope.accountId}" />
+                                                        <input type="hidden" name="sessionId" id="sessionId" value="${requestScope.sessionId}" />
                                                     </div>
 
                                                 </div>
@@ -222,76 +230,97 @@
 
                                                     </thead>
                                                     <tbody>
+                                                        <%
+                                                           List<String> checkedSlotMonday = (List<String>) request.getAttribute("slotOfMonday");
+                                                           List<String> checkedSlotTuesday = (List<String>) request.getAttribute("slotOfTuesday");
+                                                           List<String> checkedSlotWednesday = (List<String>) request.getAttribute("slotOfWednesday");
+                                                           List<String> checkedSlotThursday = (List<String>) request.getAttribute("slotOfThursday");
+                                                           List<String> checkedSlotFriday = (List<String>) request.getAttribute("slotOfFriday");
+                                                           List<String> checkedSlotSaturday = (List<String>) request.getAttribute("slotOfSaturday");
+                                                           List<String> checkedSlotSunday= (List<String>) request.getAttribute("slotOfSunday");
+                                                        %>
 
                                                         <tr>
                                                             <td>Slot 1 (7h30 --> 9h30)</td>
-                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" checked disabled ></td>
-                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" disabled ></td>
-                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" disabled ></td>
-                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" disabled ></td>
-                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" disabled ></td>
-                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" data-day-index="5" disabled ></td>
-                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" data-day-index="6" disabled ></td>
+                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(checkedSlotMonday, 1) %> disabled  ></td>
+                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(checkedSlotTuesday, 1) %> disabled ></td>
+                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(checkedSlotWednesday, 1)%> disabled ></td>
+                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(checkedSlotThursday, 1)%> disabled ></td>
+                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(checkedSlotFriday, 1)%> disabled ></td>
+                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(checkedSlotSaturday, 1)%> disabled ></td>
+                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(checkedSlotSunday, 1)%> disabled ></td>
                                                         </tr>
 
 
                                                         <tr>
                                                             <td>Slot 2 (9h45 --> 11h45)</td>
-                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" ></td>
+                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(checkedSlotMonday, 2) %> disabled ></td>
+                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(checkedSlotTuesday, 2) %> disabled></td>
+                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(checkedSlotWednesday, 2) %> disabled></td>
+                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(checkedSlotThursday, 2)%> disabled></td>
+                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(checkedSlotFriday, 2)%> disabled></td>
+                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(checkedSlotSaturday, 2)%> disabled></td>
+                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(checkedSlotSunday, 2)%> disabled></td>
                                                         </tr>
 
 
                                                         <tr>
                                                             <td>Slot 3 (13h30 --> 15h30)</td>
-                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" ></td>
+                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(checkedSlotMonday, 3) %> disabled ></td>
+                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(checkedSlotTuesday, 3) %> disabled></td>
+                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(checkedSlotWednesday, 3) %> disabled></td>
+                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(checkedSlotThursday, 3)%> disabled></td>
+                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(checkedSlotFriday, 3)%> disabled></td>
+                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(checkedSlotSaturday, 3)%> disabled></td>
+                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(checkedSlotSunday, 3)%> disabled></td>
                                                         </tr>
 
 
                                                         <tr>
                                                             <td>Slot 4 (16h --> 18h)</td>
-                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" ></td>
+                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(checkedSlotMonday, 4) %> disabled ></td>
+                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(checkedSlotTuesday, 4) %> disabled></td>
+                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(checkedSlotWednesday, 4) %> disabled></td>
+                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(checkedSlotThursday, 4)%> disabled></td>
+                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(checkedSlotFriday, 4)%> disabled></td>
+                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(checkedSlotSaturday, 4)%> disabled></td>
+                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(checkedSlotSunday, 4)%> disabled></td>
                                                         </tr>
 
 
                                                         <tr>
                                                             <td>Slot 5 (19h --> 21h)</td>
-                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" ></td>
+                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(checkedSlotMonday, 5) %> disabled ></td>
+                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(checkedSlotTuesday, 5) %> disabled></td>
+                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(checkedSlotWednesday, 5) %> disabled></td>
+                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(checkedSlotThursday, 5)%> disabled></td>
+                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(checkedSlotFriday, 5)%> disabled></td>
+                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(checkedSlotSaturday, 5)%> disabled></td>
+                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(checkedSlotSunday, 5)%> disabled></td>
                                                         </tr>
-                                                        
+
                                                     </tbody>
 
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-8 mt-4">   
-                                            <div class="row">
-                                                <div class="submit-section col-md-2">
-                                                    <button type="submit" id="createButton" class="btn btn-primary">Create</button>
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <div class="form-group">
+                                                <label for="note">Note</label>
+                                                <textarea class="form-control" id="note" name="note" rows="3" placeholder="Enter your note here...">${requestScope.note}</textarea>
+                                                <div class="invalid-feedback">
+                                                    Please enter a note for this schedule.
                                                 </div>
+                                            </div>
+                                        </div>                
+                                        <div class="col-12 col-md-6 mt-4">   
+                                            <div class="row">
+                                                <div class="submit-section col-md-4">
+                                                    <button type="submit" name="action" value="accept" class="btn btn-outline-success">Accept</button>
+                                                    <button type="submit" name="action" value="reject" class="btn btn-outline-danger">Reject</button>
+
+                                                </div>
+
                                             </div>
                                         </div> 
                                     </form>
@@ -342,6 +371,26 @@
         <script src="assets/js/chart.morris.js"></script>
 
         <script src="assets/js/script.js"></script>
+        <script>
+            document.getElementById('updateStatusSchedule').addEventListener('submit', function (event) {
+
+                var isValid = true;
+
+                var scheduleNote = document.getElementById('note');
+                var note = scheduleNote.value.trim();
+                if (note === '') {
+                    scheduleNote.classList.add('is-invalid');
+                    isValid = false;
+                }
+                if (!isValid) {
+                    event.preventDefault();
+                }
+
+            });
+
+
+
+        </script>
 
     </body>
 
