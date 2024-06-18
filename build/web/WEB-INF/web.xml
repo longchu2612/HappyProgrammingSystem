@@ -17,16 +17,12 @@
         <servlet-class>controller.ProfileController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SkillController</servlet-name>
-        <servlet-class>controller.SkillController</servlet-class>
+        <servlet-name>AdminSkillController</servlet-name>
+        <servlet-class>controller.admin.AdminSkillController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddNewSkill</servlet-name>
-        <servlet-class>controller.AddNewSkill</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateSkill</servlet-name>
-        <servlet-class>controller.UpdateSkill</servlet-class>
+        <servlet-name>AdminRequestController</servlet-name>
+        <servlet-class>controller.admin.AdminRequestController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SkillsController</servlet-name>
@@ -53,16 +49,8 @@
         <url-pattern>/admin/account_admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SkillController</servlet-name>
-        <url-pattern>/ListSkill</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddNewSkill</servlet-name>
-        <url-pattern>/addSkill</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateSkill</servlet-name>
-        <url-pattern>/updateSkill</url-pattern>
+        <servlet-name>AdminSkillController</servlet-name>
+        <url-pattern>/admin/SkillList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
@@ -74,11 +62,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminMentorController</servlet-name>
-        <url-pattern>/admin-mentorlist</url-pattern>
+        <url-pattern>/admin/MentorList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRequestController</servlet-name>
+        <url-pattern>/admin/ListRequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
-        <url-pattern>/admin-home</url-pattern>
+        <url-pattern>/admin/home</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index-five.html</welcome-file>

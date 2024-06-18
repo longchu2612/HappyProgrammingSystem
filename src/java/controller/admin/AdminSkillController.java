@@ -4,7 +4,7 @@
  */
 package controller.admin;
 
-import dao.*;
+import dao.SkillDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,82 +12,76 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.*;
-import model.*;
+import model.Skill;
 
 /**
  *
  * @author catmi
  */
-public class AdminMentorController extends HttpServlet {
+public class AdminSkillController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AdminMentorDAO amDAO = new AdminMentorDAO();
         String service = request.getParameter("service");
+        SkillDAO dao = new SkillDAO();
+
         if (null == service) {
-            ArrayList<Mentor> list = amDAO.getAllMentor();
-            request.setAttribute("mentors", list);
-            request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+            ArrayList<Skill> list = dao.getAllSkill();
+            request.setAttribute("listSkill", list);
+            request.getRequestDispatcher("/admin/skill-list.jsp").forward(request, response);
         } else {
             switch (service) {
-                case "details" -> {
-                    
+                case "detail" -> {
+                    String skillId = request.getParameter("skillId");
+                    Skill s = dao.getSkillById(skillId);
+                    request.setAttribute("skill", s);
+                    request.getRequestDispatcher("/admin/update-skill.jsp").forward(request, response);
                 }
-                case "search" -> {
-                    String name = request.getParameter("txtSearch").trim();
-                    ArrayList<Mentor> listByFullname = amDAO.searchByFullName(name);
-                    ArrayList<Mentor> listByUsername = amDAO.searchByUsername(name);
-                    if (name == null || name.isEmpty()) {
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                    } else if (listByUsername != null) {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByUsername);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+                case "add" ->
+                    response.sendRedirect(request.getContextPath() + "/admin/add-skill.jsp");
+                case "add-new" -> {
+                    String name = request.getParameter("skillname");
+                    String status = request.getParameter("status");
+                    boolean check = dao.addNewSkill(name, status);
+                    if (check == true) {
+                        response.sendRedirect(request.getContextPath() + "/admin/SkillList");
                     } else {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByFullname);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+                        request.setAttribute("skillname", name);
+                        request.setAttribute("mess", "Skill has already exsisted");
+                        request.getRequestDispatcher("/admin/add-skill.jsp").forward(request, response);
+                    }
+                }
+                case "update" -> {
+                    String id = request.getParameter("skillId");
+                    String name = request.getParameter("skillname");
+                    String status = request.getParameter("status");
+                    boolean check = dao.updateSkill(name, status, id);
+                    if (check) {
+                        response.sendRedirect(request.getContextPath() + "/admin/SkillList");
+                    } else {
+                        //request.setAttribute("mess", "Something went wrong!");
                     }
                 }
                 case "setStatus" -> {
                     String id = request.getParameter("id");
                     int status = Integer.parseInt(request.getParameter("status"));
                     if (status == 1) {
-                        amDAO.setStatus(id, 0);
+                        dao.setStatus("0", id);
                         request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                        response.sendRedirect(request.getContextPath() + "/admin/SkillList");
                     } else {
-                        amDAO.setStatus(id, 1);
+                        dao.setStatus("1", id);
                         request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                        response.sendRedirect(request.getContextPath() + "/admin/SkillList");
                     }
                 }
                 default -> {
                 }
             }
         }
-
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

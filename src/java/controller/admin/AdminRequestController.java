@@ -8,6 +8,7 @@ import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ import model.*;
  *
  * @author catmi
  */
-public class AdminMentorController extends HttpServlet {
+@WebServlet(name = "AdminRequestController", urlPatterns = {"/admin/ListRequest"})
+public class AdminRequestController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,51 +34,46 @@ public class AdminMentorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AdminMentorDAO amDAO = new AdminMentorDAO();
-        String service = request.getParameter("service");
-        if (null == service) {
-            ArrayList<Mentor> list = amDAO.getAllMentor();
-            request.setAttribute("mentors", list);
-            request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
-        } else {
-            switch (service) {
-                case "details" -> {
-                    
-                }
-                case "search" -> {
-                    String name = request.getParameter("txtSearch").trim();
-                    ArrayList<Mentor> listByFullname = amDAO.searchByFullName(name);
-                    ArrayList<Mentor> listByUsername = amDAO.searchByUsername(name);
-                    if (name == null || name.isEmpty()) {
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                    } else if (listByUsername != null) {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByUsername);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
-                    } else {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByFullname);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            CVDAO daoCV = new CVDAO();
+            AccountDAO daoAcc = new AccountDAO();
+            SkillDAO daoSK = new SkillDAO();
+            String service = request.getParameter("service");
+            if (null == service) {
+                ArrayList<CV_Request> list = daoCV.displayCVAdmin();
+                request.setAttribute("cvList", list);
+                request.getRequestDispatcher("/admin/cv-request.jsp").forward(request, response);
+            }else{
+                switch(service){
+                    case "details" -> {
+                        String cvId = request.getParameter("cvId");
+                        String accId = request.getParameter("accId");
+                        CV cv = daoCV.getCVByAccId(accId);
+                        Account acc = daoAcc.getAccountByAccId(accId);
+                        ArrayList<String> listS = daoSK.getSkilCV(cvId);
+                        request.setAttribute("cv", cv);
+                        request.setAttribute("acc", acc);
+                        request.setAttribute("listS", listS);
+                        request.getRequestDispatcher("/admin/cv-details.jsp").forward(request, response);
                     }
-                }
-                case "setStatus" -> {
-                    String id = request.getParameter("id");
-                    int status = Integer.parseInt(request.getParameter("status"));
-                    if (status == 1) {
-                        amDAO.setStatus(id, 0);
-                        request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                    } else {
-                        amDAO.setStatus(id, 1);
-                        request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                    case "approve" -> {
+                        String cvId = request.getParameter("cvId");
+                        String note = request.getParameter("note");
+                        daoCV.setCVStatus(cvId, "Approve", note);
+                        response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
                     }
-                }
-                default -> {
+                    case "reject" -> {
+                        String cvId = request.getParameter("cvId");
+                        String note = request.getParameter("note");
+                        daoCV.setCVStatus(cvId, "Reject", note);
+                        response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
+                    }
+                    default->{
+                        
+                    }
                 }
             }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

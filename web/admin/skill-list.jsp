@@ -7,18 +7,18 @@
         <title>List Skill</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/font-awesome.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/feathericon.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/plugins/datatables/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/feathericon.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/plugins/datatables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     </head>
     <body>
         <div class="main-wrapper">
 
-            <jsp:include page="admin/admin-header.jsp"></jsp:include>
+            <jsp:include page="admin-header.jsp"></jsp:include>
 
-            <jsp:include page="admin/admin-sidebar.jsp"></jsp:include>
+            <jsp:include page="admin-sidebar.jsp"></jsp:include>
 
                 <!--Start content-->
                 <div class="page-wrapper">
@@ -32,10 +32,10 @@
                             <div class="row">
                                 <div class="col-sm-6 d-flex">
                                     <input id="searchbox-listskill" class="p-1 rounded-2" type="search" placeholder="Skill name...">
-                                    <button class="btn btn-success" type="submit" onclick=""><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                                 <div class="col-sm-6 text-end">
-                                    <button class="btn btn-success" onclick="window.location.href = 'AddNewSkill.jsp'">
+                                    <button class="btn btn-success" onclick="window.location.href = 'SkillList?service=add'">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -63,18 +63,23 @@
                                                     <td>${skill.skillId}</td>
                                                     <td>${skill.skillName}</td>
                                                     <td>
-                                                        <button id="btnStatus" class="btn btn-outline-danger" >
-                                                            <c:if test="${skill.status == 1}">
-                                                                Active
-                                                            </c:if>
-                                                            <c:if test="${skill.status == 0}">
-                                                                Inactive
-                                                            </c:if>
-                                                        </button>
+                                                        <form action="SkillList" method="post">
+                                                            <input type="hidden" name="service" value="setStatus">
+                                                            <input type="hidden" name="id" value="${skill.skillId}">
+                                                            <input type="hidden" name="status" value="${skill.status}">
+                                                            <button id="btnStatus" class="btn btn-outline-danger" type="submit">
+                                                                <c:if test="${skill.status == 1}">
+                                                                    Active
+                                                                </c:if>
+                                                                <c:if test="${skill.status == 0}">
+                                                                    Inactive
+                                                                </c:if>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-outline-primary">
-                                                            <a href="ListSkill?task=detail&skillId=${skill.skillId}">Update</a>
+                                                            <a href="SkillList?service=detail&skillId=${skill.skillId}">Update</a>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -90,18 +95,18 @@
             <!--End content-->
         </div>
 
-        <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
 
-        <script src="admin/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-        <script src="admin/assets/js/feather.min.js"></script>
+        <script src="assets/js/feather.min.js"></script>
 
-        <script src="admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <script src="admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="admin/assets/plugins/datatables/datatables.min.js"></script>
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatables/datatables.min.js"></script>
 
-        <script src="admin/assets/js/script.js"></script>
+        <script src="assets/js/script.js"></script>
 
     </body>
 </html>

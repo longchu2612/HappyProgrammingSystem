@@ -4,7 +4,6 @@
  */
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -27,14 +26,11 @@ import java.sql.*;
 
 import model.Account;
 
-
-
 /**
  *
  * @author asus
  */
 public class AccountDAO extends DBContext {
-    
 
     public int Register(String accountName, String email, String password, String fullName, String phoneNumber, java.sql.Date dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
 
@@ -62,9 +58,9 @@ public class AccountDAO extends DBContext {
         }
         return result;
     }
-    
-    public int registerAdmin(String account_name, String fullName,String email, String password, int role_id ){
-        int result =0;
+
+    public int registerAdmin(String account_name, String fullName, String email, String password, int role_id) {
+        int result = 0;
         String sql = "Insert into dbo.Account (name, email, password, fullname,roleID) \n"
                 + "VALUES (?, ?, ?, ?, ?);";
         try {
@@ -81,7 +77,7 @@ public class AccountDAO extends DBContext {
         }
         return result;
     }
-    
+
     public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {
@@ -267,6 +263,7 @@ public class AccountDAO extends DBContext {
         int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
         System.out.println(result);
     }
+
     public void updatePasswordbyusername(String name, String newPassword) {
         String sql = "UPDATE Account SET password = ? WHERE name = ?";
         try {
@@ -278,6 +275,7 @@ public class AccountDAO extends DBContext {
             System.out.println("updatePassword: " + e.getMessage());
         }
     }
+
     public void updatePassword(String email, String newPassword) {
         String sql = "UPDATE Account SET password = ? WHERE email = ?";
         try {
@@ -289,39 +287,82 @@ public class AccountDAO extends DBContext {
             System.out.println("updatePassword: " + e.getMessage());
         }
     }
-    public String getEmailByUser(String user) throws SQLException{
+
+    public String getEmailByUser(String user) throws SQLException {
         String sql = "Select email from Account where name = ?";
         String email = "";
         ps = conn.prepareStatement(sql);
         ps.setString(1, user);
-        rs =  ps.executeQuery();
-        if (rs.next()){
+        rs = ps.executeQuery();
+        if (rs.next()) {
             email = rs.getString("email");
             return email;
         }
         return null;
     }
-    public String getPassByUser(String user) throws SQLException{
+
+    public String getPassByUser(String user) throws SQLException {
         String sql = "Select password from Account where name = ?";
         String password = "";
         ps = conn.prepareStatement(sql);
         ps.setString(1, user);
-        rs =  ps.executeQuery();
-        if (rs.next()){
+        rs = ps.executeQuery();
+        if (rs.next()) {
             password = rs.getString("password");
             return password;
         }
         return null;
     }
-    
-    public boolean isEmailExist(String email) throws SQLException{
+
+    public boolean isEmailExist(String email) throws SQLException {
         String sql = "Select email from Account where email = ?";
         ps = conn.prepareStatement(sql);
         ps.setString(1, email);
         rs = ps.executeQuery();
-        if (rs.next()){
+        if (rs.next()) {
             return true;
         }
         return false;
+    }
+
+    public Account getAccountByAccId(String txtId) {
+        String query = """
+                       select email, fullname, phonenumber, dob, sex,address,avatar 
+                       from Account
+                       where id = ?""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, txtId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String fullname = rs.getString("fullname");
+                int phonenumber = rs.getInt("phonenumber");
+                Date dob = rs.getDate("dob");
+                boolean sex = rs.getBoolean("sex");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                return new Account(email, fullname, phonenumber, dob, sex, address, avatar);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
     }
 }

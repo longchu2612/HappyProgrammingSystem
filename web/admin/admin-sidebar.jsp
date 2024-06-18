@@ -6,16 +6,16 @@
                                 <span><i class="fe fe-home"></i> Main</span>
                             </li>
                             <li class="active">
-                                <a href="#"><span>Dashboard</span></a>
+                                <a href="home"><span>Dashboard</span></a>
                             </li>
                             <li>
-                                <a href="admin-mentorlist"><span>Mentor List</span></a>
+                                <a href="MentorList"><span>Mentor List</span></a>
                             </li>
                             <li>
                                 <a href="#"><span>Mentee List</span></a>
                             </li>
                             <li>
-                                <a href="ListSkill"><span>Skill List</span></a>
+                                <a href="SkillList"><span>Skill List</span></a>
                             </li>
                             <li class="submenu">
                                 <a href="#"><span><i class="fe fe-file-word"></i></span> Requests<span class="menu-arrow"></span></a>
