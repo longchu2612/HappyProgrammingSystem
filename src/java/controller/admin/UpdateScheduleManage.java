@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
+import model.Slot;
 
 /**
  *
@@ -58,34 +59,36 @@ public class UpdateScheduleManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String schedule_id = request.getParameter("schedule_id");
         String sessionId = request.getParameter("sessionId");
-        
+        String account_id = request.getParameter("id");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 
-        Date startDate = scheduleDAO.getTeachDateStart(Integer.parseInt(id), sessionId);
-        Date endDate = scheduleDAO.getTeachDateEnd(Integer.parseInt(id), sessionId);
+        List<Slot> slots = scheduleDAO.getAllDayOfSlot(Integer.parseInt(schedule_id));
 
-        List<String> slotOfMonday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 1);
-        List<String> slotOfTuesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 2);
-        List<String> slotOfWednesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 3);
-        List<String> slotOfThursday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 4);
-        List<String> slotOfFriday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 5);
-        List<String> slotOfSaturday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 6);
-        List<String> slotOfSunday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 7);
-
+//        List<String> slotOfMonday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 1);
+//        List<String> slotOfTuesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 2);
+//        List<String> slotOfWednesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 3);
+//        List<String> slotOfThursday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 4);
+//        List<String> slotOfFriday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 5);
+//        List<String> slotOfSaturday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 6);
+//        List<String> slotOfSunday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 7);
         request.setAttribute("startDate", startDate);
         request.setAttribute("endDate", endDate);
-        request.setAttribute("slotOfMonday", slotOfMonday);
-        request.setAttribute("slotOfTuesday", slotOfTuesday);
-        request.setAttribute("slotOfWednesday", slotOfWednesday);
-        request.setAttribute("slotOfThursday", slotOfThursday);
-        request.setAttribute("slotOfFriday", slotOfFriday);
-        request.setAttribute("slotOfSaturday", slotOfSaturday);
-        request.setAttribute("slotOfSunday", slotOfSunday);
+        request.setAttribute("slots", slots);
+//        request.setAttribute("slotOfMonday", slotOfMonday);
+//        request.setAttribute("slotOfTuesday", slotOfTuesday);
+//        request.setAttribute("slotOfWednesday", slotOfWednesday);
+//        request.setAttribute("slotOfThursday", slotOfThursday);
+//        request.setAttribute("slotOfFriday", slotOfFriday);
+//        request.setAttribute("slotOfSaturday", slotOfSaturday);
+//        request.setAttribute("slotOfSunday", slotOfSunday);
 
-       
-        request.setAttribute("accountId", id);
+        request.setAttribute("schedule_id", schedule_id);
+        request.setAttribute("accountId", account_id);
         request.setAttribute("sessionId", sessionId);
         request.getRequestDispatcher("update-schedule.jsp").forward(request, response);
     }
@@ -104,50 +107,57 @@ public class UpdateScheduleManage extends HttpServlet {
         String accountId = request.getParameter("account_id");
         String sessionId = request.getParameter("sessionId");
         String action = request.getParameter("action");
+        String startDate = request.getParameter("start_date");
+        String endDate = request.getParameter("end_date");
         String note = request.getParameter("note");
-        
+        String schedule_id = request.getParameter("scheduleId");
         String message = "";
         boolean check = true;
 
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-        Date startDate = scheduleDAO.getTeachDateStart(Integer.parseInt(accountId), sessionId);
-        Date endDate = scheduleDAO.getTeachDateEnd(Integer.parseInt(accountId), sessionId);
-        List<String> slotOfMonday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 1);
-        List<String> slotOfTuesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 2);
-        List<String> slotOfWednesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 3);
-        List<String> slotOfThursday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 4);
-        List<String> slotOfFriday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 5);
-        List<String> slotOfSaturday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 6);
-        List<String> slotOfSunday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 7);
+        List<Slot> slots = scheduleDAO.getAllDayOfSlot(Integer.parseInt(schedule_id));
+//        Date startDate = scheduleDAO.getTeachDateStart(Integer.parseInt(accountId), sessionId);
+//        Date endDate = scheduleDAO.getTeachDateEnd(Integer.parseInt(accountId), sessionId);
+//        List<String> slotOfMonday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 1);
+//        List<String> slotOfTuesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 2);
+//        List<String> slotOfWednesday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 3);
+//        List<String> slotOfThursday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 4);
+//        List<String> slotOfFriday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 5);
+//        List<String> slotOfSaturday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 6);
+//        List<String> slotOfSunday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(accountId), sessionId, 7);
 
         if (action.equals("accept")) {
-            if (scheduleDAO.updateScheduleAcceptByMentorId(Integer.parseInt(accountId), sessionId) == 0) {
-               message = "<span style='color:green;'>Accept failed!</span>";
+            if (scheduleDAO.updateScheduleAcceptByMentorId(Integer.parseInt(schedule_id)) == 0) {
+                message = "<span style='color:green;'>Accept failed!</span>";
             } else {
                 message = "<span style='color:green;'>Accept successful!</span>";
             }
 
         } else if (action.equals("reject")) {
-            if (scheduleDAO.updateScheduleRejectByMentorId(Integer.parseInt(accountId), sessionId) == 0) {
+            if (scheduleDAO.updateScheduleRejectByMentorId(Integer.parseInt(schedule_id)) == 0) {
                 message = "<span style='color:red;'>Reject failed!</span>";
             } else {
                 message = "<span style='color:red;'>Reject successful!</span>";
             }
         }
-        request.setAttribute("note", note);
+//        request.setAttribute("note", note);
+//        request.setAttribute("startDate", startDate);
+//        request.setAttribute("endDate", endDate);
+//        request.setAttribute("accountId", accountId);
+//        request.setAttribute("sessionId", sessionId);
+//        request.setAttribute("message", message);
+//        request.setAttribute("slotOfMonday", slotOfMonday);
+//        request.setAttribute("slotOfTuesday", slotOfTuesday);
+//        request.setAttribute("slotOfWednesday", slotOfWednesday);
+//        request.setAttribute("slotOfThursday", slotOfThursday);
+//        request.setAttribute("slotOfFriday", slotOfFriday);
+//        request.setAttribute("slotOfSaturday", slotOfSaturday);
+//        request.setAttribute("slotOfSunday", slotOfSunday);
+        request.setAttribute("schedule_id", schedule_id);
+        request.setAttribute("message", message);
+        request.setAttribute("slots", slots);
         request.setAttribute("startDate", startDate);
         request.setAttribute("endDate", endDate);
-        request.setAttribute("accountId", accountId);
-        request.setAttribute("sessionId", sessionId);
-        request.setAttribute("message", message);
-        request.setAttribute("slotOfMonday", slotOfMonday);
-        request.setAttribute("slotOfTuesday", slotOfTuesday);
-        request.setAttribute("slotOfWednesday", slotOfWednesday);
-        request.setAttribute("slotOfThursday", slotOfThursday);
-        request.setAttribute("slotOfFriday", slotOfFriday);
-        request.setAttribute("slotOfSaturday", slotOfSaturday);
-        request.setAttribute("slotOfSunday", slotOfSunday);
-        
         request.getRequestDispatcher("update-schedule.jsp").forward(request, response);
     }
 

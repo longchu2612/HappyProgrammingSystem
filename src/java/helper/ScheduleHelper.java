@@ -7,6 +7,7 @@ package helper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import model.Slot;
 
 /**
  *
@@ -41,10 +42,10 @@ public class ScheduleHelper {
         }
         return "";
     }
-    public static String isCheckedSlot(List<String> checkedSlots, int value){
-        if(checkedSlots != null){
-            for(String slot : checkedSlots){
-                if(Integer.parseInt(slot) == value){
+    public static String isCheckedSlot(List<Slot> slots, int slot, int dayOfWeek){
+        if(slots != null){
+            for(Slot s : slots){
+                if(s.getSlot() == slot && s.getDayOfWeek() == dayOfWeek){
                     return "checked";
                 }
             }

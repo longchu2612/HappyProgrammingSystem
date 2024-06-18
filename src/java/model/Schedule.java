@@ -17,26 +17,39 @@ import java.util.Date;
  */
 public class Schedule {
     private int id;
-    private String sessionId;
-    private int dayOfWeek;
     private Account account;
-    private Date teach_date;
-    private List<String> slots;
-    private String status;
     private LocalDateTime createTime;
+    private List<Slot> slots;
+    private String status;
+    private Date startDate;
+    private Date endDate;
+    private String sessionId;
 
-    public Schedule(int id, String sessionId, int dayOfWeek, Account account, Date teach_date, List<String> slots, String status, LocalDateTime createTime) {
+    public Schedule() {
+    }
+
+    public Schedule(int id, Account account, LocalDateTime createTime, List<Slot> slots, String status, Date startDate, Date endDate, String sessionId) {
         this.id = id;
-        this.sessionId = sessionId;
-        this.dayOfWeek = dayOfWeek;
         this.account = account;
-        this.teach_date = teach_date;
+        this.createTime = createTime;
         this.slots = slots;
         this.status = status;
-        this.createTime = createTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.sessionId = sessionId;
     }
 
     
+    
+    public Schedule(int id, Account account, LocalDateTime createTime, List<Slot> slots, String status, Date startDate, Date endDate) {
+        this.id = id;
+        this.account = account;
+        this.createTime = createTime;
+        this.slots = slots;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public int getId() {
         return id;
@@ -44,22 +57,6 @@ public class Schedule {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public int getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(int dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
     }
 
     public Account getAccount() {
@@ -70,22 +67,6 @@ public class Schedule {
         this.account = account;
     }
 
-    public Date getTeach_date() {
-        return teach_date;
-    }
-
-    public void setTeach_date(Date teach_date) {
-        this.teach_date = teach_date;
-    }
-
-    public List<String> getSlots() {
-        return slots;
-    }
-
-    public void setSlots(List<String> slots) {
-        this.slots = slots;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -93,8 +74,13 @@ public class Schedule {
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
-    
-    public Schedule() {
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
     }
 
     public String getStatus() {
@@ -105,10 +91,53 @@ public class Schedule {
         this.status = status;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Schedule{" + "id=" + id + ", sessionId=" + sessionId + ", dayOfWeek=" + dayOfWeek + ", account=" + account + ", teach_date=" + teach_date + ", slots=" + slots + ", status=" + status + ", createTime=" + createTime + '}';
+        return "Schedule{" + "id=" + id + ", account=" + account + ", createTime=" + createTime + ", slots=" + slots + ", status=" + status + ", startDate=" + startDate + ", endDate=" + endDate + '}';
     }
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+   
+    
+    
+
+    
 
     
 }

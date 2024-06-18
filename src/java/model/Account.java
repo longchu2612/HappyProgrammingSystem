@@ -27,12 +27,12 @@ public class Account {
     private Role role;
     private Boolean status;
     
-    private List<Schedule> schedules;
+    private Schedule schedules;
 
     public Account() {
     }
 
-    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, List<Schedule> schedules) {
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, Schedule schedules) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -76,13 +76,16 @@ public class Account {
         this.status = status;
     }
 
-    public List<Schedule> getSchedules() {
+    public Schedule getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
+    public void setSchedules(Schedule schedules) {
         this.schedules = schedules;
     }
+
+   
+    
 
     
     

@@ -70,22 +70,22 @@ public class ScheduleMentorController extends HttpServlet {
             return;
         }
 
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        List<Account> accounts = scheduleDAO.getScheduleOfMentor(account.getAccount_id());
-        Map<Account, Date> startDatesMap = new HashMap<>();
-        Map<Account, Date> endDatesMap = new HashMap<>();
-        if (accounts != null) {
-            for (Account account_1 : accounts) {
-                Date startDate = scheduleDAO.getTeachDateStart(account_1.getAccount_id(), account_1.getSchedules().get(0).getSessionId());
-                Date endDate = scheduleDAO.getTeachDateEnd(account_1.getAccount_id(), account_1.getSchedules().get(0).getSessionId());
-                startDatesMap.put(account_1, startDate);
-                endDatesMap.put(account_1, endDate);
-            }
-        }
-        request.setAttribute("startDatesMap", startDatesMap);
-        request.setAttribute("endDatesMap", endDatesMap);
-        request.setAttribute("accounts", accounts);
-        request.getRequestDispatcher("listSchedule.jsp").forward(request, response);
+//        ScheduleDAO scheduleDAO = new ScheduleDAO();
+//        List<Account> accounts = scheduleDAO.getScheduleOfMentor(account.getAccount_id());
+//        Map<Account, Date> startDatesMap = new HashMap<>();
+//        Map<Account, Date> endDatesMap = new HashMap<>();
+//        if (accounts != null) {
+//            for (Account account_1 : accounts) {
+//                Date startDate = scheduleDAO.getTeachDateStart(account_1.getAccount_id(), account_1.getSchedules().get(0).getSessionId());
+//                Date endDate = scheduleDAO.getTeachDateEnd(account_1.getAccount_id(), account_1.getSchedules().get(0).getSessionId());
+//                startDatesMap.put(account_1, startDate);
+//                endDatesMap.put(account_1, endDate);
+//            }
+//        }
+//        request.setAttribute("startDatesMap", startDatesMap);
+//        request.setAttribute("endDatesMap", endDatesMap);
+//        request.setAttribute("accounts", accounts);
+//        request.getRequestDispatcher("listSchedule.jsp").forward(request, response);
     }
 
     /**

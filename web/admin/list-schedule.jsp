@@ -199,6 +199,8 @@
                                                     <th>#</th>
                                                     <th>Mentor Name</th>
                                                     <th>Create Time</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -212,18 +214,24 @@
 
                                                         <td>${a.getFullname()}</td>
                                                         <td>
-                                                            ${a.getSchedules().get(0).getCreateTime()}
+                                                            ${a.getSchedules().getCreateTime()}
 
                                                         </td>
                                                         <td>
+                                                            ${a.getSchedules().getStartDate()}
+                                                        </td>
+                                                        <td>
+                                                            ${a.getSchedules().getEndDate()}
+                                                        </td>
+                                                        <td>
                                                             <c:choose>
-                                                                <c:when test="${requestScope.status == '1'}">
+                                                                <c:when test="${a.getSchedules().getStatus() == '1'}">
                                                                      <p class="text-primary">Pending</p>
                                                                 </c:when>
-                                                                <c:when test="${requestScope.status == '2'}">
+                                                                <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                      <p class="text-success">Accept</p>
                                                                 </c:when>
-                                                                <c:when test="${requestScope.status == '3'}">
+                                                                <c:when test="${a.getSchedules().getStatus() == '3'}">
                                                                      <p class="text-danger">Reject</p>
                                                                 </c:when>
                                                                 <c:otherwise>
@@ -234,13 +242,13 @@
                                                         </td>
                                                         <td>
                                                              <c:choose>
-                                                                <c:when test="${requestScope.status == '1'}">
-                                                                      <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}'">Detail</button>
+                                                                <c:when test="${a.getSchedules().getStatus() == '1'}">
+                                                                      <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'" >Detail</button>
                                                                 </c:when>
-                                                                <c:when test="${requestScope.status == '2'}">
+                                                                <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                      <p>No Action</p>
                                                                 </c:when>
-                                                                <c:when test="${requestScope.status == '3'}">
+                                                                <c:when test="${a.getSchedules().getStatus() == '3'}">
                                                                      <p>No Action</p>
                                                                 </c:when>
                                                                 <c:otherwise>
