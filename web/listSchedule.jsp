@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Date, dao.ScheduleDAO" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,24 +125,23 @@
                                                                 </h2>
                                                             </td>
                                                             <td>
-                                                                ${requestScope.startDatesMap[a]}
+                                                                ${a.getSchedules().getStartDate()}
                                                             </td>
                                                             <td>
-                                                                ${requestScope.endDatesMap[a]}
+                                                                ${a.getSchedules().getEndDate()}
                                                             </td>
                                                             <td>
-                                                                ${a.getSchedules().get(0).getCreateTime()}
+                                                                ${a.getSchedules().getCreateTime()}
                                                             </td>
                                                             <td>
-                                                                
                                                                 <c:choose>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '1'}">
+                                                                    <c:when test="${a.getSchedules().getStatus() == '1'}">
                                                                         <p class="text-primary">Pending</p>
                                                                     </c:when>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '2'}">
+                                                                    <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                         <p class="text-success">Accept</p>
                                                                     </c:when>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '3'}">
+                                                                    <c:when test="${a.getSchedules().getStatus() == '3'}">
                                                                         <p class="text-danger">Reject</p>
                                                                     </c:when>
                                                                     <c:otherwise>
@@ -150,15 +150,15 @@
                                                                 </c:choose>
                                                             </td>
                                                             <td>
-                                                                <c:choose>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '1'}">
-                                                                       <button type="button" class="btn btn-outline-primary" onclick="window.location.href = 'update_mentor_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}&startDate=${requestScope.startDatesMap[a]}&endDate=${requestScope.endDatesMap[a]}'">Update</button>
+                                                                 <c:choose>
+                                                                    <c:when test="${a.getSchedules().getStatus() == '1'}">
+                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'">Update</button>
                                                                     </c:when>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '2'}">
+                                                                    <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                         No Action
                                                                     </c:when>
-                                                                    <c:when test="${a.getSchedules().get(0).getStatus() == '3'}">
-                                                                        <button type="button" class="btn btn-outline-primary" onclick="window.location.href = 'update_mentor_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().get(0).getSessionId()}&startDate=${requestScope.startDatesMap[a]}&endDate=${requestScope.endDatesMap[a]}'">Update</button>
+                                                                    <c:when test="${a.getSchedules().getStatus() == '3'}">
+                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'">Update</button>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         Unknown Status

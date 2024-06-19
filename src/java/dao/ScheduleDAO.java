@@ -226,35 +226,36 @@ public class ScheduleDAO extends DBContext {
         return result;
     }
 
-//    public List<Account> getScheduleOfMentor(int mentor_id) {
-//        List<Account> accounts = new ArrayList<>();
-//        String sql = "select account.id , account.fullname, schedule.create_time , schedule.status , schedule.sessionId\n"
-//                + "from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ? \n"
-//                + "group by account.id , account.fullname , schedule.status, schedule.sessionId, schedule.create_time order by schedule.create_time asc";
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            ps.setInt(1, mentor_id);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                Account account = new Account();
-//                account.setAccount_id(rs.getInt("id"));
-//                account.setFullname(rs.getString("fullname"));
-//                ArrayList<Schedule> schedules = new ArrayList<>();
-//                Schedule schedule = new Schedule();
-//                schedule.setCreateTime(rs.getTimestamp("last_create_time").toLocalDateTime());
-//                schedule.setStatus(rs.getString("status"));
-//                schedule.setSessionId(rs.getString("sessionId"));
-//                schedules.add(schedule);
-//                account.setSchedules(schedules);
-//                accounts.add(account);
-//            }
-//
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//            ex.printStackTrace();
-//        }
-//        return accounts;
-//    }
+    public List<Account> getScheduleOfMentor(int mentor_id) {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "select account.id , account.fullname, schedule.create_time,schedule.startDate, schedule.endDate , schedule.status , schedule.sessionId, schedule.id\n"
+                + "                from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ?\n"
+                + "                group by account.id , account.fullname , schedule.status, schedule.sessionId, schedule.create_time,schedule.startDate,schedule.endDate, schedule.id order by schedule.create_time asc";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, mentor_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("id"));
+                account.setFullname(rs.getString("fullname"));
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt(8));
+                schedule.setCreateTime(rs.getTimestamp("create_time").toLocalDateTime());
+                schedule.setStartDate(rs.getDate("startDate"));
+                schedule.setEndDate(rs.getDate("endDate"));
+                schedule.setStatus(rs.getString("status"));
+                schedule.setSessionId(rs.getString("sessionId"));
+                account.setSchedules(schedule);
+                accounts.add(account);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return accounts;
+    }
 //    public List<Account> getAllScheduleOfMentor(int mentor_id) {
 //        Map<LocalDateTime, Account> accountMap = new HashMap<>();
 //        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time, schedule.status from dbo.Schedules as schedule inner join "
