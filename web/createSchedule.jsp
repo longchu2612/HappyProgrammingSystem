@@ -114,18 +114,24 @@
                                             </div>
                                             <div class="col-12 col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>Start Date</label>
-                                                        <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate"/>
-                                                        <div class="invalid-feedback">
-                                                            Please choose a end date,start date and start date before end date.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>End Date</label>
-                                                        <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate"/>
-
-                                                    </div>
+                                                    <!--                                                    <div class="col-md-3 mb-3">
+                                                                                                            <label>Start Date</label>
+                                                                                                            <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate"/>
+                                                                                                            <div class="invalid-feedback">
+                                                                                                                Please choose a end date,start date and start date before end date.
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-3 mb-3">
+                                                                                                            <label>End Date</label>
+                                                                                                            <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate"/>
+                                                    
+                                                                                                        </div>-->
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select month</option>
+                                                        <option value="1">January </option>
+                                                        <option value="2">February</option>
+                                                        <option value="3">March</option>
+                                                    </select>
 
                                                 </div>
 
@@ -151,79 +157,79 @@
                                                     <tbody>
                                                         <%
                                                             String[] checkedValuesOne = (String[]) request.getAttribute("checkedValuesOne");
-                                                            
+
                                                         %>
 
 
                                                         <tr>
                                                             <td>Slot 1 (7h30 --> 9h30)</td>
-                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 1) %> ></td>
-                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 2) %>></td>
-                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 3) %>></td>
-                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 4) %>></td>
-                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 5) %>></td>
-                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 6) %>></td>
-                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 7) %>></td>
+                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 1)%> ></td>
+                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 2)%>></td>
+                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 3)%>></td>
+                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 4)%>></td>
+                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 5)%>></td>
+                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 6)%>></td>
+                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesOne, 7)%>></td>
                                                         </tr>
                                                         <%
                                                             String[] checkedValuesTwo = (String[]) request.getAttribute("checkedValuesTwo");
-                                                            
+
                                                         %>
 
                                                         <tr>
                                                             <td>Slot 2 (9h45 --> 11h45)</td>
-                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 1) %>></td>
-                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 2) %>></td>
-                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 3) %>></td>
-                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 4) %>></td>
-                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 5) %>></td>
-                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 6) %>></td>
-                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 7) %>></td>
+                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 1)%>></td>
+                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 2)%>></td>
+                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 3)%>></td>
+                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 4)%>></td>
+                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 5)%>></td>
+                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 6)%>></td>
+                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesTwo, 7)%>></td>
                                                         </tr>
                                                         <%
                                                             String[] checkedValuesThree = (String[]) request.getAttribute("checkedValuesThree");
-                                                            
+
                                                         %>
 
                                                         <tr>
                                                             <td>Slot 3 (13h30 --> 15h30)</td>
-                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 1) %>></td>
-                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 2) %>></td>
-                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 3) %>></td>
-                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 4) %>></td>
-                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 5) %>></td>
-                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 6) %>></td>
-                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 7) %>></td>
+                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 1)%>></td>
+                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 2)%>></td>
+                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 3)%>></td>
+                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 4)%>></td>
+                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 5)%>></td>
+                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 6)%>></td>
+                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesThree, 7)%>></td>
                                                         </tr>
-                                                         <%
+                                                        <%
                                                             String[] checkedValuesFour = (String[]) request.getAttribute("checkedValuesFour");
-                                                            
+
                                                         %>
 
                                                         <tr>
                                                             <td>Slot 4 (16h --> 18h)</td>
-                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 1) %>></td>
-                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 2) %>></td>
-                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 3) %>></td>
-                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 4) %>></td>
-                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 5) %>></td>
-                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 6) %>></td>
-                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 7) %>></td>
+                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 1)%>></td>
+                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 2)%>></td>
+                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 3)%>></td>
+                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 4)%>></td>
+                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 5)%>></td>
+                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 6)%>></td>
+                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesFour, 7)%>></td>
                                                         </tr>
                                                         <%
                                                             String[] checkedValuesFive = (String[]) request.getAttribute("checkedValuesFive");
-                                                            
+
                                                         %>
 
                                                         <tr>
                                                             <td>Slot 5 (19h --> 21h)</td>
-                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 1) %>></td>
-                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 2) %>></td>
-                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 3) %>></td>
-                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 4) %>></td>
-                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 5) %>></td>
-                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 6) %>></td>
-                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 7) %>></td>
+                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 1)%>></td>
+                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 2)%>></td>
+                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 3)%>></td>
+                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 4)%>></td>
+                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 5)%>></td>
+                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 6)%>></td>
+                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" <%= ScheduleHelper.isCheckedValue(checkedValuesFive, 7)%>></td>
                                                         </tr>
                                                         <!--                                                    <tr>
                                                                                                                 <td>Slot 6</td>
@@ -425,10 +431,10 @@
                 }
 
             });
-            
-            document.addEventListener('keydown', function(event) {
-                    if (event.ctrlKey && event.key === 'r') {
-                 event.preventDefault();
+
+            document.addEventListener('keydown', function (event) {
+                if (event.ctrlKey && event.key === 'r') {
+                    event.preventDefault();
                 }
             });
         </script>
