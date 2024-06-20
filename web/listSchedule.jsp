@@ -107,9 +107,8 @@
                                                     <tr>
 
                                                         <th>FullName</th>
-                                                        <th>Start Date</th>
-                                                        <th>End Date</th>
                                                         <th>Booking Time</th>
+                                                        <th>Month</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -125,13 +124,24 @@
                                                                 </h2>
                                                             </td>
                                                             <td>
-                                                                ${a.getSchedules().getStartDate()}
-                                                            </td>
-                                                            <td>
-                                                                ${a.getSchedules().getEndDate()}
-                                                            </td>
-                                                            <td>
                                                                 ${a.getSchedules().getCreateTime()}
+                                                            </td>
+                                                            <td>
+                                                                <c:choose>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 1}">January</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 2}">February</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 3}">March</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 4}">April</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 5}">May</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 6}">June</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 7}">July</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 8}">August</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 9}">September</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 10}">October</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 11}">November</c:when>
+                                                                    <c:when test="${a.getSchedules().getMonth() == 12}">December</c:when>
+                                                                    <c:otherwise>Unknown Month</c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                             <td>
                                                                 <c:choose>
@@ -150,15 +160,15 @@
                                                                 </c:choose>
                                                             </td>
                                                             <td>
-                                                                 <c:choose>
+                                                                <c:choose>
                                                                     <c:when test="${a.getSchedules().getStatus() == '1'}">
-                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'">Update</button>
+                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href = 'update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'">Update</button>
                                                                     </c:when>
                                                                     <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                         No Action
                                                                     </c:when>
                                                                     <c:when test="${a.getSchedules().getStatus() == '3'}">
-                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'">Update</button>
+                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href = 'update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'">Update</button>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         Unknown Status

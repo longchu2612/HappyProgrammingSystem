@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -85,10 +86,10 @@ public class ScheduleMonthController extends HttpServlet {
             return;
         }
 
-        String start_time = request.getParameter("start_date");
-        String end_time = request.getParameter("end_date");
-        LocalDate startDate = LocalDate.parse(start_time);
-        LocalDate endDate = LocalDate.parse(end_time);
+//        String start_time = request.getParameter("start_date");
+//        String end_time = request.getParameter("end_date");
+//        LocalDate startDate = LocalDate.parse(start_time);
+//        LocalDate endDate = LocalDate.parse(end_time);
 //        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 //        if(daysBetween < 30 || daysBetween > 90){
 //            request.setAttribute("message", "<span style=\"color: red;\">The min teaching schedule is 1 month and maximum is 3 months!</span>");
@@ -97,11 +98,17 @@ public class ScheduleMonthController extends HttpServlet {
 //            request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
 //            return;
 //        }
+        String month = request.getParameter("selectMonth");
         String sessionId = UUID.randomUUID().toString();
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-        scheduleDAO.createNewSchedule(account.getAccount_id(),"1",LocalDateTime.now(), startDate, endDate, sessionId);
+        scheduleDAO.createNewSchedule(account.getAccount_id(),"1" , LocalDateTime.now(), Integer.parseInt(month), sessionId);
         
         int schedule_id = scheduleDAO.getScheduleId(account.getAccount_id(), sessionId);
+        
+        LocalDate currentDate = LocalDate.now(); 
+        int currentYear = currentDate.getYear();
+        LocalDate[] dates = getStartAndEndDateOfMonth(currentYear, Integer.parseInt(month));
+        
         
         String[] checkedValuesSlotOne = request.getParameterValues("slot_1");
         String[] checkedValuesSlotTwo = request.getParameterValues("slot_2");
@@ -114,14 +121,14 @@ public class ScheduleMonthController extends HttpServlet {
         
         if(checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null && 
                 checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null){
-            request.setAttribute("startDate", startDate);
-            request.setAttribute("endDate", endDate);
+            request.setAttribute("selectMonth", month);
             request.setAttribute("message", "<span style=\"color: red;\">Add failed class schedule!</span>");
             request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
             return;
         }
+        
 
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+        for (LocalDate date = dates[0]; !date.isAfter(dates[1]); date = date.plusDays(1)) {
             DayOfWeek dayOfWeek = date.getDayOfWeek();
             int dayOfWeekValue = dayOfWeek.getValue();
 
@@ -193,8 +200,7 @@ public class ScheduleMonthController extends HttpServlet {
         request.setAttribute("checkedValuesThree", checkedValuesSlotThree);
         request.setAttribute("checkedValuesFour", checkedValuesSlotFour);
         request.setAttribute("checkedValuesFive", checkedValuesSlotFive);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
+        request.setAttribute("selectMonth", month);
         request.setAttribute("message", message);
         request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
 
@@ -209,5 +215,15 @@ public class ScheduleMonthController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    public static LocalDate[] getStartAndEndDateOfMonth(int year, int month) {
+        YearMonth yearMonth = YearMonth.of(year, month);
+        
+        LocalDate startOfMonth = yearMonth.atDay(1);
+        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+        
+        return new LocalDate[]{startOfMonth, endOfMonth};
+    }
+    
 
 }

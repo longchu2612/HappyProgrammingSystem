@@ -112,28 +112,39 @@
                                                     ${requestScope.message}
                                                 </h4>
                                             </div>
-                                            <div class="col-12 col-md-12">
-                                                <div class="row">
-                                                    <!--                                                    <div class="col-md-3 mb-3">
-                                                                                                            <label>Start Date</label>
-                                                                                                            <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate"/>
-                                                                                                            <div class="invalid-feedback">
-                                                                                                                Please choose a end date,start date and start date before end date.
-                                                                                                            </div>
+                                            <div class="col-12 col-md-2 mb-3">
+                                                
+                                                <label>Month:</label>
+                                                <select class="form-select" name="selectMonth" aria-label="Default select example">
+                                                    <option value="1" ${requestScope.selectMonth == 1 ? 'selected' : ''}>January </option>
+                                                    <option value="2" ${requestScope.selectMonth == 2 ? 'selected' : ''}>February</option>
+                                                    <option value="3" ${requestScope.selectMonth == 3 ? 'selected' : ''}>March</option>
+                                                    <option value="4" ${requestScope.selectMonth == 4 ? 'selected' : ''}>April</option>
+                                                    <option value="5" ${requestScope.selectMonth == 5 ? 'selected' : ''}>May</option>
+                                                    <option value="6" ${requestScope.selectMonth == 6 ? 'selected' : ''}>June</option>
+                                                    <option value="7" ${requestScope.selectMonth == 7 ? 'selected' : ''}>July</option>
+                                                    <option value="8" ${requestScope.selectMonth == 8 ? 'selected' : ''}>August</option>
+                                                    <option value="9" ${requestScope.selectMonth == 9 ? 'selected' : ''}>September</option>
+                                                    <option value="10" ${requestScope.selectMonth == 10 ? 'selected' : ''} >October</option>
+                                                    <option value="11" ${requestScope.selectMonth == 11 ? 'selected' : ''}>November</option>
+                                                    <option value="12" ${requestScope.selectMonth == 12 ? 'selected' : ''}>December</option>
+                                                </select>
+                                                
+                                                <!--                                                    <div class="col-md-3 mb-3">
+                                                                                                        <label>Start Date</label>
+                                                                                                        <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate"/>
+                                                                                                        <div class="invalid-feedback">
+                                                                                                            Please choose a end date,start date and start date before end date.
                                                                                                         </div>
-                                                                                                        <div class="col-md-3 mb-3">
-                                                                                                            <label>End Date</label>
-                                                                                                            <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate"/>
-                                                    
-                                                                                                        </div>-->
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select month</option>
-                                                        <option value="1">January </option>
-                                                        <option value="2">February</option>
-                                                        <option value="3">March</option>
-                                                    </select>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-3 mb-3">
+                                                                                                        <label>End Date</label>
+                                                                                                        <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate"/>
+                                                
+                                                                                                    </div>-->
 
-                                                </div>
+
+
 
                                             </div>
                                             <div class="col-12 col-md-12">

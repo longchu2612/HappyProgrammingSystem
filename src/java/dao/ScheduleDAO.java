@@ -19,8 +19,10 @@ import model.Account;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import model.Role;
 import java.time.temporal.WeekFields;
+import java.util.Calendar;
 //import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,18 +36,19 @@ import model.Slot;
  */
 public class ScheduleDAO extends DBContext {
 
-    public int createNewSchedule(int mentor_id, String status, LocalDateTime createTime, LocalDate startDate, LocalDate endDate, String sessionId) {
+    public int createNewSchedule(int mentor_id, String status, LocalDateTime createTime, int month, String sessionId) {
         int result = 0;
-
-        String sql = "INSERT INTO Schedules (mentor_id, status, create_time, startDate, endDate, sessionId) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO dbo.Schedules \n"
+                + "(mentor_id, status, create_time, month, sessionId)\n"
+                + "VALUES\n"
+                + "(?, ?, ?, ?, ?);";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
             ps.setString(2, status);
             ps.setObject(3, createTime);
-            ps.setDate(4, Date.valueOf(startDate));
-            ps.setDate(5, Date.valueOf(endDate));
-            ps.setString(6, sessionId);
+            ps.setInt(4, month);
+            ps.setString(5, sessionId);
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -93,7 +96,7 @@ public class ScheduleDAO extends DBContext {
     public List<Account> getAllAccountWithSchedule(String status) {
 
         List<Account> accounts = new ArrayList<>();
-        String sql = "select account.id, account.fullname, schedule.id,schedule.create_time ,schedule.startDate, schedule.endDate ,schedule.status, schedule.sessionId\n"
+        String sql = "select account.id, account.fullname, schedule.id,schedule.create_time,schedule.month,schedule.status, schedule.sessionId\n"
                 + "from dbo.Account as account inner join dbo.Schedules as schedule on account.id = schedule.mentor_id where schedule.status = ?\n"
                 + "order by schedule.create_time asc";
 
@@ -108,8 +111,7 @@ public class ScheduleDAO extends DBContext {
                 Schedule schedule = new Schedule();
                 schedule.setId(rs.getInt(3));
                 schedule.setCreateTime(rs.getTimestamp("create_time").toLocalDateTime());
-                schedule.setStartDate(rs.getDate("startDate"));
-                schedule.setEndDate(rs.getDate("endDate"));
+                schedule.setMonth(rs.getInt("month"));
                 schedule.setStatus(rs.getString("status"));
                 schedule.setSessionId(rs.getString("sessionId"));
                 account.setSchedules(schedule);
@@ -228,9 +230,9 @@ public class ScheduleDAO extends DBContext {
 
     public List<Account> getScheduleOfMentor(int mentor_id) {
         List<Account> accounts = new ArrayList<>();
-        String sql = "select account.id , account.fullname, schedule.create_time,schedule.startDate, schedule.endDate , schedule.status , schedule.sessionId, schedule.id\n"
-                + "                from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ?\n"
-                + "                group by account.id , account.fullname , schedule.status, schedule.sessionId, schedule.create_time,schedule.startDate,schedule.endDate, schedule.id order by schedule.create_time asc";
+        String sql = "select account.id , account.fullname, schedule.create_time, schedule.month, schedule.status , schedule.sessionId, schedule.id\n"
+                + " from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ?\n"
+                + " group by account.id , account.fullname , schedule.status,schedule.month ,schedule.sessionId, schedule.create_time,schedule.id order by schedule.create_time asc";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, mentor_id);
@@ -240,10 +242,9 @@ public class ScheduleDAO extends DBContext {
                 account.setAccount_id(rs.getInt("id"));
                 account.setFullname(rs.getString("fullname"));
                 Schedule schedule = new Schedule();
-                schedule.setId(rs.getInt(8));
+                schedule.setId(rs.getInt(7));
                 schedule.setCreateTime(rs.getTimestamp("create_time").toLocalDateTime());
-                schedule.setStartDate(rs.getDate("startDate"));
-                schedule.setEndDate(rs.getDate("endDate"));
+                schedule.setMonth(rs.getInt("month"));
                 schedule.setStatus(rs.getString("status"));
                 schedule.setSessionId(rs.getString("sessionId"));
                 account.setSchedules(schedule);
@@ -343,11 +344,10 @@ public class ScheduleDAO extends DBContext {
 //    }
 
     public static void main(String[] args) {
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        List<Slot> slots = scheduleDAO.getAllDayOfSlot(7);
-        for (Slot slot : slots) {
-            System.out.println(slot.getDayOfWeek());
-        }
+//        ScheduleDAO scheduleDAO = new ScheduleDAO();
+//        int result = scheduleDAO.createNewSchedule(41, "1", LocalDateTime.now(),6, "abcjsidood");
+//        System.out.println(result);
+          
     }
-
+    
 }

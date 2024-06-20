@@ -17,7 +17,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import model.Account;
@@ -66,12 +70,21 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LocalDate currentDate = LocalDate.now();
-        WeekFields weekFields = WeekFields.ISO;
-        int selectWeek = currentDate.get(weekFields.weekOfWeekBasedYear());
-        String startDate = getStartDate(String.valueOf(selectWeek));
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("selectWeek", selectWeek);
+
+        int currentYear = Year.now().getValue();
+        List<String> weeks = new ArrayList<>();
+        int totalWeeks = Year.of(2023).length();
+        for (int week = 1; week <= totalWeeks; week++) {
+            LocalDate firstDayOfWeek = getFirstDayOfWeek(2023, week);
+            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+
+            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+            weeks.add(weekRange);
+        }
+
+        request.setAttribute("weeks", weeks);
+        request.setAttribute("currentYear", currentYear);
         request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
@@ -86,10 +99,7 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String selectWeek = request.getParameter("selectedWeek");
-        String startDate = getStartDate(selectWeek);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("selectWeek", selectWeek);
+
         request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
@@ -103,107 +113,9 @@ public class ScheduleController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String getStartDate(String selectWeek) {
-        String startDate = "";
-        switch (selectWeek) {
-            case "1":
-                startDate = "01/01"; // Ngày bắt đầu của tuần 1
-                break;
-            case "2":
-                startDate = "08/01"; // Ngày bắt đầu của tuần 2
-                break;
-            case "3":
-                startDate = "15/01"; // Ngày bắt đầu của tuần 3
-                break;
-            case "4":
-                startDate = "22/01"; // Ngày bắt đầu của tuần 4
-                break;
-            case "5":
-                startDate = "29/01"; // Ngày bắt đầu của tuần 4
-                break;
-            case "6":
-                startDate = "05/02"; // Ngày bắt đầu của tuần 4
-                break;
-            case "7":
-                startDate = "12/02"; // Ngày bắt đầu của tuần 4
-                break;
-            case "8":
-                startDate = "19/02"; // Ngày bắt đầu của tuần 4
-                break;
-            case "9":
-                startDate = "26/02"; // Ngày bắt đầu của tuần 4
-                break;
-            case "10":
-                startDate = "04/03"; // Ngày bắt đầu của tuần 4
-                break;
-            case "11":
-                startDate = "11/03"; // Ngày bắt đầu của tuần 4
-                break;
-            case "12":
-                startDate = "18/03"; // Ngày bắt đầu của tuần 4
-                break;
-            case "13":
-                startDate = "25/03"; // Ngày bắt đầu của tuần 4
-                break;
-            case "14":
-                startDate = "01/04"; // Ngày bắt đầu của tuần 4
-                break;
-            case "15":
-                startDate = "08/04"; // Ngày bắt đầu của tuần 4
-                break;
-            case "16":
-                startDate = "15/04"; // Ngày bắt đầu của tuần 4
-                break;
-            case "17":
-                startDate = "22/04"; // Ngày bắt đầu của tuần 4
-                break;
-            case "18":
-                startDate = "29/04"; // Ngày bắt đầu của tuần 4
-                break;
-            case "19":
-                startDate = "06/05"; // Ngày bắt đầu của tuần 4
-                break;
-            case "20":
-                startDate = "13/05"; // Ngày bắt đầu của tuần 4
-                break;
-            case "21":
-                startDate = "20/05"; // Ngày bắt đầu của tuần 4
-                break;
-            case "22":
-                startDate = "27/05"; // Ngày bắt đầu của tuần 4
-                break;
-            case "23":
-                startDate = "03/06"; // Ngày bắt đầu của tuần 4
-                break;
-            case "24":
-                startDate = "10/06"; // Ngày bắt đầu của tuần 4
-                break;
-            case "25":
-                startDate = "17/06"; // Ngày bắt đầu của tuần 4
-                break;
-            case "26":
-                startDate = "24/06"; // Ngày bắt đầu của tuần 4
-                break;
-            case "27":
-                startDate = "01/07"; // Ngày bắt đầu của tuần 4
-                break;
-            case "28":
-                startDate = "08/07"; // Ngày bắt đầu của tuần 4
-                break;
-            case "29":
-                startDate = "15/07"; // Ngày bắt đầu của tuần 4
-                break;
-            case "30":
-                startDate = "22/07"; // Ngày bắt đầu của tuần 4
-                break;
-            case "31":
-                startDate = "29/07"; // Ngày bắt đầu của tuần 4
-                break;
-                
-            default:
-                startDate = "";
-        }
-        return startDate;
+    private LocalDate getFirstDayOfWeek(int year, int week) {
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        return firstDayOfYear.with(TemporalAdjusters.firstDayOfYear()).plusWeeks(week - 1);
     }
-
+    
 }

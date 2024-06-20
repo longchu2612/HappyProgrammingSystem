@@ -191,28 +191,26 @@
                                                     ${requestScope.message}
                                                 </h4>
                                             </div>
-                                            <div class="col-12 col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>Start Date</label>
-                                                        <input type="date" class="form-control" name="start_date" value="${requestScope.startDate}" id="startDate" readonly />
-                                                        <div class="invalid-feedback">
-                                                            Please choose a end date,start date and start date before end date.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3 mb-3">
-                                                        <label>End Date</label>
-                                                        <input type="date" class="form-control" name="end_date" value="${requestScope.endDate}" id="endDate" readonly />
-
-                                                    </div>
-                                                    <div>
-                                                        <input type="hidden"  name="account_id" id="account_id" value="${requestScope.accountId}" />
-                                                        <input type="hidden" name="sessionId" id="sessionId" value="${requestScope.sessionId}" />
-                                                        <input type="hidden" name="scheduleId" id="scheduleId" value="${requestScope.schedule_id}" />
-                                                    </div>
-
-                                                </div>
-
+                                            <div class="col-12 col-md-2 mb-3">
+                                                <label>Month:</label>
+                                                <select class="form-select" name="selectMonth" aria-label="Default select example" disabled>
+                                                    <option value="1" ${requestScope.month == 1 ? 'selected' : ''}>January </option>
+                                                    <option value="2" ${requestScope.month == 2 ? 'selected' : ''}>February</option>
+                                                    <option value="3" ${requestScope.month == 3 ? 'selected' : ''}>March</option>
+                                                    <option value="4" ${requestScope.month == 4 ? 'selected' : ''}>April</option>
+                                                    <option value="5" ${requestScope.month == 5 ? 'selected' : ''}>May</option>
+                                                    <option value="6" ${requestScope.month == 6 ? 'selected' : ''}>June</option>
+                                                    <option value="7" ${requestScope.month == 7 ? 'selected' : ''}>July</option>
+                                                    <option value="8" ${requestScope.month == 8 ? 'selected' : ''}>August</option>
+                                                    <option value="9" ${requestScope.month == 9 ? 'selected' : ''}>September</option>
+                                                    <option value="10" ${requestScope.month == 10 ? 'selected' : ''} >October</option>
+                                                    <option value="11" ${requestScope.month == 11 ? 'selected' : ''}>November</option>
+                                                    <option value="12" ${requestScope.month == 12 ? 'selected' : ''}>December</option>
+                                                </select>
+                                                    <input type="hidden" name="account_id" value="${requestScope.accountId}"/>
+                                                    <input type="hidden" name="session_id" value="${requestScope.sessionId}"/>
+                                                    
+                                                    <input type="hidden" name="schedule_id" value="${requestScope.schedule_id}"/>
                                             </div>
                                             <div class="col-12 col-md-12">
 

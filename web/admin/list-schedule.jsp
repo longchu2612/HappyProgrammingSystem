@@ -199,8 +199,7 @@
                                                     <th>#</th>
                                                     <th>Mentor Name</th>
                                                     <th>Create Time</th>
-                                                    <th>Start Date</th>
-                                                    <th>End Date</th>
+                                                    <th>Month</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -218,21 +217,32 @@
 
                                                         </td>
                                                         <td>
-                                                            ${a.getSchedules().getStartDate()}
-                                                        </td>
-                                                        <td>
-                                                            ${a.getSchedules().getEndDate()}
+                                                            <c:choose>
+                                                                <c:when test="${a.getSchedules().getMonth() == 1}">January</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 2}">February</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 3}">March</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 4}">April</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 5}">May</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 6}">June</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 7}">July</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 8}">August</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 9}">September</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 10}">October</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 11}">November</c:when>
+                                                                <c:when test="${a.getSchedules().getMonth() == 12}">December</c:when>
+                                                                <c:otherwise>Unknown Month</c:otherwise>
+                                                            </c:choose>
                                                         </td>
                                                         <td>
                                                             <c:choose>
                                                                 <c:when test="${a.getSchedules().getStatus() == '1'}">
-                                                                     <p class="text-primary">Pending</p>
+                                                                    <p class="text-primary">Pending</p>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '2'}">
-                                                                     <p class="text-success">Accept</p>
+                                                                    <p class="text-success">Accept</p>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '3'}">
-                                                                     <p class="text-danger">Reject</p>
+                                                                    <p class="text-danger">Reject</p>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     Unknown Status
@@ -241,15 +251,15 @@
 
                                                         </td>
                                                         <td>
-                                                             <c:choose>
+                                                            <c:choose>
                                                                 <c:when test="${a.getSchedules().getStatus() == '1'}">
-                                                                      <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&startDate=${a.getSchedules().getStartDate()}&endDate=${a.getSchedules().getEndDate()}'" >Detail</button>
+                                                                    <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '2'}">
-                                                                     <p>No Action</p>
+                                                                    <p>No Action</p>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '3'}">
-                                                                     <p>No Action</p>
+                                                                    <p>No Action</p>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     Unknown Status
@@ -314,9 +324,9 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                                document.getElementById('statusFilter').addEventListener('change', function () {
-                                                                    document.getElementById('statusForm').submit();
-                                                                });
+                                                                          document.getElementById('statusFilter').addEventListener('change', function () {
+                                                                              document.getElementById('statusForm').submit();
+                                                                          });
 
         </script>
 

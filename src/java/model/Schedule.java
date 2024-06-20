@@ -23,11 +23,24 @@ public class Schedule {
     private String status;
     private Date startDate;
     private Date endDate;
+    private int month;
     private String sessionId;
 
     public Schedule() {
     }
 
+    public Schedule(int id, Account account, List<Slot> slots, String status, int month, String sessionId) {
+        this.id = id;
+        this.account = account;
+        this.slots = slots;
+        this.status = status;
+        this.month = month;
+        this.sessionId = sessionId;
+    }
+    
+    
+     
+    
     public Schedule(int id, Account account, LocalDateTime createTime, List<Slot> slots, String status, Date startDate, Date endDate, String sessionId) {
         this.id = id;
         this.account = account;
@@ -75,6 +88,16 @@ public class Schedule {
         this.createTime = createTime;
     }
 
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    
+    
     public List<Slot> getSlots() {
         return slots;
     }

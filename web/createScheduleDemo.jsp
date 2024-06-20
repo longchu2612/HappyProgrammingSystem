@@ -8,6 +8,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="helper.ScheduleHelper" %>
+<%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,64 +152,19 @@
                                                         <tr>
                                                             <th rowspan="2">Year 
                                                                 <select style="margin-bottom: 5px;">
-                                                                    <option>2024</option>
-                                                                    <option>2025</option>
+                                                                    <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
+                                                                    <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
+                                                                    <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
+                                                                    <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
                                                                 </select><br>
                                                                 Week
 
-                                                                <select id="weekSelectDemo" name="selectedWeek" onchange="updateWeekDays()">
-                                                                    <option value="1" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("1") ? "selected" : "" %>>01/01 To 07/01</option>
-                                                                    <option value="2" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("2") ? "selected" : "" %>>08/01 To 14/01</option>
-                                                                    <option value="3" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("3") ? "selected" : "" %>>15/01 To 21/01</option>
-                                                                    <option value="4" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("4") ? "selected" : "" %>>22/01 To 28/01</option>
-                                                                    <option value="5" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("5") ? "selected" : "" %>>29/01 To 04/02</option>
-                                                                    <option value="6" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("6") ? "selected" : "" %>>05/02 To 11/02</option>
-                                                                    <option value="7" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("7") ? "selected" : "" %>>12/02 To 18/02</option>
-                                                                    <option value="8" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("8") ? "selected" : "" %>>19/02 To 25/02</option>
-                                                                    <option value="9" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("9") ? "selected" : "" %>>26/02 To 03/03</option>
-                                                                    <option value="10" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("10") ? "selected" : "" %>>04/03 To 10/03</option>
-                                                                    <option value="11" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("11") ? "selected" : "" %>>11/03 To 17/03</option>
-                                                                    <option value="12" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("12") ? "selected" : "" %>>18/03 To 24/03</option>
-                                                                    <option value="13" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("13") ? "selected" : "" %>>25/03 To 31/03</option>
-                                                                    <option value="14" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("14") ? "selected" : "" %>>01/04 To 07/04</option>
-                                                                    <option value="15" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("15") ? "selected" : "" %>>08/04 To 14/04</option>
-                                                                    <option value="16" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("16") ? "selected" : "" %>>15/04 To 21/04</option>
-                                                                    <option value="17" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("17") ? "selected" : "" %>>22/04 To 28/04</option>
-                                                                    <option value="18" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("18") ? "selected" : "" %>>29/04 To 05/05</option>
-                                                                    <option value="19" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("19") ? "selected" : "" %>>06/05 To 12/05</option>
-                                                                    <option value="20" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("20") ? "selected" : "" %>>13/05 To 19/05</option>
-                                                                    <option value="21" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("21") ? "selected" : "" %>>20/05 To 26/05</option>
-                                                                    <option value="22" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("22") ? "selected" : "" %>>27/05 To 02/06</option>
-                                                                    <option value="23" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("23") ? "selected" : "" %>>03/06 To 09/06</option>
-                                                                    <option value="24" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("24") ? "selected" : "" %>>10/06 To 16/06</option>
-                                                                    <option value="25" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("25") ? "selected" : "" %>>17/06 To 23/06</option>
-                                                                    <option value="26" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("26") ? "selected" : "" %>>24/06 To 30/06</option>
-                                                                    <option value="27" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("27") ? "selected" : "" %>>01/07 To 07/07</option>
-                                                                    <option value="28" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("28") ? "selected" : "" %>>08/07 To 14/07</option>
-                                                                    <option value="29" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("29") ? "selected" : "" %>>15/07 To 21/07</option>
-                                                                    <option value="30" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("30") ? "selected" : "" %>>22/07 To 28/07</option>
-                                                                    <option value="31" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("31") ? "selected" : "" %>>29/07 To 04/08</option>
-                                                                    <option value="32" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("32") ? "selected" : "" %>>05/08 To 11/08</option>
-                                                                    <option value="33" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("33") ? "selected" : "" %>>12/08 To 18/08</option>
-                                                                    <option value="34" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("34") ? "selected" : "" %>>19/08 To 25/08</option>
-                                                                    <option value="35" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("35") ? "selected" : "" %>>26/08 To 01/09</option>
-                                                                    <option value="36" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("36") ? "selected" : "" %>>02/09 To 08/09</option>
-                                                                    <option value="37" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("37") ? "selected" : "" %>>09/09 To 15/09</option>
-                                                                    <option value="38" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("38") ? "selected" : "" %>>16/09 To 22/09</option>
-                                                                    <option value="39" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("39") ? "selected" : "" %>>23/09 To 29/09</option>
-                                                                    <option value="40" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("40") ? "selected" : "" %>>30/09 To 06/10</option>
-                                                                    <option value="41" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("41") ? "selected" : "" %>>07/10 To 13/10</option>
-                                                                    <option value="42" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("42") ? "selected" : "" %>>14/10 To 20/10</option>
-                                                                    <option value="43" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("43") ? "selected" : "" %>>21/10 To 27/10</option>
-                                                                    <option value="44" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("44") ? "selected" : "" %>>28/10 To 03/11</option>
-                                                                    <option value="45" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("45") ? "selected" : "" %>>04/11 To 10/11</option>
-                                                                    <option value="46" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("46") ? "selected" : "" %>>11/11 To 17/11</option>
-                                                                    <option value="47" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("47") ? "selected" : "" %>>18/11 To 24/11</option>
-                                                                    <option value="48" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("48") ? "selected" : "" %>>25/11 To 01/12</option>
-                                                                    <option value="49" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("49") ? "selected" : "" %>>02/12 To 08/12</option>
-                                                                    <option value="50" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("50") ? "selected" : "" %>>09/12 To 15/12</option>
-                                                                    <option value="51" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("51") ? "selected" : "" %>>16/12 To 22/12</option>
-                                                                    <option value="52" <%= request.getAttribute("selectWeek") != null && request.getAttribute("selectWeek").toString().contains("52") ? "selected" : "" %>>23/12 To 29/12</option>
+                                                                <select id="weekSelectDemo" name="selectedWeek">
+                                                                    <% int weekIndex = 1; %>
+                                                                    <% for (String week : (List<String>) request.getAttribute("weeks")) {%>
+                                                                    <option value="<%= weekIndex%>"><%= week%></option>
+                                                                    <% weekIndex++; %>
+                                                                    <% }%>
                                                                 </select>
                                                             </th>
                                                             <th>Monday</th>
@@ -220,14 +176,14 @@
                                                             <th>Sunday</th>
                                                         </tr>
 
-                                                         <tr id="weekDays">
-                                                            <th><%= request.getAttribute("startDate") %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(1) %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(2) %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(3) %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(4) %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(5) %></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(6) %></th>
+                                                        <tr id="weekDays">
+                                                            <th>${requestScope.startDate}</th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(1)%></th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(2)%></th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(3)%></th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(4)%></th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(5)%></th>
+                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(6)%></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -460,9 +416,9 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                                    document.getElementById('weekSelectDemo').addEventListener('change', function () {
-                                                                        document.getElementById('createScheduleDemo').submit();
-                                                                    });
+            document.getElementById('weekSelectDemo').addEventListener('change', function () {
+                document.getElementById('createScheduleDemo').submit();
+            });
 
         </script>
 

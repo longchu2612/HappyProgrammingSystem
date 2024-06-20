@@ -63,13 +63,11 @@ public class UpdateScheduleController extends HttpServlet {
             throws ServletException, IOException {
         
         String scheduleId = request.getParameter("scheduleId");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
+        String month = request.getParameter("month");
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         List<Slot> slots = scheduleDAO.getAllDayOfSlot(Integer.parseInt(scheduleId));
         request.setAttribute("slots", slots);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
+        request.setAttribute("month", month);
         request.getRequestDispatcher("updatesSchedule.jsp").forward(request, response);
     }
 

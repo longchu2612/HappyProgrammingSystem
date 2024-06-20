@@ -62,9 +62,7 @@ public class UpdateScheduleManage extends HttpServlet {
         String schedule_id = request.getParameter("schedule_id");
         String sessionId = request.getParameter("sessionId");
         String account_id = request.getParameter("id");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-
+        String month = request.getParameter("month");
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 
         List<Slot> slots = scheduleDAO.getAllDayOfSlot(Integer.parseInt(schedule_id));
@@ -76,8 +74,7 @@ public class UpdateScheduleManage extends HttpServlet {
 //        List<String> slotOfFriday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 5);
 //        List<String> slotOfSaturday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 6);
 //        List<String> slotOfSunday = scheduleDAO.getAllSlotsOfDay(Integer.parseInt(id), sessionId, 7);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
+        
         request.setAttribute("slots", slots);
 //        request.setAttribute("slotOfMonday", slotOfMonday);
 //        request.setAttribute("slotOfTuesday", slotOfTuesday);
@@ -86,7 +83,7 @@ public class UpdateScheduleManage extends HttpServlet {
 //        request.setAttribute("slotOfFriday", slotOfFriday);
 //        request.setAttribute("slotOfSaturday", slotOfSaturday);
 //        request.setAttribute("slotOfSunday", slotOfSunday);
-
+        request.setAttribute("month", month);
         request.setAttribute("schedule_id", schedule_id);
         request.setAttribute("accountId", account_id);
         request.setAttribute("sessionId", sessionId);
@@ -105,12 +102,10 @@ public class UpdateScheduleManage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accountId = request.getParameter("account_id");
-        String sessionId = request.getParameter("sessionId");
+        String sessionId = request.getParameter("session_id");
         String action = request.getParameter("action");
-        String startDate = request.getParameter("start_date");
-        String endDate = request.getParameter("end_date");
         String note = request.getParameter("note");
-        String schedule_id = request.getParameter("scheduleId");
+        String schedule_id = request.getParameter("schedule_id");
         String message = "";
         boolean check = true;
 
@@ -156,8 +151,6 @@ public class UpdateScheduleManage extends HttpServlet {
         request.setAttribute("schedule_id", schedule_id);
         request.setAttribute("message", message);
         request.setAttribute("slots", slots);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
         request.getRequestDispatcher("update-schedule.jsp").forward(request, response);
     }
 
