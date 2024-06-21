@@ -113,8 +113,6 @@
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
                                 <div class="card-body">
-
-                                    <form id="createScheduleDemo" action="schedule" method="Post"> 
                                         <input type="hidden" name="action" value="create"/>
                                         <div class="row form-row">
                                             <div class="col-12 col-md-12">
@@ -147,16 +145,20 @@
                                                 <h4 style="color: red; align-content: center;">
                                                     ${requestScope.message}
                                                 </h4>
+                                                
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
+                                                   
                                                             <th rowspan="2">Year 
-                                                                <select style="margin-bottom: 5px;">
+                                                                <form action="schedule" method="Post">
+                                                                    <select style="margin-bottom: 5px;" id="yearForm" name="selectYear">
                                                                     <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
                                                                     <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
                                                                     <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
                                                                     <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
-                                                                </select><br>
+                                                                </select>
+                                                                </form><br>
                                                                 Week
 
                                                                 <select id="weekSelectDemo" name="selectedWeek">
@@ -177,13 +179,13 @@
                                                         </tr>
 
                                                         <tr id="weekDays">
-                                                            <th>${requestScope.startDate}</th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(1)%></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(2)%></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(3)%></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(4)%></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(5)%></th>
-                                                            <th><%= LocalDate.parse((String) request.getAttribute("startDate")).plusDays(6)%></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -280,7 +282,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                    </form>
+                                    
 
                                 </div>
                             </div>
@@ -418,6 +420,10 @@
         <script>
             document.getElementById('weekSelectDemo').addEventListener('change', function () {
                 document.getElementById('createScheduleDemo').submit();
+            });
+            
+            document.getElementById('yearForm').addEventListener('change', function () {
+                document.getElementById('yearForm').submit();
             });
 
         </script>

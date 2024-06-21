@@ -17,11 +17,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.DayOfWeek;
 import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import model.Account;
@@ -73,9 +75,12 @@ public class ScheduleController extends HttpServlet {
 
         int currentYear = Year.now().getValue();
         List<String> weeks = new ArrayList<>();
-        int totalWeeks = Year.of(2023).length();
+       
+        int totalWeeks = getNumberOfISOWeeksInYear(currentYear);
+        
+        
         for (int week = 1; week <= totalWeeks; week++) {
-            LocalDate firstDayOfWeek = getFirstDayOfWeek(2023, week);
+            LocalDate firstDayOfWeek = getFirstDayOfWeek(currentYear, week);
             LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
 
             String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
@@ -100,6 +105,20 @@ public class ScheduleController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String year = request.getParameter("selectYear");
+        List<String> weeks = new ArrayList<>();
+        int totalWeeks = getNumberOfISOWeeksInYear(Integer.parseInt(year));
+        for (int week = 1; week <= totalWeeks; week++) {
+            LocalDate firstDayOfWeek = getFirstDayOfWeek(Integer.parseInt(year), week);
+            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+
+            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+            weeks.add(weekRange);
+        }
+         
+        request.setAttribute("weeks", weeks);
+        request.setAttribute("currentYear", year); 
         request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
@@ -113,9 +132,52 @@ public class ScheduleController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private LocalDate getFirstDayOfWeek(int year, int week) {
+    public static LocalDate getFirstDayOfWeek(int year, int week) {
+        
         LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
-        return firstDayOfYear.with(TemporalAdjusters.firstDayOfYear()).plusWeeks(week - 1);
+        LocalDate firstMonday = firstDayOfYear.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        if (firstMonday.getDayOfYear() > 4) {
+            firstMonday = firstMonday.minusWeeks(1);
+        }
+        LocalDate firstDayOfRequestedWeek = firstMonday.plusWeeks(week - 1);
+        return firstDayOfRequestedWeek;
+    }
+    public static void main(String[] args) {
+//        int currentYear = Year.now().getValue();
+//        List<String> weeks = new ArrayList<>();
+//        LocalDate lastDayOfYear = LocalDate.of(currentYear, 12, 31);
+//        WeekFields weekFields = WeekFields.ISO;
+//        int totalWeeks = lastDayOfYear.get(weekFields.weekOfWeekBasedYear());
+//        
+//        
+//        for (int week = 1; week <= totalWeeks; week++) {
+//            LocalDate firstDayOfWeek = getFirstDayOfWeek(currentYear, week);
+//            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+//
+//            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+//                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+//            weeks.add(weekRange);
+//        }
+//        for(String week: weeks){
+//            System.out.println(week);
+//        }
+//        int year = 2026; // Thay đổi năm tùy ý
+//        int totalWeeks = getNumberOfISOWeeksInYear(year);
+//
+//        System.out.println("Số tuần trong năm " + year + " là: " + totalWeeks);
+    }
+    
+    public static int getNumberOfISOWeeksInYear(int year) {
+     
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        LocalDate firstDayOfNextYear = LocalDate.of(year + 1, 1, 1);
+        WeekFields weekFields = WeekFields.ISO;
+        int lastWeekOfCurrentYear = firstDayOfNextYear.minusDays(1).get(weekFields.weekOfWeekBasedYear());
+        if (lastWeekOfCurrentYear == 1) {
+            return firstDayOfNextYear.minusDays(7).get(weekFields.weekOfWeekBasedYear());
+        } else {
+            return lastWeekOfCurrentYear;
+        }
     }
     
 }
