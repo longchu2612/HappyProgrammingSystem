@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,12 +16,12 @@ public class Slot {
     private int slot;
     private int dayOfWeek;
     private Schedule schedule;
-    private Date teach_date;
+    private LocalDate teach_date;
     
     
     
 
-    public Slot(int id, int slot, int dayOfWeek, Schedule schedule, Date teach_date) {
+    public Slot(int id, int slot, int dayOfWeek, Schedule schedule, LocalDate teach_date) {
         this.id = id;
         this.slot = slot;
         this.dayOfWeek = dayOfWeek;
@@ -65,11 +66,11 @@ public class Slot {
         this.schedule = schedule;
     }
 
-    public Date getTeach_date() {
+    public LocalDate getTeach_date() {
         return teach_date;
     }
 
-    public void setTeach_date(Date teach_date) {
+    public void setTeach_date(LocalDate teach_date) {
         this.teach_date = teach_date;
     }
 

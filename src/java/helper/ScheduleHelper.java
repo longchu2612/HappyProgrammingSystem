@@ -6,6 +6,7 @@ package helper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import model.Slot;
 
@@ -52,4 +53,16 @@ public class ScheduleHelper {
         }
         return "";
     }
+    public static String isCheckedSlotByDate(List<Slot> slots, int slot, String date){
+        if(slots != null){
+            for(Slot s : slots){
+                if(s.getSlot()== slot && s.getTeach_date().toString().equals(date)){
+                    return "checked";
+                }
+            }
+        }
+        return "";
+        
+    }
+    
 }

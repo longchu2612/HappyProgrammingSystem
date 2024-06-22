@@ -156,6 +156,29 @@ public class ScheduleDAO extends DBContext {
         }
         return slots;
     }
+    public List<Slot> getAllSlotByDates(int schedule_id ,String startDate, String endDate){
+        List<Slot> slots = new ArrayList<>();
+        String sql = "select * from dbo.Slot where schedule_id = ? and teach_date between ? and ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_id);
+            ps.setString(2, startDate);
+            ps.setString(3, endDate);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Slot slot = new Slot();
+                slot.setId(rs.getInt("id"));
+                slot.setSlot(rs.getInt("slot"));
+                slot.setDayOfWeek(rs.getInt("dayOfWeek"));
+                slot.setTeach_date(rs.getDate("teach_date").toLocalDate());
+                slots.add(slot);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return slots;
+    }
 //    public Date getTeachDateStart(int account_id, String sessionId) {
 //        String sql = "SELECT MIN(schedule.teach_date) AS start_date\n"
 //                + "FROM dbo.Schedules AS schedule\n"
@@ -347,9 +370,11 @@ public class ScheduleDAO extends DBContext {
 //    }
 
     public static void main(String[] args) {
-//        ScheduleDAO scheduleDAO = new ScheduleDAO();
-//        int result = scheduleDAO.createNewSchedule(41, "1", LocalDateTime.now(),6, "abcjsidood");
-//        System.out.println(result);
+      ScheduleDAO scheduleDAO = new ScheduleDAO();
+      List<Slot> slots = scheduleDAO.getAllSlotByDates(2, "2024-05-01", "2024-05-05");
+      for(Slot slot : slots){
+          System.out.println(slot.getTeach_date().toString());
+      }
           
     }
     
