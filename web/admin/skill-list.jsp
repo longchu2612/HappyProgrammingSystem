@@ -31,8 +31,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 d-flex">
-                                    <input id="searchbox-listskill" class="p-1 rounded-2" type="search" placeholder="Skill name...">
-                                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                    <form action="SkillList" method="post">
+                                        <input type="hidden" name="service" value="search">
+                                        <input id="searchbox-listskill" class="p-1 rounded-2" name="skillName" type="search" placeholder="Skill name...">
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                    </form>
                                 </div>
                                 <div class="col-sm-6 text-end">
                                     <button class="btn btn-success" onclick="window.location.href = 'SkillList?service=add'">

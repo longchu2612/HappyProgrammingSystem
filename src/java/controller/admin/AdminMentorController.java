@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 import model.*;
 
@@ -34,47 +35,54 @@ public class AdminMentorController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         AdminMentorDAO amDAO = new AdminMentorDAO();
         String service = request.getParameter("service");
-        if (null == service) {
-            ArrayList<Mentor> list = amDAO.getAllMentor();
-            request.setAttribute("mentors", list);
-            request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
-        } else {
-            switch (service) {
-                case "details" -> {
-                    
-                }
-                case "search" -> {
-                    String name = request.getParameter("txtSearch").trim();
-                    ArrayList<Mentor> listByFullname = amDAO.searchByFullName(name);
-                    ArrayList<Mentor> listByUsername = amDAO.searchByUsername(name);
-                    if (name == null || name.isEmpty()) {
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                    } else if (listByUsername != null) {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByUsername);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
-                    } else {
-                        request.setAttribute("txtSearch", name);
-                        request.setAttribute("mentors", listByFullname);
-                        request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("ad_acc") != null) {
+            String acc = String.valueOf(session.getAttribute("acc"));
+            if (null == service) {
+                ArrayList<Mentor> list = amDAO.getAllMentor();
+                request.setAttribute("mentors", list);
+                request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+            } else {
+                switch (service) {
+                    case "details" -> {
+
                     }
-                }
-                case "setStatus" -> {
-                    String id = request.getParameter("id");
-                    int status = Integer.parseInt(request.getParameter("status"));
-                    if (status == 1) {
-                        amDAO.setStatus(id, 0);
-                        request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                    } else {
-                        amDAO.setStatus(id, 1);
-                        request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
-                        response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                    case "search" -> {
+                        String name = request.getParameter("txtSearch").trim();
+                        ArrayList<Mentor> listByFullname = amDAO.searchByFullName(name);
+                        ArrayList<Mentor> listByUsername = amDAO.searchByUsername(name);
+                        if (name == null || name.isEmpty()) {
+                            response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                        } else if (listByUsername != null) {
+                            request.setAttribute("txtSearch", name);
+                            request.setAttribute("mentors", listByUsername);
+                            request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+                        } else {
+                            request.setAttribute("txtSearch", name);
+                            request.setAttribute("mentors", listByFullname);
+                            request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
+                        }
                     }
-                }
-                default -> {
+                    case "setStatus" -> {
+                        String id = request.getParameter("id");
+                        int status = Integer.parseInt(request.getParameter("status"));
+                        if (status == 1) {
+                            amDAO.setStatus(id, 0);
+                            request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
+                            response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                        } else {
+                            amDAO.setStatus(id, 1);
+                            request.setAttribute("statusUpdate", "Trạng thái đã được cập nhật!");
+                            response.sendRedirect(request.getContextPath() + "/admin/MentorList");
+                        }
+                    }
+                    default -> {
+                    }
                 }
             }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/home");
         }
 
     }

@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 import model.*;
 
@@ -34,17 +35,19 @@ public class AdminRequestController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            CVDAO daoCV = new CVDAO();
-            AccountDAO daoAcc = new AccountDAO();
-            SkillDAO daoSK = new SkillDAO();
-            String service = request.getParameter("service");
+
+        CVDAO daoCV = new CVDAO();
+        AccountDAO daoAcc = new AccountDAO();
+        SkillDAO daoSK = new SkillDAO();
+        String service = request.getParameter("service");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ad_acc") != null) {
             if (null == service) {
                 ArrayList<CV_Request> list = daoCV.displayCVAdmin();
                 request.setAttribute("cvList", list);
                 request.getRequestDispatcher("/admin/cv-request.jsp").forward(request, response);
-            }else{
-                switch(service){
+            } else {
+                switch (service) {
                     case "details" -> {
                         String cvId = request.getParameter("cvId");
                         String accId = request.getParameter("accId");
@@ -68,11 +71,13 @@ public class AdminRequestController extends HttpServlet {
                         daoCV.setCVStatus(cvId, "Reject", note);
                         response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
                     }
-                    default->{
-                        
+                    default -> {
+
                     }
                 }
             }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/home");
         }
     }
 

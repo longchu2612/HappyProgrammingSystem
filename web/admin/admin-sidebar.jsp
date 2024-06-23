@@ -20,7 +20,7 @@
                             <li class="submenu">
                                 <a href="#"><span><i class="fe fe-file-word"></i></span> Requests<span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="#">Apply CV</a></li>
+                                    <li><a href="ListRequest">Apply CV</a></li>
                                     <li><a href="#">Mentor Request</a></li>
                                     <li><a href="#">Mentee Request</a></li>
                                 </ul>

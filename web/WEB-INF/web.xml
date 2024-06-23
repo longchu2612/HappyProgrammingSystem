@@ -33,8 +33,8 @@
         <servlet-class>controller.admin.AdminMentorController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeController</servlet-name>
-        <servlet-class>controller.admin.HomeController</servlet-class>
+        <servlet-name>AdminHomeController</servlet-name>
+        <servlet-class>controller.admin.AdminHomeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
@@ -69,7 +69,7 @@
         <url-pattern>/admin/ListRequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomeController</servlet-name>
+        <servlet-name>AdminHomeController</servlet-name>
         <url-pattern>/admin/home</url-pattern>
     </servlet-mapping>
     <welcome-file-list>

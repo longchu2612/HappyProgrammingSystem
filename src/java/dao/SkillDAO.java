@@ -207,7 +207,8 @@ public class SkillDAO extends DBContext {
         }
         return null;
     }
-    public ArrayList<String> getSkilCV(String id){
+
+    public ArrayList<String> getSkilCV(String id) {
         ArrayList<String> list = new ArrayList<>();
         String query = """
                        select s.name
@@ -221,7 +222,7 @@ public class SkillDAO extends DBContext {
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-               list.add(rs.getString("name"));
+                list.add(rs.getString("name"));
             }
             return list;
         } catch (SQLException e) {
@@ -243,10 +244,47 @@ public class SkillDAO extends DBContext {
         }
         return null;
     }
+
+    public ArrayList<Skill> searchSkillByName(String name) {
+        ArrayList<Skill> list = new ArrayList<>();
+        String query = "SELECT * from Skill where name like ?";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + name + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int skillId = rs.getInt("id");
+                String skillName = rs.getString("name");
+                int status = rs.getInt("status");
+                String image = rs.getString("image");
+                list.add(new Skill(skillId, skillName, status, image));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         SkillDAO dao = new SkillDAO();
         ArrayList<String> list = dao.getSkilCV("2002");
-        for(Object o : list){
+        for (Object o : list) {
             System.out.println(o);
         }
     }

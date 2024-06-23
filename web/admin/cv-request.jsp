@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Mentoring - Mentor List Page</title>
+        <title>Apply CV Request</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png">
 
@@ -43,14 +43,7 @@
                                 <div class="col-sm-12">
                                     <h3 class="page-title">Apply CV List</h3>
                                     <div class="row">
-                                        <form class="col-sm-6" action="#" method="post">
-                                            <input type="hidden" name="service" value="search">
-                                            <div class="col-sm-6 d-flex">
-                                                <input id="searchbox-mentorlist" class="p-1 rounded-2" type="search" name="txtSearch" 
-                                                       placeholder="Search in here..." value="${txtSearch}">
-                                            <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
-                                        </div>
-                                    </form>
+                                        
                                     <div>
 
                                     </div>
@@ -70,10 +63,9 @@
                                                     <th>#</th>
                                                     <th>Full Name</th>
                                                     <th>Profession</th>
-                                                    <th>Status</th>
                                                     <th>Details</th>
+                                                    <th>Status</th>
                                                     <th>Note</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -82,6 +74,11 @@
                                                         <td>${count.index+1}</td>
                                                         <td>${cv.fullname}</td>
                                                         <td>${cv.job}</td>
+                                                        <td>
+                                                            <button class="btn btn-secondary">
+                                                                <a class="text-white" href="ListRequest?service=details&cvId=${cv.id}&accId=${cv.accountID}">Details</a>
+                                                            </button>
+                                                        </td>
                                                         <td class="
                                                             <c:choose>
                                                                 <c:when test='${cv.status == "Approve"}'>text-success</c:when>
@@ -89,31 +86,15 @@
                                                                 <c:otherwise>text-warning</c:otherwise>
                                                             </c:choose>">${cv.status}
                                                         </td>
-                                                        <td>
-                                                            <button class="btn btn-secondary">
-                                                                <a class="text-white" href="ListRequest?service=details&cvId=${cv.id}&accId=${cv.accountID}">Details</a>
-                                                            </button>
-                                                        </td>
+
                                                         <c:if test="${cv.status != 'Pending'}">
                                                             <td>
                                                                 <p>${cv.note}</p>
                                                             </td>
-                                                            <td>
-
-                                                            </td>
                                                         </c:if>
                                                         <c:if test="${cv.status == 'Pending'}">
                                                             <td>
-                                                                <input type="hidden" id="cvId" value="${cv.id}">
-                                                                <input class="form-control border-2 border-dark" name="note" id="noteInput" type="text">
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-success" onclick="approve()">
-                                                                    <span class="text-white">Approve</span>
-                                                                </button>
-                                                                <button class="btn btn-danger" onclick="reject()">
-                                                                    <span class="text-white">Reject</span>
-                                                                </button>
+                                                                
                                                             </td>
                                                         </c:if>
                                                     </tr>
