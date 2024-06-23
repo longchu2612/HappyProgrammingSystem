@@ -20,7 +20,8 @@ public class AdminMentorDAO extends DBContext {
         String query = """
                        WITH AccountFiltered AS (
                            SELECT acc.id, acc.fullname, acc.name, cv.job, acc.status
-                           FROM Account acc     JOIN CV cv on acc.id = cv.accountID
+                           FROM Account acc    
+                           JOIN CV cv on acc.id = cv.accountID
                            WHERE roleID = 2
                        ),
                        RequestCounts AS (
@@ -35,7 +36,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af
@@ -80,7 +81,8 @@ public class AdminMentorDAO extends DBContext {
         String query = """
                        WITH AccountFiltered AS (
                            SELECT acc.id, acc.fullname, acc.name, cv.job, acc.status
-                           FROM Account acc     JOIN CV cv on acc.id = cv.accountID
+                           FROM Account acc     
+                           JOIN CV cv on acc.id = cv.accountID
                            WHERE roleID = 2 and fullname like ?
                        ),
                        RequestCounts AS (
@@ -95,7 +97,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af
@@ -144,7 +146,8 @@ public class AdminMentorDAO extends DBContext {
                        begin
                        WITH AccountFiltered AS (
                            SELECT acc.id, acc.fullname, acc.name, cv.job, acc.status
-                           FROM Account acc     JOIN CV cv on acc.id = cv.accountID
+                           FROM Account acc
+                           JOIN CV cv on acc.id = cv.accountID
                            WHERE roleID = 2 AND [name] LIKE '%' + @name + '%'
                        ),
                        RequestCounts AS (
@@ -159,7 +162,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af

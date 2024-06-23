@@ -15,11 +15,6 @@ import model.Skill;
 public class SkillDAO extends DBContext {
 
     public ArrayList<Skill> getAllSkill() {
-
-//<<<<<<< HEAD
-//        ArrayList listSkill = new ArrayList<Skill>();
-//        String query = "select * from dbo.Skill";
-//=======
         ArrayList<Skill> listSkill = new ArrayList<>();
         String query = "SELECT * FROM happy_programming_system.dbo.Skill";
 
