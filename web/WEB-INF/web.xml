@@ -11,14 +11,18 @@
     <servlet>
         <servlet-name>AccountManage</servlet-name>
         <servlet-class>controller.admin.AccountManage</servlet-class>
-</servlet>
-<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ProfileMenteeController</servlet-name>
         <servlet-class>controller.ProfileMenteeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>controller.ProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestController</servlet-name>
+        <servlet-class>controller.RequestController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminSkillController</servlet-name>
@@ -73,7 +77,7 @@
         <url-pattern>/admin/account_admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-       <servlet-name>AdminSkillController</servlet-name>
+        <servlet-name>AdminSkillController</servlet-name>
         <url-pattern>/admin/SkillList</url-pattern>
     </servlet-mapping>
     <servlet>
@@ -92,7 +96,7 @@
         <servlet-name>SkillsController</servlet-name>
         <url-pattern>/skills</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminRequestController</servlet-name>
         <url-pattern>/admin/ListRequest</url-pattern>
     </servlet-mapping>
@@ -116,12 +120,16 @@
         <servlet-name>UpdateScheduleController</servlet-name>
         <url-pattern>/update_schedule</url-pattern>
     </servlet-mapping>
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminHomeController</servlet-name>
         <url-pattern>/admin/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminMentorController</servlet-name>
         <url-pattern>/admin/MentorList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestController</servlet-name>
+        <url-pattern>/request</url-pattern>
     </servlet-mapping>
 </web-app>
