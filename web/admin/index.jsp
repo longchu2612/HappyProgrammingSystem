@@ -158,6 +158,11 @@
 
             <jsp:include page="layout_sidebar.jsp"/>
  
+            <jsp:include page="admin-header.jsp"></jsp:include>
+
+
+            <jsp:include page="admin-sidebar.jsp"></jsp:include>
+
 
             <div class="page-wrapper">
                 <div class="content container-fluid">

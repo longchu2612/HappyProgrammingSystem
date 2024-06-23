@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,7 +101,10 @@ public class AccountManage extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {
                     if (account.getRole().getRole_id() == 3 || account.getRole().getRole_id() == 4) {
-                        request.getRequestDispatcher("index.html").forward(request, response);
+                        HttpSession sess = request.getSession();
+                        sess.setAttribute("ad_acc", account);
+                        sess.setMaxInactiveInterval(3600);
+                        request.getRequestDispatcher("/admin/home").forward(request, response);
                     } else {
                         request.setAttribute("error", "Tài khoản của bạn không đúng!");
 

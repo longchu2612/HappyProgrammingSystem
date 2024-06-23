@@ -233,7 +233,7 @@
         $('.datetimepicker').on('dp.show', function () {
             $(this).closest('.table-responsive').removeClass('table-responsive').addClass('temp');
         }).on('dp.hide', function () {
-            $(this).closest('.temp').addClass('table-responsive').removeClass('temp')
+            $(this).closest('.temp').addClass('table-responsive').removeClass('temp');
         });
     }
 
@@ -247,7 +247,7 @@
 
     if ($('.datatable').length > 0) {
         $('.datatable').DataTable({
-            "bFilter": false,
+            "bFilter": false
         });
     }
 
@@ -360,7 +360,7 @@ function CheckPassword(text) {
 function CheckConfirmPassword(text) {
     var password = document.getElementById('password').value;
     var spanRePassword = document.getElementById('span_admin_cofirmpassword');
-    if (password != text.value) {
+    if (password !== text.value) {
         spanRePassword.innerHTML = 'Mật khẩu không khớp!';
         spanRePassword.style.color = 'red';
         return false;
@@ -410,7 +410,7 @@ function validateForm() {
             !CheckConfirmPassword(document.getElementsByName("confirm_password")[0]) ||
             !CheckAccountName(document.getElementsByName("account_name")[0]) ||
             !CheckFullName(document.getElementsByName("full_name")[0])
-         ) {
+            ) {
 
         return false;
     }

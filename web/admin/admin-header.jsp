@@ -1,6 +1,6 @@
 <div class="header">
     <div class="header-left">
-        <a href="index.html" class="logo">
+        <a href="index.jsp" class="logo">
             <img src="assets/img/logo.png" alt="Logo" />
         </a>
         <a href="index.html" class="logo logo-small">
@@ -16,14 +16,7 @@
     <a href="javascript:void(0);" id="toggle_btn">
         <i class="fe fe-text-align-left"></i>
     </a>
-    <div class="top-nav-search">
-        <form>
-            <input type="text" class="form-control" placeholder="Search here" />
-            <button class="btn" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
+    
 
     <a class="mobile_btn" id="mobile_btn">
         <i class="fa fa-bars"></i>
@@ -154,28 +147,28 @@
                 <span class="user-img"
                       ><img
                         class="rounded-circle"
-                        src="assets/img/profiles/avatar-12.jpg"
+                        src="${sessionScope.ad_acc.avatar}"
                         width="31"
-                        alt="Ryan Taylor"
+                        alt="${sessionScope.ad_acc.fullname}"
                         /></span>
             </a>
             <div class="dropdown-menu">
                 <div class="user-header">
                     <div class="avatar avatar-sm">
                         <img
-                            src="admin/assets/img/profiles/avatar-12.jpg"
+                            src="${sessionScope.ad_acc.avatar}"
                             alt="User Image"
                             class="avatar-img rounded-circle"
                             />
                     </div>
                     <div class="user-text">
-                        <h6>Allen Davis</h6>
-                        <p class="text-muted mb-0">Administrator</p>
+                        <h6>${sessionScope.ad_acc.fullname}</h6>
+                        <p class="text-muted mb-0">${sessionScope.ad_acc.account_name}</p>
                     </div>
                 </div>
                 <a class="dropdown-item" href="profile.html">My Profile</a>
                 <a class="dropdown-item" href="settings.html">Settings</a>
-                <a class="dropdown-item" href="login.html">Logout</a>
+                <a class="dropdown-item" href="home?service=logout">Logout</a>
             </div>
         </li>
     </ul>

@@ -6,7 +6,8 @@ package dao;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import model.CV;
+import java.util.*;
+import model.*;
 
 public class CVDAO extends DBContext {
 
@@ -14,7 +15,6 @@ public class CVDAO extends DBContext {
      *
      * @author Admin
      */
-
     public boolean checkCVExistanceById(String id) {
         String sql = "SELECT ISNULL((SELECT count(id) FROM CV WHERE accountID = ? Group by accountID), 0)";
         try {
@@ -50,7 +50,7 @@ public class CVDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
+
     public CV getCVByAccountId(String AccountID) {
         CV c = new CV();
         String sql = "SELECT * FROM CV WHERE accountID = ?";
@@ -73,7 +73,7 @@ public class CVDAO extends DBContext {
         }
         return c;
     }
-    
+
     public void updateCVByAccountId(String accountID, String avatar, String job, String introduction, String achievements) {
         String sql = """
                      UPDATE CV
@@ -90,5 +90,161 @@ public class CVDAO extends DBContext {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<CV_Request> displayCVAdmin() {
+        ArrayList<CV_Request> list = new ArrayList<>();
+        String query = """
+                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note
+                       FROM CV cv
+                       join Account acc on cv.accountID = acc.id""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id"));
+                String fullname = rs.getString("fullname");
+                String accountID = rs.getString("accountID");
+                String job = rs.getString("job");
+                String status = rs.getString("status");
+                String note = rs.getString("note");
+                list.add(new CV_Request(id, accountID, job, status, note, fullname));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<CV> displayCVAdminByStatus(String txtStatus) {
+        ArrayList<CV> list = new ArrayList<>();
+        String query = """
+                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note
+                       FROM CV cv
+                       join Account acc on cv.accountID = acc.id
+                       where cv.status = ? """;
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, txtStatus);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id"));
+                String fullname = rs.getString("fullname");
+                String accountID = rs.getString("accountID");
+                String job = rs.getString("job");
+                String status = rs.getString("status");
+                String note = rs.getString("note");
+                list.add(new CV_Request(id, accountID, job, status, note, fullname));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public boolean setCVStatus(String id, String status, String note) {
+        String query = "update CV set [status] = ?, note =? where id = ?";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setString(2, note);
+            ps.setString(3, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
+
+    public CV getCVByAccId(String txtId) {
+        String query = """
+                       select *
+                       from CV
+                       where accountID = ?""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, txtId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String accId = rs.getString("accountID");
+                String avatar = rs.getString("avatar");
+                String job = rs.getString("job");
+                String introduction = rs.getString("introduction");
+                Date created_at = rs.getDate("created_at");
+                Date modified_at = rs.getDate("modified_at");
+                String achievements = rs.getString("achievements");
+                String status = rs.getString("status");
+                String note = rs.getString("note");
+                return new CV(id, accId, avatar, job, introduction, created_at, modified_at, achievements, status, note);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
     }
 }

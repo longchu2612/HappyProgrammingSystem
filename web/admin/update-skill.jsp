@@ -11,13 +11,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Skill</title>
-
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/font-awesome.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/feathericon.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/plugins/datatables/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/feathericon.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/plugins/datatables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     </head>
     <body>
         <div class="main-wrapper">
@@ -38,12 +37,13 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card-body">
-                                        <form action="updateSkill" method="post">
-                                        <div class="form-group">
-                                            <label class="col-form-label col-lg-2">Skill Id:</label>
-                                            <div class="col-lg-5">
-                                                <input class="form-control" type="text" name="skillId"
-                                                       value="${skill.skillId}" readonly>
+                                        <form action="SkillList" method="post">
+                                            <input type="hidden" name="service" value="update">
+                                            <div class="form-group">
+                                                <label class="col-form-label col-lg-2">Skill Id:</label>
+                                                <div class="col-lg-5">
+                                                    <input class="form-control" type="text" name="skillId"
+                                                           value="${skill.skillId}" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -81,13 +81,13 @@
             <!--End content-->
         </div>
 
-        <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
-        <script src="admin/assets/js/bootstrap.bundle.min.js"></script>
-        <script src="admin/assets/js/feather.min.js"></script>
-        <script src="admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="admin/assets/plugins/datatables/datatables.min.js"></script>
-        <script src="admin/assets/js/script.js"></script>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/feather.min.js"></script>
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatables/datatables.min.js"></script>
+        <script src="assets/js/script.js"></script>
 
     </body>
 </html>

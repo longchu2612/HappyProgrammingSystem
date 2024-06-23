@@ -4,13 +4,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add new skill</title>
-
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/font-awesome.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/feathericon.min.css" />
-        <link rel="stylesheet" type="text/css" href="admin/assets/plugins/datatables/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/feathericon.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/plugins/datatables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     </head>
     <body>
         <div class="main-wrapper">
@@ -31,12 +30,13 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card-body">
-                                        <form action="addSkill" method="post">
+                                        <form action="SkillList" method="post">
+                                            <input type="hidden" name="service" value="add-new">
                                             <div class="form-group">
                                                 <label class="col-form-label col-lg-2">Skill Name:</label>
                                                 <div class="col-lg-10">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="skillname" placeholder="Skill name">
+                                                        <input type="text" class="form-control" name="skillname" placeholder="Skill name" value="${skillname}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,13 +53,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--                                        <div class="form-group">
-                                                                                        <label class="col-form-label col-lg-2">Choose an image:</label>
-                                                                                        <div class="col-lg-5">
-                                                                                            <input type="file" id="fileInput" name="skillimage" accept="image/*">
-                                                                                            <img id="uploadedImage" height="300px" width="300px" src="#" alt="Uploaded Image" style="display: none;">
-                                                                                        </div>
-                                                                                    </div>-->
                                             <button class="btn btn-success" type="submit">
                                                 Add new skill
                                             </button>
@@ -77,29 +70,18 @@
             <!--End content-->
         </div>
 
-        <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
-        <script src="admin/assets/js/bootstrap.bundle.min.js"></script>
-        <script src="admin/assets/js/feather.min.js"></script>
-        <script src="admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="admin/assets/plugins/datatables/datatables.min.js"></script>
-        <script src="admin/assets/js/script.js"></script>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
 
-        <!--        <script>
-                    const imageInput = document.getElementById('fileInput');
-                    const uploadedImage = document.getElementById('uploadedImage');
-        
-                    imageInput.addEventListener('change', (event) => {
-                        const file = event.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                uploadedImage.src = e.target.result;
-                                uploadedImage.style.display = 'block';
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                </script>-->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+        <script src="assets/js/feather.min.js"></script>
+
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatables/datatables.min.js"></script>
+
+        <script src="assets/js/script.js"></script>
+
     </body>
 </html>

@@ -28,7 +28,6 @@ import model.Role;
 import java.sql.*;
 
 
-
 /**
  *
  * @author asus
@@ -532,5 +531,45 @@ public class AccountDAO extends DBContext {
         for(Account a : list){
             System.out.println(a);
         }
+    }
+    public Account getAccountByAccId(String txtId) {
+        String query = """
+                       select email, fullname, phonenumber, dob, sex,address,avatar 
+                       from Account
+                       where id = ?""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, txtId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String fullname = rs.getString("fullname");
+                int phonenumber = rs.getInt("phonenumber");
+                Date dob = rs.getDate("dob");
+                boolean sex = rs.getBoolean("sex");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                return new Account(email, fullname, phonenumber, dob, sex, address, avatar);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
     }
 }
