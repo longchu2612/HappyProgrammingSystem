@@ -35,7 +35,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af
@@ -95,7 +95,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af
@@ -159,7 +159,7 @@ public class AdminMentorDAO extends DBContext {
                            FROM RateComment ra
                            JOIN Account acc ON acc.id = ra.mentorID
                            GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) > 1
+                           HAVING COUNT(ra.id) >= 1
                        )
                        SELECT af.*, rc.NOR, ar.Rating
                        FROM AccountFiltered af
