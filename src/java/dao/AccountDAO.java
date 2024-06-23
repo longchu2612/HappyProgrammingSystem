@@ -536,7 +536,7 @@ public class AccountDAO extends DBContext {
         String query = """
                        select email, fullname, phonenumber, dob, sex,address,avatar 
                        from Account
-                       where id = ?""";
+                       where id = ?"""  ;
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
