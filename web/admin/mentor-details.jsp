@@ -1,6 +1,6 @@
 <%-- 
-    Document   : cv-details
-    Created on : Jun 17, 2024, 4:39:02 PM
+    Document   : mentor-details
+    Created on : Jun 24, 2024, 5:25:41 AM
     Author     : catmi
 --%>
 
@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Mentor's CV Details</title>
+        <title>${mentor.fullname}'s information</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png">
 
@@ -44,12 +44,12 @@
                                     <div class="row">
                                         <div class="d-flex justify-content-between">
                                             <div class="form-group">
-                                                <img src="${acc.avatar}" alt="Mentor avatar" 
+                                                <img src="${mentor.avatar}" alt="Mentor avatar" 
                                                  class="rounded-circle"
                                                  height="150px" width="150px"/>
                                         </div>
                                         <div class="mx-5">
-                                            <button class="btn btn-success"><a class="text-white" href="ListRequest">Back</a></button>
+                                            <button class="btn btn-success"><a class="text-white" href="MentorList">Back</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -57,19 +57,19 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Full Name:</label>
-                                            <p class="form-control">${acc.fullname}</p>
+                                            <p class="form-control">${mentor.fullname}</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Gender:</label>
-                                            <p class="form-control">${acc.sex == true ?"Male":"Female"}</p>
+                                            <p class="form-control">${mentor.sex == true ?"Male":"Female"}</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Address:</label>
-                                            <p class="form-control">${acc.address}</p>
+                                            <p class="form-control">${mentor.address}</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Date of Birth:</label>
-                                            <p class="form-control">${acc.dateOfBirth}</p>
+                                            <p class="form-control">${mentor.dateOfBirth}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -79,11 +79,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Phone number:</label>
-                                            <p class="form-control">${acc.phone}</p>
+                                            <p class="form-control">${mentor.phone}</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Email address:</label>
-                                            <p class="form-control">${acc.email}</p>
+                                            <p class="form-control">${mentor.email}</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-600 text-uppercase">Skills:</label>
@@ -109,23 +109,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <c:if test='${cv.status == "Pending"}'>
-                                <form action="ListRequest" method="post">
-                                    <input type="hidden" name="service" value="manage_cv">
-                                    <input type="hidden" name="cvId" value="${cv.id}">
-                                    <div class="form-group">
-                                        <label class="font-weight-600 text-uppercase">Note for mentor:</label>
-                                        <input class="form-control" name="note" id="noteInput"
-                                               required placeholder="Something to notice..." >
-                                    </div>
-                                    <button type="submit" class="btn btn-success" name="btnConfirm" value="Approve">
-                                        <span class="text-white">Approve</span>
-                                    </button>
-                                    <button type="submit" class="btn btn-danger" name="btnConfirm" value="Reject">
-                                        <span class="text-white">Reject</span>
-                                    </button>
-                                </form>
-                            </c:if>
                         </div>
                     </div>
                 </div>

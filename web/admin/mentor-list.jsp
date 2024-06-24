@@ -97,9 +97,9 @@
                                                             </form>
                                                         </td>
                                                         <td>
-                                                            <!--<button class="btn btn-outline-success" type="button" id="detailsButton">
-                                                                <a href="MentorList?service=details&id=${mentor.id}">Details</a>
-                                                            </button>-->
+                                                            <button class="btn btn-outline-success" type="button" id="detailsButton">
+                                                                <a href="MentorList?service=details&accId=${mentor.id}">Details</a>
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>

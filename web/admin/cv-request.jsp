@@ -43,32 +43,32 @@
                                 <div class="col-sm-12">
                                     <h3 class="page-title">Apply CV List</h3>
                                     <div class="row">
-                                        
-                                    <div>
 
+                                        <div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="datatable table table-hover table-center mb-0 text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Full Name</th>
-                                                    <th>Profession</th>
-                                                    <th>Details</th>
-                                                    <th>Status</th>
-                                                    <th>Note</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="datatable table table-hover table-center mb-0 text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Full Name</th>
+                                                        <th>Profession</th>
+                                                        <th>Details</th>
+                                                        <th>Status</th>
+                                                        <th>Note</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                 <c:forEach items="${cvList}" var="cv" varStatus="count">
                                                     <tr>
                                                         <td>${count.index+1}</td>
@@ -86,15 +86,13 @@
                                                                 <c:otherwise>text-warning</c:otherwise>
                                                             </c:choose>">${cv.status}
                                                         </td>
-
                                                         <c:if test="${cv.status != 'Pending'}">
-                                                            <td>
-                                                                <p>${cv.note}</p>
-                                                            </td>
-                                                        </c:if>
-                                                        <c:if test="${cv.status == 'Pending'}">
-                                                            <td>
-                                                                
+                                                            <td class="
+                                                                   <c:choose>
+                                                                       <c:when test='${cv.status == "Approve"}'>text-success</c:when>
+                                                                       <c:when test='${cv.status == "Reject"}'>text-danger</c:when>
+                                                                   </c:choose>">
+                                                                ${cv.note}
                                                             </td>
                                                         </c:if>
                                                     </tr>
@@ -124,6 +122,5 @@
         <script src="assets/plugins/datatables/datatables.min.js"></script>
 
         <script src="assets/js/script.js"></script>
-        <script src="assets/js/MyJS.js"></script>
     </body>
 </html>

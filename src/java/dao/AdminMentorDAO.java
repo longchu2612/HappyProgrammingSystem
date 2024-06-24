@@ -116,7 +116,7 @@ public class AdminMentorDAO extends DBContext {
                 int status = rs.getInt("status");
                 int nOR = rs.getInt("NOR");
                 float rating = rs.getFloat("Rating");
-               list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
+                list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -141,44 +141,30 @@ public class AdminMentorDAO extends DBContext {
     public ArrayList<Mentor> searchByUsername(String name) {
         ArrayList<Mentor> list = new ArrayList<>();
         String query = """
-                       DECLARE @name NVARCHAR(100) = ?;
-                       if @name <> ''
-                       begin
                        WITH AccountFiltered AS (
-                           SELECT acc.id, acc.fullname, acc.name, cv.job, acc.status
-                           FROM Account acc
-                           JOIN CV cv on acc.id = cv.accountID
-                           WHERE roleID = 2 AND [name] LIKE '%' + @name + '%'
-                       ),
-                       RequestCounts AS (
-                           SELECT req.createdBy, COUNT(req.id) AS NOR
-                           FROM Request req
-                           JOIN Account acc ON acc.id = req.createdBy
-                           GROUP BY req.createdBy
-                           HAVING COUNT(req.id) > 1
-                       ),
-                       AverageRatings AS (
-                           SELECT ra.mentorID, ROUND(AVG(ra.ratingstar),1) AS Rating
-                           FROM RateComment ra
-                           JOIN Account acc ON acc.id = ra.mentorID
-                           GROUP BY ra.mentorID
-                           HAVING COUNT(ra.id) >= 1
-                       )
-                       SELECT af.*, rc.NOR, ar.Rating
-                       FROM AccountFiltered af
-                       LEFT JOIN RequestCounts rc ON af.id = rc.createdBy
-                       LEFT JOIN AverageRatings ar ON af.id = ar.mentorID;
-                       END
-                       ELSE
-                       BEGIN
-                           SELECT CAST(NULL AS INT) AS id, 
-                                  CAST(NULL AS NVARCHAR(255)) AS fullname, 
-                                  CAST(NULL AS NVARCHAR(255)) AS name, 
-                                  CAST(NULL AS NVARCHAR(255)) AS status, 
-                                  CAST(NULL AS INT) AS NOR, 
-                                  CAST(NULL AS DECIMAL(3,1)) AS Rating
-                           WHERE 1 = 0;
-                       END""";
+                                                  SELECT acc.id, acc.fullname, acc.name, cv.job, acc.status
+                                                  FROM Account acc
+                                                  JOIN CV cv on acc.id = cv.accountID
+                                                  WHERE roleID = 2 AND [name] = ?
+                                              ),
+                                              RequestCounts AS (
+                                                  SELECT req.createdBy, COUNT(req.id) AS NOR
+                                                  FROM Request req
+                                                  JOIN Account acc ON acc.id = req.createdBy
+                                                  GROUP BY req.createdBy
+                                                  HAVING COUNT(req.id) > 1
+                                              ),
+                                              AverageRatings AS (
+                                                  SELECT ra.mentorID, ROUND(AVG(ra.ratingstar),1) AS Rating
+                                                  FROM RateComment ra
+                                                  JOIN Account acc ON acc.id = ra.mentorID
+                                                  GROUP BY ra.mentorID
+                                                  HAVING COUNT(ra.id) >= 1
+                                              )
+                                              SELECT af.*, rc.NOR, ar.Rating
+                                              FROM AccountFiltered af
+                                              LEFT JOIN RequestCounts rc ON af.id = rc.createdBy
+                                              LEFT JOIN AverageRatings ar ON af.id = ar.mentorID;""";
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
@@ -192,7 +178,7 @@ public class AdminMentorDAO extends DBContext {
                 int status = rs.getInt("status");
                 int nOR = rs.getInt("NOR");
                 float rating = rs.getFloat("Rating");
-               list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
+                list.add(new Mentor(id, fullname, username, job, status, nOR, rating));
             }
             return list;
         } catch (SQLException e) {
@@ -246,11 +232,11 @@ public class AdminMentorDAO extends DBContext {
 
     public static void main(String[] args) {
         AdminMentorDAO dao = new AdminMentorDAO();
-//        ArrayList<Mentor> list = dao.searchByUsername("minh");
-//        for (Mentor m : list) {
-//            System.out.println(m);
-//        }
-        boolean check = dao.setStatus("46", 1);
-        System.out.println(check);
+        ArrayList<Mentor> list = dao.searchByUsername("Khánh");
+        for (Mentor m : list) {
+            System.out.println(m);
+        }
+        System.out.println(list.size());
+
     }
 }
