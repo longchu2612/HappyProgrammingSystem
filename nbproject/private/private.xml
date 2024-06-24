@@ -6,18 +6,25 @@
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/UpdateRequestController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/helper/ScheduleHelper.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/update-schedule.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/SlotDAO.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/SkillController.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createSchedule.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/updatesSchedule.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/UpdateSkill.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/SkillsController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createScheduleTwo.jsp</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/admin/list-schedule.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/listSchedule.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/RequestDAO.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Slot.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/SkillsDAO.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleMentorController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/ScheduleMonthController.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/web/createScheduleDemo.jsp</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/dao/ScheduleDAO.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Schedule.java</file>
+            <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/model/Request.java</file>
             <file>file:/C:/Users/asus/Documents/NetBeansProjects/HappyProgrammingSystem/src/java/controller/UpdateScheduleController.java</file>
         </group>
     </open-files>

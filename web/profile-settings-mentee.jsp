@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,28 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:21 GMT -->
-
-    <head>
-        <meta charset="utf-8">
-        <title>Update CV of mentor</title>
-=======
-<%-- 
-    Document   : profile-settings-mentee
-    Created on : May 26, 2024, 5:20:36 PM
-    Author     : asus
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
     <head>
         <meta charset="utf-8">
-        <title>Mentoring</title>
->>>>>>> e264cca65e09acb803367da550acde22bd8390c0
+        <title>Update CV of mentor</title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">

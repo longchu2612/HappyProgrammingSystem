@@ -105,10 +105,12 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
+
                                 <div class="card-body">
 
 
-                                    <input type="hidden" name="action" value="create"/>
+
+
                                     <div class="row form-row">
                                         <div class="col-12 col-md-12">
                                             <div class="form-group">
@@ -121,6 +123,7 @@
                                         <div class="col-12 col-md-2 mb-3">
 
                                             <label>Month:</label>
+
                                             <select class="form-select" name="selectMonth" aria-label="Default select example" disabled>
                                                 <option value="1" ${requestScope.month == 1 ? 'selected' : ''}>January </option>
                                                 <option value="2" ${requestScope.month == 2 ? 'selected' : ''}>February</option>
@@ -136,168 +139,203 @@
                                                 <option value="12" ${requestScope.month == 12 ? 'selected' : ''}>December</option>
                                             </select>
 
+                                            <form id="updateYear" action="update_mentor_schedule" method="Post">
+
+                                                <input type="hidden" name="action" value="update_year"/>
+                                                <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
+                                                <select style="margin-bottom: 5px;" id="yearForm" name="selectYear">
+                                                    <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
+                                                    <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
+                                                    <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
+                                                    <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
+                                                </select><br>
+                                                Week
+                                                <input type="hidden"  name="scheduleId" value="${requestScope.scheduleId}"/>
+                                            </form>
+
+                                            <form id="updateWeek" action="update_mentor_schedule" method="Post">
+                                                <input type="hidden"  name="action" value="update_week"/>
+                                                <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
+                                                <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
+                                                <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
+                                                <select id="weekSelect" name="selectedWeek" onchange="submitForm()">
+                                                    <%
+                                                        List<String> weeks = (List<String>) request.getAttribute("weeks");
+                                                        Integer currentIsoWeek = (Integer) request.getAttribute("isoWeek");
+                                                        int weekIndex = 1;
+
+                                                        if (weeks != null && !weeks.isEmpty()) {
+                                                            for (String week : weeks) {
+                                                    %>
+                                                    <option value="<%= weekIndex%>" <% if (weekIndex == currentIsoWeek) { %>selected<% }%>><%= week%></option>
+                                                    <%
+                                                            weekIndex++;
+                                                        }
+                                                    } else {
+                                                    %>
+                                                    <option value="">No weeks available</option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+
+                                            </form>
+
+
                                         </div>
+                                        <form action="update_mentor_schedule" method="Post">
 
-                                        <div class="col-12 col-md-12">
+                                            <input type="hidden" name="action" value="update_schedule_week"/>
+                                            <input type="hidden" name="year_update_schedule" value="${requestScope.currentYear}"/>
+                                            <input type="hidden" name="week_update_schedule" value="${requestScope.isoWeek}"/>
+                                            <input type="hidden" name="month_update_schedule" value="${requestScope.month}"/>
+                                            <input type="hidden" name="schedule_id_schedule" value="${requestScope.scheduleId}"/>
+                                            <div class="col-12 col-md-12">
 
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
 
-                                                        <th rowspan="2">Year 
-                                                            <form id="updateYear" action="update_mentor_schedule" method="Post">
-                                                                <input type="hidden" name="action" value="update_year"/>
-                                                                <select style="margin-bottom: 5px;" id="yearForm" name="selectYear">
-                                                                    <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
-                                                                    <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
-                                                                    <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
-                                                                    <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
-                                                                </select><br>
-                                                                Week
-                                                                <input type="hidden" name="scheduleId" value="${requestScope.scheduleId}"/>
-                                                            </form>
+                                                            <th rowspan="2">Year 
 
 
-                                                            <form id="updateWeek" action="update_mentor_schedule" method="Post">
-                                                                <input type="hidden" name="action" value="update_week"/>
-                                                                <input type="hidden" name="schedule_id" value="${requestScope.scheduleId}"/>
-                                                                <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
-                                                                <select id="weekSelect" name="selectedWeek" onchange="submitForm()">
 
-                                                                    <% int weekIndex = 1; %>
-                                                                    <% Object isoWeekObj = request.getAttribute("isoWeek");
-                                                                        if (isoWeekObj != null) {
-                                                                            int currentIsoWeek = (int) isoWeekObj;
-                                                                            for (String week : (List<String>) request.getAttribute("weeks")) {
-                                                                    %>
-                                                                    <option value="<%= weekIndex%>" <% if (weekIndex == currentIsoWeek) { %>selected<% }%>><%= week%></option>
-                                                                    <%         weekIndex++;
-                                                                        }
-                                                                    } else {
-                                                                        for (String week : (List<String>) request.getAttribute("weeks")) {
-                                                                    %>
-                                                                    <option value="<%= weekIndex%>"><%= week%></option>
-                                                                    <%         weekIndex++;
-                                                                            }
-                                                                        }
-                                                                    %>
 
-                                                                </select>
-                                                            </form>
-                                                        </th>
-                                                        <th>Monday</th>
-                                                        <th>Tuesday</th>
-                                                        <th>Wednesday</th>
-                                                        <th>Thursday</th>
-                                                        <th>Friday</th>
-                                                        <th>Saturday</th>
-                                                        <th>Sunday</th>
-                                                    </tr>
 
-                                                    <tr id="weekDays">
+
+                                                            </th>
+                                                            <th>Monday</th>
+                                                            <th>Tuesday</th>
+                                                            <th>Wednesday</th>
+                                                            <th>Thursday</th>
+                                                            <th>Friday</th>
+                                                            <th>Saturday</th>
+                                                            <th>Sunday</th>
+                                                        </tr>
+
+
+
+                                                        <tr id="weekDays">
+                                                            <%
+                                                                // Lấy mảng weekDates từ model attribute
+                                                                String[] weekDates = (String[]) request.getAttribute("weekDates");
+
+                                                                // Kiểm tra nếu weekDates không null và có phần tử
+                                                                if (weekDates != null && weekDates.length > 0) {
+                                                                    for (String date : weekDates) {
+                                                            %>
+                                                            <td><%= date%></td>
+                                                            <%
+                                                                }
+                                                            } else {
+                                                            %>
+                                                            <td colspan="7">No data available</td>
+                                                            <% }%>
+                                                        </tr>
+
+                                                    </thead>
+
+                                                    <tbody>
+
+
                                                         <%
-                                                            // Lấy mảng weekDates từ model attribute
-                                                            String[] weekDates = (String[]) request.getAttribute("weekDates");
-
-                                                            // Kiểm tra nếu weekDates không null và có phần tử
-                                                            if (weekDates != null && weekDates.length > 0) {
-                                                                for (String date : weekDates) {
+                                                            List<Slot> slots = (List<Slot>) request.getAttribute("slots");
                                                         %>
-                                                        <td><%= date%></td>
                                                         <%
-                                                            }
-                                                        } else {
+                                                            int currentMonth = Integer.parseInt(String.valueOf(request.getAttribute("month")));
                                                         %>
-                                                        <td colspan="7">No data available</td>
-                                                        <% }%>
-                                                    </tr>
-
-                                                </thead>
-                                                <tbody>
-
-                                                    <tr>
-                                                        <td>Slot 1 (7h30 --> 9h30)</td>
-                                                        <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" ></td>
-                                                        <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" ></td>
-                                                        <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" ></td>
-                                                        <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" ></td>
-                                                        <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" ></td>
-                                                        <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1"  data-day-index="5" ></td>
-                                                        <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1"  data-day-index="6" ></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>Slot 2 (9h45 --> 11h45)</td>
-                                                        <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0"  ></td>
-                                                        <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1"  ></td>
-                                                        <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2"  ></td>
-                                                        <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3"  ></td>
-                                                        <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4"  ></td>
-                                                        <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5"  ></td>
-                                                        <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" ></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Slot 3 (13h30 --> 15h30)</td>
-                                                        <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0"  ></td>
-                                                        <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" ></td>
-                                                        <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" ></td>
-                                                        <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" ></td>
-                                                        <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" ></td>
-                                                        <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" ></td>
-                                                        <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" ></td>
-                                                    </tr>
 
 
-                                                    <tr>
-                                                        <td>Slot 4 (16h --> 18h)</td>
-                                                        <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" ></td>
-                                                        <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" ></td>
-                                                        <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" ></td>
-                                                        <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" ></td>
-                                                        <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" ></td>
-                                                        <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" ></td>
-                                                        <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" ></td>
-                                                    </tr>
 
-                                                    <tr>
-                                                        <td>Slot 5 (19h --> 21h)</td>
-                                                        <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" ></td>
-                                                        <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" ></td>
-                                                        <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" ></td>
-                                                        <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" ></td>
-                                                        <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" ></td>
-                                                        <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" ></td>
-                                                        <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" ></td>
-                                                    </tr>
-                                                    <!--                                                    <tr>
-                                                                                                            <td>Slot 6</td>
-                                                                                                            <td><input type="checkbox" id="mon6"></td>
-                                                                                                            <td><input type="checkbox" id="tue6"></td>
-                                                                                                            <td><input type="checkbox" id="wed6"></td>
-                                                                                                            <td><input type="checkbox" id="thu6"></td>
-                                                                                                            <td><input type="checkbox" id="fri6"></td>
-                                                                                                            <td><input type="checkbox" id="sat6"></td>
-                                                                                                            <td><input type="checkbox" id="sun6"></td>
-                                                                                                        </tr>-->
-                                                </tbody>
+                                                        <tr>
+                                                            <td>Slot 1 (7h30 --> 9h30)</td>
+                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                        </tr>
 
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8 mt-4">   
-                                        <div class="row">
-                                            <div class="submit-section col-md-2">
-                                                <button type="submit" id="createButton" class="btn btn-primary">Update</button>
+                                                        <tr>
+                                                            <td>Slot 2 (9h45 --> 11h45)</td>
+                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
+                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1"  ></td>
+                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2"  ></td>
+                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3"  ></td>
+                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4"  ></td>
+                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5"  ></td>
+                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Slot 3 (13h30 --> 15h30)</td>
+                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
+                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>Slot 4 (16h --> 18h)</td>
+                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Slot 5 (19h --> 21h)</td>
+                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
+                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="1" ></td>
+                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                        </tr>
+                                                        <!--                                                    <tr>
+                                                                                                                <td>Slot 6</td>
+                                                                                                                <td><input type="checkbox" id="mon6"></td>
+                                                                                                                <td><input type="checkbox" id="tue6"></td>
+                                                                                                                <td><input type="checkbox" id="wed6"></td>
+                                                                                                                <td><input type="checkbox" id="thu6"></td>
+                                                                                                                <td><input type="checkbox" id="fri6"></td>
+                                                                                                                <td><input type="checkbox" id="sat6"></td>
+                                                                                                                <td><input type="checkbox" id="sun6"></td>
+                                                                                                            </tr>-->
+                                                    </tbody>
+
+                                                </table>
+                                                
+                                                <div class="row mt-3">
+                                                    <div class="submit-section col-md-2">
+                                                        <button type="submit" id="createButton" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div> 
+                                        </form>
+                                    </div>
+
+
 
 
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
                 </div>
+
             </div>
 
 
@@ -427,13 +465,13 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                                    document.getElementById('yearForm').addEventListener('change', function () {
-                                                                        document.getElementById('updateYear').submit();
-                                                                    });
+                                                     document.getElementById('yearForm').addEventListener('change', function () {
+                                                         document.getElementById('updateYear').submit();
+                                                     });
 
-                                                                    document.getElementById("weekSelect").onchange = function () {
-                                                                        document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
-                                                                    };
+                                                     document.getElementById("weekSelect").onchange = function () {
+                                                         document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
+                                                     };
 
         </script>
     </body>

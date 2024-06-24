@@ -145,6 +145,7 @@
                                                 <h4 style="color: red; align-content: center;">
                                                     ${requestScope.message}
                                                 </h4>
+                                                
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -229,6 +230,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                  
+                                                    
                                                         <%
                                                             String[] checkedValuesSlotOne = (String[]) request.getAttribute("checkedValuesOne");
                                                             
