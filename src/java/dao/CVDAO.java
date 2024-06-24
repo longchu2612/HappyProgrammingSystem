@@ -14,7 +14,6 @@ public class CVDAO extends DBContext {
      *
      * @author Admin
      */
-
     public boolean checkCVExistanceById(String id) {
         String sql = "SELECT ISNULL((SELECT count(id) FROM CV WHERE accountID = ? Group by accountID), 0)";
         try {
@@ -50,7 +49,7 @@ public class CVDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
+
     public CV getCVByAccountId(String AccountID) {
         CV c = new CV();
         String sql = "SELECT * FROM CV WHERE accountID = ?";
@@ -73,7 +72,7 @@ public class CVDAO extends DBContext {
         }
         return c;
     }
-    
+
     public void updateCVByAccountId(String accountID, String avatar, String job, String introduction, String achievements) {
         String sql = """
                      UPDATE CV
@@ -91,4 +90,5 @@ public class CVDAO extends DBContext {
             e.printStackTrace();
         }
     }
+    
 }

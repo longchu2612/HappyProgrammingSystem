@@ -7176,6 +7176,14 @@ html.menu-opened body {
   background-color: #1879cd;
   color: #fff;
 }
+.gray-blue-btn-radius {
+  background-color: #96ceff;
+  border-radius: 50px;
+  color: #fff;
+  padding: 10px 40px;
+  font-size: 18px;
+  display: inline-block;
+}
 .hire-rate {
   color: #1e88e5;
   font-size: 24px;
@@ -13552,6 +13560,9 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-size: 22px;
   }
   .blue-btn-radius {
+    font-size: 16px;
+  }
+  .gray-blue-btn-radius {
     font-size: 16px;
   }
   .custom-search-form {

@@ -4,7 +4,6 @@
  */
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -26,15 +25,13 @@ import model.Role;
 import java.sql.*;
 
 import model.Account;
-
-
+import model.AccountMentor;
 
 /**
  *
  * @author asus
  */
 public class AccountDAO extends DBContext {
-    
 
     public int Register(String accountName, String email, String password, String fullName, String phoneNumber, java.sql.Date dob, boolean sex, String address, int roleId, boolean status) throws SQLException {
 
@@ -62,9 +59,9 @@ public class AccountDAO extends DBContext {
         }
         return result;
     }
-    
-    public int registerAdmin(String account_name, String fullName,String email, String password, int role_id ){
-        int result =0;
+
+    public int registerAdmin(String account_name, String fullName, String email, String password, int role_id) {
+        int result = 0;
         String sql = "Insert into dbo.Account (name, email, password, fullname,roleID) \n"
                 + "VALUES (?, ?, ?, ?, ?);";
         try {
@@ -81,7 +78,7 @@ public class AccountDAO extends DBContext {
         }
         return result;
     }
-    
+
     public Account checkAccount(String username, String email) throws SQLException {
         String sql = "select * from dbo.Account where email = ? or name = ?";
         try {
@@ -267,6 +264,7 @@ public class AccountDAO extends DBContext {
         int result = account_dao.Register("KhanhNam", "longchhe153093@fpt.edu.vn", "Chulong123", "Chu Hồng Long", "0585703546", dob, true, "Lao Cai", 0, false);
         System.out.println(result);
     }
+
     public void updatePasswordbyusername(String name, String newPassword) {
         String sql = "UPDATE Account SET password = ? WHERE name = ?";
         try {
@@ -278,6 +276,7 @@ public class AccountDAO extends DBContext {
             System.out.println("updatePassword: " + e.getMessage());
         }
     }
+
     public void updatePassword(String email, String newPassword) {
         String sql = "UPDATE Account SET password = ? WHERE email = ?";
         try {
@@ -289,39 +288,120 @@ public class AccountDAO extends DBContext {
             System.out.println("updatePassword: " + e.getMessage());
         }
     }
-    public String getEmailByUser(String user) throws SQLException{
+
+    public String getEmailByUser(String user) throws SQLException {
         String sql = "Select email from Account where name = ?";
         String email = "";
         ps = conn.prepareStatement(sql);
         ps.setString(1, user);
-        rs =  ps.executeQuery();
-        if (rs.next()){
+        rs = ps.executeQuery();
+        if (rs.next()) {
             email = rs.getString("email");
             return email;
         }
         return null;
     }
-    public String getPassByUser(String user) throws SQLException{
+
+    public String getPassByUser(String user) throws SQLException {
         String sql = "Select password from Account where name = ?";
         String password = "";
         ps = conn.prepareStatement(sql);
         ps.setString(1, user);
-        rs =  ps.executeQuery();
-        if (rs.next()){
+        rs = ps.executeQuery();
+        if (rs.next()) {
             password = rs.getString("password");
             return password;
         }
         return null;
     }
-    
-    public boolean isEmailExist(String email) throws SQLException{
+
+    public boolean isEmailExist(String email) throws SQLException {
         String sql = "Select email from Account where email = ?";
         ps = conn.prepareStatement(sql);
         ps.setString(1, email);
         rs = ps.executeQuery();
-        if (rs.next()){
+        if (rs.next()) {
             return true;
         }
         return false;
     }
+
+    public ArrayList<AccountMentor> getMentorBySkills(String SkillId) {
+        ArrayList<AccountMentor> data = new ArrayList<AccountMentor>();
+        AccountMentor a = new AccountMentor();
+        String sql = """
+                     SELECT a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star, ISNULL(count(ra.accountID), 0 ) as NoOfRequests FROM CV c JOIN CV_Skill cs
+                     ON c.id = cs.cv_id join Account a
+                     ON c.accountID = a.id join Request_Account ra
+                     ON a.id = ra.accountID
+                     WHERE cs.skill_id = ?
+                     GROUP BY a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, SkillId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int accountId = rs.getInt(1);
+                String fullname = rs.getString(2);
+                String email = rs.getString(3);
+                String name = rs.getString(4);
+                String phone = rs.getString(5);
+                String address = rs.getString(6);
+                String avatar = rs.getString(7);
+                float ratingStar = rs.getFloat(8);
+                String check = "checked=\"\"";
+                String check05 = "";
+                String check1 = "";
+                String check15 = "";
+                String check2 = "";
+                String check25 = "";
+                String check3 = "";
+                String check35 = "";
+                String check4 = "";
+                String check45 = "";
+                String check5 = "";
+
+                switch (String.valueOf(ratingStar)) {
+                    case "0.5":
+                        check05 = check;
+                        break;
+                    case "1.0":
+                        check1 = check;
+                        break;
+                    case "1.5":
+                        check15 = check;
+                        break;
+                    case "2.0":
+                        check2 = check;
+                        break;
+                    case "2.5":
+                        check25 = check;
+                        break;
+                    case "3.0":
+                        check3 = check;
+                        break;
+                    case "3.5":
+                        check35 = check;
+                        break;
+                    case "4.0":
+                        check4 = check;
+                        break;
+                    case "4.5":
+                        check45 = check;
+                        break;
+                    case "5.0":
+                        check5 = check;
+                }
+                int NoOfRequests = rs.getInt(9);
+                System.out.println(accountId + " " + SkillId + " " + address + " " + avatar + " " + check05 + " " + check1 + " " + check15 + " " + check2 + " " + check25 + " " + check3 + " " + check35 + " " + check4 + " " + check45 + " " + check5);
+                a = new AccountMentor(ratingStar, accountId, name, email, fullname, phone, address, avatar, check05, check1, check15, check2, check25, check3, check35, check4, check45, check5, NoOfRequests);
+                data.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println("getMentorBySkills:" + e.getMessage());
+        }
+        return data;
+    }
+
+    
 }

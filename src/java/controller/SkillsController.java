@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Account;
+import model.AccountMentor;
 import model.Skill;
 
 /**
@@ -61,20 +62,29 @@ public class SkillsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession sess = request.getSession();
-        
+
+        String skillID = request.getParameter("mod");
+
         AccountDAO a = new AccountDAO();
         int AccountID = a.getIdByAccountName(String.valueOf(sess.getAttribute("acc")));
         Account ac = a.getUsersById(String.valueOf(AccountID));
-        
+
         SkillsDAO s = new SkillsDAO();
         ArrayList<Skill> data1 = s.getSkills();
         ArrayList<Skill> data = new ArrayList<Skill>();
-        
+
         for (int i = 0; i < data1.size(); i++) {
             Skill sk = data1.get(i);
-            data.add(new Skill(sk.getId(), String.valueOf(i+1) + ". " + sk.getName()));
+            data.add(new Skill(sk.getId(), String.valueOf(i + 1) + ". " + sk.getName()));
+        }
+
+        if (skillID != null) {
+            ArrayList<AccountMentor> data0 = a.getMentorBySkills(skillID);
+            request.setAttribute("data0", data0);
+        } else {
+            request.setAttribute("message", "Please choose a skill to continue!");
         }
         
         request.setAttribute("ac", ac);
