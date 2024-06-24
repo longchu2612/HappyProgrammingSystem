@@ -322,6 +322,8 @@
 
                                                             <input type="radio" id="starhalf" name="rating" value="0.5" ${am.getCheck05()} disabled=""/>
                                                             <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                        
+                                                            <p style="text-align: center">(${am.getNoOfRatings()})</p>
                                                         </div>
                                                         <div class="mentor-details m-0">
                                                             <p class="user-location m-0"><i class="fas fa-map-marker-alt"></i> ${am.getAddress()}</p>

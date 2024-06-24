@@ -330,12 +330,13 @@ public class AccountDAO extends DBContext {
         ArrayList<AccountMentor> data = new ArrayList<AccountMentor>();
         AccountMentor a = new AccountMentor();
         String sql = """
-                     SELECT a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star, ISNULL(count(ra.accountID), 0 ) as NoOfRequests FROM CV c JOIN CV_Skill cs
+                     SELECT a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star, ISNULL(count(rt.ratingstar), 0) as NoOfRating, ISNULL(count(ra.accountID), 0) as NoOfRequests FROM CV c JOIN CV_Skill cs
                      ON c.id = cs.cv_id join Account a
                      ON c.accountID = a.id join Request_Account ra
-                     ON a.id = ra.accountID
+                     ON a.id = ra.accountID join RateComment rt
+                     ON a.id = rt.mentorID
                      WHERE cs.skill_id = ?
-                     GROUP BY a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star""";
+                     GROUP BY a.id, a.fullname, a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star""";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, SkillId);
@@ -392,9 +393,10 @@ public class AccountDAO extends DBContext {
                     case "5.0":
                         check5 = check;
                 }
-                int NoOfRequests = rs.getInt(9);
+                int NoOfRatings = rs.getInt(9);
+                int NoOfRequests = rs.getInt(10);
                 System.out.println(accountId + " " + SkillId + " " + address + " " + avatar + " " + check05 + " " + check1 + " " + check15 + " " + check2 + " " + check25 + " " + check3 + " " + check35 + " " + check4 + " " + check45 + " " + check5);
-                a = new AccountMentor(ratingStar, accountId, name, email, fullname, phone, address, avatar, check05, check1, check15, check2, check25, check3, check35, check4, check45, check5, NoOfRequests);
+                a = new AccountMentor(ratingStar, accountId, name, email, fullname, phone, address, avatar, check05, check1, check15, check2, check25, check3, check35, check4, check45, check5, NoOfRatings, NoOfRequests);
                 data.add(a);
             }
         } catch (SQLException e) {

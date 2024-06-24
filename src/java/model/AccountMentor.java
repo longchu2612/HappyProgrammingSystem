@@ -21,12 +21,13 @@ public class AccountMentor extends Account{
     String check4;
     String check45;
     String check5;
+    int noOfRatings;
     int noOfRequest;
     
     public AccountMentor() {
     }
 
-    public AccountMentor(float ratingStar, int account_id, String account_name, String email, String fullname, String phoneString, String address, String avatar, String check05, String check1, String check15, String check2, String check25, String check3, String check35, String check4, String check45, String check5, int noOfRequest) {
+    public AccountMentor(float ratingStar, int account_id, String account_name, String email, String fullname, String phoneString, String address, String avatar, String check05, String check1, String check15, String check2, String check25, String check3, String check35, String check4, String check45, String check5, int noOfRatings, int noOfRequest) {
         super(account_id, account_name, email, fullname, phoneString, address, avatar);
         this.ratingStar = ratingStar;
         this.check05 = check05;
@@ -39,6 +40,7 @@ public class AccountMentor extends Account{
         this.check4 = check4;
         this.check45 = check45;
         this.check5 = check5;
+        this.noOfRatings = noOfRatings;
         this.noOfRequest = noOfRequest;
     }
 
@@ -130,6 +132,14 @@ public class AccountMentor extends Account{
         this.check5 = check5;
     }
 
+    public int getNoOfRatings() {
+        return noOfRatings;
+    }
+
+    public void setNoOfRatings(int noOfRatings) {
+        this.noOfRatings = noOfRatings;
+    }
+    
     public int getNoOfRequest() {
         return noOfRequest;
     }
