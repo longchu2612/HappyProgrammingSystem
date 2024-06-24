@@ -59,17 +59,17 @@ public class AdminRequestController extends HttpServlet {
                         request.setAttribute("listS", listS);
                         request.getRequestDispatcher("/admin/cv-details.jsp").forward(request, response);
                     }
-                    case "approve" -> {
+                    case "manage_cv" -> {
                         String cvId = request.getParameter("cvId");
                         String note = request.getParameter("note");
-                        daoCV.setCVStatus(cvId, "Approve", note);
-                        response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
-                    }
-                    case "reject" -> {
-                        String cvId = request.getParameter("cvId");
-                        String note = request.getParameter("note");
-                        daoCV.setCVStatus(cvId, "Reject", note);
-                        response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
+                        String btnConfirm = request.getParameter("btnConfirm");
+                        if (btnConfirm.equals("Approve")) {
+                            daoCV.setCVStatus(cvId, "Approve", note);
+                            response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
+                        } else {
+                            daoCV.setCVStatus(cvId, "Reject", note);
+                            response.sendRedirect(request.getContextPath() + "/admin/ListRequest");
+                        }
                     }
                     default -> {
 

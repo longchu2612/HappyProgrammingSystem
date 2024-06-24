@@ -33,6 +33,7 @@ public class AdminMentorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         AdminMentorDAO amDAO = new AdminMentorDAO();
         String service = request.getParameter("service");
         HttpSession session = request.getSession();
@@ -46,7 +47,14 @@ public class AdminMentorController extends HttpServlet {
             } else {
                 switch (service) {
                     case "details" -> {
-
+                        String accId = request.getParameter("accId");
+                        CV cv = new CVDAO().getCVByAccId(accId);
+                        Account mentor = new AccountDAO().getAccountByAccId(accId);
+                        ArrayList<String> listS = new SkillDAO().getSkilCV(cv.getId());
+                        request.setAttribute("cv", cv);
+                        request.setAttribute("mentor", mentor);
+                        request.setAttribute("listS", listS);
+                        request.getRequestDispatcher("/admin/mentor-details.jsp").forward(request, response);
                     }
                     case "search" -> {
                         String name = request.getParameter("txtSearch").trim();
@@ -54,7 +62,7 @@ public class AdminMentorController extends HttpServlet {
                         ArrayList<Mentor> listByUsername = amDAO.searchByUsername(name);
                         if (name == null || name.isEmpty()) {
                             response.sendRedirect(request.getContextPath() + "/admin/MentorList");
-                        } else if (listByUsername != null) {
+                        } else if (!listByUsername.isEmpty()) {
                             request.setAttribute("txtSearch", name);
                             request.setAttribute("mentors", listByUsername);
                             request.getRequestDispatcher("/admin/mentor-list.jsp").forward(request, response);
