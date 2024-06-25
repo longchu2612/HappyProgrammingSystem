@@ -6,7 +6,6 @@ package dao;
 
 import java.util.ArrayList;
 import java.sql.SQLException;
-import java.util.List;
 import model.CV_skill;
 import model.Skill;
 
@@ -52,26 +51,7 @@ public class SkillsDAO extends DBContext {
         }
         return data;
     }
- public List<CV_skill> getAllByCVId(String id) {
-      CV_skill cvs = new CV_skill();
-        List<CV_skill> datas = new ArrayList<>();
-        String sql = "SELECT * FROM CV_Skill WHERE cv_id = ?";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                 String cvId = String.valueOf(rs.getInt(1));
-                String skillId = rs.getString(2);
-                String rating =  rs.getString(3);;
-               cvs = new CV_skill(cvId, skillId,rating);
-                datas.add(cvs);
-            }
-        } catch (SQLException e) {
-            System.out.println("getCVSkillsByCVId:" + e.getMessage());
-        }
-        return datas;
-    }
+
     public int getNumberOfSkill() {
         String sql = "SELECT COUNT(*) FROM Skill";
         try {
@@ -97,8 +77,28 @@ public class SkillsDAO extends DBContext {
         }
     }
 
-    public void insertSelectedSkillByCVId(String cvId, String skillId) {
-        String sql = "INSERT CV_Skill VALUES (?, ?, 5)";
+    public float getAvgRatingByMentorId(String mentorId) {
+        String sql = """
+                     SELECT (ROUND(AVG(ratingstar) * 2, 0) / 2) AS rating FROM RateComment
+                     WHERE mentorID = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, mentorId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getFloat(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("getAvgRatingByMentorId:" + e.getMessage());
+        }
+        return 0;
+    }
+
+    public void insertSelectedSkillByCVId(String mentorId, String cvId, String skillId) {
+        String sql = """
+                     INSERT CV_Skill
+                     VALUES
+                     (?, ?, """ + getAvgRatingByMentorId(mentorId) + ")";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, cvId);
@@ -106,14 +106,6 @@ public class SkillsDAO extends DBContext {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("insertSelectedSkillByCVId:" + e.getMessage());
-        }
-    }
-     public static void main(String[] args) {
-        SkillsDAO s = new SkillsDAO();
-        List<CV_skill> datas = new ArrayList<>();
-        datas = s.getAllByCVId("2002");
-        for(CV_skill a : datas){
-            System.out.println(a);
         }
     }
 }

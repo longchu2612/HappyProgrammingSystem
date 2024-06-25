@@ -41,7 +41,6 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-
                             <h2 class="breadcrumb-title">Profile Settings</h2>
                         </div>
                     </div>
@@ -68,8 +67,8 @@
                                         <li><a href="bookings.html"><i class="fas fa-clock"></i>Bookings <span><i class="fas fa-chevron-right"></i></span></a></li>
                                         <li><a href="schedule-timings.html"><i class="fas fa-hourglass-start"></i>Schedule Timings <span><i class="fas fa-chevron-right"></i></span></a></li>
                                         <li><a href="chat.html"><i class="fas fa-comments"></i>Messages <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="profile.html"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="login.jsp"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="profile"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="account?action=logout2"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -203,34 +202,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-3 col-md-6">
-
-                                <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Mentee</h2>
-                                    <ul>
-                                        <li><a href="search.html">Search Mentors</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="booking.html">Booking</a></li>
-                                        <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-
-                                <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Mentors</h2>
-                                    <ul>
-                                        <li><a href="appointments.html">Appointments</a></li>
-                                        <li><a href="chat.html">Chat</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
+                            
                             <div class="col-lg-3 col-md-6">
 
                                 <div class="footer-widget footer-contact">

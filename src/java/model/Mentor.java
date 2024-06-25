@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author catmi
@@ -16,8 +18,22 @@ public class Mentor {
     private int status;
     private int numOfReq;
     private float rating;
-
+    private int cvId;
+    private String address;
+    private String avatar;
+    private ArrayList<String> listSkill;
+            
     public Mentor() {
+    }
+
+    public Mentor(int id, String fullname, String job, int cvId, String address, ArrayList<String> listSkill, String avatar) {
+        this.id = id;
+        this.fullname = fullname;
+        this.job = job;
+        this.cvId = cvId;
+        this.address = address;
+        this.listSkill = listSkill;
+        this.avatar = avatar;
     }
 
     public Mentor(int id, String fullname, String username, String job, int status, int numOfReq, float rating) {
@@ -84,6 +100,38 @@ public class Mentor {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public int getCvId() {
+        return cvId;
+    }
+
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public ArrayList<String> getListSkill() {
+        return listSkill;
+    }
+
+    public void setListSkill(ArrayList<String> listSkill) {
+        this.listSkill = listSkill;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

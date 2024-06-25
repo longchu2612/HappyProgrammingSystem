@@ -5,7 +5,10 @@
 package controller;
 
 import dao.ScheduleDAO;
+import helper.ScheduleHelper;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.sql.Timestamp;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +17,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.DayOfWeek;
+import java.time.Year;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 import model.Account;
 
 /**
@@ -60,7 +72,25 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
+
+        int currentYear = Year.now().getValue();
+        List<String> weeks = new ArrayList<>();
+       
+        int totalWeeks = getNumberOfISOWeeksInYear(currentYear);
+        
+        
+        for (int week = 1; week <= totalWeeks; week++) {
+            LocalDate firstDayOfWeek = getFirstDayOfWeek(currentYear, week);
+            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+
+            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+            weeks.add(weekRange);
+        }
+
+        request.setAttribute("weeks", weeks);
+        request.setAttribute("currentYear", currentYear);
+        request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
     /**
@@ -74,71 +104,22 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Account account = (Account) session.getAttribute("account");
-        if (session == null || session.getAttribute("account") == null || account.getRole().getRole_id() == 1) {
-            response.sendRedirect("login.jsp");
-            return;
+
+        String year = request.getParameter("selectYear");
+        List<String> weeks = new ArrayList<>();
+        int totalWeeks = getNumberOfISOWeeksInYear(Integer.parseInt(year));
+        for (int week = 1; week <= totalWeeks; week++) {
+            LocalDate firstDayOfWeek = getFirstDayOfWeek(Integer.parseInt(year), week);
+            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+
+            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+            weeks.add(weekRange);
         }
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-
-        int mentor_id = account.getAccount_id();
-        String message = "";
-        String[] checkboxDay = request.getParameterValues("selecteDay");
-        String month = request.getParameter("month");
-        
-        if (checkboxDay != null) {
-            LocalDateTime currentTime = LocalDateTime.now();
-            for (String day : checkboxDay) {
-                
-                if (Integer.parseInt(day) == 2) {
-                    String startMonday = request.getParameter("startDateMonday");
-                    String endMonday = request.getParameter("enDateMonday");
-                    int result = scheduleDAO.createNewSchedule(startMonday, endMonday, 2, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Monday\n";
-                    }
-                } else if (Integer.parseInt(day) == 3) {
-                    String startTuesday = request.getParameter("startDateTuesday");
-                    String endTuesday = request.getParameter("enDateTuesday");
-                    int result = scheduleDAO.createNewSchedule(startTuesday, endTuesday, 3, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Tuesday\n";
-                    }
-                } else if (Integer.parseInt(day) == 4) {
-                    String startWed = request.getParameter("startWednesday");
-                    String endWed = request.getParameter("endWednesday");
-                    int result = scheduleDAO.createNewSchedule(startWed, endWed, 4, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Wednesday\n";
-                    }
-                } else if (Integer.parseInt(day) == 5) {
-                    String startThurs = request.getParameter("startThursday");
-                    String endThurs = request.getParameter("endThursday");
-                    int result = scheduleDAO.createNewSchedule(startThurs, endThurs, 5, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Thursday\n";
-                    }
-                } else {
-                    String startFriday = request.getParameter("startFriday");
-                    String endFriday = request.getParameter("endFriday");
-                    int result = scheduleDAO.createNewSchedule(startFriday, endFriday, 6, mentor_id, Integer.parseInt(month),currentTime);
-                    if (result == 0) {
-                        message += "Failed to add schedule for Friday\n";
-                    }
-                }
-            }
-            if (message.isEmpty()) {
-                message = "Your class schedule is processing";
-            }
-
-        } else {
-            message = "";
-        }
-        request.setAttribute("message", message);
-        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
-
-//        request.getRequestDispatcher("createSchedule.jsp").forward(request, response);
+         
+        request.setAttribute("weeks", weeks);
+        request.setAttribute("currentYear", year); 
+        request.getRequestDispatcher("createScheduleDemo.jsp").forward(request, response);
     }
 
     /**
@@ -151,4 +132,52 @@ public class ScheduleController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static LocalDate getFirstDayOfWeek(int year, int week) {
+        
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        LocalDate firstMonday = firstDayOfYear.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        if (firstMonday.getDayOfYear() > 4) {
+            firstMonday = firstMonday.minusWeeks(1);
+        }
+        LocalDate firstDayOfRequestedWeek = firstMonday.plusWeeks(week - 1);
+        return firstDayOfRequestedWeek;
+    }
+    public static void main(String[] args) {
+//        int currentYear = Year.now().getValue();
+//        List<String> weeks = new ArrayList<>();
+//        LocalDate lastDayOfYear = LocalDate.of(currentYear, 12, 31);
+//        WeekFields weekFields = WeekFields.ISO;
+//        int totalWeeks = lastDayOfYear.get(weekFields.weekOfWeekBasedYear());
+//        
+//        
+//        for (int week = 1; week <= totalWeeks; week++) {
+//            LocalDate firstDayOfWeek = getFirstDayOfWeek(currentYear, week);
+//            LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
+//
+//            String weekRange = firstDayOfWeek.getDayOfMonth() + "/" + firstDayOfWeek.getMonthValue()
+//                    + " To " + lastDayOfWeek.getDayOfMonth() + "/" + lastDayOfWeek.getMonthValue();
+//            weeks.add(weekRange);
+//        }
+//        for(String week: weeks){
+//            System.out.println(week);
+//        }
+//        int year = 2026; // Thay đổi năm tùy ý
+//        int totalWeeks = getNumberOfISOWeeksInYear(year);
+//
+//        System.out.println("Số tuần trong năm " + year + " là: " + totalWeeks);
+    }
+    
+    public static int getNumberOfISOWeeksInYear(int year) {
+     
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        LocalDate firstDayOfNextYear = LocalDate.of(year + 1, 1, 1);
+        WeekFields weekFields = WeekFields.ISO;
+        int lastWeekOfCurrentYear = firstDayOfNextYear.minusDays(1).get(weekFields.weekOfWeekBasedYear());
+        if (lastWeekOfCurrentYear == 1) {
+            return firstDayOfNextYear.minusDays(7).get(weekFields.weekOfWeekBasedYear());
+        } else {
+            return lastWeekOfCurrentYear;
+        }
+    }
+    
 }

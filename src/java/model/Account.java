@@ -27,13 +27,13 @@ public class Account {
     private String avatar;
     private Role role;
     private Boolean status;
-    
-    private List<Schedule> schedules;
+
+    private Schedule schedules;
 
     public Account() {
     }
 
-    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, List<Schedule> schedules) {
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, Schedule schedules) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
@@ -48,8 +48,6 @@ public class Account {
         this.status = status;
         this.schedules = schedules;
     }
-    
-    
 
     public Account(String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_name = account_name;
@@ -61,7 +59,7 @@ public class Account {
         this.address = address;
         this.avatar = avatar;
     }
-    
+
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
@@ -77,11 +75,11 @@ public class Account {
         this.status = status;
     }
 
-    public List<Schedule> getSchedules() {
+    public Schedule getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
+    public void setSchedules(Schedule schedules) {
         this.schedules = schedules;
     }
 
@@ -94,18 +92,17 @@ public class Account {
         this.address = address;
         this.avatar = avatar;
     }
-    
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
         this.account_name = account_name;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
         this.phone = phone;
-        this.dateOfBirth =  dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.status = status;
     }
-
 
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
@@ -114,8 +111,7 @@ public class Account {
         this.fullname = fullname;
         this.role = role;
     }
-    
-    
+
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
 
         this.account_id = account_id;
@@ -129,9 +125,7 @@ public class Account {
         this.status = status;
     }
 
-
-    
-    public Account(int account_id, String account_name,String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+    public Account(int account_id, String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.fullname = fullname;
@@ -142,7 +136,8 @@ public class Account {
         this.avatar = avatar;
         this.email = email;
     }
-public void setAvatar(String avatar) {
+
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

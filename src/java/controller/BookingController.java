@@ -4,31 +4,22 @@
  */
 package controller;
 
-import dao.AccountDAO;
-import dao.CVDAO;
-import dao.RNCDAO;
-import dao.SkillDAO;
-import dao.SkillsDAO;
+import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import model.Account;
-import model.CV;
-import model.CV_skill;
-import model.RNC;
+import java.util.*;
+import model.*;
 
 /**
  *
- * @author ngoqu
+ * @author catmi
  */
-@WebServlet(name = "MentorProfileServlet", urlPatterns = {"/mentorprofile"})
-public class MentorProfileServlet extends HttpServlet {
+public class BookingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,24 +33,40 @@ public class MentorProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String ID = request.getParameter("id");
-        AccountDAO ac = new AccountDAO();
-        CVDAO cv = new CVDAO();
-        SkillsDAO s = new SkillsDAO();
-        RNCDAO r = new RNCDAO();
-        ArrayList<RNC> rnc = (ArrayList<RNC>) r.getAllCommentsbyID(ID);
-         request.setAttribute("rnc", rnc);
-        CV cvmentor = cv.getCVByAccountId(ID);
-        Account acc = ac.getUsersById(ID);
-        request.setAttribute("acc", acc);
-        request.setAttribute("cv", cvmentor);
-        String Cvid = cvmentor.getId();
-        request.setAttribute("Cvid", Cvid);
-        //ArrayList<CV_skill> cvs = (ArrayList<CV_skill>) s.getAllByCVId(Cvid);
-        SkillDAO sk = new SkillDAO();
-        //request.setAttribute("Skills", cvs);
-        
-        request.getRequestDispatcher("profilementor.jsp").forward(request, response);
+        response.setCharacterEncoding("UTF-8");
+        String service = request.getParameter("service");
+        HttpSession session = request.getSession();
+        if (service == null) {
+            service = "all_course";
+        }
+        switch (service) {
+            case "all_course" -> {
+                ArrayList<Mentor> listM = new BookingDAO().getAllMentor();
+                request.setAttribute("listM", listM);
+                request.setAttribute("listSize", listM.size());
+                request.getRequestDispatcher("search.jsp").forward(request, response);
+            }
+            case "by_course" -> {
+                String skillId = request.getParameter("skId");
+                ArrayList<Mentor> listM = new BookingDAO().getAllMentorBySkillId(skillId);
+                request.setAttribute("listM", listM);
+                request.setAttribute("listSize", listM.size());
+                request.getRequestDispatcher("search.jsp").forward(request, response);
+            }
+            case "course_details" -> {
+                int mentorId =Integer.parseInt(request.getParameter("mentorId"));
+                List<Account> schedules = new ScheduleDAO().getScheduleOfMentor(mentorId);
+                request.setAttribute("schedules", schedules);
+                request.getRequestDispatcher("booking.jsp").forward(request, response);
+            }
+            case "book_course" ->{
+                
+            }
+            default -> {
+
+            }
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,7 +96,6 @@ public class MentorProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

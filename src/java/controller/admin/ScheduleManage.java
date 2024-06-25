@@ -60,26 +60,10 @@ public class ScheduleManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        String id = request.getParameter("id");
-        String createtime = request.getParameter("createtime");
-
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         List<Account> accounts = new ArrayList<>();
-        if (action != null && id != null && createtime != null) {
-            int mentor_id = Integer.parseInt(id);
-            LocalDateTime createTime = LocalDateTime.parse(createtime);
-            if (action.equals("accept")) {
-
-                scheduleDAO.updateScheduleAcceptByMentorId(mentor_id, createTime);
-            } else if (action.equals("reject")) {
-
-                scheduleDAO.updateScheduleRejectByMentorId(mentor_id, createTime);
-            }
-            response.sendRedirect(request.getContextPath() + "/admin/manage_schedule");
-            return;
-        }
-        accounts = scheduleDAO.getAllAccountWithSchedule();
+        accounts = scheduleDAO.getAllAccountWithSchedule("1");
+        request.setAttribute("status","1");
         request.setAttribute("accounts", accounts);
         request.getRequestDispatcher("list-schedule.jsp").forward(request, response);
 
@@ -96,7 +80,15 @@ public class ScheduleManage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String selectStatus = request.getParameter("selectStatus");
+        List<Account> accounts = new ArrayList<>();
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        if(selectStatus != null){
+           accounts = scheduleDAO.getAllAccountWithSchedule(selectStatus);
+        }
+        request.setAttribute("status", selectStatus);
+        request.setAttribute("accounts", accounts);
+        request.getRequestDispatcher("list-schedule.jsp").forward(request, response);
     }
 
     /**

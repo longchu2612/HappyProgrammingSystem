@@ -72,11 +72,6 @@
                     </div>
                 </div>
             </section>
-
-
-
-
-
             <section class="section featured-course-four">
                 <div class="container">
                     <div class="side-four-right">
@@ -89,244 +84,48 @@
                     </div>
                     <div class="featured-course-new aos " data-aos="fade-up">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
+                            <c:forEach begin="0" end="5" items="${listS}" var="skill">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="featured-course-face">
+                                        <div class="featured-course-design">
+                                            <div class="course-info d-flex align-items-center">
+                                                <div class="course-bg-left">
+                                                    <img src="assets/img/course-bg-1.png" alt>
+                                                </div>
+                                                <div class="course-bg-right">
+                                                    <img src="assets/img/course-bg-2.png" alt>
+                                                </div>
+                                                <div class="rating rating-star">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <span class="d-inline-block average-rating rate-point ">4.4<span class="rate-star-point">(15)</span></span>
+                                                </div>
                                             </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
+                                            <div class="featured-course-four-head text-center">
+                                                <h2>
+                                                    <a href="Booking?service=by_course&skId=${skill.skillId}">${skill.skillName}</a>
+                                                </h2>
                                             </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">4.4<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>$400</h4>
+                                            <div class="view-student">
+                                                <ul class="view-student-four justify-content-center">
+                                                    <li><i class="fas fa-users"></i></li>
+                                                    <li>50 Students</li>
+                                                    <li><i class="fas fa-file-alt"></i></li>
+                                                    <li>85</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">UI/UX Design</a>
-                                            </h2>
+                                        <div class="course-footer-text text-center">
+                                            <h4>
+                                                <a href="Booking?service=by_course&skId=${skill.skillId}">More information</a>
+                                            </h4>
                                         </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>50 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>85</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center">
-                                        <h4>
-                                            <a href="search.html">Information About UI/UX Design Degree</a>
-                                        </h4>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
-                                            </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
-                                            </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">4.2<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>Free</h4>
-                                            </div>
-                                        </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">Photography</a>
-                                            </h2>
-                                        </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>40 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>65</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center">
-                                        <h4>
-                                            <a href="search.html">Photography Crash Course for Photographer</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
-                                            </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
-                                            </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">3.4<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>$200</h4>
-                                            </div>
-                                        </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">React </a>
-                                            </h2>
-                                        </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>30 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>75</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center">
-                                        <h4>
-                                            <a href="search.html">React – The Complete Guide (React Router) </a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
-                                            </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
-                                            </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">4.3<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>$100</h4>
-                                            </div>
-                                        </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">Marketing</a>
-                                            </h2>
-                                        </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>40 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>80</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center">
-                                        <h4>
-                                            <a href="search.html">Email & Affiliate Marketing Mastermind</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
-                                            </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
-                                            </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">4.5<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>Free</h4>
-                                            </div>
-                                        </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">Java</a>
-                                            </h2>
-                                        </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>50 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>90</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center ">
-                                        <h4>
-                                            <a href="search.html">Java (Beginner) Programming Tutorials</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="featured-course-face">
-                                    <div class="featured-course-design">
-                                        <div class="course-info d-flex align-items-center">
-                                            <div class="course-bg-left">
-                                                <img src="assets/img/course-bg-1.png" alt>
-                                            </div>
-                                            <div class="course-bg-right">
-                                                <img src="assets/img/course-bg-2.png" alt>
-                                            </div>
-                                            <div class="rating rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating rate-point ">4.4<span class="rate-star-point">(15)</span></span>
-                                            </div>
-                                            <div class="course-price">
-                                                <h4>$400</h4>
-                                            </div>
-                                        </div>
-                                        <div class="featured-course-four-head text-center">
-                                            <h2>
-                                                <a href="search.html">Python</a>
-                                            </h2>
-                                        </div>
-                                        <div class="view-student">
-                                            <ul class="view-student-four justify-content-center">
-                                                <li><i class="fas fa-users"></i></li>
-                                                <li>50 Students</li>
-                                                <li><i class="fas fa-file-alt"></i></li>
-                                                <li>85</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="course-footer-text text-center">
-                                        <h4>
-                                            <a href="search.html">Complete Python Bootcamp: Go from zero to hero.</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="explore-more text-center aos " data-aos="fade-up">
-                        <a href="search.html" class="btn bg-explore">Show All Categories</a>
+                        <a href="Booking?service=all_course" class="btn bg-explore">Show All Categories</a>
                     </div>
                 </div>
             </section>
@@ -343,7 +142,7 @@
                     <div class="instructor-four-face aos " data-aos="fade-up">
                         <div class="row">
 
-                            <c:forEach items="${list}" var="o">
+                            <c:forEach items="${list}" var="o" begin="0" end="3">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="large-team">
                                         <div class="student-img">
@@ -362,9 +161,6 @@
                                     </div>
                                 </div>
                             </c:forEach>
-
-
-
                         </div>
                     </div>
                     <div class="explore-more text-center aos " data-aos="fade-up">

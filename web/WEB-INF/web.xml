@@ -64,6 +64,10 @@
         <servlet-name>AdminHomeController</servlet-name>
         <servlet-class>controller.admin.AdminHomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingController</servlet-name>
+        <servlet-class>controller.BookingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -131,5 +135,9 @@
     <servlet-mapping>
         <servlet-name>RequestController</servlet-name>
         <url-pattern>/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingController</servlet-name>
+        <url-pattern>/Booking</url-pattern>
     </servlet-mapping>
 </web-app>
