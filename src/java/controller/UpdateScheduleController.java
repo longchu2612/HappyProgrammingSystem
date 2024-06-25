@@ -197,7 +197,7 @@ public class UpdateScheduleController extends HttpServlet {
             String currentYear = request.getParameter("value_year");
             String schedule_id = request.getParameter("schedule_id");
             String month = request.getParameter("month_form_updateweek");
-            
+
             HttpSession session = request.getSession();
             Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft");
 
@@ -237,16 +237,16 @@ public class UpdateScheduleController extends HttpServlet {
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
-            
+
             List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
-            
+
             if (slots_2.size() == 0) {
-                
+
                 slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
-            }else{
-                slots = scheduleDAO.getAllSlotByDates(scheduleDraft,firstDay,endDay);
+            } else {
+                slots = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
             }
-            
+
             String accountId = request.getParameter("accountId");
             request.setAttribute("accountId", accountId);
             request.setAttribute("month", month);
@@ -380,44 +380,51 @@ public class UpdateScheduleController extends HttpServlet {
                     }
 
                 } else if ("update".equals(button_action)) {
-                    List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(scheduleDraft);
-                    List<Slot> slots_2 = scheduleDAO.getAllSlotByScheduleId(Integer.parseInt(schedule_id));
+                    boolean checkUpdate = true;
+                    if (scheduleDraft == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft) == null) {
+                        
+                    }
                     
-                    LocalDate lastTeachDateDraft = scheduleDAO.getLastDateByScheduleId(scheduleDraft);
-                    LocalDate endDateRemainingSlot = scheduleDAO.getLastDateByScheduleId(Integer.parseInt(schedule_id));
-                    
-                    LocalDate startDateRemainingSlot = lastTeachDateDraft.plusDays(1);
-                    
-                    
-                    List<Slot> remainingSlots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startDateRemainingSlot.toString(), endDateRemainingSlot.toString());
-                    
-                    slots.addAll(remainingSlots);
-                    
-                    
-                    
-                    
-                    
-                }
+                        List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(scheduleDraft);
+                        SlotDAO slotDAO = new SlotDAO();
+                        slotDAO.deleteSchedule(Integer.parseInt(schedule_id));
 
+                        for (Slot slot : slots) {
+                            int result = scheduleDAO.createSlotOfSchedule(slot.getSlot(), slot.getDayOfWeek(), Integer.parseInt(schedule_id), slot.getTeach_date());
+                            if (result != 1) {
+                                checkUpdate = false;
+                            }
+                        }
+                        if (checkUpdate) {
+                            message = "Update schedule succesfully";
+                            scheduleDAO.updateSchedulePendingByMentorId(Integer.parseInt(schedule_id));
+                            session.removeAttribute("scheduleDraft");
+                            session.setMaxInactiveInterval(0);
+                        } else {
+                            message = "Update schedule failed";
+                        }
+                }
             } else {
-                
+
                 message = "This week is not selected!";
 
             }
 
             List<Slot> slots = new ArrayList<>();
-            if (scheduleDAO.getAllSlotByDates(scheduleDraft, startOfWeek.toString(), endOfWeek.toString())!= null) {
-                slots = scheduleDAO.getAllSlotByDates(scheduleDraft,startOfWeek.toString(),endOfWeek.toString());
-            }else{
+            if (scheduleDraft != null) {
+                if (scheduleDAO.getAllSlotByDates(scheduleDraft, startOfWeek.toString(), endOfWeek.toString()) != null) {
+                    slots = scheduleDAO.getAllSlotByDates(scheduleDraft, startOfWeek.toString(), endOfWeek.toString());
+                } else {
+                    slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
+                }
+            } else {
                 slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
             }
-            
+
             String[] weekDates = new String[7];
             for (int i = 0; i < 7; i++) {
                 weekDates[i] = startOfWeek.plusDays(i).toString();
             }
-            
-            
 
             List<String> weeks = new ArrayList<>();
             int totalWeeks_2 = getNumberOfISOWeeksInYear(Integer.parseInt(year));

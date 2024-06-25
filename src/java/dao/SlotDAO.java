@@ -31,6 +31,20 @@ public class SlotDAO extends DBContext{
         return result;
     }
     
+    public int deleteSchedule(int schedule_id){
+        int result = 0;
+        String sql = "Delete from dbo.Slot where schedule_id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_id);
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
     public static void main(String[] args) {
         int year = 2024;
         int weekNumber = 18;

@@ -190,7 +190,7 @@ public class ScheduleDAO extends DBContext {
             ps.setInt(1, scheduleId);
             rs = ps.executeQuery();
             while (rs.next()) {
-               lastTeachDate = rs.getDate("teach_date").toLocalDate();
+                lastTeachDate = rs.getDate("teach_date").toLocalDate();
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -237,6 +237,21 @@ public class ScheduleDAO extends DBContext {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int deleteScheduleById(int scheduleId) {
+        int result = 0;
+        String sql = " Delete from dbo.Schedules where id = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, scheduleId);
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+             System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -301,6 +316,20 @@ public class ScheduleDAO extends DBContext {
         }
         return result;
     }
+    
+    public int updateSchedulePendingByMentorId(int schedule_id){
+        String sql = "Update dbo.Schedules set status = 1 where id = ?";
+        int result = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,schedule_id);
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    } 
 
     public int updateScheduleRejectByMentorId(int schedule_id) {
         String sql = "Update dbo.Schedules set status = 3 where id = ?";
@@ -319,7 +348,7 @@ public class ScheduleDAO extends DBContext {
     public List<Account> getScheduleOfMentor(int mentor_id) {
         List<Account> accounts = new ArrayList<>();
         String sql = "select account.id , account.fullname, schedule.create_time, schedule.month, schedule.status , schedule.sessionId, schedule.id\n"
-                + " from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ?\n"
+                + " from dbo.Schedules as schedule inner join dbo.Account as account on schedule.mentor_id = account.id where account.id = ? and schedule.status != 4\n"
                 + " group by account.id , account.fullname , schedule.status,schedule.month ,schedule.sessionId, schedule.create_time,schedule.id order by schedule.create_time asc";
         try {
             ps = conn.prepareStatement(sql);
@@ -432,10 +461,9 @@ public class ScheduleDAO extends DBContext {
 //    }
 
     public static void main(String[] args) {
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        LocalDate localDate = scheduleDAO.getLastDateByScheduleId(4);
-        System.out.println(localDate.toString());
-
+       ScheduleDAO scheduleDAO = new ScheduleDAO();
+       Integer schedule = null;
+       List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");
     }
 
 }

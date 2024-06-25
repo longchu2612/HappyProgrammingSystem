@@ -162,7 +162,7 @@
                                                             <td>
                                                                 <c:choose>
                                                                     <c:when test="${a.getSchedules().getStatus() == '1'}">
-                                                                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href = 'update_mentor_schedule?scheduleId=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}&accountId=${a.getAccount_id()}'">Update</button>
+                                                                        No Action
                                                                     </c:when>
                                                                     <c:when test="${a.getSchedules().getStatus() == '2'}">
                                                                         No Action
