@@ -120,83 +120,94 @@
                                                 ${requestScope.message}
                                             </h4>
                                         </div>
-                                        <div class="col-12 col-md-2 mb-3">
+                                        <div class="row">   
 
-                                            <label>Month:</label>
 
-                                            <select class="form-select" name="selectMonth" aria-label="Default select example" disabled>
-                                                <option value="1" ${requestScope.month == 1 ? 'selected' : ''}>January </option>
-                                                <option value="2" ${requestScope.month == 2 ? 'selected' : ''}>February</option>
-                                                <option value="3" ${requestScope.month == 3 ? 'selected' : ''}>March</option>
-                                                <option value="4" ${requestScope.month == 4 ? 'selected' : ''}>April</option>
-                                                <option value=s"5" ${requestScope.month == 5 ? 'selected' : ''}>May</option>
-                                                <option value="6" ${requestScope.month == 6 ? 'selected' : ''}>June</option>
-                                                <option value="7" ${requestScope.month == 7 ? 'selected' : ''}>July</option>
-                                                <option value="8" ${requestScope.month == 8 ? 'selected' : ''}>August</option>
-                                                <option value="9" ${requestScope.month == 9 ? 'selected' : ''}>September</option>
-                                                <option value="10" ${requestScope.month == 10 ? 'selected' : ''} >October</option>
-                                                <option value="11" ${requestScope.month == 11 ? 'selected' : ''}>November</option>
-                                                <option value="12" ${requestScope.month == 12 ? 'selected' : ''}>December</option>
-                                            </select>
+                                            <div class="col-12 col-md-2 mb-3"> 
+                                                <label>Year:</label>
+                                                <form id="updateYear" action="update_mentor_schedule" method="Post">
 
-                                            <form id="updateYear" action="update_mentor_schedule" method="Post">
+                                                    <input type="hidden" name="action" value="update_year"/>
+                                                    <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
+                                                    <select style="margin-bottom: 5px;" id="yearForm" class="form-select" name="selectYear">
+                                                        <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
+                                                        <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
+                                                        <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
+                                                        <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
+                                                    </select><br>
 
-                                                <input type="hidden" name="action" value="update_year"/>
-                                                <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
-                                                <select style="margin-bottom: 5px;" id="yearForm" name="selectYear">
-                                                    <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
-                                                    <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
-                                                    <option value="2025" ${requestScope.currentYear == 2025 ? 'selected' : ''}>2025</option>
-                                                    <option value="2026" ${requestScope.currentYear == 2026 ? 'selected' : ''}>2026</option>
-                                                </select><br>
-                                                Week
-                                                <input type="hidden"  name="scheduleId" value="${requestScope.scheduleId}"/>
-                                            </form>
+                                                    <input type="hidden"  name="scheduleId" value="${requestScope.scheduleId}"/>
+                                                </form>
+                                            </div>
 
-                                            <form id="updateWeek" action="update_mentor_schedule" method="Post">
-                                                <input type="hidden"  name="action" value="update_week"/>
-                                                <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
-                                                <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
-                                                <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
-                                                <select id="weekSelect" name="selectedWeek" onchange="submitForm()">
-                                                    <%
-                                                        List<String> weeks = (List<String>) request.getAttribute("weeks");
-                                                        Integer currentIsoWeek = (Integer) request.getAttribute("isoWeek");
-                                                        int weekIndex = 1;
+                                            <div class="col-12 col-md-2 mb-3">
 
-                                                        if (weeks != null && !weeks.isEmpty()) {
-                                                            for (String week : weeks) {
-                                                    %>
-                                                    <option value="<%= weekIndex%>" <% if (weekIndex == currentIsoWeek) { %>selected<% }%>><%= week%></option>
-                                                    <%
-                                                            weekIndex++;
-                                                        }
-                                                    } else {
-                                                    %>
-                                                    <option value="">No weeks available</option>
-                                                    <%
-                                                        }
-                                                    %>
+                                                <label>Month:</label>
+
+                                                <select class="form-select" name="selectMonth" aria-label="Default select example" disabled>
+                                                    <option value="1" ${requestScope.month == 1 ? 'selected' : ''}>January </option>
+                                                    <option value="2" ${requestScope.month == 2 ? 'selected' : ''}>February</option>
+                                                    <option value="3" ${requestScope.month == 3 ? 'selected' : ''}>March</option>
+                                                    <option value="4" ${requestScope.month == 4 ? 'selected' : ''}>April</option>
+                                                    <option value=s"5" ${requestScope.month == 5 ? 'selected' : ''}>May</option>
+                                                    <option value="6" ${requestScope.month == 6 ? 'selected' : ''}>June</option>
+                                                    <option value="7" ${requestScope.month == 7 ? 'selected' : ''}>July</option>
+                                                    <option value="8" ${requestScope.month == 8 ? 'selected' : ''}>August</option>
+                                                    <option value="9" ${requestScope.month == 9 ? 'selected' : ''}>September</option>
+                                                    <option value="10" ${requestScope.month == 10 ? 'selected' : ''} >October</option>
+                                                    <option value="11" ${requestScope.month == 11 ? 'selected' : ''}>November</option>
+                                                    <option value="12" ${requestScope.month == 12 ? 'selected' : ''}>December</option>
                                                 </select>
+                                            </div>
 
-                                            </form>
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <label>Week:</label>
+                                                <form id="updateWeek" action="update_mentor_schedule" method="Post">
+                                                    <input type="hidden"  name="action" value="update_week"/>
+                                                    <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
+                                                    <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
+                                                    <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
+                                                    <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
+                                                        <%
+                                                            List<String> weeks = (List<String>) request.getAttribute("weeks");
+                                                            Integer currentIsoWeek = (Integer) request.getAttribute("isoWeek");
+                                                            int weekIndex = 1;
+
+                                                            if (weeks != null && !weeks.isEmpty()) {
+                                                                for (String week : weeks) {
+                                                        %>
+                                                        <option value="<%= weekIndex%>" <% if (weekIndex == currentIsoWeek) { %>selected<% }%>><%= week%></option>
+                                                        <%
+                                                                weekIndex++;
+                                                            }
+                                                        } else {
+                                                        %>
+                                                        <option value="">No weeks available</option>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </select>
+
+                                                </form>
+                                            </div>
 
 
-                                        </div>
+                                        </div>         
                                         <form action="update_mentor_schedule" method="Post">
 
-                                            <input type="hidden" name="action" value="update_schedule_week"/>
+                                            <input type="hidden"  name="action" value="update_schedule_week"/>
                                             <input type="hidden" name="year_update_schedule" value="${requestScope.currentYear}"/>
-                                            <input type="hidden" name="week_update_schedule" value="${requestScope.isoWeek}"/>
+                                            <input type="hidden"  name="week_update_schedule" value="${requestScope.isoWeek}"/>
                                             <input type="hidden" name="month_update_schedule" value="${requestScope.month}"/>
                                             <input type="hidden" name="schedule_id_schedule" value="${requestScope.scheduleId}"/>
+                                            <input type="hidden" name="accountId" value="${requestScope.accountId}"/>
                                             <div class="col-12 col-md-12">
 
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
 
-                                                            <th rowspan="2">Year 
+                                                            <th rowspan="2"> 
 
 
 
@@ -314,10 +325,13 @@
                                                     </tbody>
 
                                                 </table>
-                                                
+
                                                 <div class="row mt-3">
-                                                    <div class="submit-section col-md-2">
-                                                        <button type="submit" id="createButton" class="btn btn-primary">Update</button>
+                                                    <div class="submit-section col-md-1">
+                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>
+                                                    </div>
+                                                    <div class="submit-section col-md-1">
+                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Update</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -465,13 +479,13 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                     document.getElementById('yearForm').addEventListener('change', function () {
-                                                         document.getElementById('updateYear').submit();
-                                                     });
+                                                        document.getElementById('yearForm').addEventListener('change', function () {
+                                                            document.getElementById('updateYear').submit();
+                                                        });
 
-                                                     document.getElementById("weekSelect").onchange = function () {
-                                                         document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
-                                                     };
+                                                        document.getElementById("weekSelect").onchange = function () {
+                                                            document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
+                                                        };
 
         </script>
     </body>
