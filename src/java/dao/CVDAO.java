@@ -66,7 +66,9 @@ public class CVDAO extends DBContext {
                 Date created_at = rs.getDate(6);
                 Date modified_at = rs.getDate(7);
                 String achievements = rs.getString(8);
-                c = new CV(id, AccountID, avatar, job, introduction, created_at, modified_at, achievements);
+                String status = rs.getString(9);
+                String note = rs.getString(10);
+                c = new CV(id, AccountID, avatar, job, introduction, created_at, modified_at, achievements,status,note);
             }
         } catch (SQLException e) {
             System.out.println("getCVByAccountId:" + e.getMessage());
@@ -77,7 +79,7 @@ public class CVDAO extends DBContext {
     public void updateCVByAccountId(String accountID, String avatar, String job, String introduction, String achievements) {
         String sql = """
                      UPDATE CV
-                     SET avatar = ?, job = ?, introduction = ?, modified_at = CURRENT_TIMESTAMP, achievements = ?
+                     SET avatar = ?, job = ?, introduction = ?, modified_at = CURRENT_TIMESTAMP, achievements = ?, status = ?, note = ?
                      WHERE accountID = ?""";
         try {
             ps = conn.prepareStatement(sql);
@@ -85,7 +87,9 @@ public class CVDAO extends DBContext {
             ps.setString(2, job);
             ps.setString(3, introduction);
             ps.setString(4, achievements);
-            ps.setString(5, accountID);
+            ps.setString(5, "Pending");
+            ps.setString(6, null);
+            ps.setString(7, accountID);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

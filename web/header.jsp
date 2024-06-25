@@ -4,6 +4,7 @@
     Author     : asus
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header class="header  header-four">
     <div class="header-fixed">
@@ -31,78 +32,54 @@
                         </a>
                     </div>
                     <ul class="main-nav">
-                       
-                        <li class="has-submenu">
-                            <a href>Mentor <i class="fas fa-chevron-down"></i></a>
-                            <ul class="submenu">
-                                <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                <li><a href="bookings.html">Bookings</a></li>
-                                <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                                <li><a href="mentee-list.html">Mentee List</a></li>
-                                <li><a href="profile-mentee.html">mentor Profile</a></li>
-                                <li class="has-submenu">
-                                    <a href="blog.html">Blog</a>
-                                    <ul class="submenu">
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-details.html">Blog View</a></li>
-                                        <li><a href="add-blog.html">Add Blog</a></li>
-                                        <li><a href="edit-blog.html">Edit Blog</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="chat.html">Chat</a></li>
-                                <li><a href="invoices.html">Invoices</a></li>
-                                <li><a href="profile-settings.html">Profile Settings</a></li>
-                                <li><a href="reviews.html">Reviews</a></li>
-                                <li><a href="mentor-register.html">Mentor Register</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <a href>Mentee <i class="fas fa-chevron-down"></i></a>
-                            <ul class="submenu">
-                                <li class="has-submenu">
-                                    <a href="#">Mentors</a>
-                                    <ul class="submenu">
-                                        <li><a href="map-grid.html">Map Grid</a></li>
-                                        <li><a href="map-list.html">Map List</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="search.html">Search Mentor</a></li>
-                                <li><a href="profile.html">mentee Profile</a></li>
-                                <li><a href="bookings-mentee.html">Bookings</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="booking-success.html">Booking Success</a></li>
-                                <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                <li><a href="favourites.html">Favourites</a></li>
-                                <li><a href="chat-mentee.html">Chat</a></li>
-                                <li><a href="profile-settings-mentee.jsp">Profile Settings</a></li>
-                                <li><a href="changepass.jsp">Change Password</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li class="has-submenu">
-                            <a href>Blog <i class="fas fa-chevron-down"></i></a>
-                            <ul class="submenu">
-                                <li><a href="blog-list.html">Blog List</a></li>
-                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="admin/index.html" target="_blank">Admin</a>
-                        </li>
-                        <li class="login-link">
-                            <a href="login.jsp">Login / Signup</a>
-                        </li>
+                        <c:if test="${sessionScope.account.role.role_id == 2}">
+                            <li class="has-submenu">
+                                <a href>Mentor <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="dashboard.html">Mentor Dashboard</a></li>
+                                    <li><a href="profile">Profile</a></li>
+                                    <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                                    <li><a href="invoices.html">Invoices</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${sessionScope.account.role.role_id == 1}">
+                            <li class="has-submenu">
+                                <a href>Mentee <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="Booking">Search Mentor</a></li>
+                                    <li><a href="profile.html">mentee Profile</a></li>
+                                    <li><a href="bookings-mentee.html">Bookings</a></li>
+                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="booking-success.html">Booking Success</a></li>
+                                    <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
+                                    <li><a href="profile-settings-mentee.jsp">Profile Settings</a></li>
+                                    <li><a href="changepass.jsp">Change Password</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
-                <ul class="nav header-navbar-rht">
-                    <li class="nav-item">
-                        <a class="nav-link header-login-two" href="login.jsp">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link header-login" href="register.jsp">Sign up</a>
-                    </li>
-                </ul>
+                <c:if test="${sessionScope.account != null}">
+                    <ul class="nav header-navbar-rht">
+                        <li class="nav-item">
+                            <a class="nav-link header-login-two" href="profile">Hello, ${sessionScope.account.fullname}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link header-login" href="account?action=logout">Logout</a>
+                        </li>
+                    </ul>
+                </c:if>
+                <c:if test="${sessionScope.account == null}">
+                    <ul class="nav header-navbar-rht">
+                        <li class="nav-item">
+                            <a class="nav-link header-login-two" href="login.jsp">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link header-login" href="register.jsp">Sign up</a>
+                        </li>
+                    </ul>
+                </c:if>
             </div>
         </nav>
     </div>

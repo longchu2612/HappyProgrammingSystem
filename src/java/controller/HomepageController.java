@@ -5,7 +5,7 @@
 
 package controller;
 
-import dao.AccountDAO;
+import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
+import model.*;
 
 /**
  *
@@ -52,6 +52,8 @@ public class HomepageController extends HttpServlet {
         List<Account> list = new ArrayList<>();
         list = ac.getAllUsersByRolleId("2");
         request.setAttribute("list", list);
+        List<Skill> listSkill = new SkillDAO().getAllSkill();
+        request.setAttribute("listS",listSkill );
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
