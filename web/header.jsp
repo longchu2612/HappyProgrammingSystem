@@ -38,7 +38,8 @@
                                 <ul class="submenu">
                                     <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                     <li><a href="profile">Profile</a></li>
-                                    <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                                    <li><a href="createSchedule.jsp">Invoices</a></li>
+                                    <li><a href="schedule_mentor">Schedule Timing</a></li>
                                     <li><a href="invoices.html">Invoices</a></li>
                                 </ul>
                             </li>

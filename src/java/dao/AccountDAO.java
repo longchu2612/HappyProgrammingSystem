@@ -499,7 +499,7 @@ public class AccountDAO extends DBContext {
                 } else {
                     Avatar = rs.getString(10);
                 }
-                ac = new Account(ID,Name, Email, Fullname, Phone, Dob, Sex, Address, Avatar);
+                ac = new Account(ID, Name, Email, Fullname, Phone, Dob, Sex, Address, Avatar);
                 list.add(ac);
             }
         } catch (SQLException e) {
