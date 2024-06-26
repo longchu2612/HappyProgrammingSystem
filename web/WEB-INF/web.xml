@@ -68,6 +68,18 @@
         <servlet-name>BookingController</servlet-name>
         <servlet-class>controller.BookingController</servlet-class>
     </servlet>
+<servlet>
+        <servlet-name>ScheduleMonthController</servlet-name>
+        <servlet-class>controller.ScheduleMonthController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateScheduleManage</servlet-name>
+        <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DemoController</servlet-name>
+        <url-pattern>/DemoController</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -122,7 +134,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateScheduleController</servlet-name>
-        <url-pattern>/update_schedule</url-pattern>
+        <url-pattern>/update_mentor_schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleMonthController</servlet-name>
+        <url-pattern>/schedule_month</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateScheduleManage</servlet-name>
+        <url-pattern>/admin/update_schedule</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminHomeController</servlet-name>

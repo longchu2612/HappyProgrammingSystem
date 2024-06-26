@@ -40,7 +40,7 @@
                             <li class="submenu">
                                 <a href="#"><span>Manage Schedule</span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="#">List Schedule</a></li>
+                                    <li><a href="../admin/manage_schedule">List Schedule</a></li>
                                     
                                 </ul>
                             </li>

@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -27,7 +26,7 @@ public class Account {
     private String avatar;
     private Role role;
     private Boolean status;
-
+    
     private Schedule schedules;
 
     public Account() {
@@ -48,6 +47,8 @@ public class Account {
         this.status = status;
         this.schedules = schedules;
     }
+    
+    
 
     public Account(String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_name = account_name;
@@ -59,7 +60,7 @@ public class Account {
         this.address = address;
         this.avatar = avatar;
     }
-
+    
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status) {
         this.account_id = account_id;
         this.account_name = account_name;
@@ -83,26 +84,26 @@ public class Account {
         this.schedules = schedules;
     }
 
-    public Account(String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
-        this.email = email;
-        this.fullname = fullname;
-        this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
-        this.address = address;
-        this.avatar = avatar;
-    }
+   
+    
 
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
+    
+    
+    
+    
+
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
         this.account_name = account_name;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
         this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth =  dateOfBirth;
         this.role = role;
         this.status = status;
     }
+
 
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
@@ -111,7 +112,8 @@ public class Account {
         this.fullname = fullname;
         this.role = role;
     }
-
+    
+    
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
 
         this.account_id = account_id;
@@ -125,17 +127,20 @@ public class Account {
         this.status = status;
     }
 
-    public Account(int account_id, String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
-        this.account_id = account_id;
-        this.account_name = account_name;
-        this.fullname = fullname;
-        this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
-        this.address = address;
-        this.avatar = avatar;
-        this.email = email;
-    }
+//    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
+//        this.account_name = account_name;
+//        this.email = email;
+//        this.password = password;
+//        this.fullname = fullname;
+//        this.phone = phone;
+//        this.dateOfBirth = dateOfBirth;
+//        this.role = role;
+//        this.status = status;
+//    }
+//    
+      
+    
+    
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
