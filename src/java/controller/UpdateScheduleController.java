@@ -275,7 +275,7 @@ public class UpdateScheduleController extends HttpServlet {
             boolean isWeekContainingMonth = false;
             LocalDate currentDay = startOfWeek;
             while (currentDay.isBefore(endOfWeek.plusDays(1))) { // plusDays(1) để bao gồm cả ngày kết thúc
-                if (currentDay.getMonthValue() == 5) {
+                if (currentDay.getMonthValue() == Integer.parseInt(month)) {
                     isWeekContainingMonth = true;
                     break;
                 }
