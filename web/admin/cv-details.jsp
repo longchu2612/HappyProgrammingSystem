@@ -46,7 +46,7 @@
                                             <div class="form-group">
                                                 <img src="${acc.avatar}" alt="Mentor avatar" 
                                                  class="rounded-circle"
-                                                 height="150px" width="150px"/>
+                                                 height="150" width="150"/>
                                         </div>
                                         <div class="mx-5">
                                             <button class="btn btn-success"><a class="text-white" href="ListRequest">Back</a></button>

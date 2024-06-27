@@ -20,6 +20,7 @@ public class Account {
     private String password;
     private String fullname;
     private int phone;
+    private String phoneString;
     private Date dateOfBirth;
     private Boolean sex;
     private String address;
@@ -106,27 +107,6 @@ public class Account {
         this.schedules = schedules;
     }
 
-   
-    
-
-    
-    
-    
-    
-
-
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
-        this.account_name = account_name;
-        this.email = email;
-        this.password = password;
-        this.fullname = fullname;
-        this.phone = phone;
-        this.dateOfBirth =  dateOfBirth;
-        this.role = role;
-        this.status = status;
-    }
-
-
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
         this.email = email;
@@ -139,6 +119,18 @@ public class Account {
     public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
 
         this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+        this.status = status;
+    }
+
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -163,6 +155,15 @@ public class Account {
       
     
     
+    public Account(int account_id, String account_name, String email, String fullname, String phoneString, String address, String avatar) {
+        this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.fullname = fullname;
+        this.phoneString = phoneString;
+        this.address = address;
+        this.avatar = avatar;
+    }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
@@ -260,6 +261,14 @@ public class Account {
         this.address = address;
     }
 
+    public String getPhoneString() {
+        return phoneString;
+    }
+
+    public void setPhoneString(String phoneString) {
+        this.phoneString = phoneString;
+    }
+    
     @Override
     public String toString() {
         return "Account{" + "account_id=" + account_id + ", account_name=" + account_name + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", dateOfBirth=" + dateOfBirth + ", sex=" + sex + ", address=" + address + ", avatar=" + avatar + ", role=" + role + ", status=" + status + '}';

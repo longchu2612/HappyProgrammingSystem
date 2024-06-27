@@ -121,6 +121,8 @@ public class AccountController extends HttpServlet {
 
                     HttpSession sess = request.getSession();
                     sess.setAttribute("acc", user_name);
+                    sess.setAttribute("accID", String.valueOf(account.getAccount_id()));
+                    System.out.println(sess.getAttribute("accID"));
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);

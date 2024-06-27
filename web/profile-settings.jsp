@@ -218,7 +218,6 @@
                                                             <small class="form-text text-muted">Allowed PNG, JPG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -255,7 +254,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Phone number</label>
-                                                    <input type="text" name="phone" value="${ac.getPhone()}" class="form-control">
+                                                    <input type="text" name="phone" value="${phone}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -275,9 +274,13 @@
                                                     <div class="col-12 col-md-6">
                                                         <div class="form-group">
                                                             <label>Skills</label><br>
-                                                            <c:forEach items="${data}" var="sd">
-                                                                <input type="checkbox" name="skill${sd.getId()}" value="${sd.getId()}" ${sd.getIs_checked()}> ${sd.getName()} &emsp;
-                                                            </c:forEach>
+                                                            <div class="row">
+                                                                <c:forEach items="${data}" var="sd">
+                                                                    <div class="col-3 form-inline">
+                                                                        <input type="checkbox" name="skill${sd.getId()}" value="${sd.getId()}" ${sd.getIs_checked()}> ${sd.getName()}
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
