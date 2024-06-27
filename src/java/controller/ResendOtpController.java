@@ -26,13 +26,19 @@ public class ResendOtpController extends HttpServlet {
     private static final long OTP_VALIDITY_PERIOD = 15 * 60 * 1000;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long generationTime = System.currentTimeMillis();
-        String email = request.getParameter("email");
+     
         
         
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
+        String email = (String)mySession.getAttribute("email");
 
         if (email != null && !email.equals("")) {
             // sending otp

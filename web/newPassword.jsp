@@ -76,7 +76,7 @@
                                                class="form-control border-info placeicon">
                                     </div>
                                     <div class="text-end">
-                                        <a class="forgot-link" href="login.html">Remember your password?</a>
+                                        <a class="forgot-link" href="login.jsp">Remember your password?</a>
                                     </div>
                                     <!-- Log in Button -->
                                     <button class="btn btn-primary login-btn" type="submit">Reset Password</button>

@@ -20,6 +20,11 @@ public class ValidateOtpController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final long OTP_VALIDITY_PERIOD = 15 * 60 * 1000;
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int value = Integer.parseInt(request.getParameter("otp"));
         

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>DemoController</servlet-name>
-        <servlet-class>controller.DemoController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccountController</servlet-name>
         <servlet-class>controller.AccountController</servlet-class>
     </servlet>
@@ -17,24 +13,24 @@
         <servlet-class>controller.admin.AccountManage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfileController</servlet-name>
-        <servlet-class>controller.ProfileController</servlet-class>
+        <servlet-name>ProfileMenteeController</servlet-name>
+        <servlet-class>controller.ProfileMenteeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SkillController</servlet-name>
-        <servlet-class>controller.SkillController</servlet-class>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.ProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RequestController</servlet-name>
         <servlet-class>controller.RequestController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddNewSkill</servlet-name>
-        <servlet-class>controller.AddNewSkill</servlet-class>
+        <servlet-name>AdminSkillController</servlet-name>
+        <servlet-class>controller.admin.AdminSkillController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateSkill</servlet-name>
-        <servlet-class>controller.UpdateSkill</servlet-class>
+        <servlet-name>AdminRequestController</servlet-name>
+        <servlet-class>controller.admin.AdminRequestController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SkillsController</servlet-name>
@@ -61,6 +57,18 @@
         <servlet-class>controller.UpdateScheduleController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AdminMentorController</servlet-name>
+        <servlet-class>controller.admin.AdminMentorController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminHomeController</servlet-name>
+        <servlet-class>controller.admin.AdminHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingController</servlet-name>
+        <servlet-class>controller.BookingController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ScheduleMonthController</servlet-name>
         <servlet-class>controller.ScheduleMonthController</servlet-class>
     </servlet>
@@ -68,10 +76,6 @@
         <servlet-name>UpdateScheduleManage</servlet-name>
         <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>DemoController</servlet-name>
-        <url-pattern>/DemoController</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -85,16 +89,16 @@
         <url-pattern>/admin/account_admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SkillController</servlet-name>
-        <url-pattern>/ListSkill</url-pattern>
+        <servlet-name>AdminSkillController</servlet-name>
+        <url-pattern>/admin/SkillList</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>HomepageController</servlet-name>
+        <servlet-class>controller.HomepageController</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>AddNewSkill</servlet-name>
-        <url-pattern>/addSkill</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateSkill</servlet-name>
-        <url-pattern>/updateSkill</url-pattern>
+        <servlet-name>ProfileMenteeController</servlet-name>
+        <url-pattern>/profilementee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
@@ -105,8 +109,8 @@
         <url-pattern>/skills</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RequestController</servlet-name>
-        <url-pattern>/request</url-pattern>
+        <servlet-name>AdminRequestController</servlet-name>
+        <url-pattern>/admin/ListRequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateRequestController</servlet-name>
@@ -136,7 +140,20 @@
         <servlet-name>UpdateScheduleManage</servlet-name>
         <url-pattern>/admin/update_schedule</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index-five.html</welcome-file>
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>AdminHomeController</servlet-name>
+        <url-pattern>/admin/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMentorController</servlet-name>
+        <url-pattern>/admin/MentorList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestController</servlet-name>
+        <url-pattern>/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingController</servlet-name>
+        <url-pattern>/Booking</url-pattern>
+    </servlet-mapping>
 </web-app>

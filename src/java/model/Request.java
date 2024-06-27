@@ -70,14 +70,4 @@ public class Request {
     public String toString() {
         return "Request{" + "id=" + id + ", title=" + title + ", date_dealine=" + date_dealine + ", content=" + content + ", skills=" + skills + '}';
     }
-
-    
-
-    
-
-    
-
-    
-    
-    
 }

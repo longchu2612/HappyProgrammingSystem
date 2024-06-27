@@ -50,7 +50,7 @@
                                 <form action="forgotPassword" method="post">
                                     <div class="form-group">
                                         <label class="form-control-label">Email Address or username</label>
-                                        <input type="text" class="form-control" name="email"placeholder="Enter your email or username" required>
+                                        <input type="text" class="form-control" name="input"placeholder="Enter your email or username" required>
                                     </div>
                                     <div class="text-end">
                                         <a class="forgot-link" href="login.html">Remember your password?</a>

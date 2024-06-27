@@ -77,11 +77,28 @@ public class SkillsDAO extends DBContext {
         }
     }
 
-    public void insertSelectedSkillByCVId(String cvId, String skillId) {
+    public float getAvgRatingByMentorId(String mentorId) {
+        String sql = """
+                     SELECT (ROUND(AVG(ratingstar) * 2, 0) / 2) AS rating FROM RateComment
+                     WHERE mentorID = ?""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, mentorId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getFloat(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("getAvgRatingByMentorId:" + e.getMessage());
+        }
+        return 0;
+    }
+
+    public void insertSelectedSkillByCVId(String mentorId, String cvId, String skillId) {
         String sql = """
                      INSERT CV_Skill
                      VALUES
-                     (?, ?, 5)""";
+                     (?, ?, """ + getAvgRatingByMentorId(mentorId) + ")";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, cvId);

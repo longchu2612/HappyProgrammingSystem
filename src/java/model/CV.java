@@ -19,8 +19,30 @@ public class CV {
     Date created_at;
     Date modified_at;
     String achievements;
-
+    String status;
+    String note;
     public CV() {
+    }
+
+    public CV(String id, String accountID ,String job, String status, String note) {
+        this.id = id;
+        this.accountID = accountID;
+        this.job = job;
+        this.status = status;
+        this.note = note;
+    }
+
+    public CV(String id, String accountID, String avatar, String job, String introduction, Date created_at, Date modified_at, String achievements, String status, String note) {
+        this.id = id;
+        this.accountID = accountID;
+        this.avatar = avatar;
+        this.job = job;
+        this.introduction = introduction;
+        this.created_at = created_at;
+        this.modified_at = modified_at;
+        this.achievements = achievements;
+        this.status = status;
+        this.note = note;
     }
 
     public CV(String id, String accountID, String avatar, String job, String introduction, Date created_at, Date modified_at, String achievements) {
@@ -32,6 +54,22 @@ public class CV {
         this.created_at = created_at;
         this.modified_at = modified_at;
         this.achievements = achievements;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
