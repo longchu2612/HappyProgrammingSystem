@@ -17,8 +17,8 @@ public class CV_Request extends CV {
     public CV_Request() {
     }
 
-    public CV_Request(String id, String accountID, String job, String status, String note, String fullname) {
-        super(id, accountID, job, status, note);
+    public CV_Request(String id, String accountID, String job, String status, String note, String fullname, String rate) {
+        super(id, accountID, job, status, note, rate);
         this.fullname = fullname;
     }
 
@@ -60,4 +60,15 @@ public class CV_Request extends CV {
         this.status = status;
     }
 
+    @Override
+    public String getRate() {
+        return rate;
+    }
+
+    @Override
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    
 }

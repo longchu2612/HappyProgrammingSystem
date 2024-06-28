@@ -108,6 +108,12 @@
                                         <textarea style="resize: none;" class="form-control" rows="4" readonly >${cv.achievements}</textarea>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="font-weight-600 text-uppercase">Rate</label>
+                                        <p>${cv.getRate()} VNĐ/hrs</p>
+                                    </div>
+                                </div>
                             </form>
                             <c:if test='${cv.status == "Pending"}'>
                                 <form action="ListRequest" method="post">
