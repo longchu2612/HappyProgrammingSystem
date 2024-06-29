@@ -168,6 +168,11 @@
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
+                                                    <input type="hidden" name="checkedValuesSlotOne" value="${requestScope.checkedValuesSlotOne}"/>
+                                                    <input type="hidden" name="checkedValuesSlotTwo" value="${requestScope.checkedValuesSlotTwo}"/>
+                                                    <input type="hidden" name="checkedValuesSlotThree" value="${requestScope.checkedValuesSlotThree}"/>
+                                                    <input type="hidden" name="checkedValuesSlotFour" value="${requestScope.checkedValuesSlotFour}"/>
+                                                    <input type="hidden" name="checkedValuesSlotFive" value="${requestScope.checkedValuesSlotFive}"/>
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
                                                             List<String> weeks = (List<String>) request.getAttribute("weeks");
