@@ -374,6 +374,20 @@ public class ScheduleDAO extends DBContext {
         }
         return accounts;
     }
+    
+    public void deleteScheduleByMentorIdAndStatus(int mentor_id, String status, int schedule_id){
+        String sql = "Delete from dbo.Schedules where mentor_id = ? and status = ? and id != ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, mentor_id);
+            ps.setString(2, status);
+            ps.setInt(3, schedule_id);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 //    public List<Account> getAllScheduleOfMentor(int mentor_id) {
 //        Map<LocalDateTime, Account> accountMap = new HashMap<>();
 //        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time, schedule.status from dbo.Schedules as schedule inner join "

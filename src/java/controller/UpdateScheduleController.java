@@ -267,12 +267,17 @@ public class UpdateScheduleController extends HttpServlet {
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
 
-            List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
+            
 
             if (scheduleDraft != null) {
+                List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
                 if (slots_2.size() == 0) {
-
-                    slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
+                    if ((checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
+                            && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0) && (checkedValuesSlotFour == null || checkedValuesSlotFour.length == 0) && (checkedValuesSlotFive == null || checkedValuesSlotFive.length == 0)) {
+                        slots = Collections.emptyList();
+                    }else { 
+                       slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay); 
+                    }
                 } else {
                     slots = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
                 }
@@ -441,7 +446,7 @@ public class UpdateScheduleController extends HttpServlet {
                 } else if ("update".equals(button_action)) {
                     boolean checkUpdate = true;
                     // Kiểm tra vào trường hợp người dùng không thay đổi tuần nào cả và bấm update
-                    if (scheduleDraft == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft) == null) {
+                    if (scheduleDraft == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft) == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft).size() == 0) {
                         checkUpdate = true;
                     } else {
                         List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(scheduleDraft);
@@ -459,10 +464,18 @@ public class UpdateScheduleController extends HttpServlet {
                     if (checkUpdate) {
                         message = "Update schedule succesfully";
                         scheduleDAO.updateSchedulePendingByMentorId(Integer.parseInt(schedule_id));
-                        // Đang bị lỗi do xóa scheduleDraft đi và khi đó tạo ra Draft mới nên List<Slot> đang bị rỗng 
-//                        session.removeAttribute("scheduleDraft_" + schedule_id);
+                        // Đang bị lỗi do xóa scheduleDraft đi và khi đó tạo ra Draft mới nên List<Slot> đang bị rỗng
+
+                        SlotDAO slotDAO = new SlotDAO();
+                        slotDAO.deleteSchedule(scheduleDraft);
+                        int mentorId = scheduleDAO.getMentorIdByScheduleId(Integer.parseInt(schedule_id));
+                        scheduleDAO.deleteScheduleByMentorIdAndStatus(mentorId, "4", scheduleDraft);
+//                        scheduleDAO.deleteScheduleById(scheduleDraft);
+//                      session.removeAttribute("scheduleDraft_" + schedule_id);
+                         
                         session.removeAttribute("selectedWeeks");
-                        session.setMaxInactiveInterval(0);
+
+//                        session.setMaxInactiveInterval(0);
                     } else {
                         message = "Update schedule failed";
                     }
