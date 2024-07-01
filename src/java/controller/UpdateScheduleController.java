@@ -24,6 +24,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -221,11 +222,11 @@ public class UpdateScheduleController extends HttpServlet {
             String schedule_id = request.getParameter("schedule_id");
             String month = request.getParameter("month_form_updateweek");
 
-            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
-            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
-            String[] checkedValuesSlotThree = request.getParameterValues("checkedValuesSlotThree");
-            String[] checkedValuesSlotFour = request.getParameterValues("checkedValuesSlotFour");
-            String[] checkedValuesSlotFive = request.getParameterValues("checkedValuesSlotFive");
+//            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
+//            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
+//            String[] checkedValuesSlotThree = request.getParameterValues("checkedValuesSlotThree");
+//            String[] checkedValuesSlotFour = request.getParameterValues("checkedValuesSlotFour");
+//            String[] checkedValuesSlotFive = request.getParameterValues("checkedValuesSlotFive");
 
             HttpSession session = request.getSession();
             Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + schedule_id);
@@ -266,17 +267,39 @@ public class UpdateScheduleController extends HttpServlet {
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
-
+           
             
 
+//            if (scheduleDraft != null) {
+//                List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
+//                if (slots_2.size() == 0) {
+//                    if ((checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
+//                            && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0) && (checkedValuesSlotFour == null || checkedValuesSlotFour.length == 0) && (checkedValuesSlotFive == null || checkedValuesSlotFive.length == 0)) {
+//                        slots = Collections.emptyList();
+//                    }else { 
+//                       slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay); 
+//                    }
+//                } else {
+//                    slots = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
+//                }
+//            } else {
+//                slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
+//            }
+            String[] checkedValuesSlotOne = (String[])request.getAttribute("checkedValuesSlotOne");
+            String[] checkedValuesSlotTwo = (String[])request.getAttribute("checkedValuesSlotTwo");
+            String[] checkedValuesSlotThree = (String[])request.getAttribute("checkedValuesSlotThree");
+            String[] checkedValuesSlotFour = (String[])request.getAttribute("checkedValuesSlotFour");
+            String[] checkedValuesSlotFive = (String[])request.getAttribute("checkedValuesSlotFive");
             if (scheduleDraft != null) {
                 List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
                 if (slots_2.size() == 0) {
-                    if ((checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
-                            && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0) && (checkedValuesSlotFour == null || checkedValuesSlotFour.length == 0) && (checkedValuesSlotFive == null || checkedValuesSlotFive.length == 0)) {
-                        slots = Collections.emptyList();
+                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
+                        slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
+                    }else if(Arrays.asList(checkedValuesSlotOne).contains("default_value") == true && Arrays.asList(checkedValuesSlotTwo).contains("default_value") == true && Arrays.asList(checkedValuesSlotThree).contains("default_value") == true
+                            && Arrays.asList(checkedValuesSlotFour).contains("default_value") == true && Arrays.asList(checkedValuesSlotFive).contains("default_value") == true ){ 
+                        slots = Collections.emptyList(); 
                     }else { 
-                       slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay); 
+                        slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
                     }
                 } else {
                     slots = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
@@ -521,6 +544,22 @@ public class UpdateScheduleController extends HttpServlet {
                         firstDayOfWeek_2.getDayOfMonth(), firstDayOfWeek_2.getMonthValue(),
                         lastDayOfWeek_2.getDayOfMonth(), lastDayOfWeek_2.getMonthValue());
                 weeks.add(weekRange);
+            }
+            
+            if(checkedValuesSlotOne == null){ 
+                checkedValuesSlotOne = new String[]{"default_value"};
+            }
+            if(checkedValuesSlotTwo == null){ 
+                checkedValuesSlotTwo = new String[]{"default_value"};
+            }
+            if(checkedValuesSlotThree == null){ 
+                checkedValuesSlotThree = new String[]{"default_value"};
+            }
+            if(checkedValuesSlotFour == null){ 
+                checkedValuesSlotFour = new String[]{"default_value"};
+            }
+            if(checkedValuesSlotFive == null){ 
+                checkedValuesSlotFive = new String[]{"default_value"};
             }
             request.setAttribute("checkedValuesSlotOne", checkedValuesSlotOne);
             request.setAttribute("checkedValuesSlotTwo", checkedValuesSlotTwo);
