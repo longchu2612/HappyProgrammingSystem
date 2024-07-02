@@ -139,7 +139,7 @@
                                                     <input type="hidden"  name="scheduleId" value="${requestScope.scheduleId}"/>
                                                 </form>
                                             </div>
-                                                
+
 
                                             <div class="col-12 col-md-2 mb-3">
 
@@ -331,7 +331,13 @@
                                                     </tbody>
 
                                                 </table>
-
+                                                <div class="col-12 col-md-8 mt-3">
+                                                    <div class="form-group">
+                                                        <label for="note">Note</label>
+                                                        <textarea class="form-control" id="note" name="note" rows="3" readonly>${requestScope.note}</textarea>
+                                                        
+                                                    </div>
+                                                </div>
                                                 <div class="row mt-3">
                                                     <div class="submit-section col-md-1">
                                                         <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>

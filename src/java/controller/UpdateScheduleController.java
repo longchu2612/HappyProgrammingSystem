@@ -6,6 +6,7 @@ package controller;
 
 import static controller.ScheduleController.getFirstDayOfWeek;
 import static controller.ScheduleController.getNumberOfISOWeeksInYear;
+import dao.NotificationScheduleDAO;
 import dao.ScheduleDAO;
 import dao.SlotDAO;
 import java.io.IOException;
@@ -122,12 +123,15 @@ public class UpdateScheduleController extends HttpServlet {
             session.setAttribute("scheduleDraft_" + scheduleId, scheduleDraft);
         }
 
-        List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks");
+        List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks_"+scheduleId);
         if (selectedWeeks == null) {
             selectedWeeks = new ArrayList<>();
-            session.setAttribute("selectedWeeks", selectedWeeks);
+            session.setAttribute("selectedWeeks_"+scheduleId, selectedWeeks);
         }
+        NotificationScheduleDAO notificationDAO = new NotificationScheduleDAO();
+        String message = notificationDAO.getNoteSchedule(Integer.parseInt(scheduleId));
 
+        request.setAttribute("note", message);
         request.setAttribute("accountId", accountId);
         request.setAttribute("weekDates", weekDates);
         request.setAttribute("isoWeek", isoWeek);
@@ -151,6 +155,7 @@ public class UpdateScheduleController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        
         if (action.equals("update_year")) {
             String selectYear = request.getParameter("selectYear");
             String[] weekDates = new String[7];
@@ -207,6 +212,10 @@ public class UpdateScheduleController extends HttpServlet {
             }
             String month = request.getParameter("month_form_updateyear");
             String accountId = request.getParameter("accountId");
+            
+            NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
+            String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
+            request.setAttribute("note", note);
             request.setAttribute("accountId", accountId);
             request.setAttribute("weeks", weeks);
             request.setAttribute("month", month);
@@ -214,6 +223,7 @@ public class UpdateScheduleController extends HttpServlet {
             request.setAttribute("scheduleId", schedule_id);
             request.setAttribute("weekDates", weekDates);
             request.setAttribute("currentYear", Integer.parseInt(selectYear));
+            
 
         }
         if (action.equals("update_week")) {
@@ -221,6 +231,9 @@ public class UpdateScheduleController extends HttpServlet {
             String currentYear = request.getParameter("value_year");
             String schedule_id = request.getParameter("schedule_id");
             String month = request.getParameter("month_form_updateweek");
+            
+            NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
+            String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
 
 //            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
 //            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
@@ -316,8 +329,9 @@ public class UpdateScheduleController extends HttpServlet {
             request.setAttribute("slots", slots);
             request.setAttribute("isoWeek", week);
             request.setAttribute("currentYear", Integer.parseInt(currentYear));
+            request.setAttribute("note", note);
             request.setAttribute("weekDates", weekDates);
-
+            
         }
         if (action.equals("update_schedule_week")) {
             boolean check = true;
@@ -332,6 +346,8 @@ public class UpdateScheduleController extends HttpServlet {
             String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
             String[] checkedValuesSlotFour = request.getParameterValues("slot_4");
             String[] checkedValuesSlotFive = request.getParameterValues("slot_5");
+            
+            String button_action_2 = request.getParameter("button_action");
 
             String message = "";
             LocalDate startOfWeek = LocalDate.of(Integer.parseInt(year), 1, 1)
@@ -363,10 +379,10 @@ public class UpdateScheduleController extends HttpServlet {
 
                 session.setAttribute("scheduleDraft_" + schedule_id, scheduleDraft);
             }
-            List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks");
+            List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks_"+schedule_id);
             if (selectedWeeks == null) {
                 selectedWeeks = new ArrayList<>();
-                session.setAttribute("selectedWeeks", selectedWeeks);
+                session.setAttribute("selectedWeeks_"+schedule_id, selectedWeeks);
             }
 
             if (isWeekContainingMonth) {
@@ -514,11 +530,15 @@ public class UpdateScheduleController extends HttpServlet {
             if (scheduleDraft != null) {
                 List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, startOfWeek.toString(), endOfWeek.toString());
                 if (slots_2.isEmpty()) {
-                    if ((checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
+                    if (button_action_2.equals("update")&&(checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
                             && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0) && (checkedValuesSlotFour == null || checkedValuesSlotFour.length == 0) && (checkedValuesSlotFive == null || checkedValuesSlotFive.length == 0)) {
-                        slots = Collections.emptyList();
+                        slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
 
-                    } else {
+                    } else if(button_action_2.equals("draft")&&(checkedValuesSlotOne == null || checkedValuesSlotOne.length == 0) && (checkedValuesSlotTwo == null || checkedValuesSlotTwo.length == 0) && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0)
+                            && (checkedValuesSlotThree == null || checkedValuesSlotThree.length == 0) && (checkedValuesSlotFour == null || checkedValuesSlotFour.length == 0) && (checkedValuesSlotFive == null || checkedValuesSlotFive.length == 0)){
+                       
+                        slots = Collections.emptyList();
+                    }else { 
                         slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
                     }
 
@@ -561,6 +581,11 @@ public class UpdateScheduleController extends HttpServlet {
             if(checkedValuesSlotFive == null){ 
                 checkedValuesSlotFive = new String[]{"default_value"};
             }
+            
+            NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
+            String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
+            
+            request.setAttribute("note", note);
             request.setAttribute("checkedValuesSlotOne", checkedValuesSlotOne);
             request.setAttribute("checkedValuesSlotTwo", checkedValuesSlotTwo);
             request.setAttribute("checkedValuesSlotThree", checkedValuesSlotThree);
@@ -574,8 +599,10 @@ public class UpdateScheduleController extends HttpServlet {
             request.setAttribute("weeks", weeks);
             request.setAttribute("month", month);
             request.setAttribute("currentYear", Integer.parseInt(year));
+            
         }
-
+        
+        
         request.getRequestDispatcher(
                 "updatesSchedule.jsp").forward(request, response);
     }
