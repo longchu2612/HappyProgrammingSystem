@@ -44,7 +44,7 @@
                                     <div class="row">
                                         <div class="d-flex justify-content-between">
                                             <div class="form-group">
-                                                <img src="${acc.avatar}" alt="Mentor avatar" 
+                                                <img src="${acc.getAvatar()}" alt="Mentor avatar" 
                                                  class="rounded-circle"
                                                  height="150px" width="150px"/>
                                         </div>

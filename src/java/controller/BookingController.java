@@ -44,19 +44,22 @@ public class BookingController extends HttpServlet {
                 ArrayList<Mentor> listM = new BookingDAO().getAllMentor();
                 request.setAttribute("listM", listM);
                 request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("search.jsp").forward(request, response);
+                request.getRequestDispatcher("list-mentor-skill.jsp").forward(request, response);
             }
             case "by_course" -> {
                 String skillId = request.getParameter("skId");
                 ArrayList<Mentor> listM = new BookingDAO().getAllMentorBySkillId(skillId);
                 request.setAttribute("listM", listM);
                 request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("search.jsp").forward(request, response);
+                request.getRequestDispatcher("list-mentor-skill.jsp").forward(request, response);
             }
             case "course_details" -> {
-                int mentorId =Integer.parseInt(request.getParameter("mentorId"));
-                List<Account> schedules = new ScheduleDAO().getScheduleOfMentor(mentorId);
+                Account acc = new AccountDAO().getAccountByAccId(request.getParameter("mentorId"));
+                CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
+                List<Account> schedules = new ScheduleDAO().getScheduleOfMentor(Integer.parseInt(request.getParameter("mentorId")));
                 request.setAttribute("schedules", schedules);
+                request.setAttribute("mentor", acc);
+                request.setAttribute("mentor_cv", cv);
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
             }
             case "book_course" ->{

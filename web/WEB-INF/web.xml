@@ -76,6 +76,10 @@
         <servlet-name>UpdateScheduleManage</servlet-name>
         <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Payment</servlet-name>
+        <servlet-class>controller.PaymentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -155,5 +159,9 @@
     <servlet-mapping>
         <servlet-name>BookingController</servlet-name>
         <url-pattern>/Booking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Payment</servlet-name>
+        <url-pattern>/pay</url-pattern>
     </servlet-mapping>
 </web-app>

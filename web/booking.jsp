@@ -5,378 +5,211 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="helper.ScheduleHelper" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.List" %>
+<%@page import="model.Slot" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from mentoring.dreamguystech.com/html/template/booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:02 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:02 GMT -->
 
-<head>
-    <meta charset="utf-8">
-    <title>Mentoring</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <head>
+        <meta charset="utf-8">
+        <title>Mentoring</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
 
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
 
-<body>
+    <body>
 
-    <div class="main-wrapper">
+        <div class="main-wrapper">
 
-        <div class="breadcrumb-bar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-12 col-12">
-                        <nav aria-label="breadcrumb" class="page-breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="home">Home</a></li>
-                                <li class="breadcrumb-item"><a href="Booking?service=all_course">Back to courses</a></li>
-                            </ol>
-                        </nav>
-                        <h2 class="breadcrumb-title">Booking</h2>
+            <div class="breadcrumb-bar">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-12">
+                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="Booking?service=all_course">Back to courses</a></li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="booking-user-info">
-                                    <a href="profile.html" class="booking-user-img">
-                                        <img src="assets/img/user/user2.jpg" alt="User Image">
-                                    </a>
-                                    <div class="booking-info">
-                                        <h4><a href="profile.html"></a></h4>
-                                        <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star"></i>
-                                            <span class="d-inline-block average-rating">35</span>
-                                        </div>
-                                        <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-4 col-md-6">
-                                <h4 class="mb-1">11 November 2019</h4>
-                                <p class="text-muted">Monday</p>
-                            </div>
-                            <div class="col-12 col-sm-8 col-md-6 text-sm-end">
-                                <div class="bookingrange btn btn-white btn-sm mb-3">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    <span></span>
-                                    <i class="fas fa-chevron-down ms-2"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card booking-schedule schedule-widget">
-
-                            <div class="schedule-header">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="day-slot">
-                                            <ul>
-                                                <li class="left-arrow">
-                                                    <a href>
-                                                        <i class="fa fa-chevron-left"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <span>Mon</span>
-                                                    <span class="slot-date">11 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Tue</span>
-                                                    <span class="slot-date">12 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Wed</span>
-                                                    <span class="slot-date">13 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Thu</span>
-                                                    <span class="slot-date">14 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Fri</span>
-                                                    <span class="slot-date">15 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Sat</span>
-                                                    <span class="slot-date">16 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Sun</span>
-                                                    <span class="slot-date">17 Nov <small
-                                                            class="slot-year">2019</small></span>
-                                                </li>
-                                                <li class="right-arrow">
-                                                    <a href>
-                                                        <i class="fa fa-chevron-right"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="schedule-cont">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="time-slot">
-                                            <ul class="clearfix">
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing selected" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="submit-section proceed-btn text-end">
-                            <a href="checkout.html" class="btn btn-primary submit-btn">Proceed to Pay</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <footer class="footer">
-
-            <div class="footer-top">
+            <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6">
-
-                            <div class="footer-widget footer-about">
-                                <div class="footer-logo">
-                                    <img src="assets/img/logo.png" alt="logo">
-                                </div>
-                                <div class="footer-about-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <div class="social-icon">
-                                        <ul>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
-                                            </li>
-                                        </ul>
+                        <div class="col-12 d-flex">
+                            <div class="card col-6">
+                                <div class="card-body">
+                                    <h2>Mentor Information:</h2>
+                                    <div class="booking-user-info">
+                                        <a href="#" class="booking-user-img">
+                                            <img src="${requestScope.mentor.avatar}" alt="User Image">
+                                        </a>
+                                        <div class="booking-info">
+                                            <h4><a href="#">${requestScope.mentor.fullname}</a></h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star-half-alt filled"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span class="d-inline-block average-rating">35</span>
+                                            </div>
+                                            <p class="text-muted mb-0"><Strong>Profession:</Strong> ${requestScope.mentor_cv.job}</p>
+                                            <p class="text-muted mb-0"><Strong>Date of birth:</Strong> ${requestScope.mentor.dateOfBirth}</p>
+                                            <p class="text-muted mb-0"><Strong>Phone:</Strong> ${requestScope.mentor.phone}</p>
+                                            <p class="text-muted mb-0"><Strong>Email address:</Strong> ${requestScope.mentor.email}</p>
+                                            <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> ${requestScope.mentor.address}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-
-                            <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Mentee</h2>
-                                <ul>
-                                    <li><a href="search.html">Search Mentors</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="booking.html">Booking</a></li>
-                                    <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-
-                            <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Mentors</h2>
-                                <ul>
-                                    <li><a href="appointments.html">Appointments</a></li>
-                                    <li><a href="chat.html">Chat</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-
-                            <div class="footer-widget footer-contact">
-                                <h2 class="footer-title">Contact Us</h2>
-                                <div class="footer-contact-info">
-                                    <div class="footer-address">
-                                        <span><i class="fas fa-map-marker-alt"></i></span>
-                                        <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+                            <div class="card col-6">
+                                <div class="card-body">
+                                    <div class="booking-user-info">
+                                        <div class="booking-info">
+                                            <div>
+                                                <Strong><i class=""></i>Introduction:</Strong>
+                                                <p class="mb-0"> ${requestScope.mentor_cv.introduction}</p>
+                                            </div>
+                                            <div>
+                                                <Strong>Achievements:</Strong>
+                                                <p class="mb-0"> ${requestScope.mentor_cv.achievements}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p>
-                                        <i class="fas fa-phone-alt"></i>
-                                        +1 315 369 5943
-                                    </p>
-                                    <p class="mb-0">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection"
-                                            class="__cf_email__"
-                                            data-cfemail="d8b5bdb6acb7aab1b6bf98bda0b9b5a8b4bdf6bbb7b5">[email&#160;protected]</a>
-                                    </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Time Table:</h3>
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">
+                                                Year 2024
+                                            </th>
+                                            <th>Monday</th>
+                                            <th>Tuesday</th>
+                                            <th>Wednesday</th>
+                                            <th>Thursday</th>
+                                            <th>Friday</th>
+                                            <th>Saturday</th>
+                                            <th>Sunday</th>
+                                        </tr>
 
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                           List<Slot> slots= (List<Slot>) request.getAttribute("slots");
+                                        %>
+
+                                        <tr>
+                                            <td>Slot 1 (7h30 --> 9h30)</td>
+                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(slots, 1, 1) %> disabled  ></td>
+                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(slots, 1, 2) %> disabled ></td>
+                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(slots, 1, 3)%> disabled ></td>
+                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(slots, 1, 4)%> disabled ></td>
+                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(slots, 1, 5)%> disabled ></td>
+                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(slots, 1, 6)%> disabled ></td>
+                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(slots, 1, 7)%> disabled ></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Slot 2 (9h45 --> 11h45)</td>
+                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(slots, 2, 1) %> disabled ></td>
+                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(slots, 2, 2) %> disabled></td>
+                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(slots, 2, 3) %> disabled></td>
+                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(slots, 2, 4)%> disabled></td>
+                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(slots, 2, 5)%> disabled></td>
+                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(slots, 2, 6)%> disabled></td>
+                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(slots, 2, 7)%> disabled></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Slot 3 (13h30 --> 15h30)</td>
+                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(slots, 3, 1) %> disabled ></td>
+                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(slots, 3, 2) %> disabled></td>
+                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(slots, 3, 3) %> disabled></td>
+                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(slots, 3, 4)%> disabled></td>
+                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(slots, 3, 5)%> disabled></td>
+                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(slots, 3, 6)%> disabled></td>
+                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(slots, 3, 7)%> disabled></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Slot 4 (16h --> 18h)</td>
+                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(slots, 4,1) %> disabled ></td>
+                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(slots, 4,2) %> disabled></td>
+                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(slots, 4,3) %> disabled></td>
+                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(slots, 4, 4)%> disabled></td>
+                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(slots, 4, 5)%> disabled></td>
+                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(slots, 4, 6)%> disabled></td>
+                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(slots, 4, 7)%> disabled></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Slot 5 (19h --> 21h)</td>
+                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" data-day-index="0" <%= ScheduleHelper.isCheckedSlot(slots, 5,1) %> disabled ></td>
+                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" data-day-index="1" <%= ScheduleHelper.isCheckedSlot(slots, 5, 2) %> disabled></td>
+                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" data-day-index="2" <%= ScheduleHelper.isCheckedSlot(slots, 5, 3) %> disabled></td>
+                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" data-day-index="3" <%= ScheduleHelper.isCheckedSlot(slots, 5, 4)%> disabled></td>
+                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" data-day-index="4" <%= ScheduleHelper.isCheckedSlot(slots, 5, 5)%> disabled></td>
+                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" data-day-index="5" <%= ScheduleHelper.isCheckedSlot(slots, 5, 6)%> disabled></td>
+                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" data-day-index="6" <%= ScheduleHelper.isCheckedSlot(slots, 5, 7)%> disabled></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="submit-section proceed-btn text-end">
+                                <a href="payment.jsp" class="btn btn-primary submit-btn">Rent</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="footer-bottom">
-                <div class="container-fluid">
+            <jsp:include page="footer.jsp"></jsp:include>
 
-                    <div class="copyright">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <div class="copyright-text">
-                                    <p class="mb-0">&copy; 2020 Mentoring. All rights reserved.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </footer>
-
-    </div>
+        </div>
 
 
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+        <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
 
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/moment.min.js"></script>
-    <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
 
-    <script src="assets/js/script.js"></script>
-</body>
+        <script src="assets/js/script.js"></script>
+    </body>
 
-<!-- Mirrored from mentoring.dreamguystech.com/html/template/booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:04 GMT -->
+    <!-- Mirrored from mentoring.dreamguystech.com/html/template/booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:33:04 GMT -->
 
 </html>
