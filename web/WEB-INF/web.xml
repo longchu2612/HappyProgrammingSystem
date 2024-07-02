@@ -79,6 +79,10 @@
     <servlet>
         <servlet-name>Payment</servlet-name>
         <servlet-class>controller.PaymentController</servlet-class>
+        </servlet>
+<servlet>
+        <servlet-name>RatinngController</servlet-name>
+        <servlet-class>controller.RatinngController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
@@ -163,5 +167,9 @@
     <servlet-mapping>
         <servlet-name>Payment</servlet-name>
         <url-pattern>/pay</url-pattern>
+        </servlet-mapping>
+ <servlet-mapping>
+        <servlet-name>RatinngController</servlet-name>
+        <url-pattern>/rating</url-pattern>
     </servlet-mapping>
 </web-app>

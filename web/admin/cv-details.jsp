@@ -46,7 +46,7 @@
                                             <div class="form-group">
                                                 <img src="${acc.getAvatar()}" alt="Mentor avatar" 
                                                  class="rounded-circle"
-                                                 height="150px" width="150px"/>
+                                                 height="150" width="150"/>
                                         </div>
                                         <div class="mx-5">
                                             <button class="btn btn-success"><a class="text-white" href="ListRequest">Back</a></button>
@@ -106,6 +106,12 @@
                                     <div class="form-group">
                                         <label class="font-weight-600 text-uppercase">Achievements:</label>
                                         <textarea style="resize: none;" class="form-control" rows="4" readonly >${cv.achievements}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="font-weight-600 text-uppercase">Rate</label>
+                                        <p>${cv.getRate()} VNĐ/hrs</p>
                                     </div>
                                 </div>
                             </form>

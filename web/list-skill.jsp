@@ -26,314 +26,455 @@
         <link rel="stylesheet" href="assets/css/style.css">
 
         <link rel="stylesheet" href="css/UpdateCV.css" />
+
+        <style>
+            @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+            /* Style buttons */
+            .btn-blue {
+                border: none;
+                outline: none;
+            }
+
+            div,label{
+                margin:0;
+                padding:0;
+            }
+            body{
+                margin:20px;
+            }
+            h1{
+                font-size:1.5em;
+                margin:10px;
+            }
+            /****** Style Star Rating Widget *****/
+            #rating{
+                border:none;
+                float:left;
+            }
+            #rating>input{
+                display:none;
+            }/*ẩn input radio - vì chúng ta đã có label là GUI*/
+            #rating>label:before{
+                margin:5px;
+                font-size:1.25em;
+                font-family:FontAwesome;
+                display:inline-block;
+                content:"\f005";
+            }/*1 ngôi sao*/
+            #rating>.half:before{
+                content:"\f089";
+                position:absolute;
+            }/*0.5 ngôi sao*/
+            #rating>label{
+                color:#ddd;
+                float:right;
+            }/*float:right để lật ngược các ngôi sao lại đúng theo thứ tự trong thực tế*/
+            /*thêm màu cho sao đã chọn và các ngôi sao phía trước*/
+            #rating>input:checked~label,
+            #rating:not(:checked)>label:hover,
+            #rating:not(:checked)>label:hover~label{
+                color:#FFD700;
+            }
+            /* Hover vào các sao phía trước ngôi sao đã chọn*/
+            #rating>input:checked+label:hover,
+            #rating>input:checked~label:hover,
+            #rating>label:hover~input:checked~label,
+            #rating>input:checked~label:hover~label{
+                color:#FFED85;
+            }
+        </style>
     </head>
 
     <body>
-        <form action="skill" method="post">
-            <div class="main-wrapper">
-                <header class="header">
-                    <div class="header-fixed">
-                        <nav class="navbar navbar-expand-lg header-nav">
-                            <div class="navbar-header">
-                                <a id="mobile_btn" href="javascript:void(0);">
-                                    <span class="bar-icon">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </a>
-                                <a href="index.html" class="navbar-brand logo">
+        <div class="main-wrapper">
+            <header class="header">
+                <div class="header-fixed">
+                    <nav class="navbar navbar-expand-lg header-nav">
+                        <div class="navbar-header">
+                            <a id="mobile_btn" href="javascript:void(0);">
+                                <span class="bar-icon">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </a>
+                            <a href="index.html" class="navbar-brand logo">
+                                <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                            </a>
+                        </div>
+                        <div class="main-menu-wrapper">
+                            <div class="menu-header">
+                                <a href="index.html" class="menu-logo">
                                     <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
                                 </a>
+                                <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                                    <i class="fas fa-times"></i>
+                                </a>
                             </div>
-                            <div class="main-menu-wrapper">
-                                <div class="menu-header">
-                                    <a href="index.html" class="menu-logo">
-                                        <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
-                                    </a>
-                                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </div>
-                                <ul class="main-nav">
-                                    <li class="has-submenu">
-                                        <a href="index.html">Home <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="index-two.html">Home 2</a></li>
-                                            <li><a href="index-three.html">Home 3</a></li>
-                                            <li><a href="index-four.html">Home 4</a></li>
-                                            <li><a href="index-five.html">Home 5</a></li>
-                                            <li><a href="index-six.html">Home 6</a></li>
-                                            <li><a href="index-seven.html">Home 7</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu active">
-                                        <a href>Mentor <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                            <li><a href="bookings.html">Bookings</a></li>
-                                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                                            <li><a href="mentee-list.html">Mentee List</a></li>
-                                            <li><a href="profile-mentee.html">Mentee Profile</a></li>
-                                            <li class="has-submenu">
-                                                <a href="blog.html">Blog</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="blog-details.html">Blog View</a></li>
-                                                    <li><a href="add-blog.html">Add Blog</a></li>
-                                                    <li><a href="edit-blog.html">Edit Blog</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="chat.html">Chat</a></li>
-                                            <li><a href="invoices.html">Invoices</a></li>
-                                            <li class="active"><a href="profile-settings.html">Profile Settings</a></li>
-                                            <li><a href="reviews.html">Reviews</a></li>
-                                            <li><a href="mentor-register.html">Mentor Register</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href>Mentee <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li class="has-submenu">
-                                                <a href="#">Mentors</a>
-                                                <ul class="submenu">
-                                                    <li><a href="map-grid.html">Map Grid</a></li>
-                                                    <li><a href="map-list.html">Map List</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="search.html">Search Mentor</a></li>
-                                            <li><a href="profile.html">Mentor Profile</a></li>
-                                            <li><a href="bookings-mentee.html">Bookings</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="booking-success.html">Booking Success</a></li>
-                                            <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                            <li><a href="favourites.html">Favourites</a></li>
-                                            <li><a href="chat-mentee.html">Chat</a></li>
-                                            <li><a href="profile-settings-mentee.html">Profile Settings</a></li>
-                                            <li><a href="change-password.html">Change Password</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href>Pages <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="voice-call.html">Voice Call</a></li>
-                                            <li><a href="video-call.html">Video Call</a></li>
-                                            <li><a href="search.html">Search Mentors</a></li>
-                                            <li><a href="components.html">Components</a></li>
-                                            <li class="has-submenu">
-                                                <a href="invoices.html">Invoices</a>
-                                                <ul class="submenu">
-                                                    <li><a href="invoices.html">Invoices</a></li>
-                                                    <li><a href="invoice-view.html">Invoice View</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="blank-page.html">Starter Page</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="forgot-password.html">Forgot Password</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href>Blog <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog-list.html">Blog List</a></li>
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="admin/index.html" target="_blank">Admin</a>
-                                    </li>
-                                    <li class="login-link">
-                                        <a href="login.html">Login / Signup</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <ul class="nav header-navbar-rht">
-
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                        <span class="user-img">
-                                            <img class="rounded-circle" src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%" width="31">
-                                        </span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <div class="user-header">
-                                            <div class="avatar avatar-sm">
-                                                <img src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%"
-                                                     class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="user-text">
-                                                <h6>${ac.getAccount_name()}</h6>
-                                                <p class="text-muted mb-0">Mentor</p>
-                                            </div>
-                                        </div>
-                                        <a class="dropdown-item" href="dashboard.html">Dashboard</a>
-                                        <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
-                                        <a class="dropdown-item" href="login.html">Logout</a>
-                                    </div>
+                            <ul class="main-nav">
+                                <li class="has-submenu">
+                                    <a href="index.html">Home <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index-two.html">Home 2</a></li>
+                                        <li><a href="index-three.html">Home 3</a></li>
+                                        <li><a href="index-four.html">Home 4</a></li>
+                                        <li><a href="index-five.html">Home 5</a></li>
+                                        <li><a href="index-six.html">Home 6</a></li>
+                                        <li><a href="index-seven.html">Home 7</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu active">
+                                    <a href>Mentor <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
+                                        <li><a href="bookings.html">Bookings</a></li>
+                                        <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                                        <li><a href="mentee-list.html">Mentee List</a></li>
+                                        <li><a href="profile-mentee.html">Mentee Profile</a></li>
+                                        <li class="has-submenu">
+                                            <a href="blog.html">Blog</a>
+                                            <ul class="submenu">
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="blog-details.html">Blog View</a></li>
+                                                <li><a href="add-blog.html">Add Blog</a></li>
+                                                <li><a href="edit-blog.html">Edit Blog</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="chat.html">Chat</a></li>
+                                        <li><a href="invoices.html">Invoices</a></li>
+                                        <li class="active"><a href="profile-settings.html">Profile Settings</a></li>
+                                        <li><a href="reviews.html">Reviews</a></li>
+                                        <li><a href="mentor-register.html">Mentor Register</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href>Mentee <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li class="has-submenu">
+                                            <a href="#">Mentors</a>
+                                            <ul class="submenu">
+                                                <li><a href="map-grid.html">Map Grid</a></li>
+                                                <li><a href="map-list.html">Map List</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="search.html">Search Mentor</a></li>
+                                        <li><a href="profile.html">Mentor Profile</a></li>
+                                        <li><a href="bookings-mentee.html">Bookings</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="booking-success.html">Booking Success</a></li>
+                                        <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
+                                        <li><a href="favourites.html">Favourites</a></li>
+                                        <li><a href="chat-mentee.html">Chat</a></li>
+                                        <li><a href="profile-settings-mentee.html">Profile Settings</a></li>
+                                        <li><a href="change-password.html">Change Password</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href>Pages <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="voice-call.html">Voice Call</a></li>
+                                        <li><a href="video-call.html">Video Call</a></li>
+                                        <li><a href="search.html">Search Mentors</a></li>
+                                        <li><a href="components.html">Components</a></li>
+                                        <li class="has-submenu">
+                                            <a href="invoices.html">Invoices</a>
+                                            <ul class="submenu">
+                                                <li><a href="invoices.html">Invoices</a></li>
+                                                <li><a href="invoice-view.html">Invoice View</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="blank-page.html">Starter Page</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="forgot-password.html">Forgot Password</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href>Blog <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="blog-list.html">Blog List</a></li>
+                                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                                        <li><a href="blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="admin/index.html" target="_blank">Admin</a>
+                                </li>
+                                <li class="login-link">
+                                    <a href="login.html">Login / Signup</a>
                                 </li>
                             </ul>
-                        </nav>
-                    </div>
-                </header>
+                        </div>
+                        <ul class="nav header-navbar-rht">
+
+                            <li class="nav-item dropdown has-arrow logged-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                                    <span class="user-img">
+                                        <img class="rounded-circle" src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%" width="31">
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <div class="user-header">
+                                        <div class="avatar avatar-sm">
+                                            <img src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%"
+                                                 class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="user-text">
+                                            <h6>${ac.getAccount_name()}</h6>
+                                            <p class="text-muted mb-0">Mentor</p>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item" href="dashboard.html">Dashboard</a>
+                                    <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+                                    <a class="dropdown-item" href="login.html">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
 
 
-                <div class="breadcrumb-bar">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-md-12 col-12">
-                                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
-                                    </ol>
-                                </nav>
-                                <h2 class="breadcrumb-title">Profile Settings</h2>
-                            </div>
+            <div class="breadcrumb-bar">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-12">
+                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
+                                </ol>
+                            </nav>
+                            <h2 class="breadcrumb-title">Profile Settings</h2>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="content">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+                            <div class="profile-sidebar">
+                                <div class="user-widget">
+                                    <div class="pro-avatar"><image src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
+                                    <div class="user-info-cont">
+                                        <h4 class="usr-name"><input type="text" class="account-name" name="account" value="${ac.getAccount_name()}"></h4>
+                                    </div>
+                                </div>
+                                <div class="custom-sidebar-nav">
+                                    <ul>
+                                        <c:forEach items="${data}" var="sd">
+                                            <li><a href="/HappyProgrammingSystem/skills?mod=${sd.getId()}">${sd.getName()} <span><i
+                                                            class="fas fa-chevron-right"></i></span></a></li>
+                                                    </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-lg-8 col-xl-9">
+                            <h1 style="size: 500px">${message}</h1>
+                            <c:forEach items="${data0}" var="am">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="mentor-widget">
+                                            <div class="user-info-left align-items-center">
+                                                <div class="mentor-img d-flex flex-wrap justify-content-center">
+                                                    <div class="pro-avatar">
+                                                        <image src="${am.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%">
+                                                    </div>
+                                                </div>
+                                                <div class="user-info-cont">
+                                                    <h4 class="usr-name">${am.getAccount_name()}</h4>
+                                                    <p class="mentor-type">${skill}</p>
+                                                    <div class="mentor-img d-flex flex-wrap justify-content-center">
+                                                        <div id="rating">
+                                                            <input type="radio" id="star5" name="rating" value="5" ${am.getCheck5()} disabled=""/>
+                                                            <label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
+                                                            <input type="radio" id="star4half" name="rating" value="4.5" ${am.getCheck45()} disabled=""/>
+                                                            <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+
+                                                            <input type="radio" id="star4" name="rating" value="4" ${am.getCheck4()} disabled=""/>
+                                                            <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+
+                                                            <input type="radio" id="star3half" name="rating" value="3.5" ${am.getCheck35()} disabled=""/>
+                                                            <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+
+                                                            <input type="radio" id="star3" name="rating" value="3" ${am.getCheck3()} disabled=""/>
+                                                            <label class = "full" for="star3" title="Meh - 3 stars"></label>
+
+                                                            <input type="radio" id="star2half" name="rating" value="2.5" ${am.getCheck25()} disabled=""/>
+                                                            <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+
+                                                            <input type="radio" id="star2" name="rating" value="2" ${am.getCheck2()} disabled=""/>
+                                                            <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                                            <input type="radio" id="star1half" name="rating" value="1.5" ${am.getCheck15()} disabled=""/>
+                                                            <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+
+                                                            <input type="radio" id="star1" name="rating" value="1" ${am.getCheck1()} disabled=""/>
+                                                            <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+
+                                                            <input type="radio" id="starhalf" name="rating" value="0.5" ${am.getCheck05()} disabled=""/>
+                                                            <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                        
+                                                            <p style="text-align: center">(${am.getNoOfRatings()})</p>
+                                                        </div>
+                                                        <div class="mentor-details m-0">
+                                                            <p class="user-location m-0"><i class="fas fa-map-marker-alt"></i> ${am.getAddress()}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="user-info-right d-flex align-items-end flex-wrap" style="width: 500px; height: ">
+                                                <div class="user-info-cont">
+                                                    <div class="mentor-action">
+                                                        <p class="mentor-type social-title" style="text-align: center">Number of requests:</p> <br>
+                                                        <h2 style="size: 100px; margin-left: auto; margin-right: auto;">${am.getNoOfRequest()}</h2>
+                                                    </div>
+                                                </div>
+                                            </div>         
+                                            <div class="user-info-right d-flex align-items-end flex-wrap" style="width: 500px; height: ">
+                                                <div class="user-info-cont">
+                                                    <div class="mentor-action">
+                                                        <p class="mentor-type social-title">Contact Me</p>
+                                                        <input type="hidden" value="${am.getEmail()}" id="email">
+                                                        <button class="btn-blue" onclick="myFunction1()"><i class="fas fa-envelope"></i></button> &ensp;
+                                                        <input type="hidden" value="${am.getPhoneString()}" id="phone">
+                                                        <button class="btn-blue" onclick="myFunction2()"><i class="fas fa-phone-alt"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>                                        
+                                            <div class="user-info-right d-flex align-items-end flex-wrap">
+                                                <div class="hireme-btn text-center">
+                                                    <a href="#">
+                                                        <button type="submit" class="blue-btn-radius" style="border: none">Invite</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <footer class="footer">
+
+                <div class="footer-top">
                     <div class="container-fluid">
                         <div class="row">
+                            <div class="col-lg-3 col-md-6">
 
-                            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-
-                                <div class="profile-sidebar">
-                                    <div class="user-widget">
-                                        <div class="pro-avatar"><image src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
-                                        <div class="user-info-cont">
-                                            <h4 class="usr-name"><input type="text" class="account-name" name="account" value="${ac.getAccount_name()}"></h4>
+                                <div class="footer-widget footer-about">
+                                    <div class="footer-logo">
+                                        <img src="assets/img/logo.png" alt="logo">
+                                    </div>
+                                    <div class="footer-about-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                            incididunt ut labore et dolore magna aliqua. </p>
+                                        <div class="social-icon">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="custom-sidebar-nav">
-                                        <ul>
-                                            <c:forEach items="${data}" var="sd">
-                                                <li><a href="/HappyProgrammingSystem/skills?mod=${sd.getId()}">${sd.getName()} <span><i
-                                                            class="fas fa-chevron-right"></i></span></a></li>
-                                            </c:forEach>
-                                        </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Mentee</h2>
+                                    <ul>
+                                        <li><a href="search.html">Search Mentors</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="booking.html">Booking</a></li>
+                                        <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Mentors</h2>
+                                    <ul>
+                                        <li><a href="appointments.html">Appointments</a></li>
+                                        <li><a href="chat.html">Chat</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+
+                                <div class="footer-widget footer-contact">
+                                    <h2 class="footer-title">Contact Us</h2>
+                                    <div class="footer-contact-info">
+                                        <div class="footer-address">
+                                            <span><i class="fas fa-map-marker-alt"></i></span>
+                                            <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                        </div>
+                                        <p>
+                                            <i class="fas fa-phone-alt"></i>
+                                            +1 315 369 5943
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-envelope"></i>
+                                            <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="5e333b302a312c3730391e3b263f332e323b703d3133">[email&#160;protected]</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container-fluid">
+
+                        <div class="copyright">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <div class="copyright-text">
+                                        <p class="mb-0">&copy; 2020 Mentoring. All rights reserved.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <footer class="footer">
-
-                    <div class="footer-top">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-about">
-                                        <div class="footer-logo">
-                                            <img src="assets/img/logo.png" alt="logo">
-                                        </div>
-                                        <div class="footer-about-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                                incididunt ut labore et dolore magna aliqua. </p>
-                                            <div class="social-icon">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Mentee</h2>
-                                        <ul>
-                                            <li><a href="search.html">Search Mentors</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="booking.html">Booking</a></li>
-                                            <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Mentors</h2>
-                                        <ul>
-                                            <li><a href="appointments.html">Appointments</a></li>
-                                            <li><a href="chat.html">Chat</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-
-                                    <div class="footer-widget footer-contact">
-                                        <h2 class="footer-title">Contact Us</h2>
-                                        <div class="footer-contact-info">
-                                            <div class="footer-address">
-                                                <span><i class="fas fa-map-marker-alt"></i></span>
-                                                <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
-                                            </div>
-                                            <p>
-                                                <i class="fas fa-phone-alt"></i>
-                                                +1 315 369 5943
-                                            </p>
-                                            <p class="mb-0">
-                                                <i class="fas fa-envelope"></i>
-                                                <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                   class="__cf_email__"
-                                                   data-cfemail="5e333b302a312c3730391e3b263f332e323b703d3133">[email&#160;protected]</a>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="footer-bottom">
-                        <div class="container-fluid">
-
-                            <div class="copyright">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <div class="copyright-text">
-                                            <p class="mb-0">&copy; 2020 Mentoring. All rights reserved.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </form>
+            </footer>
+        </div>
 
         <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
         <script src="assets/js/jquery-3.6.0.min.js"></script>
@@ -350,6 +491,59 @@
 
         <script src="assets/js/script.js"></script>
 
+        <script>
+                                                            function myFunction1() {
+                                                                // Get the text field
+                                                                var copyText = document.getElementById("email");
+
+                                                                // Create a temporary textarea element
+                                                                var tempTextarea = document.createElement("textarea");
+                                                                tempTextarea.value = copyText.value;
+                                                                document.body.appendChild(tempTextarea);
+
+                                                                // Select the text field
+                                                                tempTextarea.select();
+                                                                tempTextarea.setSelectionRange(0, 99999); // For mobile devices
+
+                                                                // Copy the text inside the text field
+                                                                navigator.clipboard.writeText(tempTextarea.value).then(function () {
+                                                                    // Alert the copied text
+                                                                    alert("Email copied!");
+                                                                }).catch(function (error) {
+                                                                    // Handle error
+                                                                    console.error('Error copying text: ', error);
+                                                                });
+
+                                                                // Remove the temporary textarea
+                                                                document.body.removeChild(tempTextarea);
+                                                            }
+
+                                                            function myFunction2() {
+                                                                // Get the text field
+                                                                var copyText = document.getElementById("phone");
+
+                                                                // Create a temporary textarea element
+                                                                var tempTextarea = document.createElement("textarea");
+                                                                tempTextarea.value = copyText.value;
+                                                                document.body.appendChild(tempTextarea);
+
+                                                                // Select the text field
+                                                                tempTextarea.select();
+                                                                tempTextarea.setSelectionRange(0, 99999); // For mobile devices
+
+                                                                // Copy the text inside the text field
+                                                                navigator.clipboard.writeText(tempTextarea.value).then(function () {
+                                                                    // Alert the copied text
+                                                                    alert("Phone number copied!");
+                                                                }).catch(function (error) {
+                                                                    // Handle error
+                                                                    console.error('Error copying text: ', error);
+                                                                });
+
+                                                                // Remove the temporary textarea
+                                                                document.body.removeChild(tempTextarea);
+                                                            }
+        </script>
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:22 GMT -->

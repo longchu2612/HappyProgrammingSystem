@@ -68,7 +68,8 @@ public class CVDAO extends DBContext {
                 String achievements = rs.getString(8);
                 String status = rs.getString(9);
                 String note = rs.getString(10);
-                c = new CV(id, AccountID, avatar, job, introduction, created_at, modified_at, achievements,status,note);
+                String rate = String.valueOf(rs.getInt(11));
+                c = new CV(id, AccountID, avatar, job, introduction, created_at, modified_at, achievements, status, note, rate);
             }
         } catch (SQLException e) {
             System.out.println("getCVByAccountId:" + e.getMessage());
@@ -76,10 +77,10 @@ public class CVDAO extends DBContext {
         return c;
     }
 
-    public void updateCVByAccountId(String accountID, String avatar, String job, String introduction, String achievements) {
+    public void updateCVByAccountId(String accountID, String avatar, String job, String introduction, String achievements, String rate) {
         String sql = """
                      UPDATE CV
-                     SET avatar = ?, job = ?, introduction = ?, modified_at = CURRENT_TIMESTAMP, achievements = ?, status = ?, note = ?
+                     SET avatar = ?, job = ?, introduction = ?, modified_at = CURRENT_TIMESTAMP, achievements = ?, status = ?, note = ?, rate = ?
                      WHERE accountID = ?""";
         try {
             ps = conn.prepareStatement(sql);
@@ -89,7 +90,8 @@ public class CVDAO extends DBContext {
             ps.setString(4, achievements);
             ps.setString(5, "Pending");
             ps.setString(6, null);
-            ps.setString(7, accountID);
+            ps.setString(7, rate);
+            ps.setString(8, accountID);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +101,7 @@ public class CVDAO extends DBContext {
     public ArrayList<CV_Request> displayCVAdmin() {
         ArrayList<CV_Request> list = new ArrayList<>();
         String query = """
-                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note
+                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note, cv.rate
                        FROM CV cv
                        join Account acc on cv.accountID = acc.id""";
         try {
@@ -113,7 +115,8 @@ public class CVDAO extends DBContext {
                 String job = rs.getString("job");
                 String status = rs.getString("status");
                 String note = rs.getString("note");
-                list.add(new CV_Request(id, accountID, job, status, note, fullname));
+                String rate = String.valueOf(rs.getInt("rate"));
+                list.add(new CV_Request(id, accountID, job, status, note, fullname, rate));
             }
             return list;
         } catch (SQLException e) {
@@ -139,7 +142,7 @@ public class CVDAO extends DBContext {
     public ArrayList<CV> displayCVAdminByStatus(String txtStatus) {
         ArrayList<CV> list = new ArrayList<>();
         String query = """
-                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note
+                       SELECT cv.id, cv.accountID, acc.fullname , cv.job, cv.status, cv.note, cv.rate
                        FROM CV cv
                        join Account acc on cv.accountID = acc.id
                        where cv.status = ? """;
@@ -155,7 +158,8 @@ public class CVDAO extends DBContext {
                 String job = rs.getString("job");
                 String status = rs.getString("status");
                 String note = rs.getString("note");
-                list.add(new CV_Request(id, accountID, job, status, note, fullname));
+                String rate = String.valueOf(rs.getInt("rate"));
+                list.add(new CV_Request(id, accountID, job, status, note, fullname, rate));
             }
             return list;
         } catch (SQLException e) {
@@ -229,7 +233,8 @@ public class CVDAO extends DBContext {
                 String achievements = rs.getString("achievements");
                 String status = rs.getString("status");
                 String note = rs.getString("note");
-                return new CV(id, accId, avatar, job, introduction, created_at, modified_at, achievements, status, note);
+                String rate = String.valueOf(rs.getInt("rate"));
+                return new CV(id, accId, avatar, job, introduction, created_at, modified_at, achievements, status, note, rate);
             }
 
         } catch (SQLException e) {

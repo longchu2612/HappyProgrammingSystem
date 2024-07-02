@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -238,14 +238,14 @@
                                                 <div class="form-group">
                                                     <div class="change-avatar" id="AvatarFileUpload">
                                                         <div class="selected-image-holder">
-                                                            <img src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; margin-right: 15px">
+                                                            <img id="userAvatar" src="${ac.getAvatar()}" alt="User Image" style="height: 100px; width: 100px; margin-right: 15px">
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
                                                                 <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input type="file" name="avatar" class="upload">
+                                                                <input type="file" name="avatar" class="upload" id="avatarInput">
                                                             </div>
-                                                            <small class="form-text text-muted">Allowed PNG. Max size of 2MB</small>
+                                                            <small class="form-text text-muted">Allowed PNG, JPG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -284,7 +284,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Phone number</label>
-                                                    <input type="text" name="phone" value="${ac.getPhone()}" class="form-control">
+                                                    <input type="text" name="phone" value="${phone}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -454,6 +454,20 @@
                 // Read Selected Image as DataURL
                 reader.readAsDataURL(e.target.files[0]);
             })
+        </script>
+
+        <script>
+            document.getElementById('avatarInput').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Ensure the file is a valid image type
+                    const validImageTypes = ['image/jpeg', 'image/png'];
+                    if (validImageTypes.includes(file.type) === false) {
+                        alert('Please select a valid image file (PNG or JPG).');
+                        location.reload(true);
+                    }
+                }
+            });
         </script>
     </body>
 

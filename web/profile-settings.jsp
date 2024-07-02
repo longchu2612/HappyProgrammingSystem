@@ -25,6 +25,19 @@
         <link rel="stylesheet" href="assets/css/style.css">
 
         <link rel="stylesheet" href="css/UpdateCV.css" />
+
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                /* display: none; <- Crashes Chrome on hover */
+                -webkit-appearance: none;
+                margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+            }
+
+            input[type=number] {
+                -moz-appearance:textfield; /* Firefox */
+            }
+        </style>
     </head>
 
     <body>
@@ -184,11 +197,11 @@
                                                                     </c:when>
                                                                     <c:when test="${cv.status == 'Reject'}">
                                                             <p class="text-danger"><span><i class="fa fa-lock text-danger"></i></span> ${cv.status}</p>
-                                                                </c:when>
-                                                                <c:otherwise>
+                                                                    </c:when>
+                                                                    <c:otherwise>
                                                             <p class="text-warning"><span><i class="fa fa-clock text-warning"></i></span> ${cv.status}</p>
-                                                                </c:otherwise>
-                                                            </c:choose>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                 </div>
                                                 <div>
                                                     <c:choose>
@@ -218,7 +231,6 @@
                                                             <small class="form-text text-muted">Allowed PNG, JPG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -255,7 +267,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Phone number</label>
-                                                    <input type="text" name="phone" value="${ac.getPhone()}" class="form-control">
+                                                    <input type="text" name="phone" value="${phone}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -264,6 +276,9 @@
                                                     <input type="text" name="address" class="form-control" value="${ac.getAddress()}">
                                                 </div>
                                             </div>
+                                            <div class="submit-section" style="padding: 10px">
+                                                &emsp; <button name="do" type="submit" class="btn btn-primary submit-btn" value="save-profile">Update profile</button>
+                                            </div>
                                             <div class="col-12" style="background: #E4E4E4; padding: 10px">
                                                 <div class="row">
                                                     <div class="col-12 col-md-6">
@@ -271,13 +286,21 @@
                                                             <label>Job</label>
                                                             <input type="text" name="job" value="${cv.getJob()}" class="form-control">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label>Rate ($/hrs)</label>
+                                                            <input type="number" name="rate" value="${cv.getRate()}" class="form-control" min="1" step="1">
+                                                        </div>
                                                     </div>
                                                     <div class="col-12 col-md-6">
                                                         <div class="form-group">
                                                             <label>Skills</label><br>
-                                                            <c:forEach items="${data}" var="sd">
-                                                                <input type="checkbox" name="skill${sd.getId()}" value="${sd.getId()}" ${sd.getIs_checked()}> ${sd.getName()} &emsp;
-                                                            </c:forEach>
+                                                            <div class="row">
+                                                                <c:forEach items="${data}" var="sd">
+                                                                    <div class="col-3 form-inline">
+                                                                        <input type="checkbox" name="skill${sd.getId()}" value="${sd.getId()}" ${sd.getIs_checked()}> ${sd.getName()}
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -296,7 +319,7 @@
                                             </div>
                                         </div>
                                         <div class="submit-section" style="padding: 10px">
-                                            <button name="do" type="submit" class="btn btn-primary submit-btn" value="save">Save Changes</button>
+                                            <button name="do" type="submit" class="btn btn-primary submit-btn" value="save">Update CV</button>
                                         </div>
                                     </div>
                                 </div>

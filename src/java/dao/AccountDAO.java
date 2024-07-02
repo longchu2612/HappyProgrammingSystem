@@ -26,7 +26,8 @@ import javax.mail.internet.ParseException;
 import model.Account;
 import model.Role;
 import java.sql.*;
-
+import model.Account;
+import model.AccountMentor;
 
 /**
  *
@@ -572,4 +573,84 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+    public ArrayList<AccountMentor> getMentorBySkills(String SkillId) {
+        ArrayList<AccountMentor> data = new ArrayList<AccountMentor>();
+        AccountMentor a = new AccountMentor();
+        String sql = """
+                     SELECT a.id, a.fullname,  a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star, ISNULL(count(rt.ratingstar), 0) as NoOfRating, ISNULL(count(ra.accountID), 0) as NoOfRequests FROM CV c JOIN CV_Skill cs
+                     ON c.id = cs.cv_id join Account a
+                     ON c.accountID = a.id join Request_Account ra
+                     ON a.id = ra.accountID join RateComment rt
+                     ON a.id = rt.mentorID
+                     WHERE cs.skill_id = ?
+                     GROUP BY a.id, a.fullname, a.email, a.name, a.phonenumber, a.address, a.avatar, cs.rating_star""";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, SkillId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int accountId = rs.getInt(1);
+                String fullname = rs.getString(2);
+                String email = rs.getString(3);
+                String name = rs.getString(4);
+                String phone = rs.getString(5);
+                String address = rs.getString(6);
+                String avatar = rs.getString(7);
+                float ratingStar = rs.getFloat(8);
+                String check = "checked=\"\"";
+                String check05 = "";
+                String check1 = "";
+                String check15 = "";
+                String check2 = "";
+                String check25 = "";
+                String check3 = "";
+                String check35 = "";
+                String check4 = "";
+                String check45 = "";
+                String check5 = "";
+
+                switch (String.valueOf(ratingStar)) {
+                    case "0.5":
+                        check05 = check;
+                        break;
+                    case "1.0":
+                        check1 = check;
+                        break;
+                    case "1.5":
+                        check15 = check;
+                        break;
+                    case "2.0":
+                        check2 = check;
+                        break;
+                    case "2.5":
+                        check25 = check;
+                        break;
+                    case "3.0":
+                        check3 = check;
+                        break;
+                    case "3.5":
+                        check35 = check;
+                        break;
+                    case "4.0":
+                        check4 = check;
+                        break;
+                    case "4.5":
+                        check45 = check;
+                        break;
+                    case "5.0":
+                        check5 = check;
+                }
+                int NoOfRatings = rs.getInt(9);
+                int NoOfRequests = rs.getInt(10);
+                System.out.println(accountId + " " + SkillId + " " + address + " " + avatar + " " + check05 + " " + check1 + " " + check15 + " " + check2 + " " + check25 + " " + check3 + " " + check35 + " " + check4 + " " + check45 + " " + check5);
+                a = new AccountMentor(ratingStar, accountId, name, email, fullname, phone, address, avatar, check05, check1, check15, check2, check25, check3, check35, check4, check45, check5, NoOfRatings, NoOfRequests);
+                data.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println("getMentorBySkills:" + e.getMessage());
+        }
+        return data;
+    }
+
+    
 }

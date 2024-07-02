@@ -21,18 +21,22 @@ public class CV {
     String achievements;
     String status;
     String note;
+    String rate;
+    
+    
     public CV() {
     }
 
-    public CV(String id, String accountID ,String job, String status, String note) {
+    public CV(String id, String accountID ,String job, String status, String note, String rate) {
         this.id = id;
         this.accountID = accountID;
         this.job = job;
         this.status = status;
         this.note = note;
+        this.rate = rate;
     }
 
-    public CV(String id, String accountID, String avatar, String job, String introduction, Date created_at, Date modified_at, String achievements, String status, String note) {
+    public CV(String id, String accountID, String avatar, String job, String introduction, Date created_at, Date modified_at, String achievements, String status, String note, String rate) {
         this.id = id;
         this.accountID = accountID;
         this.avatar = avatar;
@@ -43,6 +47,7 @@ public class CV {
         this.achievements = achievements;
         this.status = status;
         this.note = note;
+        this.rate = rate;
     }
 
     public CV(String id, String accountID, String avatar, String job, String introduction, Date created_at, Date modified_at, String achievements) {
@@ -56,6 +61,14 @@ public class CV {
         this.achievements = achievements;
     }
 
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+    
     public String getNote() {
         return note;
     }
