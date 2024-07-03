@@ -512,7 +512,7 @@ public class UpdateScheduleController extends HttpServlet {
 //                        scheduleDAO.deleteScheduleById(scheduleDraft);
 //                      session.removeAttribute("scheduleDraft_" + schedule_id);
                          
-                        session.removeAttribute("selectedWeeks");
+                        session.removeAttribute("selectedWeeks_"+schedule_id);
 
 //                        session.setMaxInactiveInterval(0);
                     } else {

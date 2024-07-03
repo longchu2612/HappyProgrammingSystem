@@ -220,6 +220,7 @@
                                                 <label>Week:</label>
                                                 <form id="updateWeek" action="update_schedule" method="Post">
                                                     <input type="hidden"  name="action" value="update_week"/>
+                                                    <input type="hidden" name="accountId_updateweek" value="${requestScope.accountId}"/>
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.schedule_id}"/>
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
@@ -248,6 +249,10 @@
                                         </div>
                                         <form id="updateStatusSchedule" action="update_schedule" method="Post">
                                             <input type="hidden"  name="action" value="update_schedule"/>
+                                            <input type="hidden" name="accountId_update_schedule" value="${requestScope.accountId}"/>
+                                            <input type="hidden" name="schedule_id_update_schedule" value="${requestScope.schedule_id}"/>
+                                            <input type="hidden" name="month_update_schedule" value="${requestScope.month}"/>
+                                            <input type="hidden" name="isoWeek_update_schedule" value="${requestScope.isoWeek}"/>
                                             <div class="col-12 col-md-12">
 
                                                 <table class="table table-bordered">
@@ -362,8 +367,8 @@
                                                 <div class="col-12 col-md-6 mt-4">   
                                                     <div class="row">
                                                         <div class="submit-section col-md-4">
-                                                            <button type="submit" name="action" value="accept" class="btn btn-outline-success">Accept</button>
-                                                            <button type="submit" name="action" value="reject" class="btn btn-outline-danger">Reject</button>
+                                                            <button type="submit" name="button_action" value="accept" class="btn btn-outline-success">Accept</button>
+                                                            <button type="submit" name="button_action" value="reject" class="btn btn-outline-danger">Reject</button>
 
                                                         </div>
 
