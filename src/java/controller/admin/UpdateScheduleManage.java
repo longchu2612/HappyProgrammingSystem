@@ -99,7 +99,9 @@ public class UpdateScheduleManage extends HttpServlet {
             weeks.add(weekRange);
         }
         List<Slot> slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
-
+        int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
+        
+        request.setAttribute("status", status);
         request.setAttribute("slots", slots);
         request.setAttribute("weekDates", weekDates);
         request.setAttribute("isoWeek", isoWeek);
@@ -163,7 +165,9 @@ public class UpdateScheduleManage extends HttpServlet {
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
             slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
-
+            int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
+            
+            request.setAttribute("status", status);
             request.setAttribute("month", month);
             request.setAttribute("weeks", weeks);
             request.setAttribute("schedule_id", schedule_id);
@@ -198,7 +202,7 @@ public class UpdateScheduleManage extends HttpServlet {
                 } else {
                     notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id), note, LocalDate.now());
                 }
-
+                
             }else if (button_action.equals("reject")) {
                 if (scheduleDAO.updateScheduleRejectByMentorId(Integer.parseInt(schedule_id)) == 0) {
                     message = "<span style='color:red;'>Reject failed!</span>";
@@ -210,7 +214,7 @@ public class UpdateScheduleManage extends HttpServlet {
                 } else {
                     notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id), note, LocalDate.now());
                 }
-
+                
             }
             
             LocalDate startOfWeek = LocalDate.of(2024, 1, 1)
@@ -237,14 +241,18 @@ public class UpdateScheduleManage extends HttpServlet {
                         lastDayOfWeek_2.getDayOfMonth(), lastDayOfWeek_2.getMonthValue());
                 weeks.add(weekRange);
             }
+            int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
+            
+            request.setAttribute("status", status);
             request.setAttribute("slots", slots);
             request.setAttribute("note", note);
             request.setAttribute("message", message);
             request.setAttribute("weekDates", weekDates);
             request.setAttribute("isoWeek", Integer.parseInt(weekValue));
-            request.setAttribute("scheduleId", schedule_id);
+            request.setAttribute("schedule_id", schedule_id);
             request.setAttribute("weeks", weeks);
             request.setAttribute("month", month);
+            request.setAttribute("accountId", accountId);
         }
 
 //        String accountId = request.getParameter("account_id");

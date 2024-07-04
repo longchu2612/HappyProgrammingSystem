@@ -251,7 +251,25 @@ public class ScheduleDAO extends DBContext {
             ps.setInt(1, scheduleId);
             result = ps.executeUpdate();
         } catch (Exception e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int getStatusOfSchedule(int schedule_id) {
+        int result = 0;
+        String sql = "select status from dbo.Schedules where id = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result = Integer.parseInt(rs.getString("status"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -316,20 +334,20 @@ public class ScheduleDAO extends DBContext {
         }
         return result;
     }
-    
-    public int updateSchedulePendingByMentorId(int schedule_id){
+
+    public int updateSchedulePendingByMentorId(int schedule_id) {
         String sql = "Update dbo.Schedules set status = 1 where id = ?";
         int result = 0;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,schedule_id);
+            ps.setInt(1, schedule_id);
             result = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
         return result;
-    } 
+    }
 
     public int updateScheduleRejectByMentorId(int schedule_id) {
         String sql = "Update dbo.Schedules set status = 3 where id = ?";
@@ -374,8 +392,8 @@ public class ScheduleDAO extends DBContext {
         }
         return accounts;
     }
-    
-    public void deleteScheduleByMentorIdAndStatus(int mentor_id, String status, int schedule_id){
+
+    public void deleteScheduleByMentorIdAndStatus(int mentor_id, String status, int schedule_id) {
         String sql = "Delete from dbo.Schedules where mentor_id = ? and status = ? and id != ?";
         try {
             ps = conn.prepareStatement(sql);
@@ -475,9 +493,11 @@ public class ScheduleDAO extends DBContext {
 //    }
 
     public static void main(String[] args) {
-       ScheduleDAO scheduleDAO = new ScheduleDAO();
-       Integer schedule = null;
-       List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        int result = scheduleDAO.getStatusOfSchedule(2);
+        System.out.println(result);
+//        Integer schedule = null;
+//        List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");
     }
 
 }

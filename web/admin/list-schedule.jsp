@@ -134,10 +134,10 @@
                                                                     <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '2'}">
-                                                                    <p>No Action</p>
+                                                                    <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '3'}">
-                                                                    <p>No Action</p>
+                                                                    <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     Unknown Status

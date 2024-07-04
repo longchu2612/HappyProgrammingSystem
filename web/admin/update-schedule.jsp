@@ -366,10 +366,21 @@
                                                 </div>  
                                                 <div class="col-12 col-md-6 mt-4">   
                                                     <div class="row">
-                                                        <div class="submit-section col-md-4">
-                                                            <button type="submit" name="button_action" value="accept" class="btn btn-outline-success">Accept</button>
-                                                            <button type="submit" name="button_action" value="reject" class="btn btn-outline-danger">Reject</button>
 
+                                                        <div class="submit-section col-md-4">
+
+                                                            <c:choose>
+                                                                <c:when test="${requestScope.status == 1}">
+                                                                    <button type="submit" name="button_action" value="accept" class="btn btn-outline-success">Accept</button>
+                                                                    <button type="submit" name="button_action" value="reject" class="btn btn-outline-danger">Reject</button>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == 2}">
+                                                                    <button type="submit" name="button_action" value="reject" class="btn btn-outline-danger">Reject</button>
+                                                                </c:when>
+                                                                <c:when test="${requestScope.status == 3}">
+                                                                    <button type="submit" name="button_action" value="accept" class="btn btn-outline-success">Accept</button>
+                                                                </c:when>
+                                                            </c:choose>
                                                         </div>
 
                                                     </div>
