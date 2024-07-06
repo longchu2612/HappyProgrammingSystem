@@ -74,38 +74,69 @@ public class SlotDAO extends DBContext {
         }
         return slots;
     }
+    
+    public List<Slot> getAllSlotByScheduleDarft(int schedule_draft, LocalDate startOfWeek, LocalDate endOfWeek){ 
+        List<Slot> slots = new ArrayList<>();
+        String sql = "select * from dbo.Slot where schedule_id = ? and teach_date between ? and ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_draft);
+            ps.setString(2, startOfWeek.toString());
+            ps.setString(3, endOfWeek.toString());
+            rs = ps.executeQuery();
+            while(rs.next()){ 
+                Slot slot = new Slot();
+                slot.setSlot(rs.getInt("slot"));
+                slot.setDayOfWeek(rs.getInt("dayOfWeek"));
+                slot.setTeach_date(rs.getDate("teach_date").toLocalDate());
+                slots.add(slot);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return slots;
+    }
 
     public static void main(String[] args) {
         int year = 2024;
         int weekNumber = 18;
         int month = 5;
 
-        LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
-        LocalDate lastDayOfMonth = firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth());
+//        LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
+//        LocalDate lastDayOfMonth = firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth());
 
         // Xác định ngày bắt đầu của tuần theo chuẩn ISO-8601
-        LocalDate startOfWeek = LocalDate.of(year, 1, 1)
-                .with(WeekFields.ISO.weekOfWeekBasedYear(), weekNumber)
-                .with(DayOfWeek.MONDAY);
-
-        // Xác định ngày kết thúc của tuần theo chuẩn ISO-8601
-        LocalDate endOfWeek = startOfWeek.plusDays(6);
-
-        System.out.println("Ngày đầu tiên của tháng: " + firstDayOfMonth);
-        System.out.println("Ngày cuối cùng của tháng: " + lastDayOfMonth);
-        System.out.println("Ngày bắt đầu của tuần " + weekNumber + ": " + startOfWeek);
-        System.out.println("Ngày kết thúc của tuần " + weekNumber + ": " + endOfWeek);
-
-        SlotDAO slotDao = new SlotDAO();
-        LocalDate localDate = LocalDate.of(2024, 5, 9);
-        List<Slot> slots = slotDao.getAllSlotByDateAndScheduleId(3, localDate);
-        for (Slot slot : slots) {
-            System.out.println(slot.toString());
-        }
-        LocalDate monthStart = LocalDate.of(2024, 5, 1);
-        LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
-        System.out.println(monthStart.toString());
-        System.out.println(monthEnd.toString());
+//        LocalDate startOfWeek = LocalDate.of(year, 1, 1)
+//                .with(WeekFields.ISO.weekOfWeekBasedYear(), weekNumber)
+//                .with(DayOfWeek.MONDAY);
+//
+//        // Xác định ngày kết thúc của tuần theo chuẩn ISO-8601
+//        LocalDate endOfWeek = startOfWeek.plusDays(6);
+//
+//        System.out.println("Ngày đầu tiên của tháng: " + firstDayOfMonth);
+//        System.out.println("Ngày cuối cùng của tháng: " + lastDayOfMonth);
+//        System.out.println("Ngày bắt đầu của tuần " + weekNumber + ": " + startOfWeek);
+//        System.out.println("Ngày kết thúc của tuần " + weekNumber + ": " + endOfWeek);
+//
+//        SlotDAO slotDao = new SlotDAO();
+//        LocalDate localDate = LocalDate.of(2024, 5, 9);
+//        List<Slot> slots = slotDao.getAllSlotByDateAndScheduleId(3, localDate);
+//        for (Slot slot : slots) {
+//            System.out.println(slot.toString());
+//        }
+//        LocalDate monthStart = LocalDate.of(2024, 5, 1);
+//        LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+//        System.out.println(monthStart.toString());
+//        System.out.println(monthEnd.toString());
+          LocalDate startDate = LocalDate.of(2024,6,1);
+          LocalDate endDate = LocalDate.of(2024,6,21);
+          SlotDAO slot_dao = new SlotDAO();
+//          List<Slot> slots = slot_dao.getAllSlotByScheduleDarft(2, startDate, endDate);
+//          for(Slot slot : slots){ 
+//              System.out.println(slot.toString());
+//          }
+          slot_dao.deleteSchedule(2, startDate.toString(), endDate.toString());
     }
 
 }

@@ -130,7 +130,19 @@ public class UpdateScheduleController extends HttpServlet {
         }
         NotificationScheduleDAO notificationDAO = new NotificationScheduleDAO();
         String message = notificationDAO.getNoteSchedule(Integer.parseInt(scheduleId));
+        
+//        String[] checkedValuesSlotOne = new String[]{"begin"};
+//        String[] checkedValuesSlotTwo = new String[]{"begin"};
+//        String[] checkedValuesSlotThree = new String[]{"begin"};
+//        String[] checkedValuesSlotFour = new String[]{"begin"};
+//        String[] checkedValuesSlotFive = new String[]{"begin"};
+        
 
+//        request.setAttribute("checkedValuesSlotOne", checkedValuesSlotOne);
+//        request.setAttribute("checkedValuesSlotTwo", checkedValuesSlotTwo);
+//        request.setAttribute("checkedValuesSlotThree", checkedValuesSlotThree);
+//        request.setAttribute("checkedValuesSlotFour", checkedValuesSlotFour);
+//        request.setAttribute("checkedValuesSlotFive", checkedValuesSlotFive);
         request.setAttribute("note", message);
         request.setAttribute("accountId", accountId);
         request.setAttribute("weekDates", weekDates);
@@ -298,17 +310,15 @@ public class UpdateScheduleController extends HttpServlet {
 //            } else {
 //                slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
 //            }
-            String[] checkedValuesSlotOne = (String[])request.getAttribute("checkedValuesSlotOne");
-            String[] checkedValuesSlotTwo = (String[])request.getAttribute("checkedValuesSlotTwo");
-            String[] checkedValuesSlotThree = (String[])request.getAttribute("checkedValuesSlotThree");
-            String[] checkedValuesSlotFour = (String[])request.getAttribute("checkedValuesSlotFour");
-            String[] checkedValuesSlotFive = (String[])request.getAttribute("checkedValuesSlotFive");
+            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
+            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
+            String[] checkedValuesSlotThree = request.getParameterValues("checkedValuesSlotThree");
+            String[] checkedValuesSlotFour = request.getParameterValues("checkedValuesSlotFour");
+            String[] checkedValuesSlotFive = request.getParameterValues("checkedValuesSlotFive");
             if (scheduleDraft != null) {
                 List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
                 if (slots_2.size() == 0) {
-                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
-                        slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
-                    }else if(Arrays.asList(checkedValuesSlotOne).contains("default_value") == true && Arrays.asList(checkedValuesSlotTwo).contains("default_value") == true && Arrays.asList(checkedValuesSlotThree).contains("default_value") == true
+                    if(Arrays.asList(checkedValuesSlotOne).contains("default_value") == true && Arrays.asList(checkedValuesSlotTwo).contains("default_value") == true && Arrays.asList(checkedValuesSlotThree).contains("default_value") == true
                             && Arrays.asList(checkedValuesSlotFour).contains("default_value") == true && Arrays.asList(checkedValuesSlotFive).contains("default_value") == true ){ 
                         slots = Collections.emptyList(); 
                     }else { 
@@ -322,6 +332,9 @@ public class UpdateScheduleController extends HttpServlet {
             }
 
             String accountId = request.getParameter("accountId");
+            
+            
+            
             request.setAttribute("accountId", accountId);
             request.setAttribute("month", month);
             request.setAttribute("weeks", weeks);
@@ -390,13 +403,13 @@ public class UpdateScheduleController extends HttpServlet {
                 String button_action = request.getParameter("button_action");
 
                 if ("draft".equals(button_action)) {
-
+                    SlotDAO slotDAO = new SlotDAO();
+                    List<Slot> slotsAfterDraft = slotDAO.getAllSlotByScheduleDarft(scheduleDraft, startOfWeek, endOfWeek);
                     if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
                             && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
                         check = true;
 
                     } else {
-                        SlotDAO slotDAO = new SlotDAO();
                         slotDAO.deleteSchedule(scheduleDraft, startOfWeek.toString(), endOfWeek.toString());
                         for (LocalDate date = startOfWeek; !date.isAfter(endOfWeek); date = date.plusDays(1)) {
                             DayOfWeek dayOfWeek = date.getDayOfWeek();
@@ -437,6 +450,10 @@ public class UpdateScheduleController extends HttpServlet {
                     }
                     if (check == false) {
                         message = "Add failed to draft!";
+                        slotDAO.deleteSchedule(scheduleDraft, startOfWeek.toString(), endOfWeek.toString());
+                        for(Slot slot : slotsAfterDraft){ 
+                            scheduleDAO.createSlotOfSchedule(slot.getSlot(), slot.getDayOfWeek(), scheduleDraft, slot.getTeach_date());
+                        }
                     } else {
                         // Check if this week already exists in selectWeek saved to session
                         boolean found = false;
@@ -471,7 +488,7 @@ public class UpdateScheduleController extends HttpServlet {
                                 int dayOfWeekValue = dayOfWeek.getValue();
 
                                 // Lấy ra thông tin các slot với dữ liệu date và schedule_id trên.
-                                SlotDAO slotDAO = new SlotDAO();
+                                
                                 List<Slot> slots = slotDAO.getAllSlotByDateAndScheduleId(Integer.parseInt(schedule_id), date);
                                 // Thêm dữ liệu vào trong Draft
                                 for (Slot slot : slots) {
@@ -484,6 +501,7 @@ public class UpdateScheduleController extends HttpServlet {
 
                 } else if ("update".equals(button_action)) {
                     boolean checkUpdate = true;
+                    List<Slot> slotsAfterUpdate = scheduleDAO.getAllSlotByScheduleId(Integer.parseInt(schedule_id));
                     // Kiểm tra vào trường hợp người dùng không thay đổi tuần nào cả và bấm update
                     if (scheduleDraft == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft) == null || scheduleDAO.getAllSlotByScheduleId(scheduleDraft).size() == 0) {
                         checkUpdate = true;
@@ -516,7 +534,13 @@ public class UpdateScheduleController extends HttpServlet {
 
 //                        session.setMaxInactiveInterval(0);
                     } else {
+                        SlotDAO slotDAO = new SlotDAO();
+                        slotDAO.deleteSchedule(Integer.parseInt(schedule_id));
+                        for(Slot slot : slotsAfterUpdate){ 
+                            scheduleDAO.createSlotOfSchedule(slot.getSlot(), slot.getDayOfWeek(), Integer.parseInt(schedule_id), slot.getTeach_date());
+                        }
                         message = "Update schedule failed";
+                        
                     }
                 }
             } else {

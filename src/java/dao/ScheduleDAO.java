@@ -494,8 +494,11 @@ public class ScheduleDAO extends DBContext {
 
     public static void main(String[] args) {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-        int result = scheduleDAO.getStatusOfSchedule(2);
-        System.out.println(result);
+//        int result = scheduleDAO.getStatusOfSchedule(2);
+//        List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(2);
+        scheduleDAO.deleteScheduleByMentorIdAndStatus(41, "4", 266);
+        
+        
 //        Integer schedule = null;
 //        List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");
     }
