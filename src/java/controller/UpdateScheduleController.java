@@ -111,7 +111,7 @@ public class UpdateScheduleController extends HttpServlet {
         HttpSession session = request.getSession();
         Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + scheduleId);
 
-        session.setMaxInactiveInterval(900);
+        session.setMaxInactiveInterval(3600);
 
         if (scheduleDraft == null) {
             ScheduleDAO schedule_dao = new ScheduleDAO();
@@ -256,7 +256,7 @@ public class UpdateScheduleController extends HttpServlet {
             HttpSession session = request.getSession();
             Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + schedule_id);
 
-            session.setMaxInactiveInterval(900);
+            session.setMaxInactiveInterval(3600);
 
             if (scheduleDraft == null) {
                 ScheduleDAO schedule_dao = new ScheduleDAO();
@@ -310,18 +310,18 @@ public class UpdateScheduleController extends HttpServlet {
 //            } else {
 //                slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
 //            }
-            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
-            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
-            String[] checkedValuesSlotThree = request.getParameterValues("checkedValuesSlotThree");
-            String[] checkedValuesSlotFour = request.getParameterValues("checkedValuesSlotFour");
-            String[] checkedValuesSlotFive = request.getParameterValues("checkedValuesSlotFive");
+//            String[] checkedValuesSlotOne = request.getParameterValues("checkedValuesSlotOne");
+//            String[] checkedValuesSlotTwo = request.getParameterValues("checkedValuesSlotTwo");
+//            String[] checkedValuesSlotThree = request.getParameterValues("checkedValuesSlotThree");
+//            String[] checkedValuesSlotFour = request.getParameterValues("checkedValuesSlotFour");
+//            String[] checkedValuesSlotFive = request.getParameterValues("checkedValuesSlotFive");
+            List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks_"+schedule_id);
             if (scheduleDraft != null) {
                 List<Slot> slots_2 = scheduleDAO.getAllSlotByDates(scheduleDraft, firstDay, endDay);
                 if (slots_2.size() == 0) {
-                    if(Arrays.asList(checkedValuesSlotOne).contains("default_value") == true && Arrays.asList(checkedValuesSlotTwo).contains("default_value") == true && Arrays.asList(checkedValuesSlotThree).contains("default_value") == true
-                            && Arrays.asList(checkedValuesSlotFour).contains("default_value") == true && Arrays.asList(checkedValuesSlotFive).contains("default_value") == true ){ 
-                        slots = Collections.emptyList(); 
-                    }else { 
+                    if(checkWeekRange(selectedWeeks, firstDayOfWeek, firstDayOfWeek.plusDays(6)) == true){ 
+                        slots = Collections.emptyList();
+                    }else{ 
                         slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
                     }
                 } else {
@@ -381,7 +381,7 @@ public class UpdateScheduleController extends HttpServlet {
             HttpSession session = request.getSession();
             Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + schedule_id);
 
-            session.setMaxInactiveInterval(900);
+            session.setMaxInactiveInterval(3600);
 
             if (scheduleDraft == null) {
                 ScheduleDAO schedule_dao = new ScheduleDAO();
@@ -488,7 +488,7 @@ public class UpdateScheduleController extends HttpServlet {
                                 int dayOfWeekValue = dayOfWeek.getValue();
 
                                 // Lấy ra thông tin các slot với dữ liệu date và schedule_id trên.
-                                
+                                slotDAO.deleteScheduleByDateAndScheduleId(scheduleDraft, date);
                                 List<Slot> slots = slotDAO.getAllSlotByDateAndScheduleId(Integer.parseInt(schedule_id), date);
                                 // Thêm dữ liệu vào trong Draft
                                 for (Slot slot : slots) {
@@ -646,22 +646,21 @@ public class UpdateScheduleController extends HttpServlet {
                 .with(WeekFields.ISO.weekOfWeekBasedYear(), 24)
                 .with(DayOfWeek.MONDAY);
         LocalDate endOfWeek = startOfWeek.plusDays(6);
-
-        boolean isWeekContainingMonth = false;
-        LocalDate currentDay = startOfWeek;
-        while (currentDay.isBefore(endOfWeek.plusDays(1))) { // plusDays(1) để bao gồm cả ngày kết thúc
-            if (currentDay.getMonthValue() == 5) {
-                isWeekContainingMonth = true;
-                break;
-            }
-            currentDay = currentDay.plusDays(1);
-        }
-
-        if (isWeekContainingMonth) {
-            System.out.println("OK");
-        } else {
-            System.out.println("Not OKs");
-        }
+        
+        LocalDate startOfWeek_2 = LocalDate.of(2024,4,29);
+        LocalDate endOfWeek_2 = LocalDate.of(2024,5,5);
+        WeekRange weekRange = new WeekRange(startOfWeek_2, endOfWeek_2);
+        
+        LocalDate startOfWeek_3 = LocalDate.of(2024,5,6);
+        LocalDate endOfWeek_3 = LocalDate.of(2024,5,12);
+        WeekRange weekRange1 = new WeekRange(startOfWeek, endOfWeek);
+        List<WeekRange> weekRanges  = new ArrayList<>();
+        weekRanges.add(weekRange);
+        weekRanges.add(weekRange1);
+       
+        boolean check = checkWeekRange(weekRanges, LocalDate.of(2024,4,29), LocalDate.of(2024,5,5));
+        System.out.println(check);
+        
     }
 
     public static int getNumberOfISOWeeksInYear(int year) {
@@ -676,5 +675,22 @@ public class UpdateScheduleController extends HttpServlet {
             return lastWeekOfCurrentYear;
         }
     }
+    
+    public static boolean checkWeekRange(List<WeekRange> weekRanges, LocalDate startOfWeek, LocalDate endOfWeek){ 
+        if(weekRanges != null){ 
+           boolean found = false;
+           for(WeekRange weekRange : weekRanges){ 
+               if(weekRange.getStartOfWeek().equals(startOfWeek) && weekRange.getEndOfWeek().equals(endOfWeek)){ 
+                   found = true;
+                   break;
+               }
+           }
+           return found;
+        }else { 
+            return false;
+        }
+    }
+    
+    
 
 }

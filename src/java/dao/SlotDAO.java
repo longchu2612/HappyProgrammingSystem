@@ -48,7 +48,20 @@ public class SlotDAO extends DBContext {
         }
         return result;
     }
-
+    
+    public void deleteScheduleByDateAndScheduleId(int schedule_id, LocalDate teach_date){ 
+        String sql = "Delete from dbo.Slot where schedule_id = ? and teach_date = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_id);
+            ps.setString(2, teach_date.toString());
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
     public List<Slot> getAllSlotByDateAndScheduleId(int schedule_id, LocalDate teach_date) {
         List<Slot> slots = new ArrayList<>();
         String sql = "Select * from dbo.Slot where schedule_id = ? and teach_date = ?";

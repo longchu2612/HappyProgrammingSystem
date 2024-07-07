@@ -168,16 +168,7 @@
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
-                                                    <input name="checkedValuesSlotOne" value="${requestScope.checkedValuesSlotOne}"/>
-                                                    <input name="checkedOne" value="${requestScope.checkedValuesSlotOne[0]}"/>
-                                                    <input name="checkedValuesSlotTwo" value="${requestScope.checkedValuesSlotTwo}"/>
-                                                    <input name="checkedTwo" value="${requestScope.checkedValuesSlotTwo[0]}"/>
-                                                    <input name="checkedValuesSlotThree" value="${requestScope.checkedValuesSlotThree}"/>
-                                                    <input name="checkedThree" value="${requestScope.checkedValuesSlotThree[0]}"/>
-                                                    <input name="checkedValuesSlotFour" value="${requestScope.checkedValuesSlotFour}"/>
-                                                    <input name="checkedFour" value="${requestScope.checkedValuesSlotFour[0]}"/>
-                                                    <input name="checkedValuesSlotFive" value="${requestScope.checkedValuesSlotFive}"/>
-                                                    <input name="checkedFive" value="${requestScope.checkedValuesSlotFive[0]}"/>
+                                                    
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
                                                             List<String> weeks = (List<String>) request.getAttribute("weeks");

@@ -41,6 +41,7 @@
                                     <li><a href="createSchedule.jsp">Invoices</a></li>
                                     <li><a href="schedule_mentor">Schedule Timing</a></li>
                                     <li><a href="invoices.html">Invoices</a></li>
+                                    <li><a href="my-schedule.jsp">My Schedule</a></li>
                                 </ul>
                             </li>
                         </c:if>
