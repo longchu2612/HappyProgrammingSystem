@@ -55,8 +55,8 @@
                                            
                                             <button class="btn btn-primary login-btn" type="submit">Verify Otp</button>
                                         </form>
-                                    <form style="text-align: center" action="forgotPassword" method="post">
-                                             <input type="hidden" name="email" value="<%= request.getParameter("email") %>">
+                                    <form style="text-align: center" action="resendotp" method="post">
+                                             <input type="hidden" name="email" value="<%= request.getParameter("input")%>">
                                             Didn't recived Otp? <input style="border: 0" type="submit" value="Resend OTP">
                                           </form>
                                     </div>

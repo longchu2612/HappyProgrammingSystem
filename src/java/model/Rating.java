@@ -6,10 +6,12 @@ package model;
 
 /**
  *
- * @author Admin
+ * @author catmi
  */
 public class Rating {
-    
+    private int id;
+    private int mentorId;
+    private int rateStar;
     int mentorID;
     String content;
     float ratingstar;
@@ -18,6 +20,35 @@ public class Rating {
     public Rating() {
     }
 
+    public Rating(int id, int mentorId, int rateStar) {
+        this.id = id;
+        this.mentorId = mentorId;
+        this.rateStar = rateStar;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getMentorId() {
+        return mentorId;
+    }
+
+    public void setMentorId(int mentorId) {
+        this.mentorId = mentorId;
+    }
+
+    public int getRateStar() {
+        return rateStar;
+    }
+
+    public void setRateStar(int rateStar) {
+        this.rateStar = rateStar;
+    }
     public Rating(String content, float ratingstar) {
         this.content = content;
         this.ratingstar = ratingstar;

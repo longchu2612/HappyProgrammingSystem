@@ -9,9 +9,10 @@ package model;
  * @author Admin
  */
 public class CV_skill {
-    
-    String cv_id;
-    String skill_id;
+
+    private String cv_id;
+    private String skill_id;
+    private String rating_star;
 
     public CV_skill() {
     }
@@ -19,6 +20,24 @@ public class CV_skill {
     public CV_skill(String cv_id, String skill_id) {
         this.cv_id = cv_id;
         this.skill_id = skill_id;
+    }
+
+    
+    public CV_skill(String cv_id, String skill_id, String rating_star) {
+        this.cv_id = cv_id;
+        this.skill_id = skill_id;
+        this.rating_star = rating_star;
+    }
+
+    
+ 
+
+    public String getRating_star() {
+        return rating_star;
+    }
+
+    public void setRating_star(String rating_star) {
+        this.rating_star = rating_star;
     }
 
     public String getCv_id() {

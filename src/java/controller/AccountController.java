@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controller;
 
 import dao.AccountDAO;
@@ -9,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,12 +23,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import jakarta.servlet.http.HttpSession;
+import model.Role;
 
 /**
  *
  * @author asus
  */
-//@WebServlet(name="AccountController", urlPatterns={"/account"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account"})
 //@WebServlet("/account")
 public class AccountController extends HttpServlet {
 
@@ -78,7 +77,6 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("confirm_password", confirm_password);
                 request.setAttribute("full_name", full_name);
                 request.setAttribute("phone_number", phone_number);
-
                 request.setAttribute("dob", dob);
                 request.setAttribute("address", address);
                 request.setAttribute("sex", sex);
@@ -115,14 +113,41 @@ public class AccountController extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 } else {
-                    HttpSession sess = request.getSession();
+
+                    session.setAttribute("account", account);
+                    session.setMaxInactiveInterval(1800);
+
                     session.setAttribute("username", account.getAccount_name());
+
+                    HttpSession sess = request.getSession();
                     sess.setAttribute("acc", user_name);
                     sess.setAttribute("accID", String.valueOf(account.getAccount_id()));
                     System.out.println(sess.getAttribute("accID"));
                     Cookie cuser_name = new Cookie("cookie_username", user_name);
                     Cookie cpassword = new Cookie("cookie_password", password);
                     Cookie cremmember = new Cookie("cookie_remember", remember);
+                    AccountDAO ac = new AccountDAO();
+                    String fullname = ac.getFullnameByUser(user_name);
+                    String address = ac.getAddressByUser(user_name);
+                    String email = ac.getEmailByUser(user_name);
+                    int id = ac.getIdByAccountName(user_name);
+                    String avatar = ac.getAvatarById(String.valueOf(id));
+                    int role = ac.getRoleByname(user_name);
+                    Date dob = ac.getDOBByUser(user_name);
+                    int sex = ac.getSexByUser(user_name);
+                    int balance = ac.getBalanceByUser(user_name);
+                    String phonenumber = ac.getPhonenumberByUser(user_name);
+                    char fln = fullname.charAt(0);
+                    session.setAttribute("fullname", fullname);
+                    session.setAttribute("address", address);
+                    session.setAttribute("email", email);
+                    session.setAttribute("phonenumber", phonenumber);
+                    session.setAttribute("dob", dob);
+                    session.setAttribute("fln", fln);
+                    session.setAttribute("sex", sex);
+                    session.setAttribute("balance", balance);
+                    session.setAttribute("avatar", avatar);
+                    session.setAttribute("role", role);
                     if (remember != null) {
                         cuser_name.setMaxAge(60 * 60 * 24 * 7);
                         cpassword.setMaxAge(60 * 60 * 24 * 3);
@@ -132,15 +157,54 @@ public class AccountController extends HttpServlet {
                         cpassword.setMaxAge(0);
                         cremmember.setMaxAge(0);
                     }
+                    Role roleid = account.getRole();
                     response.addCookie(cuser_name);
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("home1");
+
                 }
 
             }
 
+        } else if (action.equals("logout")) {
+            session.removeAttribute("account");
+            response.sendRedirect("home");
+        } else if (action.equals("logout2")) {
+            session.removeAttribute("account");
+            response.sendRedirect("home");
         }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            processRequest(req, resp);
+        } catch (ParseException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            processRequest(req, resp);
+        } catch (ParseException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
+
+}
 
 //        int result = account_dao.Register(account_name, email, password, full_name, phone_number, dateOfBirth, sex, address, role_id, false);
 //        if (result == 1) {
@@ -148,58 +212,25 @@ public class AccountController extends HttpServlet {
 //        } else {
 //            response.getWriter().println("Thất bại");
 //        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try {
-            processRequest(request, response);
-        } catch (ParseException | SQLException ex) {
-            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try {
-            processRequest(request, response);
-        } catch (ParseException | SQLException ex) {
-            System.out.println(ex.getMessage());
-            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-}
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+/**
+ * Handles the HTTP <code>POST</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+/**
+ * Returns a short description of the servlet.
+ *
+ * @return a String containing servlet description
+ */

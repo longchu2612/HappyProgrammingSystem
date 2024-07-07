@@ -6,6 +6,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -26,9 +27,51 @@ public class Account {
     private String avatar;
     private Role role;
     private Boolean status;
+    
+    private Schedule schedules;
 
     public Account() {
     }
+
+    public Account(int account_id, String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+        this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+    }
+
+    public Account(String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+    }
+
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, Schedule schedules) {
+        this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+        this.role = role;
+        this.status = status;
+        this.schedules = schedules;
+    }
+    
+    
 
     public Account(String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_name = account_name;
@@ -56,6 +99,14 @@ public class Account {
         this.status = status;
     }
 
+    public Schedule getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Schedule schedules) {
+        this.schedules = schedules;
+    }
+
     public Account(String account_name, String email, String password, String fullname, Role role) {
         this.account_name = account_name;
         this.email = email;
@@ -64,7 +115,10 @@ public class Account {
         this.role = role;
     }
     
-    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+    
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
+
+        this.account_id = account_id;
         this.account_name = account_name;
         this.email = email;
         this.password = password;
@@ -75,6 +129,32 @@ public class Account {
         this.status = status;
     }
 
+    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role,Boolean status) {
+
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+        this.status = status;
+    }
+
+//    public Account(String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Role role, Boolean status) {
+//        this.account_name = account_name;
+//        this.email = email;
+//        this.password = password;
+//        this.fullname = fullname;
+//        this.phone = phone;
+//        this.dateOfBirth = dateOfBirth;
+//        this.role = role;
+//        this.status = status;
+//    }
+//    
+      
+    
+    
     public Account(int account_id, String account_name, String email, String fullname, String phoneString, String address, String avatar) {
         this.account_id = account_id;
         this.account_name = account_name;

@@ -144,7 +144,7 @@ public class RatinngController extends HttpServlet {
             request.setAttribute("check5", check5);
             request.getRequestDispatcher("rating.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/HappyProgrammingSystem/index.html");
+            response.sendRedirect("/HappyProgrammingSystem/home");
         }
     }
 

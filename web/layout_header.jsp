@@ -18,7 +18,7 @@
                     </span>
                 </a>
                 <a href="index.html" class="navbar-brand logo">
-                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="assets/img/logo-7.png" class="img-fluid" alt="Logo">
                 </a>
             </div>
             <div class="main-menu-wrapper">
@@ -47,10 +47,10 @@
                         <a href>Mentor <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                            <li><a href="bookings.html">Bookings</a></li>
-                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                            <li><a href="mentee-list.html">Mentee List</a></li>
-                            <li><a href="profile-mentee.html">Mentee Profile</a></li>
+                            <li><a href="bookings.jsp">Bookings</a></li>
+                            <li><a href="schedule-timings.jsp">Schedule Timing</a></li>
+                            <li><a href="mentee-list.jsp">Mentee List</a></li>
+                            <li><a href="profile-mentee.jsp">Mentee Profile</a></li>
                             <li class="has-submenu">
                                 <a href="blog.html">Blog</a>
                                 <ul class="submenu">
@@ -60,6 +60,17 @@
                                     <li><a href="edit-blog.html">Edit Blog</a></li>
                                 </ul>
                             </li>
+                            
+                            <li class="has-submenu">
+                                <a href="#">Schedule</a>
+                                <ul class="submenu">
+                                    <li><a href="listSchedule.jsp">List Schedule</a></li>
+                                    <li><a href="createSchedule.jsp">Create Schedule</a></li>
+                                    <li><a href="add-blog.html">Update Schedule</a></li>
+                                    
+                                </ul>
+                            </li>
+                            
                             <li><a href="chat.html">Chat</a></li>
                             <li><a href="invoices.html">Invoices</a></li>
                             <li><a href="profile-settings.html">Profile Settings</a></li>
@@ -77,8 +88,17 @@
                                     <li><a href="map-list.html">Map List</a></li>
                                 </ul>
                             </li>
+
                             <li><a href="search.jsp">Search Mentor</a></li>
                             <li><a href="profile.jsp">Mentor Profile</a></li>
+                            <li class="has-submenu">
+                                <a href="#">Request</a>
+                                <ul class="submenu">
+                                    <li><a href="map-grid.html">List Request</a></li>
+                                    <li><a href="create-request.jsp">Create Request</a></li>
+                                    <li><a href="update-request.jsp">Update Request</a></li>
+                                </ul>
+                            </li>
                             <li><a href="bookings-mentee.jsp">Bookings</a></li>
                             <li><a href="checkout.jsp">Checkout</a></li>
                             <li><a href="booking-success.jsp">Booking Success</a></li>
@@ -139,12 +159,12 @@
                                 <img src="assets/img/user/user.jpg" alt="User Image" class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6>Jonathan Doe</h6>
+                                <h6>J</h6>
                                 <p class="text-muted mb-0">Mentor</p>
                             </div>
                         </div>
                         <a class="dropdown-item" href="dashboard.html">Dashboard</a>
-                        <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+                        <a class="dropdown-item" href="profile-settings-mentee.jsp">Profile Settings</a>
                         <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
                 </li>

@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : profile-settings-mentee
     Created on : May 26, 2024, 5:20:36 PM
@@ -6,6 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +33,7 @@
     <body>
 
         <div class="main-wrapper">
-            <jsp:include page="layout_header.jsp"/>
+
 
 
 
@@ -39,12 +41,6 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
-                                </ol>
-                            </nav>
                             <h2 class="breadcrumb-title">Profile Settings</h2>
                         </div>
                     </div>
@@ -60,24 +56,9 @@
 
                             <div class="profile-sidebar">
                                 <div class="user-widget">
-                                    <div class="pro-avatar">JD</div>
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
+                                    <div class="pro-avatar"><image src="${avatar}" alt="User Image" style="height: 100px; width: 100px; border-radius: 50%"></div>
                                     <div class="user-info-cont">
-                                        <h4 class="usr-name">Jonathan Doe</h4>
-                                        <p class="mentor-type">English Literature (M.A)</p>
-                                    </div>
-                                </div>
-                                <div class="progress-bar-custom">
-                                    <h6>Complete your profiles ></h6>
-                                    <div class="pro-progress">
-                                        <div class="tooltip-toggle" tabindex="0"></div>
-                                        <div class="tooltip">80%</div>
+                                        <h4 class="usr-name">${fullname}</h4>
                                     </div>
                                 </div>
                                 <div class="custom-sidebar-nav">
@@ -86,8 +67,8 @@
                                         <li><a href="bookings.html"><i class="fas fa-clock"></i>Bookings <span><i class="fas fa-chevron-right"></i></span></a></li>
                                         <li><a href="schedule-timings.html"><i class="fas fa-hourglass-start"></i>Schedule Timings <span><i class="fas fa-chevron-right"></i></span></a></li>
                                         <li><a href="chat.html"><i class="fas fa-comments"></i>Messages <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="profile.html"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
-                                        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="profile"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
+                                        <li><a href="account?action=logout2"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -98,106 +79,83 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <form>
-                                        <div class="row form-row">
+
+                                    <div class="row form-row">
+                                        <form action="profilementee" method="post" enctype="multipart/form-data">
+
                                             <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img src="assets/img/user/user.jpg" alt="User Image">
+                                                    <div class="change-avatar" id="AvatarFileUpload">
+                                                        <div class="selected-image-holder" class="rounded">
+                                                            <img src="${avatar}" class="rounded" alt="User Image" style="height: 100px; width: 100px; margin-right: 15px">
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
                                                                 <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input type="file" class="upload">
+                                                                <input type="file" name="avatar" class="upload">
                                                             </div>
-                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                                            <small class="form-text text-muted">Allowed PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label>First Name</label>
-                                                    <input type="text" class="form-control" value="Jonathan">
+                                                    <label>Account Name</label>
+                                                    <input type="text" class="form-control" value="${username}"name="newname"required>
+
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Last Name</label>
-                                                    <input type="text" class="form-control" value="Doe">
+                                                    <label>Full Name</label>
+                                                    <input type="text" class="form-control" value="${fullname}" name="newfullname" required>
+
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Date of Birth</label>
-                                                    <div class="cal-icon">
-                                                        <input type="text" class="form-control datetimepicker" value="24-07-1983">
+                                                    <div >
+                                                        <input type="date" class="form-control" value="${dob}" name="newdob">
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Blood Group</label>
-                                                    <select class="form-control select">
-                                                        <option>A-</option>
-                                                        <option>A+</option>
-                                                        <option>B-</option>
-                                                        <option>B+</option>
-                                                        <option>AB-</option>
-                                                        <option>AB+</option>
-                                                        <option>O-</option>
-                                                        <option>O+</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Email ID</label>
-                                                    <input type="email" class="form-control" value="jonathandoe@example.com">
+                                                    <input type="email" class="form-control" value="${email}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Mobile</label>
-                                                    <input type="text" value="+1 202-555-0125" class="form-control">
+                                                    <input type="text" value="${phonenumber}"  name="mobile"class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Address</label>
-                                                    <input type="text" class="form-control" value="806 Twin Willow Lane">
+                                                    <input type="text" class="form-control" value="${address}" name="newaddress" required>		
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>City</label>
-                                                    <input type="text" class="form-control" value="Old Forge">
-                                                </div>
+                                            <label class="form-control-label">Gender</label>
+                                            <div class="form-inline col-md-6" style="margin-bottom: 15px">
+                                                <select class="form-control select" name="option">
+                                                    <option  value=0 ${sex == 0 ? 'selected' : ''}>Female</option>
+                                                    <option  value=1 ${sex== 1 ? 'selected' : ''}>Male</option>
+                                                </select>	
+
                                             </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>State</label>
-                                                    <input type="text" class="form-control" value="Newyork">
-                                                </div>
+                                            <div class="submit-section">
+                                                <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                             </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Zip Code</label>
-                                                    <input type="text" class="form-control" value="13420">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Country</label>
-                                                    <input type="text" class="form-control" value="United States">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                        </div>
-                                    </form>
+                                        </form> 
+                                    </div>
+
+
 
                                 </div>
                             </div>
@@ -216,10 +174,11 @@
 
                                 <div class="footer-widget footer-about">
                                     <div class="footer-logo">
-                                        <img src="assets/img/logo.png" alt="logo">
+                                        <img src="assets/img/logo-7.png" alt="logo">
                                     </div>
                                     <div class="footer-about-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p>“Study, learn more, learn forever .”
+                                            ― V.I.Lenin</p>
                                         <div class="social-icon">
                                             <ul>
                                                 <li>
@@ -243,34 +202,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-3 col-md-6">
-
-                                <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Mentee</h2>
-                                    <ul>
-                                        <li><a href="search.html">Search Mentors</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="booking.html">Booking</a></li>
-                                        <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-
-                                <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Mentors</h2>
-                                    <ul>
-                                        <li><a href="appointments.html">Appointments</a></li>
-                                        <li><a href="chat.html">Chat</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
+                            
                             <div class="col-lg-3 col-md-6">
 
                                 <div class="footer-widget footer-contact">
@@ -295,6 +227,8 @@
                         </div>
                     </div>
                 </div>
+
+
 
 
                 <div class="footer-bottom">
@@ -331,6 +265,26 @@
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <script src="assets/js/script.js"></script>
+        <script>
+            // Main Wrapper Selector
+            const avatarFileUpload = document.getElementById('AvatarFileUpload')
+            // Preview Wrapper Selector
+            const imageViewer = avatarFileUpload.querySelector('.selected-image-holder>img')
+            // Image Input File Selector
+            const imageInput = avatarFileUpload.querySelector('input[name="avatar"]')
+
+            /** IF Selected Image has change */
+            imageInput.addEventListener('change', e => {
+                // Open File eader
+                var reader = new FileReader();
+                reader.onload = function () {
+                    // Preview Image
+                    imageViewer.src = reader.result;
+                };
+                // Read Selected Image as DataURL
+                reader.readAsDataURL(e.target.files[0]);
+            })
+        </script>
     </body>
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
