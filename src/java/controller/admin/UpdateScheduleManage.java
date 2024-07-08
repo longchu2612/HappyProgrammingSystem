@@ -316,5 +316,17 @@ public class UpdateScheduleManage extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    public static int getNumberOfISOWeeksInYear(int year) {
 
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        LocalDate firstDayOfNextYear = LocalDate.of(year + 1, 1, 1);
+        WeekFields weekFields = WeekFields.ISO;
+        int lastWeekOfCurrentYear = firstDayOfNextYear.minusDays(1).get(weekFields.weekOfWeekBasedYear());
+        if (lastWeekOfCurrentYear == 1) {
+            return firstDayOfNextYear.minusDays(7).get(weekFields.weekOfWeekBasedYear());
+        } else {
+            return lastWeekOfCurrentYear;
+        }
+    }
 }

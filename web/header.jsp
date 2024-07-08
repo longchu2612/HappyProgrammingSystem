@@ -38,10 +38,10 @@
                                 <ul class="submenu">
                                     <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                     <li><a href="profile">Profile</a></li>
-                                    <li><a href="createSchedule.jsp">Invoices</a></li>
+                                    <li><a href="createSchedule.jsp">Create Schedule</a></li>
                                     <li><a href="schedule_mentor">Schedule Timing</a></li>
                                     <li><a href="invoices.html">Invoices</a></li>
-                                    <li><a href="my-schedule.jsp">My Schedule</a></li>
+                                    <li><a href="my_schedule">My Schedule</a></li>
                                 </ul>
                             </li>
                         </c:if>

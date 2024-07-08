@@ -76,6 +76,10 @@
         <servlet-name>UpdateScheduleManage</servlet-name>
         <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyScheduleController</servlet-name>
+        <servlet-class>controller.MyScheduleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -155,5 +159,9 @@
     <servlet-mapping>
         <servlet-name>BookingController</servlet-name>
         <url-pattern>/Booking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyScheduleController</servlet-name>
+        <url-pattern>/my_schedule</url-pattern>
     </servlet-mapping>
 </web-app>

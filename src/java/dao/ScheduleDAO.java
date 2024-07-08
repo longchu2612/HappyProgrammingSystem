@@ -131,6 +131,36 @@ public class ScheduleDAO extends DBContext {
         return accounts;
     }
 
+    public List<Account> getAllAccountWithSchedule(String status, String nameKeyword) {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "select account.id, account.fullname, schedule.id,schedule.create_time,schedule.month,schedule.status, schedule.sessionId\n"
+                + "from dbo.Account as account inner join dbo.Schedules as schedule on account.id = schedule.mentor_id where schedule.status = ? and account.fullname LIKE ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setString(2, "%"+ nameKeyword +"%");
+            rs = ps.executeQuery();
+            while(rs.next()){ 
+                Account account= new Account();
+                account.setAccount_id(rs.getInt(1));
+                account.setFullname(rs.getString("fullname"));
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt(3));
+                schedule.setCreateTime(rs.getTimestamp("create_time").toLocalDateTime());
+                schedule.setMonth(rs.getInt("month"));
+                schedule.setStatus(rs.getString("status"));
+                schedule.setSessionId(rs.getString("sessionId"));
+                account.setSchedules(schedule);
+                
+                accounts.add(account);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return accounts;
+    }
+
     public List<Slot> getAllDayOfSlot(int schedule_id) {
         List<Slot> slots = new ArrayList<>();
         String sql = "SELECT slot.slot, slot.dayOfWeek \n"
@@ -406,6 +436,26 @@ public class ScheduleDAO extends DBContext {
             ex.printStackTrace();
         }
     }
+
+    public Schedule getLastestSchedule(int mentor_id) {
+        Schedule schedule = null;
+        String sql = "SELECT TOP 1 * FROM dbo.Schedules WHERE mentor_id = ? AND status = 2 ORDER BY month DESC";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, mentor_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                schedule = new Schedule();
+                schedule.setId(rs.getInt("id"));
+                schedule.setStatus(rs.getString("status"));
+                schedule.setMonth(rs.getInt("month"));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return schedule;
+    }
 //    public List<Account> getAllScheduleOfMentor(int mentor_id) {
 //        Map<LocalDateTime, Account> accountMap = new HashMap<>();
 //        String sql = "select account.id,account.fullname,schedule.day_of_week ,schedule.month, schedule.start_time, schedule.end_time,schedule.id,schedule.create_time, schedule.status from dbo.Schedules as schedule inner join "
@@ -496,9 +546,9 @@ public class ScheduleDAO extends DBContext {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 //        int result = scheduleDAO.getStatusOfSchedule(2);
 //        List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(2);
-        scheduleDAO.deleteScheduleByMentorIdAndStatus(41, "4", 266);
-        
-        
+        Schedule schedule = scheduleDAO.getLastestSchedule(41);
+        System.out.println(schedule);
+
 //        Integer schedule = null;
 //        List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");
     }

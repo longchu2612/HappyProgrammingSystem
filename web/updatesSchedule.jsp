@@ -336,10 +336,10 @@
                                                 </div>
                                                 <div class="row mt-3">
                                                     <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>
+                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Save</button>
                                                     </div>
                                                     <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Update</button>
+                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -524,11 +524,13 @@ public class UpdateScheduleController extends HttpServlet {
                         // Đang bị lỗi do xóa scheduleDraft đi và khi đó tạo ra Draft mới nên List<Slot> đang bị rỗng
 
                         SlotDAO slotDAO = new SlotDAO();
+                        
                         slotDAO.deleteSchedule(scheduleDraft);
-                        int mentorId = scheduleDAO.getMentorIdByScheduleId(Integer.parseInt(schedule_id));
-                        scheduleDAO.deleteScheduleByMentorIdAndStatus(mentorId, "4", scheduleDraft);
-//                        scheduleDAO.deleteScheduleById(scheduleDraft);
-//                      session.removeAttribute("scheduleDraft_" + schedule_id);
+
+//                        int mentorId = scheduleDAO.getMentorIdByScheduleId(Integer.parseInt(schedule_id));
+//                        scheduleDAO.deleteScheduleByMentorIdAndStatus(mentorId, "4", scheduleDraft);
+                        scheduleDAO.deleteScheduleById(scheduleDraft);
+                        session.removeAttribute("scheduleDraft_" + schedule_id);
                          
                         session.removeAttribute("selectedWeeks_"+schedule_id);
 
@@ -590,31 +592,10 @@ public class UpdateScheduleController extends HttpServlet {
                 weeks.add(weekRange);
             }
             
-            if(checkedValuesSlotOne == null){ 
-                checkedValuesSlotOne = new String[]{"default_value"};
-            }
-            if(checkedValuesSlotTwo == null){ 
-                checkedValuesSlotTwo = new String[]{"default_value"};
-            }
-            if(checkedValuesSlotThree == null){ 
-                checkedValuesSlotThree = new String[]{"default_value"};
-            }
-            if(checkedValuesSlotFour == null){ 
-                checkedValuesSlotFour = new String[]{"default_value"};
-            }
-            if(checkedValuesSlotFive == null){ 
-                checkedValuesSlotFive = new String[]{"default_value"};
-            }
-            
             NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
             String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
             
             request.setAttribute("note", note);
-            request.setAttribute("checkedValuesSlotOne", checkedValuesSlotOne);
-            request.setAttribute("checkedValuesSlotTwo", checkedValuesSlotTwo);
-            request.setAttribute("checkedValuesSlotThree", checkedValuesSlotThree);
-            request.setAttribute("checkedValuesSlotFour", checkedValuesSlotFour);
-            request.setAttribute("checkedValuesSlotFive", checkedValuesSlotFive);
             request.setAttribute("message", message);
             request.setAttribute("weekDates", weekDates);
             request.setAttribute("slots", slots);

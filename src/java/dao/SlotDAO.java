@@ -142,14 +142,17 @@ public class SlotDAO extends DBContext {
 //        LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
 //        System.out.println(monthStart.toString());
 //        System.out.println(monthEnd.toString());
-          LocalDate startDate = LocalDate.of(2024,6,1);
-          LocalDate endDate = LocalDate.of(2024,6,21);
-          SlotDAO slot_dao = new SlotDAO();
+//          LocalDate startDate = LocalDate.of(2024,6,1);
+//          LocalDate endDate = LocalDate.of(2024,6,21);
+//          SlotDAO slot_dao = new SlotDAO();
 //          List<Slot> slots = slot_dao.getAllSlotByScheduleDarft(2, startDate, endDate);
 //          for(Slot slot : slots){ 
 //              System.out.println(slot.toString());
 //          }
-          slot_dao.deleteSchedule(2, startDate.toString(), endDate.toString());
+//          slot_dao.deleteSchedule(2, startDate.toString(), endDate.toString());
+            SlotDAO slotDAO = new SlotDAO();
+            List<Slot> slots = slotDAO.getAllSlotByScheduleDarft(2, LocalDate.of(2024,7,12), LocalDate.of(2024,7,20));
+            System.out.println(slots);
     }
 
 }
