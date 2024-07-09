@@ -48,10 +48,10 @@
                         <ul class="submenu">
                             <li><a href="dashboard.html">Mentor Dashboard</a></li>
                             <li><a href="bookings.jsp">Bookings</a></li>
-                            <li><a href="schedule-timings.jsp">Schedule Timing</a></li>
+<!--                            <li><a href="schedule-timings.jsp">Schedule Timing</a></li>-->
                             <li><a href="mentee-list.jsp">Mentee List</a></li>
                             <li><a href="profile-mentee.jsp">Mentee Profile</a></li>
-                            <li class="has-submenu">
+<!--                            <li class="has-submenu">
                                 <a href="blog.html">Blog</a>
                                 <ul class="submenu">
                                     <li><a href="blog.html">Blog</a></li>
@@ -59,23 +59,23 @@
                                     <li><a href="add-blog.html">Add Blog</a></li>
                                     <li><a href="edit-blog.html">Edit Blog</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
                             
                             <li class="has-submenu">
                                 <a href="#">Schedule</a>
                                 <ul class="submenu">
-                                    <li><a href="listSchedule.jsp">List Schedule</a></li>
+                                    <li><a href="schedule_mentor">List Schedule</a></li>
                                     <li><a href="createSchedule.jsp">Create Schedule</a></li>
-                                    <li><a href="add-blog.html">Update Schedule</a></li>
+<!--                                    <li><a href="add-blog.html">Update Schedule</a></li>-->
                                     
                                 </ul>
                             </li>
-                            
-                            <li><a href="chat.html">Chat</a></li>
-                            <li><a href="invoices.html">Invoices</a></li>
+                            <li><a href="my_schedule">My Schedule</a></li>
+<!--                            <li><a href="chat.html">Chat</a></li>-->
+<!--                            <li><a href="invoices.html">Invoices</a></li>-->
                             <li><a href="profile-settings.html">Profile Settings</a></li>
-                            <li><a href="reviews.html">Reviews</a></li>
-                            <li><a href="mentor-register.html">Mentor Register</a></li>
+<!--                            <li><a href="reviews.html">Reviews</a></li>-->
+<!--                            <li><a href="mentor-register.html">Mentor Register</a></li>-->
                         </ul>
                     </li>
                     <li class="has-submenu active">

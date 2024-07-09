@@ -1,9 +1,8 @@
 <%-- 
-    Document   : createSchedule
-    Created on : Jun 5, 2024, 3:56:42 AM
+    Document   : my-schedule
+    Created on : Jul 8, 2024, 12:45:59 AM
     Author     : asus
 --%>
-
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
@@ -114,18 +113,18 @@
                                     <div class="row form-row">
                                         <div class="col-12 col-md-12">
                                             <div class="form-group">
-                                                <h4>Update Schedule</h4>
+                                                <h4>My Schedule</h4>
                                             </div>
-                                            <h4 style="color: red; align-content: center;">
-                                                ${requestScope.message}
-                                            </h4>
+<!--                                            <h4 style="color: red; align-content: center;">
+                                                
+                                            </h4>-->
                                         </div>
                                         <div class="row">   
 
 
                                             <div class="col-12 col-md-2 mb-3"> 
                                                 <label>Year:</label>
-                                                <form id="updateYear" action="update_mentor_schedule" method="Post">
+                                                <form id="updateYear" action="my_schedule" method="Post">
 
                                                     <input type="hidden" name="action" value="update_year"/>
                                                     <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
@@ -150,7 +149,7 @@
                                                     <option value="2" ${requestScope.month == 2 ? 'selected' : ''}>February</option>
                                                     <option value="3" ${requestScope.month == 3 ? 'selected' : ''}>March</option>
                                                     <option value="4" ${requestScope.month == 4 ? 'selected' : ''}>April</option>
-                                                    <option value=s"5" ${requestScope.month == 5 ? 'selected' : ''}>May</option>
+                                                    <option value="5" ${requestScope.month == 5 ? 'selected' : ''}>May</option>
                                                     <option value="6" ${requestScope.month == 6 ? 'selected' : ''}>June</option>
                                                     <option value="7" ${requestScope.month == 7 ? 'selected' : ''}>July</option>
                                                     <option value="8" ${requestScope.month == 8 ? 'selected' : ''}>August</option>
@@ -163,7 +162,7 @@
 
                                             <div class="col-12 col-md-3 mb-3">
                                                 <label>Week:</label>
-                                                <form id="updateWeek" action="update_mentor_schedule" method="Post">
+                                                <form id="updateWeek" action="my_schedule" method="Post">
                                                     <input type="hidden"  name="action" value="update_week"/>
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
@@ -195,7 +194,7 @@
 
 
                                         </div>         
-                                        <form action="update_mentor_schedule" method="Post">
+                                        <form action="my_schedule" method="Post">
 
                                             <input type="hidden"  name="action" value="update_schedule_week"/>
                                             <input type="hidden" name="year_update_schedule" value="${requestScope.currentYear}"/>
@@ -249,7 +248,8 @@
                                                     </thead>
 
                                                     <tbody>
-
+                                                         
+                                                    <h5>${requestScope.message}</h5>
 
                                                         <%
                                                             List<Slot> slots = (List<Slot>) request.getAttribute("slots");
@@ -328,19 +328,19 @@
 
                                                 </table>
                                                 <div class="col-12 col-md-8 mt-3">
-                                                    <div class="form-group">
+<!--                                                    <div class="form-group">
                                                         <label for="note">Note</label>
                                                         <textarea class="form-control" id="note" name="note" rows="3" readonly>${requestScope.note}</textarea>
                                                         
-                                                    </div>
+                                                    </div>-->
                                                 </div>
                                                 <div class="row mt-3">
-                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Save</button>
-                                                    </div>
-                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Submit</button>
-                                                    </div>
+<!--                                                    <div class="submit-section col-md-1">
+                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>
+                                                    </div>-->
+<!--                                                    <div class="submit-section col-md-1">
+                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Update</button>
+                                                    </div>-->
                                                 </div>
                                             </div>
                                         </form>
@@ -500,5 +500,6 @@
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/profile-settings-mentee.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:23 GMT -->
 </html>
+
 
 

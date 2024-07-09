@@ -40,27 +40,31 @@
             <jsp:include page="admin-sidebar.jsp"></jsp:include>
 
 
-            <div class="page-wrapper">
-                <div class="content container-fluid">
+                <div class="page-wrapper">
+                    <div class="content container-fluid">
 
-                    <div class="page-header">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h3 class="page-title">Manage Schedule</h3>
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3 class="page-title">Manage Schedule</h3>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <form id="statusForm" action="manage_schedule" method="Post"> 
-                        <div class="row">
-                            <div class="col-md-3 mb-3 d-flex align-items-center">
-                                <label for="statusFilter">Status:</label>
-                                <select class="form-select ms-3" name="selectStatus" id="statusFilter" aria-label="Default select example">
-                                    <option value="1" ${requestScope.status == '1' ? 'selected' : ''}>Pending</option>
+                        <form id="statusForm" action="manage_schedule" method="Post"> 
+                            <div class="row">
+                                <div class="col-md-3 mb-3 d-flex align-items-center">
+                                    <label for="statusFilter">Status:</label>
+                                    <select class="form-select ms-3" name="selectStatus" id="statusFilter" aria-label="Default select example">
+                                        <option value="1" ${requestScope.status == '1' ? 'selected' : ''}>Pending</option>
                                     <option value="2" ${requestScope.status == '2' ? 'selected' : ''}>Accept</option>
                                     <option value="3" ${requestScope.status == '3' ? 'selected' : ''}>Reject</option>
                                 </select>
+                            </div>
+                            <div class="col-md-3 mb-3 d-flex align-items-center">
+                                <label>Name:</label>
+                                <input type="text" name="keyword" class="form-control ms-3" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </form>
@@ -134,10 +138,10 @@
                                                                     <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '2'}">
-                                                                    <p>No Action</p>
+                                                                    <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:when test="${a.getSchedules().getStatus() == '3'}">
-                                                                    <p>No Action</p>
+                                                                    <button type="button" class="btn btn-outline-success" onclick="window.location.href = 'update_schedule?id=${a.getAccount_id()}&sessionId=${a.getSchedules().getSessionId()}&schedule_id=${a.getSchedules().getId()}&month=${a.getSchedules().getMonth()}'" >Detail</button>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     Unknown Status
@@ -202,9 +206,9 @@
 
         <script src="assets/js/script.js"></script>
         <script>
-                                                                          document.getElementById('statusFilter').addEventListener('change', function () {
-                                                                              document.getElementById('statusForm').submit();
-                                                                          });
+                                                                        document.getElementById('statusFilter').addEventListener('change', function () {
+                                                                            document.getElementById('statusForm').submit();
+                                                                        });
 
         </script>
 
