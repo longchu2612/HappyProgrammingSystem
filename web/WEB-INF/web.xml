@@ -77,10 +77,10 @@
         <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
     </servlet>
 
-<servlet>
+    <servlet>
         <servlet-name>RatinngController</servlet-name>
         <servlet-class>controller.RatinngController</servlet-class>
-</servlet>
+    </servlet>
     <servlet>
         <servlet-name>MyScheduleController</servlet-name>
         <servlet-class>controller.MyScheduleController</servlet-class>
@@ -166,14 +166,12 @@
         <servlet-name>BookingController</servlet-name>
         <url-pattern>/Booking</url-pattern>
     </servlet-mapping>
-
- <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RatinngController</servlet-name>
         <url-pattern>/rating</url-pattern>
- </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyScheduleController</servlet-name>
         <url-pattern>/my_schedule</url-pattern>
-
     </servlet-mapping>
 </web-app>
