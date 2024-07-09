@@ -134,7 +134,11 @@ public class AccountDAO extends DBContext {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Role role = new Role(rs.getInt("roleID"));
-                Account account = new Account(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("fullname"), rs.getInt("phonenumber"), rs.getDate("dob"), role, rs.getBoolean("status"));
+                Account account = new Account(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("email"), rs.getString("password"),
+                        rs.getString("fullname"), rs.getInt("phonenumber"),
+                        rs.getDate("dob"),rs.getBoolean("sex"), rs.getString("address"),
+                        rs.getString("avatar"),role, rs.getBoolean("status"),rs.getInt("balance"), rs.getInt("hold"));
                 return account;
             }
         } catch (Exception e) {
@@ -535,7 +539,7 @@ public class AccountDAO extends DBContext {
     }
     public Account getAccountByAccId(String txtId) {
         String query = """
-                       select email, fullname, phonenumber, dob, sex,address,avatar 
+                       select * 
                        from Account
                        where id = ?"""  ;
         try {
@@ -544,14 +548,23 @@ public class AccountDAO extends DBContext {
             ps.setString(1, txtId);
             rs = ps.executeQuery();
             while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
                 String email = rs.getString("email");
+                String password = rs.getString("password");
                 String fullname = rs.getString("fullname");
-                int phonenumber = rs.getInt("phonenumber");
+                int phonenumber = Integer.parseInt(rs.getString("phonenumber"));
                 Date dob = rs.getDate("dob");
                 boolean sex = rs.getBoolean("sex");
                 String address = rs.getString("address");
                 String avatar = rs.getString("avatar");
-                return new Account(email, fullname, phonenumber, dob, sex, address, avatar);
+                Role roleID = new Role(); 
+                roleID.setRole_id(rs.getInt("roleID"));
+                int balance = rs.getInt("balance");
+                boolean status = rs.getBoolean("status");
+                int hold = rs.getInt("hold");
+                return new Account(id, name, email,
+                        password, fullname, phonenumber, dob, sex, address, avatar, roleID, status, balance, hold);
             }
 
         } catch (SQLException e) {

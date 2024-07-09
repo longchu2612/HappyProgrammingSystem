@@ -4,84 +4,323 @@
  */
 package dao;
 
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.sql.Timestamp;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
+import java.sql.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import model.*;
 
-/**
- *
- * @author asus
- */
 public class RequestDAO extends DBContext {
 
-    public int insertRequest(String title, String deadline, String content, String status, int createdBy) {
+    public boolean createRequest(String title, Timestamp deadline, String content, String status, String createdBy, Timestamp createdDate) {
+        String query = """
+                       INSERT INTO Request (title, deadline,content,status,createdBy,createdDate)
+                       values(?,?,?,?,?,?)""";
 
-        int result = -1;
-        String sql = "Insert into Request (title, deadline, content, status, createdBy, createdDate) \n"
-                + "Values (?,?,?,?,?,?)";
-        LocalDateTime localDateTime = LocalDateTime.parse(deadline);
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         try {
-
-            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
             ps.setString(1, title);
-            Timestamp timestamp = Timestamp.valueOf(localDateTime);
-            ps.setTimestamp(2, timestamp);
+            ps.setTimestamp(2, deadline);
             ps.setString(3, content);
             ps.setString(4, status);
-            ps.setInt(5, createdBy);
-            ps.setTimestamp(6, currentTimestamp);
-            int affectedRows = ps.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        result = rs.getInt(1);
-                    }
+            ps.setString(5, createdBy);
+            ps.setTimestamp(6, createdDate);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
                 }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println("An error occurred while inserting the account: " + ex.getMessage());
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            System.out.println("An error occurred while inserting the account: " + ex.getMessage());
-            ex.printStackTrace();
         }
-        return result;
+        return false;
     }
 
-    public int insertRequestSkill(int requestId, int skillId) {
+    public boolean updateRequest(String id, String title, Timestamp deadline, String content, String status, Timestamp createdDate) {
+        String query = """
+                       Update Request set title = ?, deadline = ?,content = ?,status = ?,createdDate = ?
+                       where id = ?
+                       """;
 
-        int result = 0;
-        String sql = "  Insert into dbo.Request_skill (requestID, skillID) Values (?, ?)";
         try {
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, requestId);
-            ps.setInt(2, skillId);
-            result = ps.executeUpdate();
-
-        } catch (Exception e) {
-            System.out.println("An error occurred while inserting the account: " + e.getMessage());
-            e.printStackTrace();
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, title);
+            ps.setTimestamp(2, deadline);
+            ps.setString(3, content);
+            ps.setString(4, status);
+            ps.setTimestamp(5, createdDate);
+            ps.setString(6, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return result;
-
-    }
-       
-    
-    
-    public static void main(String[] args) throws SQLException {
-        
-
+        return false;
     }
 
-    
+    public int getIdNewRequest() {
+        String query = """
+                       select top 1 id from Request order by id desc""";
 
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<Request> getRequestByCreateBy(int txtId) {
+        ArrayList<Request> list = new ArrayList<>();
+        String query = """
+                       select *
+                       from Request
+                       where createdBy = ?""";
+
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, txtId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                LocalDateTime deadline = Timestamp.valueOf(rs.getString("deadline")).toLocalDateTime();
+                String content = rs.getString("content");
+                String status = rs.getString("status");
+                int createdBy = rs.getInt("createdBy");
+                LocalDateTime createdDate = Timestamp.valueOf(rs.getString("createdDate")).toLocalDateTime();
+                list.add(new Request(id, title, deadline, content, status, createdBy, createdDate));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public boolean createRequestCourse(int req_id, int toUser_id, int skill_id, int numOfSlot) {
+        String query = """
+                       Insert into Request_Course(req_id, toUser_id, skill_id, numOfSlot)
+                       values(?,?,?,?)
+                       """;
+
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, req_id);
+            ps.setInt(2, toUser_id);
+            ps.setInt(3, skill_id);
+            ps.setInt(4, numOfSlot);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
+    public boolean updateRequestCourse(int reqId, int skillId, int numOfSlot){
+        String query = """
+                       update Request_Course
+                       set skill_id = ?, numOfSlot = ?
+                       where req_id = ? 
+                       """;
+
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(3, reqId);
+            ps.setInt(1, skillId);
+            ps.setInt(2, numOfSlot);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
+    public Request getRequestByReqId(int txtId) {
+        String query = """
+                       select *
+                       from Request
+                       where id = ?""";
+
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, txtId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                LocalDateTime deadline = Timestamp.valueOf(rs.getString("deadline")).toLocalDateTime();
+                String content = rs.getString("content");
+                String status = rs.getString("status");
+                int createdBy = rs.getInt("createdBy");
+                LocalDateTime createdDate = Timestamp.valueOf(rs.getString("createdDate")).toLocalDateTime();
+                return new Request(id, title, deadline, content, status, createdBy, createdDate);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public Request checkRequestDraft(int menteeId, int mentorId) {
+        String query = """
+                       select req.* 
+                       from Request req
+                       join Request_Course reqc on req.id = reqc.req_id
+                       join Account acc on acc.id = reqc.toUser_id 
+                       Where req.createdBy = ? and req.status = 1 and acc.id = ?""";
+
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, menteeId);
+            ps.setInt(2, mentorId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                LocalDateTime deadline = Timestamp.valueOf(rs.getString("deadline")).toLocalDateTime();
+                String content = rs.getString("content");
+                String status = rs.getString("status");
+                int createdBy = rs.getInt("createdBy");
+                LocalDateTime createdDate = Timestamp.valueOf(rs.getString("createdDate")).toLocalDateTime();
+                return new Request(id, title, deadline, content, status, createdBy, createdDate);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        RequestDAO dao = new RequestDAO();
+        //ArrayList<Request> list = dao.getRequestByCreateBy("2068");
+        LocalDateTime test = LocalDateTime.now();
+        Timestamp convert = Timestamp.valueOf(test);
+        //boolean check1 = dao.createRequest("abc", convert, "abc", "1", "2086", convert);
+        //boolean check2 = dao.createRequestCourse(dao.getIdNewRequest(), 2078, 6, 4);
+        //System.out.println("Id request:" + dao.getIdNewRequest() + ", Request: " + check1 + ", Request course: " + check2);
+        Request req = dao.checkRequestDraft(2086, 2078);
+        System.out.println(req);
+    }
 }

@@ -291,10 +291,48 @@ public class SkillDAO extends DBContext {
         }
         return null;
     }
-
+    public ArrayList<Skill> getSkillByCvId(String cvId){
+        ArrayList<Skill> list = new ArrayList<>();
+        String query = """
+                       select s.id, s.name
+                       from Skill s
+                       join CV_Skill cv_sk on s.id = cv_sk.skill_id
+                       join CV cv on cv.id = cv_sk.cv_id
+                       where cv.id = ?""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cvId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Skill s = new Skill();
+                s.setSkillId(rs.getInt("id"));
+                s.setSkillName(rs.getString("name")); 
+                list.add(s);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         SkillDAO dao = new SkillDAO();
-        ArrayList<String> list = dao.getSkilCV("2002");
+        ArrayList<Skill> list = dao.getSkillByCvId("2002");
         for (Object o : list) {
             System.out.println(o);
         }

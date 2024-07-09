@@ -165,7 +165,7 @@
             </div>
 
 
-            <jsp:include page="layout_sidebar.jsp"/>
+            <jsp:include page="admin-sidebar.jsp"/>
 
 
             <div class="page-wrapper">

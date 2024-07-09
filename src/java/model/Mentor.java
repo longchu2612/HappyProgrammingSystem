@@ -21,12 +21,12 @@ public class Mentor {
     private int cvId;
     private String address;
     private String avatar;
-    private ArrayList<String> listSkill;
+    private ArrayList<Skill> listSkill;
             
     public Mentor() {
     }
 
-    public Mentor(int id, String fullname, String job, int cvId, String address, ArrayList<String> listSkill, String avatar) {
+    public Mentor(int id, String fullname, String job, int cvId, String address, ArrayList<Skill> listSkill, String avatar) {
         this.id = id;
         this.fullname = fullname;
         this.job = job;
@@ -118,11 +118,11 @@ public class Mentor {
         this.address = address;
     }
 
-    public ArrayList<String> getListSkill() {
+    public ArrayList<Skill> getListSkill() {
         return listSkill;
     }
 
-    public void setListSkill(ArrayList<String> listSkill) {
+    public void setListSkill(ArrayList<Skill> listSkill) {
         this.listSkill = listSkill;
     }
 
@@ -136,7 +136,9 @@ public class Mentor {
 
     @Override
     public String toString() {
-        return "Mentor{" + "id=" + id + ", fullname=" + fullname + ", username=" + username + ", status=" + status + ", numOfReq=" + numOfReq + ", rating=" + rating + '}';
+        return "Mentor{" + "id=" + id + ", fullname=" + fullname + ", username=" + username + ", job=" + job + ", status=" + status + ", numOfReq=" + numOfReq + ", rating=" + rating + ", cvId=" + cvId + ", address=" + address + ", avatar=" + avatar + ", listSkill=" + listSkill + '}';
     }
+
+    
     
 }

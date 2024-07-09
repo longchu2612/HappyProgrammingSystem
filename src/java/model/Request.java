@@ -15,17 +15,25 @@ import java.util.List;
 public class Request {
     private int id;
     private String title;
-    private LocalDateTime date_dealine;
+    private LocalDateTime deadline;
     private String content;
-    private List<Skill> skills;
+    private String status;
+    private int createdBy;
+    private LocalDateTime createdDate;
 
-    public Request(int id, String title, LocalDateTime date_dealine, String content, List<Skill> skills) {
+    public Request() {
+    }
+
+    public Request(int id, String title, LocalDateTime deadline, String content, String status, int createdBy, LocalDateTime createdDate) {
         this.id = id;
         this.title = title;
-        this.date_dealine = date_dealine;
+        this.deadline = deadline;
         this.content = content;
-        this.skills = skills;
+        this.status = status;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
     }
+
     public int getId() {
         return id;
     }
@@ -42,12 +50,12 @@ public class Request {
         this.title = title;
     }
 
-    public LocalDateTime getDate_dealine() {
-        return date_dealine;
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 
-    public void setDate_dealine(LocalDateTime date_dealine) {
-        this.date_dealine = date_dealine;
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
     }
 
     public String getContent() {
@@ -58,16 +66,33 @@ public class Request {
         this.content = content;
     }
 
-    public List<Skill> getSkills() {
-        return skills;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", title=" + title + ", date_dealine=" + date_dealine + ", content=" + content + ", skills=" + skills + '}';
+        return "Request{" + "id=" + id + ", title=" + title + ", deadline=" + deadline + ", content=" + content + ", status=" + status + ", createdBy=" + createdBy + ", createdDate=" + createdDate + '}';
     }
+    
 }

@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,17 +11,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 import model.*;
+import dao.*;
+import java.time.LocalDate;
 
 /**
  *
  * @author catmi
  */
-public class BookingController extends HttpServlet {
+public class OrderController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,40 +36,39 @@ public class BookingController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String service = request.getParameter("service");
         HttpSession session = request.getSession();
-        if (service == null) {
-            service = "all_skill";
-        }
+        Account account = (Account) session.getAttribute("account");
+        OrderDAO orDao = new OrderDAO();
         switch (service) {
-            case "all_skill" -> {
-                ArrayList<Mentor> listM = new BookingDAO().getAllMentor();
-                request.setAttribute("listM", listM);
-                request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("all-course.jsp").forward(request, response);
-            }
-            case "by_skill" -> {
-                String skillId = request.getParameter("skId");
-                ArrayList<Mentor> listM = new BookingDAO().getAllMentorBySkillId(skillId);
-                request.setAttribute("listM", listM);
-                request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("all-course.jsp").forward(request, response);
-            }
-            case "course_details" -> {
-                Account acc = new AccountDAO().getAccountByAccId(request.getParameter("mentorId"));
-                CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
-                ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(request.getParameter("cvId"));
-                List<Slot> slots = new ScheduleDAO().getAllDayOfSlot(Integer.parseInt("2"));
+            case "method" -> {
+                String pay_method = request.getParameter("pay-method");
+                int total = Integer.parseInt(request.getParameter("total"));
+                int currentBalance = orDao.checkMoney(account.getAccount_id(), total);
+                String mentorId = request.getParameter("mentorId");
+                String createDate = LocalDate.now().toString();
 
-                request.setAttribute("mentor", acc);
-                request.setAttribute("mentor_cv", cv);
-                request.setAttribute("listS", listS);
-                request.setAttribute("slots", slots);
-                request.getRequestDispatcher("course_details.jsp").forward(request, response);
+                if (pay_method.equals("wallet")) {
+                    if (currentBalance >= 0) {
+                        orDao.insertOrder(String.valueOf(account.getAccount_id()), String.valueOf(mentorId), String.valueOf(total), createDate);
+                        orDao.updateHold(account.getAccount_id(), total);
+                        response.sendRedirect("booking-success.jsp");
+                    }else{
+                        response.sendRedirect("checkout-fail.jsp");
+                    }
+                } else if(pay_method.equals("vnpay")){
+                    orDao.insertOrder(String.valueOf(account.getAccount_id()), String.valueOf(mentorId), String.valueOf(total), createDate);
+                    request.setAttribute("amount", total);
+                    request.getRequestDispatcher("payment.jsp").forward(request, response);
+                    
+                }
+
+            }
+            case "recharge" -> {
+                
             }
             default -> {
 
             }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
