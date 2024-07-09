@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 public class VNPayPayment {
     private static final String VNPAY_URL = "https://pay.vnpay.vn/vpcpay.html";
     private static final String VNPAY_RETURN_URL = "http://your_return_url";
-    private static final String VNPAY_TMN_CODE = "YourMerchantCode";
-    private static final String VNPAY_HASH_SECRET = "YourSecretKey";
+    private static final String VNPAY_TMN_CODE = "CGXZLS0Z";
+    private static final String VNPAY_HASH_SECRET = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN";
 
     public static void main(String[] args) throws Exception {
         Map<String, String> vnpParams = new HashMap<>();

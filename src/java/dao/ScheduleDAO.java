@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import model.Account;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
@@ -541,7 +542,6 @@ public class ScheduleDAO extends DBContext {
 //
 //        return new ArrayList<>(accountMap.values());
 //    }
-
     public static void main(String[] args) {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 //        int result = scheduleDAO.getStatusOfSchedule(2);

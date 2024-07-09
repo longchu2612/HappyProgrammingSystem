@@ -27,12 +27,31 @@ public class Account {
     private String avatar;
     private Role role;
     private Boolean status;
-    
+    private int balance;
+    private int hold;
     private Schedule schedules;
 
     public Account() {
     }
 
+    public Account(int account_id, String account_name, String email, String password, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar, Role role, Boolean status, int balance, int hold) {
+        this.account_id = account_id;
+        this.account_name = account_name;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.avatar = avatar;
+        this.role = role;
+        this.status = status;
+        this.balance = balance;
+        this.hold = hold;
+    }
+
+    
     public Account(int account_id, String account_name, String email, String fullname, int phone, Date dateOfBirth, Boolean sex, String address, String avatar) {
         this.account_id = account_id;
         this.account_name = account_name;
@@ -267,6 +286,22 @@ public class Account {
 
     public void setPhoneString(String phoneString) {
         this.phoneString = phoneString;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public int getHold() {
+        return hold;
+    }
+
+    public void setHold(int hold) {
+        this.hold = hold;
     }
     
     @Override

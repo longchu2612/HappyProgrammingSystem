@@ -26,7 +26,7 @@ public class BookingDAO extends DBContext {
                        group by acc.id ,acc.fullname, cv.job, acc.address, cv.id, cv.avatar
                        """;
         String query2 = """
-                       select s.name
+                       select s.id, s.name
                        from Skill s
                        join CV_Skill cv_sk on s.id = cv_sk.skill_id
                        join CV cv on cv.id = cv_sk.cv_id
@@ -47,15 +47,18 @@ public class BookingDAO extends DBContext {
                 String job = rs1.getString("job");
                 String address = rs1.getString("address");
                 String avatar = rs1.getString("avatar");
-                
-                ArrayList<String> listS = new ArrayList<>();
+
+                ArrayList<Skill> listS = new ArrayList<>();
                 ps2 = conn.prepareStatement(query2);
                 ps2.setInt(1, cvId);
                 rs2 = ps2.executeQuery();
-                while (rs2.next()) {                    
-                    listS.add(rs2.getString("name"));
+                while (rs2.next()) {
+                    Skill s = new Skill();
+                    s.setSkillId(rs2.getInt("id"));
+                    s.setSkillName(rs2.getString("name"));
+                    listS.add(s);
                 }
-                list.add(new Mentor(AccId, fullname, job, cvId,address,listS, avatar));
+                list.add(new Mentor(AccId, fullname, job, cvId, address, listS, avatar));
             }
             return list;
         } catch (SQLException e) {
@@ -95,7 +98,7 @@ public class BookingDAO extends DBContext {
                        group by acc.id ,acc.fullname, cv.job, acc.address, cv.id, cv.avatar
                        """;
         String query2 = """
-                       select s.name
+                       select s.*
                        from Skill s
                        join CV_Skill cv_sk on s.id = cv_sk.skill_id
                        join CV cv on cv.id = cv_sk.cv_id
@@ -117,15 +120,18 @@ public class BookingDAO extends DBContext {
                 String job = rs1.getString("job");
                 String address = rs1.getString("address");
                 String avatar = rs1.getString("avatar");
-                
-                ArrayList<String> listS = new ArrayList<>();
+
+                ArrayList<Skill> listS = new ArrayList<>();
                 ps2 = conn.prepareStatement(query2);
                 ps2.setInt(1, cvId);
                 rs2 = ps2.executeQuery();
-                while (rs2.next()) {                    
-                    listS.add(rs2.getString("name"));
+                while (rs2.next()) {
+                    Skill s = new Skill();
+                    s.setSkillId(rs2.getInt("id"));
+                    s.setSkillName(rs2.getString("name"));
+                    listS.add(s);
                 }
-                list.add(new Mentor(AccId, fullname, job, cvId,address,listS,avatar));
+                list.add(new Mentor(AccId, fullname, job, cvId, address, listS, avatar));
             }
             return list;
         } catch (SQLException e) {
@@ -152,5 +158,12 @@ public class BookingDAO extends DBContext {
             }
         }
         return null;
+    }
+    public static void main(String[] args) {
+        BookingDAO dao = new BookingDAO();
+        ArrayList<Mentor> list = dao.getAllMentor();
+        for (Mentor m : list ) {
+            System.out.println(m);
+        }
     }
 }

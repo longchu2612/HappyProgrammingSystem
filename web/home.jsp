@@ -57,7 +57,7 @@
                                     <form action="https://mentoring.dreamguystech.com/html/template/search.html">
                                         <div class="form-group search-info location-search">
                                             <input type="text" class="form-control text-truncate" placeholder=" Search School, Online educational centers, etc">
-                                            <a href="search.html" class="btn bg-search search-btn align-items-center d-flex justify-content-center">Search</a>
+                                            <a href="Booking" class="btn bg-search search-btn align-items-center d-flex justify-content-center">Search</a>
                                         </div>
                                     </form>
                                 </div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="featured-course-new aos " data-aos="fade-up">
                         <div class="row">
-                            <c:forEach begin="0" end="5" items="${listS}" var="skill">
+                            <c:forEach items="${listS}" var="skill">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="featured-course-face">
                                         <div class="featured-course-design">
@@ -102,7 +102,7 @@
                                             </div>
                                             <div class="featured-course-four-head text-center">
                                                 <h2>
-                                                    <a href="Booking?service=by_course&skId=${skill.skillId}">${skill.skillName}</a>
+                                                    <a href="Booking?service=by_skill&skId=${skill.skillId}">${skill.skillName}</a>
                                                 </h2>
                                             </div>
                                             <div class="view-student">
@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="course-footer-text text-center">
                                             <h4>
-                                                <a href="Booking?service=by_course&skId=${skill.skillId}">More information</a>
+                                                <a href="Booking?service=by_skill&skId=${skill.skillId}">More information</a>
                                             </h4>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="explore-more text-center aos " data-aos="fade-up">
-                        <a href="Booking?service=all_course" class="btn bg-explore">Show All Categories</a>
+                        <a href="Booking?service=all_skill" class="btn bg-explore">Show All Categories</a>
                     </div>
                 </div>
             </section>

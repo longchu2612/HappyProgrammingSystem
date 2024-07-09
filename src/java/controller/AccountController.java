@@ -161,7 +161,7 @@ public class AccountController extends HttpServlet {
                     response.addCookie(cuser_name);
                     response.addCookie(cpassword);
                     response.addCookie(cremmember);
-                    response.sendRedirect("home1");
+                    response.sendRedirect("home");
 
                 }
 
