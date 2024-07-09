@@ -17,7 +17,7 @@ public class OrderDAO extends DBContext{
         ArrayList<Order> list = new ArrayList<>();
         String query = """
                        INSERT INTO [dbo].[Order]([menteeId],[mentorId],[total],[createDate],[courseId])
-                       VALUES(42, 41, 10000, GETDATE(),1) """;
+                       VALUES(?, ?, ?, GETDATE(),1) """;
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
@@ -52,17 +52,17 @@ public class OrderDAO extends DBContext{
         }
         return null;
     }
-    public boolean insertOrder(String menteeId, String mentorId, String total, String courseId) {
+    public boolean insertOrder(String menteeId, String mentorId, String total, String date) {
         String query = """
-                       INSERT INTO [dbo].[Order]([menteeId],[mentorId],[total],[createDate],[courseId])
-                       VALUES(?, ?, ?, GETDATE(), ?) """;
+                       INSERT INTO [dbo].[Order]([menteeId],[mentorId],[total],[createDate])
+                       VALUES(?, ?, ?, ?) """;
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
             ps.setString(1, menteeId);
             ps.setString(2, mentorId);
             ps.setString(3, total);
-            ps.setString(4, courseId);
+            ps.setString(4, date);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -83,6 +83,100 @@ public class OrderDAO extends DBContext{
             }
         }
         return false;
+    }
+    public boolean updateMoney(int menteeId, int total){
+        String query = """
+                       update Account set balance = ?
+                       where id = ? """;
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, total);
+            ps.setInt(2, menteeId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
+    public boolean updateHold(int userId, int hold){
+        String query = """
+                       update Account set hold = ?
+                       where id = ? """;
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, hold);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
+    public int checkMoney(int id,int amount){
+        String query = """
+                       select (balance - hold) as CurrentBalance
+                       from Account
+                       where id = ?""";
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int balance = rs.getInt("CurrentBalance");
+                return balance - amount;
+                
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return 0;
     }
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();

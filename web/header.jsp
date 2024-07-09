@@ -31,46 +31,43 @@
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
-                    <ul class="main-nav">
-                        <c:if test="${sessionScope.account.role.role_id == 2}">
-                            <li class="has-submenu">
-                                <a href>Mentor <i class="fas fa-chevron-down"></i></a>
-                                <ul class="submenu">
-                                    <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                    <li><a href="profile">Profile</a></li>
-                                    <li><a href="createSchedule.jsp">Invoices</a></li>
-                                    <li><a href="schedule_mentor">Schedule Timing</a></li>
-                                    <li><a href="invoices.html">Invoices</a></li>
-                                </ul>
-                            </li>
-                        </c:if>
-                        <c:if test="${sessionScope.account.role.role_id == 1}">
-                            <li class="has-submenu">
-                                <a href>Mentee <i class="fas fa-chevron-down"></i></a>
-                                <ul class="submenu">
-                                    <li><a href="Booking">Search Mentor</a></li>
-                                    <li><a href="profile.html">mentee Profile</a></li>
-                                    <li><a href="bookings-mentee.html">Bookings</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="booking-success.html">Booking Success</a></li>
-                                    <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                    <li><a href="profile-settings-mentee.jsp">Profile Settings</a></li>
-                                    <li><a href="changepass.jsp">Change Password</a></li>
-                                </ul>
-                            </li>
-                        </c:if>
-                    </ul>
+                    <c:if test="${sessionScope.account != null}">
+                        <ul class="main-nav">
+                            <c:if test="${sessionScope.account.role.role_id == 1}">
+                                <li>
+                                    <p>${sessionScope.account.balance}</p>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href>Hello, ${sessionScope.account.fullname} <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="profile">Profile</a></li>
+                                        <li><a href="#">Mentee Dashboard</a></li>
+                                        <li><a href="Booking">Search Mentor</a></li>
+                                        <li><a href="#">My request</a></li>
+                                        <li><a href="recharge.jsp">Recharge</a></li>
+                                        <li><a href="changepass.jsp">Change Password</a></li>
+                                        <li><a href="#">Profile Settings</a></li>
+                                        <li><a href="account?action=logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.account.role.role_id == 2}">
+                                <li class="has-submenu">
+                                    <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="profile">Profile</a></li>
+                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
+                                        <li><a href="createSchedule.jsp">Create schedule</a></li>
+                                        <li><a href="schedule_mentor">Schedule Timing</a></li>
+                                        <li><a href="recharge.jsp">Recharge</a></li>
+                                        <li><a href="changepass.jsp">Change Password</a></li>
+                                        <li><a href="account?action=logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </c:if>
                 </div>
-                <c:if test="${sessionScope.account != null}">
-                    <ul class="nav header-navbar-rht">
-                        <li class="nav-item">
-                            <a class="nav-link header-login-two" href="profile">Hello, ${sessionScope.account.fullname}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link header-login" href="account?action=logout">Logout</a>
-                        </li>
-                    </ul>
-                </c:if>
                 <c:if test="${sessionScope.account == null}">
                     <ul class="nav header-navbar-rht">
                         <li class="nav-item">

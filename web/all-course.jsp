@@ -154,15 +154,15 @@
                                         <div class="mentor-widget">
                                             <div class="user-info-left">
                                                 <div class="mentor-img">
-                                                    <a href="profile.html">
+                                                    <a href="#">
                                                         <img src="${mentor.avatar}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
                                                 <div class="user-info-cont">
-                                                    <h4 class="usr-name"><a href="profile.html">${mentor.fullname}</a></h4>
+                                                    <h4 class="usr-name"><a href="#">${mentor.fullname}</a></h4>
                                                     <p class="mentor-type">
-                                                        <c:forEach items="${mentor.listSkill}" var="sk">
-                                                        <p class="py-2 mx-1 btn btn-outline-dark">${sk}</p>
+                                                        <c:forEach items="${mentor.listSkill}" var="s">
+                                                        <p class="py-2 mx-1 btn btn-outline-dark">${s.skillName}</p>
                                                     </c:forEach>
                                                     </p>
                                                     <div class="rating">
@@ -183,13 +183,17 @@
                                                     <ul>
                                                         <li><i class="far fa-comment"></i> 17 Feedback</li>
                                                         <li><i class="fas fa-map-marker-alt"></i> ${mentor.address}</li>
-                                                        <li><i class="far fa-money-bill-alt"></i> $300 - $1000 <i
+                                                        <li><i class="far fa-money-bill-alt"></i>  <i
                                                                 class="fas fa-info-circle" data-bs-toggle="tooltip"
                                                                 title="Lorem Ipsum"></i> </li>
                                                     </ul>
                                                 </div>
                                                 <div class="mentor-booking">
-                                                    <a class="apt-btn" href="Booking?service=course_details&mentorId=${mentor.id}">Join</a>
+                                                    <form action="Booking?service=course_details" method="post">
+                                                        <input type="hidden" name="mentorId" value="${mentor.id}">
+                                                        <input type="hidden" name="cvId" value="${mentor.cvId}">
+                                                        <button class="btn btn-primary">Details</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

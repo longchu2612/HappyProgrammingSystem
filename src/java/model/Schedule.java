@@ -37,10 +37,7 @@ public class Schedule {
         this.month = month;
         this.sessionId = sessionId;
     }
-    
-    
-     
-    
+
     public Schedule(int id, Account account, LocalDateTime createTime, List<Slot> slots, String status, Date startDate, Date endDate, String sessionId) {
         this.id = id;
         this.account = account;

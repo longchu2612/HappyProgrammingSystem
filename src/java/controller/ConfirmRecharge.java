@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,17 +11,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 import model.*;
+import dao.*;
 
 /**
  *
  * @author catmi
  */
-public class BookingController extends HttpServlet {
+public class ConfirmRecharge extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,43 +32,24 @@ public class BookingController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String service = request.getParameter("service");
-        HttpSession session = request.getSession();
-        if (service == null) {
-            service = "all_skill";
+        HttpSession sess = request.getSession();
+        Account acc = (Account) sess.getAttribute("account");
+        if (acc != null) {
+            String errorCode = request.getParameter("errorCode");
+            int amount = Integer.parseInt(request.getParameter("amount"));
+            if (errorCode.equals("00")) {
+                int balance = acc.getBalance() + amount;
+                OrderDAO dao = new OrderDAO();
+                dao.updateMoney(acc.getAccount_id(), balance);
+                acc.setBalance(balance);
+                sess.setAttribute("account", acc);
+                response.sendRedirect("home");
+            } else {
+                response.sendRedirect("home");
+            }
+        } else {
+            response.sendRedirect("login.jsp");
         }
-        switch (service) {
-            case "all_skill" -> {
-                ArrayList<Mentor> listM = new BookingDAO().getAllMentor();
-                request.setAttribute("listM", listM);
-                request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("all-course.jsp").forward(request, response);
-            }
-            case "by_skill" -> {
-                String skillId = request.getParameter("skId");
-                ArrayList<Mentor> listM = new BookingDAO().getAllMentorBySkillId(skillId);
-                request.setAttribute("listM", listM);
-                request.setAttribute("listSize", listM.size());
-                request.getRequestDispatcher("all-course.jsp").forward(request, response);
-            }
-            case "course_details" -> {
-                Account acc = new AccountDAO().getAccountByAccId(request.getParameter("mentorId"));
-                CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
-                ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(request.getParameter("cvId"));
-                List<Slot> slots = new ScheduleDAO().getAllDayOfSlot(Integer.parseInt("2"));
-
-                request.setAttribute("mentor", acc);
-                request.setAttribute("mentor_cv", cv);
-                request.setAttribute("listS", listS);
-                request.setAttribute("slots", slots);
-                request.getRequestDispatcher("course_details.jsp").forward(request, response);
-            }
-            default -> {
-
-            }
-        }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

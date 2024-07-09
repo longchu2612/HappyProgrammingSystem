@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import dao.OrderDAO;
+import dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,29 +26,34 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import model.Account;
-import util.PaymentConfig;
+import model.*;
+import util.RechargeConfig;
 
 /**
  *
  * @author catmi
  */
-public class PaymentController extends HttpServlet {
+public class RechargeController extends HttpServlet {
+   
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        
+    } 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-       
-        int amount = Integer.parseInt(request.getParameter("amount")) * 100;
-
         
-        String vnp_TxnRef = PaymentConfig.getRandomNumber(8);
-        String vnp_IpAddr = PaymentConfig.getIpAddress(request);
+        int amount = Integer.parseInt(request.getParameter("amount")) * 100;
+        
+        String vnp_TxnRef = RechargeConfig.getRandomNumber(8);
+        String vnp_IpAddr = RechargeConfig.getIpAddress(request);
 
-        String vnp_TmnCode = PaymentConfig.vnp_TmnCode;
+        String vnp_TmnCode = RechargeConfig.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
@@ -61,7 +67,7 @@ public class PaymentController extends HttpServlet {
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
 
-        vnp_Params.put("vnp_ReturnUrl", PaymentConfig.vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", RechargeConfig.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -97,9 +103,9 @@ public class PaymentController extends HttpServlet {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = PaymentConfig.hmacSHA512(PaymentConfig.secretKey, hashData.toString());
+        String vnp_SecureHash = RechargeConfig.hmacSHA512(RechargeConfig.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = RechargeConfig.vnp_PayUrl + "?" + queryUrl;
         com.google.gson.JsonObject job = new JsonObject();
         job.addProperty("code", "00");
         job.addProperty("message", "success");
@@ -107,15 +113,5 @@ public class PaymentController extends HttpServlet {
         Gson gson = new Gson();
         response.getWriter().write(gson.toJson(job));
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

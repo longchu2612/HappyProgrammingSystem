@@ -14,7 +14,6 @@ public class Order {
     private int orderId;
     private int menteeId;
     private int mentorId;
-    private int courseId;
     private double total;
     private Date createDate;
     private boolean status;
@@ -22,11 +21,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, int menteeId, int mentorId, int courseId, double total, Date createDate, boolean status) {
+    public Order(int orderId, int menteeId, int mentorId, double total, Date createDate, boolean status) {
         this.orderId = orderId;
         this.menteeId = menteeId;
         this.mentorId = mentorId;
-        this.courseId = courseId;
         this.total = total;
         this.createDate = createDate;
         this.status = status;
@@ -56,14 +54,6 @@ public class Order {
         this.mentorId = mentorId;
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
     public double getTotal() {
         return total;
     }
@@ -90,7 +80,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", menteeId=" + menteeId + ", mentorId=" + mentorId + ", courseId=" + courseId + ", total=" + total + ", createDate=" + createDate + ", status=" + status + '}';
+        return "Order{" + "orderId=" + orderId + ", menteeId=" + menteeId + ", mentorId=" + mentorId + ", total=" + total + ", createDate=" + createDate + ", status=" + status + '}';
     }
     
 }
