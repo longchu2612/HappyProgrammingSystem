@@ -189,11 +189,11 @@
                                                     </ul>
                                                 </div>
                                                 <div class="mentor-booking">
-                                                    <form action="Booking?service=course_details" method="post">
-                                                        <input type="hidden" name="mentorId" value="${mentor.id}">
-                                                        <input type="hidden" name="cvId" value="${mentor.cvId}">
-                                                        <button class="btn btn-primary">Details</button>
-                                                    </form>
+<!--                                                    <form action="book_schedule?service=course_details" method="get">
+                                                        <input type="hidden" name="mentorId" value="">
+                                                        <input type="hidden" name="cvId" value="">-->
+                                                        <button class="btn btn-primary" onclick="window.location.href='book_schedule?mentorId=${mentor.id}&cvId=${mentor.cvId}'">Details</button>
+<!--                                                    </form>-->
                                                 </div>
                                             </div>
                                         </div>

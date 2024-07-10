@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-md-3 mb-3 d-flex align-items-center">
                                 <label>Name:</label>
-                                <input type="text" name="keyword" class="form-control ms-3" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" name="keyword" value="${requestScope.keyword}" class="form-control ms-3" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </form>

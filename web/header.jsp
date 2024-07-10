@@ -59,6 +59,7 @@
                                         <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                         <li><a href="createSchedule.jsp">Create schedule</a></li>
                                         <li><a href="schedule_mentor">Schedule Timing</a></li>
+                                        <li><a href="my_schedule">My Schedule</a></li>
                                         <li><a href="recharge.jsp">Recharge</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>

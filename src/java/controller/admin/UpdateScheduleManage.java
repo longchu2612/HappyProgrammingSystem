@@ -196,11 +196,11 @@ public class UpdateScheduleManage extends HttpServlet {
                 } else {
                     message = "<span style='color:green;'>Accept successful!</span>";
                 }
-                if (notificationDAO.checkNotificationScheduleExist(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id)) == null) {
+                if (notificationDAO.checkNotificationScheduleExist(Integer.parseInt(accountId),Integer.parseInt(schedule_id)) == null) {
 //                    notificationDAO.createNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), note, LocalDate.now(), Integer.parseInt(schedule_id));
                       notificationDAO.createNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), note, LocalDate.now(), Integer.parseInt(schedule_id));
                 } else {
-                    notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id), note, LocalDate.now());
+                    notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), Integer.parseInt(schedule_id), note, LocalDate.now());
                 }
                 
             }else if (button_action.equals("reject")) {
@@ -209,10 +209,10 @@ public class UpdateScheduleManage extends HttpServlet {
                 } else {
                     message = "<span style='color:red;'>Reject successful!</span>";
                 }
-                if (notificationDAO.checkNotificationScheduleExist(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id)) == null) {
+                if (notificationDAO.checkNotificationScheduleExist(Integer.parseInt(accountId), Integer.parseInt(schedule_id)) == null) {
                     notificationDAO.createNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), note, LocalDate.now(), Integer.parseInt(schedule_id));
                 } else {
-                    notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), manager.getAccount_id(), Integer.parseInt(schedule_id), note, LocalDate.now());
+                    notificationDAO.updateNotificationSchedule(Integer.parseInt(accountId), Integer.parseInt(schedule_id), note, LocalDate.now());
                 }
                 
             }

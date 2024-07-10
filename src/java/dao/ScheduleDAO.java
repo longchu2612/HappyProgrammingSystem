@@ -135,14 +135,26 @@ public class ScheduleDAO extends DBContext {
     public List<Account> getAllAccountWithSchedule(String status, String nameKeyword) {
         List<Account> accounts = new ArrayList<>();
         String sql = "select account.id, account.fullname, schedule.id,schedule.create_time,schedule.month,schedule.status, schedule.sessionId\n"
-                + "from dbo.Account as account inner join dbo.Schedules as schedule on account.id = schedule.mentor_id where schedule.status = ? and account.fullname LIKE ?";
+                + "from dbo.Account as account inner join dbo.Schedules as schedule on account.id = schedule.mentor_id where 1=1";
+        if (status != null && !status.isEmpty()) {
+            sql += "AND schedule.status = ? ";
+        }
+        if (nameKeyword != null && !nameKeyword.isEmpty()) {
+            sql += "AND account.fullname LIKE ?";
+        }
+        
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, status);
-            ps.setString(2, "%"+ nameKeyword +"%");
+            int paramIndex = 1;
+            if (status != null && !status.isEmpty()) {
+                ps.setString(paramIndex++, status);
+            }
+            if (nameKeyword != null && !nameKeyword.isEmpty()) {
+                ps.setString(paramIndex++, "%" + nameKeyword + "%");
+            }
             rs = ps.executeQuery();
-            while(rs.next()){ 
-                Account account= new Account();
+            while (rs.next()) {
+                Account account = new Account();
                 account.setAccount_id(rs.getInt(1));
                 account.setFullname(rs.getString("fullname"));
                 Schedule schedule = new Schedule();
@@ -152,7 +164,7 @@ public class ScheduleDAO extends DBContext {
                 schedule.setStatus(rs.getString("status"));
                 schedule.setSessionId(rs.getString("sessionId"));
                 account.setSchedules(schedule);
-                
+
                 accounts.add(account);
             }
         } catch (Exception ex) {
@@ -542,6 +554,7 @@ public class ScheduleDAO extends DBContext {
 //
 //        return new ArrayList<>(accountMap.values());
 //    }
+
     public static void main(String[] args) {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 //        int result = scheduleDAO.getStatusOfSchedule(2);

@@ -86,9 +86,7 @@ public class ScheduleManage extends HttpServlet {
         keyword = keyword.trim();
         List<Account> accounts = new ArrayList<>();
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-        if(selectStatus != null){
-           accounts = scheduleDAO.getAllAccountWithSchedule(selectStatus,keyword);
-        }
+        accounts = scheduleDAO.getAllAccountWithSchedule(selectStatus,keyword);
         request.setAttribute("keyword", keyword);
         request.setAttribute("status", selectStatus);
         request.setAttribute("accounts", accounts);

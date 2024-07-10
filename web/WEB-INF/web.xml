@@ -76,12 +76,10 @@
         <servlet-name>UpdateScheduleManage</servlet-name>
         <servlet-class>controller.admin.UpdateScheduleManage</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>Payment</servlet-name>
         <servlet-class>controller.PaymentController</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>RatinngController</servlet-name>
         <servlet-class>controller.RatinngController</servlet-class>
@@ -101,6 +99,10 @@
     <servlet>
         <servlet-name>ConfirmRecharge</servlet-name>
         <servlet-class>controller.ConfirmRecharge</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingScheduleController</servlet-name>
+        <servlet-class>controller.BookingScheduleController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
@@ -182,13 +184,10 @@
         <servlet-name>BookingController</servlet-name>
         <url-pattern>/Booking</url-pattern>
     </servlet-mapping>
-
- <servlet-mapping>
     <servlet-mapping>
         <servlet-name>Payment</servlet-name>
         <url-pattern>/pay/*</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>RatinngController</servlet-name>
         <url-pattern>/rating</url-pattern>
@@ -196,7 +195,6 @@
     <servlet-mapping>
         <servlet-name>MyScheduleController</servlet-name>
         <url-pattern>/my_schedule</url-pattern>
-
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
@@ -209,6 +207,9 @@
     <servlet-mapping>
         <servlet-name>ConfirmRecharge</servlet-name>
         <url-pattern>/recharge_cfm</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingScheduleController</servlet-name>
+        <url-pattern>/book_schedule</url-pattern>
     </servlet-mapping>
 </web-app>

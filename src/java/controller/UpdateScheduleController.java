@@ -130,7 +130,7 @@ public class UpdateScheduleController extends HttpServlet {
         }
         NotificationScheduleDAO notificationDAO = new NotificationScheduleDAO();
         String message = notificationDAO.getNoteSchedule(Integer.parseInt(scheduleId));
-        
+        int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(scheduleId));
 //        String[] checkedValuesSlotOne = new String[]{"begin"};
 //        String[] checkedValuesSlotTwo = new String[]{"begin"};
 //        String[] checkedValuesSlotThree = new String[]{"begin"};
@@ -143,6 +143,7 @@ public class UpdateScheduleController extends HttpServlet {
 //        request.setAttribute("checkedValuesSlotThree", checkedValuesSlotThree);
 //        request.setAttribute("checkedValuesSlotFour", checkedValuesSlotFour);
 //        request.setAttribute("checkedValuesSlotFive", checkedValuesSlotFive);
+        request.setAttribute("status", status);
         request.setAttribute("note", message);
         request.setAttribute("accountId", accountId);
         request.setAttribute("weekDates", weekDates);
@@ -227,6 +228,11 @@ public class UpdateScheduleController extends HttpServlet {
             
             NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
             String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
+            
+            ScheduleDAO scheduleDAO = new ScheduleDAO();
+            int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
+            
+            request.setAttribute("status", status);
             request.setAttribute("note", note);
             request.setAttribute("accountId", accountId);
             request.setAttribute("weeks", weeks);
@@ -333,8 +339,9 @@ public class UpdateScheduleController extends HttpServlet {
 
             String accountId = request.getParameter("accountId");
             
+            int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
             
-            
+            request.setAttribute("status", status);
             request.setAttribute("accountId", accountId);
             request.setAttribute("month", month);
             request.setAttribute("weeks", weeks);
@@ -594,7 +601,9 @@ public class UpdateScheduleController extends HttpServlet {
             
             NotificationScheduleDAO notificationScheduleDAO = new NotificationScheduleDAO();
             String note = notificationScheduleDAO.getNoteSchedule(Integer.parseInt(schedule_id));
+            int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(schedule_id));
             
+            request.setAttribute("status", status);
             request.setAttribute("note", note);
             request.setAttribute("message", message);
             request.setAttribute("weekDates", weekDates);

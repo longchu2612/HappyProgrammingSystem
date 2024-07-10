@@ -168,7 +168,7 @@
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
-                                                    
+
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
                                                             List<String> weeks = (List<String>) request.getAttribute("weeks");
@@ -331,16 +331,26 @@
                                                     <div class="form-group">
                                                         <label for="note">Note</label>
                                                         <textarea class="form-control" id="note" name="note" rows="3" readonly>${requestScope.note}</textarea>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="row mt-3">
-                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Save</button>
-                                                    </div>
-                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Submit</button>
-                                                    </div>
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.status == 1}">
+                                                            
+                                                        </c:when>
+                                                        <c:when test="${requestScope.status == 2}">
+                                                            
+                                                        </c:when>
+                                                        <c:when test="${requestScope.status == 3}">
+                                                            <div class="submit-section col-md-1">
+                                                                <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Save</button>
+                                                            </div>
+                                                            <div class="submit-section col-md-1">
+                                                                <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </c:when>
+                                                    </c:choose>
                                                 </div>
                                             </div>
                                         </form>
