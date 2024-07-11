@@ -49,7 +49,10 @@ public class BookingController extends HttpServlet {
         }
         switch (service) {
             case "all_skill" -> {
-                ArrayList<Mentor> listM = new BookingDAO().getAllMentor();
+                String[] selectedSkills = new String[0];
+                ArrayList<Mentor> listM = new BookingDAO().getAllMentor(selectedSkills);
+                ArrayList<Skill> listSkill = new SkillDAO().getAllSkill();
+                request.setAttribute("listSkill", listSkill);
                 request.setAttribute("listM", listM);
                 request.setAttribute("listSize", listM.size());
                 request.getRequestDispatcher("all-course.jsp").forward(request, response);
@@ -59,6 +62,16 @@ public class BookingController extends HttpServlet {
                 ArrayList<Mentor> listM = new BookingDAO().getAllMentorBySkillId(skillId);
                 request.setAttribute("listM", listM);
                 request.setAttribute("listSize", listM.size());
+                request.getRequestDispatcher("all-course.jsp").forward(request, response);
+            }
+            case "filter_skill" -> {
+                String[] selectedSkills = request.getParameterValues("select_specialist");
+                ArrayList<Mentor> listM = new BookingDAO().getAllMentor(selectedSkills);
+                ArrayList<Skill> listSkill = new SkillDAO().getAllSkill();
+                request.setAttribute("listSkill", listSkill);
+                request.setAttribute("listM", listM);
+                request.setAttribute("listSize", listM.size());
+                request.setAttribute("selectedSkills", selectedSkills);
                 request.getRequestDispatcher("all-course.jsp").forward(request, response);
             }
 //            case "course_details" -> {
@@ -262,7 +275,7 @@ public class BookingController extends HttpServlet {
 //            request.setAttribute("weekDates", weekDates);
 //        }
 //        request.getRequestDispatcher("course_details.jsp").forward(request, response);
-    }   
+    }
 
     /**
      * Returns a short description of the servlet.

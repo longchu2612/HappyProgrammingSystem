@@ -153,8 +153,6 @@
                                    <p style="color: red; font-weight: bold;">This mentor does not have a class schedule yet.</p>
                                 </c:when>
                                 <c:otherwise>
-
-
                                     <div class="card col-12">
                                         <div class="card-body">
                                             <div class="row form-row">
