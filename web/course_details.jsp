@@ -150,6 +150,8 @@
                             </div>
                             <div class="card col-12">
                                 <div class="card-body">
+                                    
+                                        
                                     <div class="row form-row">
                                         <div class="col-12 col-md-12">
                                             <div class="form-group">
@@ -170,7 +172,7 @@
                                                     <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
                                                     <input type="hidden" name="mentorId_form_updateyear" value="${requestScope.mentorId}"/>
                                                     <input type="hidden" name="phone_form_updateyear" value="${requestScope.phone}"/>
-                                                    
+
                                                     <select style="margin-bottom: 5px;" id="yearForm" class="form-select" name="selectYear">
                                                         <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
                                                         <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
@@ -212,7 +214,7 @@
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
                                                     <input type="hidden" name="mentorId_form_updateweek" value="${requestScope.mentorId}"/>
                                                     <input type="hidden" name="phone_form_updateweek" value="${requestScope.phone}"/>
-                                                   
+
 
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
@@ -225,10 +227,7 @@
                                                         %>
                                                         <option value="<%= weekIndex%>" <% if (weekIndex == currentIsoWeek) { %>selected<% }%>><%= week%></option>
                                                         <%
-                                                                weekIndex++;
-                                                            }
-                                                        } else {
-                                                        %>
+                                                        %> 
                                                         <option value="">No weeks available</option>
                                                         <%
                                                             }
@@ -366,6 +365,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="submit-section col-md-2 mb-3">                          

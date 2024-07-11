@@ -105,10 +105,17 @@ public class BookingScheduleController extends HttpServlet {
         }
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         Schedule schedule = scheduleDAO.getLastestSchedule(acc.getAccount_id());
-
+     
         String scheduleId = String.valueOf(schedule.getId());
         String month = String.valueOf(schedule.getMonth());
         List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule.getId(), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
+        
+        if(schedule == null){ 
+            request.setAttribute("check", false);
+        }else { 
+            request.setAttribute("check", true);
+        }
+        
         request.setAttribute("mentor", acc);
         request.setAttribute("mentorId", acc.getAccount_id());
         request.setAttribute("phone", phone);
