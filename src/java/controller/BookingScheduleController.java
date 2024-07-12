@@ -105,23 +105,28 @@ public class BookingScheduleController extends HttpServlet {
         }
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         Schedule schedule = scheduleDAO.getLastestSchedule(acc.getAccount_id());
-
-        String scheduleId = String.valueOf(schedule.getId());
-        String month = String.valueOf(schedule.getMonth());
-        List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule.getId(), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
+        if(schedule == null){ 
+            request.setAttribute("check", false);
+        }else {
+            String scheduleId = String.valueOf(schedule.getId());
+            String month = String.valueOf(schedule.getMonth());
+            List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule.getId(), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
+            request.setAttribute("check", true);
+            request.setAttribute("scheduleId", scheduleId);
+            request.setAttribute("slots", slots);
+            request.setAttribute("month", month);
+        }
+        
         request.setAttribute("mentor", acc);
         request.setAttribute("mentorId", acc.getAccount_id());
         request.setAttribute("phone", phone);
         request.setAttribute("mentor_cv", cv);
         request.setAttribute("listS", listS);
-        request.setAttribute("slots", slots);
         request.setAttribute("accountId", String.valueOf(acc.getAccount_id()));
         request.setAttribute("weekDates", weekDates);
         request.setAttribute("isoWeek", isoWeek);
-        request.setAttribute("scheduleId", scheduleId);
         request.setAttribute("weeks", weeks);
         request.setAttribute("currentYear", currentYear);
-        request.setAttribute("month", month);
         request.getRequestDispatcher("course_details.jsp").forward(request, response);
     }
 

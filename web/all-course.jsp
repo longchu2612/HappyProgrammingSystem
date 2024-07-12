@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,74 +68,83 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
-                            <form>
+                            <form action="Booking" method="POST">
+                                <input type="hidden" name="service" value="filter_skill"/>
                                 <div class="card search-filter">
                                     <div class="card-header">
-                                        <h4 class="card-title mb-0">Search Filter</h4>
+                                        <h4 class="card-title mb-0">Filter</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="filter-widget">
-                                            <div class="cal-icon">
-                                                <input type="text" class="form-control datetimepicker"
-                                                       placeholder="Select Date">
-                                            </div>
-                                        </div>
-                                        <div class="filter-widget">
-                                            <h4>Gender</h4>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type" checked>
-                                                    <span class="checkmark"></span> Male
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type">
-                                                    <span class="checkmark"></span> Female
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="filter-widget">
+                                                                                    <div class="cal-icon">
+                                                                                        <input type="text" class="form-control datetimepicker"
+                                                                                               placeholder="Select Date">
+                                                                                    </div>
+                                                                                </div>-->
+                                        <!--                                        <div class="filter-widget">
+                                                                                    <h4>Gender</h4>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type" checked>
+                                                                                            <span class="checkmark"></span> Male
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type">
+                                                                                            <span class="checkmark"></span> Female
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>-->
                                         <div class="filter-widget">
                                             <h4>Select Courses</h4>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist" checked>
-                                                    <span class="checkmark"></span> Digital Marketer
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist" checked>
-                                                    <span class="checkmark"></span> UNIX, Calculus, Trigonometry
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> Computer Programming
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> ASP.NET,Computer Gaming
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> HTML, Css
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> VB, VB.net
-                                                </label>
-                                            </div>
+                                            <c:forEach var="skill" items="${requestScope.listSkill}">
+                                                <div>
+                                                    <label class="custom_check">
+                                                        <input type="checkbox" value="${skill.skillId}" name="select_specialist" 
+                                                               <c:forEach var="selectedSkill" items="${requestScope.selectedSkills}">
+                                                                   <c:if test="${skill.skillId == selectedSkill}">
+                                                                       checked
+                                                                   </c:if>
+                                                               </c:forEach>
+                                                               />
+                                                        <span class="checkmark"></span> ${skill.skillName}
+                                                    </label>
+                                                </div>
+                                            </c:forEach>
+                                            <!--                                            <div>
+                                                                                            <label class="custom_check">
+                                                                                                <input type="checkbox" name="select_specialist" checked>
+                                                                                                <span class="checkmark"></span> UNIX, Calculus, Trigonometry
+                                                                                            </label>
+                                                                                        </div>-->
+                                            <!--                                            <div>
+                                                                                            <label class="custom_check">
+                                                                                                <input type="checkbox" name="select_specialist">
+                                                                                                <span class="checkmark"></span> Computer Programming
+                                                                                            </label>
+                                                                                        </div>-->
+                                            <!--                                            <div>
+                                                                                            <label class="custom_check">
+                                                                                                <input type="checkbox" name="select_specialist">
+                                                                                                <span class="checkmark"></span> ASP.NET,Computer Gaming
+                                                                                            </label>
+                                                                                        </div>-->
+                                            <!--                                            <div>
+                                                                                            <label class="custom_check">
+                                                                                                <input type="checkbox" name="select_specialist">
+                                                                                                <span class="checkmark"></span> HTML, Css
+                                                                                            </label>
+                                                                                        </div>-->
+                                            <!--                                            <div>
+                                                                                            <label class="custom_check">
+                                                                                                <input type="checkbox" name="select_specialist">
+                                                                                                <span class="checkmark"></span> VB, VB.net
+                                                                                            </label>
+                                                                                        </div>-->
                                         </div>
                                         <div class="btn-search">
-                                            <button type="button" class="btn btn-block w-100">Search</button>
+                                            <button type="submit" class="btn btn-block w-100">Search</button>
                                         </div>
                                     </div>
                                 </div>
@@ -189,11 +199,11 @@
                                                     </ul>
                                                 </div>
                                                 <div class="mentor-booking">
-<!--                                                    <form action="book_schedule?service=course_details" method="get">
-                                                        <input type="hidden" name="mentorId" value="">
-                                                        <input type="hidden" name="cvId" value="">-->
-                                                        <button class="btn btn-primary" onclick="window.location.href='book_schedule?mentorId=${mentor.id}&cvId=${mentor.cvId}'">Details</button>
-<!--                                                    </form>-->
+                                                    <!--                                                    <form action="book_schedule?service=course_details" method="get">
+                                                                                                            <input type="hidden" name="mentorId" value="">
+                                                                                                            <input type="hidden" name="cvId" value="">-->
+                                                    <button class="btn btn-primary" onclick="window.location.href = 'book_schedule?mentorId=${mentor.id}&cvId=${mentor.cvId}'">Details</button>
+                                                    <!--                                                    </form>-->
                                                 </div>
                                             </div>
                                         </div>

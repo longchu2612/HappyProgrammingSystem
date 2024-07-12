@@ -14,17 +14,42 @@ import model.*;
  */
 public class BookingDAO extends DBContext {
 
-    public ArrayList<Mentor> getAllMentor() {
+    public ArrayList<Mentor> getAllMentor(String[] selectedSkills) {
         ArrayList<Mentor> list = new ArrayList<>();
+        List<Integer> skillIds = new ArrayList<>();
 
-        String query1 = """
-                       Select acc.id as AccId, cv.id as cvId, acc.fullname, cv.job, acc.address, cv.avatar
-                       from Account acc
-                       join CV cv on acc.id = cv.accountID
-                       join CV_Skill cv_s on cv.id = cv_s.cv_id
-                       where acc.roleID = 2 and cv.status = 'Approve'
-                       group by acc.id ,acc.fullname, cv.job, acc.address, cv.id, cv.avatar
-                       """;
+        if (selectedSkills != null) {
+            for (String skillId : selectedSkills) {
+                skillIds.add(Integer.parseInt(skillId));
+            }
+        }
+
+//        String query1 = """
+//                       Select acc.id as AccId, cv.id as cvId, acc.fullname, cv.job, acc.address, cv.avatar
+//                       from Account acc
+//                       join CV cv on acc.id = cv.accountID
+//                       join CV_Skill cv_s on cv.id = cv_s.cv_id
+//                       where 1=1 and acc.roleID = 2 and cv.status = 'Approve'
+//                       group by acc.id ,acc.fullname, cv.job, acc.address, cv.id, cv.avatar
+//                       """;
+        StringBuilder query1 = new StringBuilder("""
+        Select acc.id as AccId, cv.id as cvId, acc.fullname, cv.job, acc.address, cv.avatar
+               from Account acc
+               join CV cv on acc.id = cv.accountID
+               join CV_Skill cv_s on cv.id = cv_s.cv_id
+               where 1=1 and acc.roleID = 2 and cv.status = 'Approve'
+        """);
+        if (!skillIds.isEmpty()) {
+            query1.append(" and cv_s.skill_id in (");
+            for (int i = 0; i < skillIds.size(); i++) {
+                query1.append("?");
+                if (i < skillIds.size() - 1) {
+                    query1.append(",");
+                }
+            }
+            query1.append(")");
+        }
+        query1.append("group by acc.id, acc.fullname, cv.job, acc.address, cv.id, cv.avatar");
         String query2 = """
                        select s.id, s.name
                        from Skill s
@@ -38,7 +63,11 @@ public class BookingDAO extends DBContext {
 
         try {
             conn = new DBContext().conn;
-            ps1 = conn.prepareStatement(query1);
+            ps1 = conn.prepareStatement(query1.toString());
+            int paramIndex = 1;
+            for (Integer skillId : skillIds) {
+                ps1.setInt(paramIndex++, skillId);
+            }
             rs1 = ps1.executeQuery();
             while (rs1.next()) {
                 int AccId = rs1.getInt("AccId");
@@ -159,11 +188,12 @@ public class BookingDAO extends DBContext {
         }
         return null;
     }
+
     public static void main(String[] args) {
         BookingDAO dao = new BookingDAO();
-        ArrayList<Mentor> list = dao.getAllMentor();
-        for (Mentor m : list ) {
-            System.out.println(m);
-        }
+//        ArrayList<Mentor> list = dao.getAllMentor();
+//        for (Mentor m : list) {
+//            System.out.println(m);
+//        }
     }
 }
