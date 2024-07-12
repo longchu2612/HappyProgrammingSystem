@@ -25,49 +25,31 @@ public class RequestController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String service = request.getParameter("service");
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         RequestDAO daoReq = new RequestDAO();
         OrderDAO daoOrder = new OrderDAO();
         if (account != null) {
-            switch (service) {
-                case "list_request" -> {
-
-                    int roleId = account.getRole().getRole_id();
-                    switch (roleId) {
-                        case 1 -> {
-                            ArrayList<Request> listRq = daoReq.getRequestByCreateBy(account.getAccount_id());
-                            request.setAttribute("listRq", listRq);
-                            request.getRequestDispatcher("list-request.jsp").forward(request, response);
-                        }
-                        case 2 -> {
-                        }
-                        default -> {
-                        }
-                    }
-                }
-                case "create_request" -> {
-                    Account acc = new AccountDAO().getAccountByAccId(request.getParameter("mentorId"));
-                    CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
-                    ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(request.getParameter("cvId"));
-                    Request req = daoReq.checkRequestDraft(account.getAccount_id(), acc.getAccount_id());
-                    if (req == null) {
-                        request.setAttribute("acc", acc);
-                        request.setAttribute("cv", cv);
-                        request.setAttribute("listS", listS);
-                        request.getRequestDispatcher("request-booking.jsp").forward(request, response);
-                    } else {
-                        response.sendRedirect("alert-request.jsp");
-                    }
-
-                }
-                
-                case "update" -> {
-                    
-                }
-                default -> {
-                }
+            Account acc = new AccountDAO().getAccountByAccId(request.getParameter("mentorId"));
+            CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
+            ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(request.getParameter("cvId"));
+            Request req = daoReq.checkRequestDraft(account.getAccount_id(), acc.getAccount_id());
+            if (req == null) {
+                request.setAttribute("acc", acc);
+                request.setAttribute("cv", cv);
+                request.setAttribute("listS", listS);
+                request.getRequestDispatcher("request-booking.jsp").forward(request, response);
+            } else {
+                request.setAttribute("acc", acc);
+                request.setAttribute("cv", cv);
+                request.setAttribute("listS", listS);
+                request.getRequestDispatcher("request-booking.jsp").forward(request, response);
             }
         } else {
             response.sendRedirect("login.jsp");
@@ -75,16 +57,8 @@ public class RequestController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-//        processRequest(request, response);
-
-          
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
+       
     }
 
     @Override

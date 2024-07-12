@@ -170,7 +170,7 @@
                                                     <input type="hidden" name="month_form_updateyear" value="${requestScope.month}"/>
                                                     <input type="hidden" name="mentorId_form_updateyear" value="${requestScope.mentorId}"/>
                                                     <input type="hidden" name="phone_form_updateyear" value="${requestScope.phone}"/>
-                                                    
+
                                                     <select style="margin-bottom: 5px;" id="yearForm" class="form-select" name="selectYear">
                                                         <option value="2023" ${requestScope.currentYear == 2023 ? 'selected' : ''}>2023</option>
                                                         <option value="2024" ${requestScope.currentYear == 2024 ? 'selected' : ''}>2024</option>
@@ -212,7 +212,7 @@
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
                                                     <input type="hidden" name="mentorId_form_updateweek" value="${requestScope.mentorId}"/>
                                                     <input type="hidden" name="phone_form_updateweek" value="${requestScope.phone}"/>
-                                                   
+
 
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
@@ -253,14 +253,7 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
-
                                                             <th rowspan="2"> 
-
-
-
-
-
-
                                                             </th>
                                                             <th>Monday</th>
                                                             <th>Tuesday</th>
@@ -270,9 +263,6 @@
                                                             <th>Saturday</th>
                                                             <th>Sunday</th>
                                                         </tr>
-
-
-
                                                         <tr id="weekDays">
                                                             <%
                                                                 // Lấy mảng weekDates từ model attribute
@@ -290,9 +280,7 @@
                                                             <td colspan="7">No data available</td>
                                                             <% }%>
                                                         </tr>
-
                                                     </thead>
-
                                                     <tbody>
 
                                                         <%
@@ -301,9 +289,6 @@
                                                         <%
                                                             int currentMonth = Integer.parseInt(String.valueOf(request.getAttribute("month")));
                                                         %>
-
-
-
                                                         <tr>
                                                             <td>Slot 1 (7h30 --> 9h30)</td>
                                                             <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" data-day-index="0" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[0])%>  disabled></td>
@@ -369,21 +354,14 @@
                                 </div>
                             </div>
                             <div class="submit-section col-md-2 mb-3">                          
-                                <form action="request?service=create_request" method="post">
+                                
                                     <input type="hidden" name="mentorId" value="${requestScope.mentor_cv.accountID}">
                                     <input type="hidden" name="cvId" value="${requestScope.mentor_cv.id}">
-                                    <button type="submit" class="btn btn-primary">Create request</button>
-
-                                </form>
+                                    <a class="btn btn-primary" href="request?mentorId=${requestScope.mentor_cv.accountID}&cvId=${requestScope.mentor_cv.id}">Create request</a>
+                                
                             </div>  
                         </div>
                     </div>
-
-                    <!--                    <form action="request?service=create_request" method="post">
-                                            <input type="hidden" name="mentorId" value="${requestScope.mentor_cv.accountID}">
-                                            <input type="hidden" name="cvId" value="${requestScope.mentor_cv.id}">
-                                            <button type="submit" class="btn btn-block btn-course">Create request</button>
-                                        </form>-->
                 </div>
             </div>
 

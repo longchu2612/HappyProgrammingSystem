@@ -34,8 +34,13 @@
                     <c:if test="${sessionScope.account != null}">
                         <ul class="main-nav">
                             <c:if test="${sessionScope.account.role.role_id == 1}">
-                                <li>
-                                    <p>${sessionScope.account.balance}</p>
+                                <li class="has-submenu">
+                                    <a href>Wallet <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a>Balance: ${sessionScope.account.balance} VND</a></li>
+                                        <li><a href="">Volatility</a></li>
+                                        <li><a href="recharge.jsp">Recharge</a></li>
+                                    </ul>
                                 </li>
                                 <li class="has-submenu">
                                     <a href>Hello, ${sessionScope.account.fullname} <i class="fas fa-chevron-down"></i></a>
@@ -44,7 +49,6 @@
                                         <li><a href="#">Mentee Dashboard</a></li>
                                         <li><a href="Booking">Search Mentor</a></li>
                                         <li><a href="#">My request</a></li>
-                                        <li><a href="recharge.jsp">Recharge</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="#">Profile Settings</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>
@@ -53,6 +57,14 @@
                             </c:if>
                             <c:if test="${sessionScope.account.role.role_id == 2}">
                                 <li class="has-submenu">
+                                    <a href>Wallet <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a>Balance: ${sessionScope.account.balance} VND</a></li>
+                                        <li><a href="">Volatility</a></li>
+                                        <li><a href="recharge.jsp">Recharge</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
                                     <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li><a href="profile">Profile</a></li>
@@ -60,7 +72,6 @@
                                         <li><a href="createSchedule.jsp">Create schedule</a></li>
                                         <li><a href="schedule_mentor">Schedule Timing</a></li>
                                         <li><a href="my_schedule">My Schedule</a></li>
-                                        <li><a href="recharge.jsp">Recharge</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>
                                     </ul>

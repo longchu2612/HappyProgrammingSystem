@@ -77,7 +77,7 @@
                             </p>
                             <p class="mb-0">
                                 <i class="fas fa-envelope"></i>
-                                <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cba6aea5bfa4b9a2a5ac8baeb3aaa6bba7aee5a8a4a6">[email&#160;protected]</a>
+                                <a href="https://mentoring.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="08656d667c677a61666f486d70696578646d266b6765">[email&#160;protected]</a>
                             </p>
                         </div>
                     </div>
@@ -104,4 +104,4 @@
         </div>
     </div>
 
-</footer>
+</footer>     
