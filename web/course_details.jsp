@@ -150,7 +150,7 @@
 
                             <c:choose>
                                 <c:when test="${requestScope.check == false}">
-                                   <p style="color: red; font-weight: bold;">This mentor does not have a class schedule yet.</p>
+                                    <p style="color: red; font-weight: bold;">This mentor does not have a class schedule yet.</p>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="card col-12">
@@ -371,12 +371,12 @@
                                                     </div>
                                                 </form>
                                                 <div class="submit-section col-md-2 mb-3 mt-3">                          
-                                                    <form action="request?service=create_request" method="post">
-                                                        <input type="hidden" name="mentorId" value="${requestScope.mentor_cv.accountID}">
-                                                        <input type="hidden" name="cvId" value="${requestScope.mentor_cv.id}">
-                                                        <button type="submit" class="btn btn-primary">Create request</button>
-
-                                                    </form>
+                                                    <!--                                                    <form action="request?service=create_request" method="post">-->
+                                                    <!--                                                        <input type="hidden" name="mentorId" value="${requestScope.mentor_cv.accountID}">
+                                                                                                            <input type="hidden" name="cvId" value="${requestScope.mentor_cv.id}">
+                                                                                                            <button type="submit" class="btn btn-primary">Create request</button>-->
+                                                    <button type="submit" class="btn btn-primary" onclick="window.location.href = 'request?mentorId=${requestScope.mentor_cv.accountID}&cvId=${requestScope.mentor_cv.id}'">Create request</button>
+                                                    <!--                                                    </form>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -412,13 +412,13 @@
 
         <script>
 
-                                                        document.getElementById('yearForm').addEventListener('change', function () {
-                                                            document.getElementById('updateYear').submit();
-                                                        });
+    document.getElementById('yearForm').addEventListener('change', function () {
+        document.getElementById('updateYear').submit();
+    });
 
-                                                        document.getElementById("weekSelect").onchange = function () {
-                                                            document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
-                                                        };
+    document.getElementById("weekSelect").onchange = function () {
+        document.getElementById("updateWeek").submit(); // Submit form khi onchange dropdown
+    };
         </script>
     </body>
 

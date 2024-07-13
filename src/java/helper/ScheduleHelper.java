@@ -65,4 +65,16 @@ public class ScheduleHelper {
         
     }
     
+    public static String isCheckedSlotByDateDisable(List<Slot> slots, int slot, String date){
+        if(slots != null){
+            for(Slot s : slots){
+                if(s.getSlot()== slot && s.getTeach_date().toString().equals(date)){
+                    return "";
+                }
+            }
+        }
+        return "disabled";
+        
+    }
+    
 }
