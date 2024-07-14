@@ -11,6 +11,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.List" %>
 <%@page import="model.Slot" %>
+<%@page import="model.Request" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.temporal.WeekFields" %>
 <%@ page import="java.time.DayOfWeek" %>
@@ -140,7 +141,8 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" name="button_action" value="save" class="btn btn-primary">Save</button>
+                                            <button type="submit" name="button_action" value="create_schedule" class="btn btn-primary">Create Schedule</button>
                                         </div>
                                     </form>
 
@@ -157,6 +159,25 @@
                                 <div class="card-body">
                                     <div class="row form-row">
                                         <div class="col-12 col-md-12">
+                                            <%
+                                                Request req = (Request) session.getAttribute("request");
+                                                String skill = (String) session.getAttribute("skill"); 
+                                                if (req != null) {
+                                                String title = req.getTitle();
+                                                String content = req.getContent();
+                                                String deadline = req.getDeadline().toString();
+                                                
+                                                String link = "request?title=" + title + "&content=" + content + "&deadline=" + deadline + "&skill=" + skill;
+
+                                            %>
+
+                                            <div>
+                                                <a class="btn btn-secondary mb-3" href="<%= link %>">Back</a>
+                                            </div>
+                                            <%
+                                                }
+                                            %>
+
                                             <div class="form-group">
                                                 <h4>Add Schedule</h4>
                                             </div>
@@ -212,8 +233,7 @@
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
 
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
-                                                        <%
-                                                            List<String> weeks = (List<String>) request.getAttribute("weeks");
+                                                        <%                                                            List<String> weeks = (List<String>) request.getAttribute("weeks");
                                                             Integer currentIsoWeek = (Integer) request.getAttribute("isoWeek");
                                                             int weekIndex = 1;
 
@@ -371,10 +391,12 @@
 
                                                 </table>
 
-                                                <div class="row">
-                                                    <div class="col-12 col-md-2"><button type="submit" class="btn btn-primary">Repeat Schedule</button></div>
-                                                    <div class="col-12 col-md-2"><button type="submit" class="btn btn-primary">Save</button></div>
-                                                    <div class="col-12 col-md-2"><button type="submit" class="btn btn-primary">Submit</button></div>
+                                                <div class="row mt-3">
+                                                    <div class="col-12 col-md-9 ">
+                                                        <button type="submit" class="btn btn-primary">Repeat Schedule</button>
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
