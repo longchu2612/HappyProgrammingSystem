@@ -38,9 +38,9 @@ public class CVDAO extends DBContext {
 
     public void createNewCV(String accountID, String avatar) {
         String sql = """
-                     INSERT INTO CV (accountID, avatar, job, introduction, created_at, modified_at, achievements)
+                     INSERT INTO CV (accountID, avatar, job, introduction, created_at, modified_at, achievements, status)
                      VALUES
-                     (?, ?, null, null, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null)""";
+                     (?, ?, null, null, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null, 'Draft')""";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, accountID);

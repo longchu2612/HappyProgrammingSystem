@@ -139,7 +139,7 @@ public class ProfileController extends HttpServlet {
                     request.setAttribute("data", data);
                     request.getRequestDispatcher("profile-settings.jsp").forward(request, response);
                 } else if (c.checkCVExistanceById(String.valueOf(accountID)) == false) {
-
+                    request.setAttribute("phone", "0" + String.valueOf(ac.getPhone()));
                     request.getRequestDispatcher("profile-settings-withoutCV.jsp").forward(request, response);
                 }
             } else if (a.getRoleById(String.valueOf(accountID)) == 1) {
@@ -186,15 +186,15 @@ public class ProfileController extends HttpServlet {
             case "cv" -> {
                 String avatar = a.getAvatarById(String.valueOf(accountID));
                 c.createNewCV(String.valueOf(accountID), avatar);
-                response.sendRedirect("/HappyProgrammingSystem/profile");
             }
             case "save" -> {
                 String job = request.getParameter("job");
                 String rate = request.getParameter("rate");
                 String introduction = request.getParameter("introduction");
                 String achievements = request.getParameter("achievements");
-                String avatar = a.getAvatarById(String.valueOf(accountID));
-                if (avatar.equals("")) {
+                String avatar = "";
+                avatar = a.getAvatarById(String.valueOf(accountID));
+                if (avatar == null || avatar.isBlank()) {
                     avatar = "uploads/0.png";
                 }
                 SkillsDAO s = new SkillsDAO();
@@ -243,8 +243,10 @@ public class ProfileController extends HttpServlet {
                     Path source = Paths.get(tempPath + "/" + filename);
                     String realPath = request.getServletContext().getRealPath("/uploads");
                     String fullpath = realPath + "\\" + accountID + ".png";
+                    String fullpathAdmin = realPath.replace("/uploads", "admin/uploads") + "\\" + accountID + ".png";
                     avatar = "uploads/" + accountID + ".png";
                     Files.move(source, source.resolveSibling(fullpath), REPLACE_EXISTING);
+                    Files.move(source, source.resolveSibling(fullpathAdmin), REPLACE_EXISTING);
                 }
                 a.updateAccountById(String.valueOf(accountID), account_name, email, name, phone, dob, sex, address, avatar);
                 if (account_name.equals("") == false) {

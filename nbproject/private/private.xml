@@ -3,15 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/rating.jsp</file>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/controller/ProfileController.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/list-skill.jsp</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/Skill.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/controller/AccountController.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/dao/RatingDAO.java</file>
             <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/dao/AccountDAO.java</file>
             <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/Account.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/AccountMentor.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/controller/SkillsController.java</file>
             <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/dao/CVDAO.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/admin/assets/plugins/fontawesome/css/all.min.css</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/controller/ProfileMenteeController.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/profile-settings-withoutCV.jsp</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/profile-settings.jsp</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/Role.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/controller/ProfileController.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/profile-settings-mentee.jsp</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/Skill_displayed.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/dao/SkillsDAO.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Admin/OneDrive/Documents/GitHub/HappyProgrammingSystem/src/java/model/CV.java</file>
         </group>
     </open-files>
 </project-private>

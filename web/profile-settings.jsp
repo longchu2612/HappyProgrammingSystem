@@ -277,7 +277,7 @@
                                                 </div>
                                             </div>
                                             <div class="submit-section" style="padding: 10px">
-                                                &emsp; <button name="do" type="submit" class="btn btn-primary submit-btn" value="save-profile">Update profile</button>
+                                                &emsp; <button name="do" type="submit" class="btn btn-primary submit-btn" value="save-profile" style="width: 200px">Update profile</button>
                                             </div>
                                             <div class="col-12" style="background: #E4E4E4; padding: 10px">
                                                 <div class="row">
@@ -288,7 +288,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Rate ($/hrs)</label>
-                                                            <input type="number" name="rate" value="${cv.getRate()}" class="form-control" min="1" step="1">
+                                                            <input type="number" name="rate" value="${cv.getRate()}" class="form-control" min="0" step="1">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-6">
@@ -319,7 +319,7 @@
                                             </div>
                                         </div>
                                         <div class="submit-section" style="padding: 10px">
-                                            <button name="do" type="submit" class="btn btn-primary submit-btn" value="save">Update CV</button>
+                                            <button name="do" type="submit" class="btn btn-primary submit-btn" value="save" style="width: 200px">Update CV</button>
                                         </div>
                                     </div>
                                 </div>

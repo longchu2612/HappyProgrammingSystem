@@ -102,7 +102,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Account Name</label>
-                                                    <input type="text" class="form-control" value="${username}"name="newname"required>
+                                                    <input type="text" class="form-control" value="${username}" name="newname" required>
 
                                                 </div>
                                             </div>

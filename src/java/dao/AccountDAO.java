@@ -550,7 +550,12 @@ public class AccountDAO extends DBContext {
                 Date dob = rs.getDate("dob");
                 boolean sex = rs.getBoolean("sex");
                 String address = rs.getString("address");
-                String avatar = rs.getString("avatar");
+                String avatar = "";
+                if (rs.getString("avatar") == null || rs.getString("avatar").isBlank()) {
+                    avatar = "uploads/0.png";
+                } else {
+                    avatar = rs.getString("avatar");
+                }
                 return new Account(email, fullname, phonenumber, dob, sex, address, avatar);
             }
 
