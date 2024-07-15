@@ -186,7 +186,7 @@ public class ProfileController extends HttpServlet {
             case "cv" -> {
                 String avatar = a.getAvatarById(String.valueOf(accountID));
                 c.createNewCV(String.valueOf(accountID), avatar);
-                response.sendRedirect("/HappyProgrammingSystem/profile");
+                
             }
             case "save" -> {
                 String job = request.getParameter("job");

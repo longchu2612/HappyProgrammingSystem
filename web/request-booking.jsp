@@ -181,6 +181,9 @@
                                             <div class="form-group">
                                                 <h4>Add Schedule</h4>
                                             </div>
+                                            <h4 style="color: red; align-content: center;">
+                                                ${requestScope.messageSchedule}
+                                            </h4>
                                         </div>
                                         <div class="row">   
 
@@ -233,7 +236,7 @@
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
 
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
-                                                        <%                                                            List<String> weeks = (List<String>) request.getAttribute("weeks");
+                                                        <%  List<String> weeks = (List<String>) request.getAttribute("weeks");
                                                             Integer currentIsoWeek = (Integer) request.getAttribute("isoWeek");
                                                             int weekIndex = 1;
 
@@ -259,7 +262,7 @@
                                         </div>         
                                         <form action="request" method="Post">
 
-                                            <input type="hidden"  name="action" value="update_schedule_week"/>
+                                            <input type="hidden"  name="action" value="choose_schedule_week"/>
                                             <input type="hidden" name="year_update_schedule" value="${requestScope.currentYear}"/>
                                             <input type="hidden"  name="week_update_schedule" value="${requestScope.isoWeek}"/>
                                             <input type="hidden" name="month_update_schedule" value="${requestScope.month}"/>
@@ -393,9 +396,9 @@
 
                                                 <div class="row mt-3">
                                                     <div class="col-12 col-md-9 ">
-                                                        <button type="submit" class="btn btn-primary">Repeat Schedule</button>
-                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                                        <button type="submit" name="actionType" value="save" class="btn btn-primary">Save</button>
+                                                        <button type="submit" name="actionType" value="repeat" class="btn btn-primary">Repeat Schedule</button>
+                                                        <button type="submit" name="actionType" value="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -92,28 +92,27 @@ public class RequestController extends HttpServlet {
         CV cv = new CVDAO().getCVByAccId(request.getParameter("mentorId"));
         ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(request.getParameter("cvId"));
         String cvId = request.getParameter("cvId");
-        
 
         // Schedule
         String accountId = request.getParameter("mentorId");
         //Back to Create Request
-        String title = (String)request.getParameter("title");
-        String content = (String)request.getParameter("content");
-        String deadline = (String)request.getParameter("deadline");
-        String skill = (String)request.getParameter("skill");
-        if(title != null){ 
+        String title = (String) request.getParameter("title");
+        String content = (String) request.getParameter("content");
+        String deadline = (String) request.getParameter("deadline");
+        String skill = (String) request.getParameter("skill");
+        if (title != null) {
             request.setAttribute("title", title);
         }
-        if(content != null){ 
+        if (content != null) {
             request.setAttribute("content", content);
         }
-        if(deadline != null){ 
+        if (deadline != null) {
             request.setAttribute("deadline", deadline);
         }
-        if(skill != null){ 
+        if (skill != null) {
             request.setAttribute("skill", skill);
         }
-        
+
         request.setAttribute("accountId", accountId);
         request.setAttribute("acc", acc);
         request.setAttribute("cv", cv);
@@ -181,7 +180,7 @@ public class RequestController extends HttpServlet {
                 HttpSession session = request.getSession();
                 Request req = (Request) session.getAttribute("request");
                 if (req != null) {
-                    
+
                     int currentYear = Year.now().getValue();
                     WeekFields weekFields = WeekFields.ISO;
                     List<String> weeks = new ArrayList<>();
@@ -219,15 +218,15 @@ public class RequestController extends HttpServlet {
                     request.setAttribute("isoWeek", isoWeek);
                     request.setAttribute("weeks", weeks);
                     request.setAttribute("currentYear", currentYear);
-                    
+
                 } else {
                     request.setAttribute("errorMessage", "You have not entered data for the request.");
                     request.setAttribute("accountId", mentorId);
                     request.setAttribute("cvId", cvId);
                     request.setAttribute("listS", listS);
-                    
+
                 }
-                
+
             }
         }
         if (action.equals("update_year")) {
@@ -334,6 +333,133 @@ public class RequestController extends HttpServlet {
             request.setAttribute("isFormFilled", true);
             request.setAttribute("currentYear", Integer.parseInt(currentYear));
             request.setAttribute("weekDates", weekDates);
+        }
+        if (action.equals("choose_schedule_week")) {
+            ScheduleDAO scheduleDAO = new ScheduleDAO();
+            String month = request.getParameter("month_update_schedule");
+            String year = request.getParameter("year_update_schedule");
+            String weekValue = request.getParameter("week_update_schedule");
+            String schedule_id = request.getParameter("schedule_id_schedule");
+
+            String[] checkedValuesSlotOne = request.getParameterValues("slot_1");
+            String[] checkedValuesSlotTwo = request.getParameterValues("slot_2");
+            String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
+            String[] checkedValuesSlotFour = request.getParameterValues("slot_4");
+            String[] checkedValuesSlotFive = request.getParameterValues("slot_5");
+            
+            HttpSession session = request.getSession();
+
+            String messageSchedule = "";
+            LocalDate startOfWeek = LocalDate.of(Integer.parseInt(year), 1, 1)
+                    .with(WeekFields.ISO.weekOfWeekBasedYear(), Integer.parseInt(weekValue))
+                    .with(DayOfWeek.MONDAY);
+            LocalDate endOfWeek = startOfWeek.plusDays(6);
+            String button_action_2 = request.getParameter("actionType");
+
+            if (button_action_2.equals("save")) {
+                boolean isWeekContainingMonth = false;
+                LocalDate currentDay = startOfWeek;
+                while (currentDay.isBefore(endOfWeek.plusDays(1))) { // plusDays(1) để bao gồm cả ngày kết thúc
+                    if (currentDay.getMonthValue() == Integer.parseInt(month)) {
+                        isWeekContainingMonth = true;
+                        break;
+                    }
+                    currentDay = currentDay.plusDays(1);
+                }
+                if (isWeekContainingMonth) {
+                    boolean check = true;
+                    SlotDAO slotDAO = new SlotDAO();
+                    String skillIdString = (String) session.getAttribute("skill");
+                    int skillID = Integer.parseInt(skillIdString);
+                    Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
+                    if(scheduleMenteeDraft == null){ 
+                        ScheduleDAO schedule_dao = new ScheduleDAO();
+                        String sessionId = UUID.randomUUID().toString();
+                        Account mentee = (Account) session.getAttribute("account");
+                        int menteeId = mentee.getAccount_id();
+                        schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+                        scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
+                        
+                        session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
+                    }
+                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
+                            && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
+                        check = true;
+
+                    }else{
+                        SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
+                        slotMenteeDAO.deleteSchedule(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
+                        for (LocalDate date = startOfWeek; !date.isAfter(endOfWeek); date = date.plusDays(1)) { 
+                            DayOfWeek dayOfWeek = date.getDayOfWeek();
+                            int dayOfWeekValue = dayOfWeek.getValue();
+                            for (int slotNumber = 1; slotNumber <= 5; slotNumber++) { 
+                                String[] checkedValues = null;
+                                switch (slotNumber) {
+                                    case 1:
+                                        checkedValues = checkedValuesSlotOne;
+                                        break;
+                                    case 2:
+                                        checkedValues = checkedValuesSlotTwo;
+                                        break;
+                                    case 3:
+                                        checkedValues = checkedValuesSlotThree;
+                                        break;
+                                    case 4:
+                                        checkedValues = checkedValuesSlotFour;
+                                        break;
+                                    case 5:
+                                        checkedValues = checkedValuesSlotFive;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                if (checkedValues != null) {
+                                    for (String slot_day : checkedValues) {
+                                        if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                            int ressult = slotMenteeDAO.createSlotOfScheduleMentee(slotNumber, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                }else{ 
+                    messageSchedule = "This week is not selected";
+                    
+                }
+            } else if (button_action_2.equals("repeat")) {
+
+            } else if (button_action_2.equals("submit")) {
+
+            }
+            String[] weekDates = new String[7];
+            for (int i = 0; i < 7; i++) {
+                weekDates[i] = startOfWeek.plusDays(i).toString();
+            }
+            List<String> weeks = new ArrayList<>();
+            int totalWeeks_2 = getNumberOfISOWeeksInYear(Integer.parseInt(year));
+            for (int week_2 = 1; week_2 <= totalWeeks_2; week_2++) {
+                LocalDate firstDayOfWeek_2 = getFirstDayOfWeek(Integer.parseInt(year), week_2);
+                LocalDate lastDayOfWeek_2 = firstDayOfWeek_2.plusDays(6);
+
+                String weekRange = String.format("%02d/%02d To %02d/%02d",
+                        firstDayOfWeek_2.getDayOfMonth(), firstDayOfWeek_2.getMonthValue(),
+                        lastDayOfWeek_2.getDayOfMonth(), lastDayOfWeek_2.getMonthValue());
+                weeks.add(weekRange);
+            }
+            
+            request.setAttribute("isFormFilled", true);
+            request.setAttribute("messageSchedule", messageSchedule);
+            request.setAttribute("weekDates", weekDates);
+            request.setAttribute("isoWeek", Integer.parseInt(weekValue));
+            request.setAttribute("scheduleId", schedule_id);
+            request.setAttribute("weeks", weeks);
+            request.setAttribute("month", month);
+            request.setAttribute("currentYear", Integer.parseInt(year));
+            
         }
 
         request.getRequestDispatcher("request-booking.jsp").forward(request, response);
