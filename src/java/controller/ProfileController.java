@@ -243,9 +243,10 @@ public class ProfileController extends HttpServlet {
                     Path source = Paths.get(tempPath + "/" + filename);
                     String realPath = request.getServletContext().getRealPath("/uploads");
                     String fullpath = realPath + "\\" + accountID + ".png";
-                    String fullpathAdmin = realPath.replace("/uploads", "admin/uploads") + "\\" + accountID + ".png";
+                    String fullpathAdmin = realPath.replace("\\uploads", "\\admin\\uploads") + "\\" + accountID + ".png";
+                    System.out.println(fullpathAdmin);
                     avatar = "uploads/" + accountID + ".png";
-                    Files.move(source, source.resolveSibling(fullpath), REPLACE_EXISTING);
+                    Files.copy(source, source.resolveSibling(fullpath), REPLACE_EXISTING);
                     Files.move(source, source.resolveSibling(fullpathAdmin), REPLACE_EXISTING);
                 }
                 a.updateAccountById(String.valueOf(accountID), account_name, email, name, phone, dob, sex, address, avatar);
