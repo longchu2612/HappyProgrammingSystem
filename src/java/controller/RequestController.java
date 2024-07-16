@@ -157,6 +157,8 @@ public class RequestController extends HttpServlet {
                     request.setAttribute("listS", listS);
                 } else {
                     HttpSession session = request.getSession();
+                    session.setMaxInactiveInterval(60 * 60);
+                    String uniqueId = UUID.randomUUID().toString();
                     Account account = (Account) session.getAttribute("account");
                     Request req = new Request();
                     req.setTitle(title);
@@ -164,8 +166,11 @@ public class RequestController extends HttpServlet {
                     req.setDeadline(LocalDateTime.parse(deadline));
                     req.setCreatedBy(account.getAccount_id());
                     req.setCreatedDate(LocalDateTime.now());
-                    session.setAttribute("request", req);
-                    session.setAttribute("skill", skill);
+                    session.setAttribute("request_"+uniqueId, req);
+                    session.setAttribute("skill_"+uniqueId, skill);
+                    session.setAttribute("mentorId_"+uniqueId, mentorId);
+                    session.setAttribute("cvId_"+uniqueId, cvId);
+                    session.setAttribute("uniqueId", uniqueId);
 
                     request.setAttribute("errorMessage", "Saved");
                     request.setAttribute("title", title);
@@ -178,7 +183,8 @@ public class RequestController extends HttpServlet {
                 }
             } else if (button_action.equals("create_schedule")) {
                 HttpSession session = request.getSession();
-                Request req = (Request) session.getAttribute("request");
+                String uniqueId = (String) session.getAttribute("uniqueId");
+                Request req = (Request) session.getAttribute("request_"+uniqueId);
                 if (req != null) {
 
                     int currentYear = Year.now().getValue();
@@ -299,6 +305,10 @@ public class RequestController extends HttpServlet {
             String schedule_id = request.getParameter("schedule_id");
             String month = request.getParameter("month_form_updateweek");
 
+            HttpSession session = request.getSession();
+
+            SlotMenteeDAO slotMenteeDao = new SlotMenteeDAO();
+
             int week = Integer.parseInt(weekValue);
             int year = Integer.parseInt(currentYear);
             LocalDate firstDayOfWeek = LocalDate.of(year, 1, 1)
@@ -325,9 +335,23 @@ public class RequestController extends HttpServlet {
             String endDay = firstDayOfWeek.plusDays(6).toString();
             slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
 
+            Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
+            if (scheduleMenteeDraft == null) {
+                ScheduleDAO schedule_dao = new ScheduleDAO();
+                String sessionId = UUID.randomUUID().toString();
+                Account mentee = (Account) session.getAttribute("account");
+                int menteeId = mentee.getAccount_id();
+                schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+                scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
+
+                session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
+            }
+            List<SlotMentee> slotMentees = slotMenteeDao.getAllSlotMenteeByDates(scheduleMenteeDraft, firstDay, endDay);
+
             request.setAttribute("month", month);
             request.setAttribute("weeks", weeks);
             request.setAttribute("scheduleId", Integer.parseInt(schedule_id));
+            request.setAttribute("slotMentees", slotMentees);
             request.setAttribute("slots", slots);
             request.setAttribute("isoWeek", week);
             request.setAttribute("isFormFilled", true);
@@ -346,8 +370,24 @@ public class RequestController extends HttpServlet {
             String[] checkedValuesSlotThree = request.getParameterValues("slot_3");
             String[] checkedValuesSlotFour = request.getParameterValues("slot_4");
             String[] checkedValuesSlotFive = request.getParameterValues("slot_5");
-            
+
             HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(60 * 60);
+            Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
+            if (scheduleMenteeDraft == null) {
+                ScheduleDAO schedule_dao = new ScheduleDAO();
+                String sessionId = UUID.randomUUID().toString();
+                Account mentee = (Account) session.getAttribute("account");
+                int menteeId = mentee.getAccount_id();
+                schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+                scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
+
+                session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
+            }
+            String skillIdString = (String) session.getAttribute("skill");
+            int skillID = Integer.parseInt(skillIdString);
+
+            SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
 
             String messageSchedule = "";
             LocalDate startOfWeek = LocalDate.of(Integer.parseInt(year), 1, 1)
@@ -367,32 +407,23 @@ public class RequestController extends HttpServlet {
                     currentDay = currentDay.plusDays(1);
                 }
                 if (isWeekContainingMonth) {
-                    boolean check = true;
+                    boolean checkSave = true;
                     SlotDAO slotDAO = new SlotDAO();
-                    String skillIdString = (String) session.getAttribute("skill");
-                    int skillID = Integer.parseInt(skillIdString);
-                    Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
-                    if(scheduleMenteeDraft == null){ 
-                        ScheduleDAO schedule_dao = new ScheduleDAO();
-                        String sessionId = UUID.randomUUID().toString();
-                        Account mentee = (Account) session.getAttribute("account");
-                        int menteeId = mentee.getAccount_id();
-                        schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
-                        scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
-                        
-                        session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
-                    }
-                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
-                            && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
-                        check = true;
 
-                    }else{
-                        SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
+                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
+                            && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null && slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString()).size() == 0) {
+                        checkSave = false;
+
+                    } else if(checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null 
+                            && checkedValuesSlotFour == null && checkedValuesSlotFive == null && slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString()).size() != 0){ 
                         slotMenteeDAO.deleteSchedule(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
-                        for (LocalDate date = startOfWeek; !date.isAfter(endOfWeek); date = date.plusDays(1)) { 
+                        checkSave = true;
+                    } else {
+                        slotMenteeDAO.deleteSchedule(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
+                        for (LocalDate date = startOfWeek; !date.isAfter(endOfWeek); date = date.plusDays(1)) {
                             DayOfWeek dayOfWeek = date.getDayOfWeek();
                             int dayOfWeekValue = dayOfWeek.getValue();
-                            for (int slotNumber = 1; slotNumber <= 5; slotNumber++) { 
+                            for (int slotNumber = 1; slotNumber <= 5; slotNumber++) {
                                 String[] checkedValues = null;
                                 switch (slotNumber) {
                                     case 1:
@@ -417,24 +448,186 @@ public class RequestController extends HttpServlet {
                                     for (String slot_day : checkedValues) {
                                         if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                                             int ressult = slotMenteeDAO.createSlotOfScheduleMentee(slotNumber, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                            if (ressult != 1) {
+                                                checkSave = false;
+                                            }
                                         }
                                     }
 
                                 }
                             }
                         }
+
                     }
-                    
-                    
-                }else{ 
+                    if (checkSave == false) {
+                        messageSchedule = "Save schedule failed";
+                    } else {
+                        messageSchedule = "Save schedule successfully";
+                    }
+                } else {
                     messageSchedule = "This week is not selected";
-                    
+
                 }
             } else if (button_action_2.equals("repeat")) {
+                boolean checkRepeat = true;
+                boolean isWeekContainingMonth = false;
+                LocalDate currentDay = startOfWeek;
+                while (currentDay.isBefore(endOfWeek.plusDays(1))) { // plusDays(1) để bao gồm cả ngày kết thúc
+                    if (currentDay.getMonthValue() == Integer.parseInt(month)) {
+                        isWeekContainingMonth = true;
+                        break;
+                    }
+                    currentDay = currentDay.plusDays(1);
+                }
+                if (isWeekContainingMonth) {
+                    if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
+                            && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
+                        checkRepeat = false;
+                    } else {
+                        List<SlotMentee> listSlotMentee = slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
+                        if (listSlotMentee.size() == 0) {
+                            checkRepeat = false;
+                        } else {
+                            String[] valuesSlotOne = null;
+                            String[] valuesSlotTwo = null;
+                            String[] valuesSlotThree = null;
+                            String[] valuesSlotFour = null;
+                            String[] valuesSlotFive = null;
+
+                            for (SlotMentee slotMentee : listSlotMentee) {
+                                int slotNumber = slotMentee.getSlot();
+                                int dayOfWeek = slotMentee.getDayOfWeek();
+
+                                switch (slotNumber) {
+                                    case 1:
+                                        if (valuesSlotOne == null) {
+                                            valuesSlotOne = new String[]{String.valueOf(dayOfWeek)};
+                                        } else {
+                                            valuesSlotOne = Arrays.copyOf(valuesSlotOne, valuesSlotOne.length + 1);
+                                            valuesSlotOne[valuesSlotOne.length - 1] = String.valueOf(dayOfWeek);
+                                        }
+                                        break;
+                                    case 2:
+                                        if (valuesSlotTwo == null) {
+                                            valuesSlotTwo = new String[]{String.valueOf(dayOfWeek)};
+                                        } else {
+                                            valuesSlotTwo = Arrays.copyOf(valuesSlotTwo, valuesSlotTwo.length + 1);
+                                            valuesSlotTwo[valuesSlotTwo.length - 1] = String.valueOf(dayOfWeek);
+                                        }
+                                        break;
+                                    case 3:
+                                        if (valuesSlotThree == null) {
+                                            valuesSlotThree = new String[]{String.valueOf(dayOfWeek)};
+                                        } else {
+                                            valuesSlotThree = Arrays.copyOf(valuesSlotThree, valuesSlotThree.length + 1);
+                                            valuesSlotThree[valuesSlotThree.length - 1] = String.valueOf(dayOfWeek);
+                                        }
+                                        break;
+                                    case 4:
+                                        if (valuesSlotFour == null) {
+                                            valuesSlotFour = new String[]{String.valueOf(dayOfWeek)};
+                                        } else {
+                                            valuesSlotFour = Arrays.copyOf(valuesSlotFour, valuesSlotFour.length + 1);
+                                            valuesSlotFour[valuesSlotFour.length - 1] = String.valueOf(dayOfWeek);
+                                        }
+                                        break;
+                                    case 5:
+                                        if (valuesSlotFive == null) {
+                                            valuesSlotFive = new String[]{String.valueOf(dayOfWeek)};
+                                        } else {
+                                            valuesSlotFive = Arrays.copyOf(valuesSlotFive, valuesSlotFive.length + 1);
+                                            valuesSlotFive[valuesSlotFive.length - 1] = String.valueOf(dayOfWeek);
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                            }
+
+                            slotMenteeDAO.deleteSlotsOutsideDateRange(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
+                            LocalDate monthStart = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), 1);
+                            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+
+                            for (LocalDate date = monthStart; !date.isAfter(monthEnd); date = date.plusDays(1)) {
+                                if (isDateInWeek(date, startOfWeek, endOfWeek) == false) {
+                                    DayOfWeek dayOfWeek = date.getDayOfWeek();
+                                    int dayOfWeekValue = dayOfWeek.getValue();
+                                    if (valuesSlotOne != null) {
+                                        for (String slot_day : valuesSlotOne) {
+                                            if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                                int result = slotMenteeDAO.createSlotOfScheduleMentee(1, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                                if (result != 1) {
+                                                    checkRepeat = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (valuesSlotTwo != null) {
+                                        for (String slot_day : valuesSlotTwo) {
+                                            if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                                int result = slotMenteeDAO.createSlotOfScheduleMentee(2, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                                if (result != 1) {
+                                                    checkRepeat = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (valuesSlotThree != null) {
+                                        for (String slot_day : valuesSlotThree) {
+                                            if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                                int result = slotMenteeDAO.createSlotOfScheduleMentee(3, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                                if (result != 1) {
+                                                    checkRepeat = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (valuesSlotFour != null) {
+                                        for (String slot_day : valuesSlotFour) {
+                                            if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                                int result = slotMenteeDAO.createSlotOfScheduleMentee(4, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                                if (result != 1) {
+                                                    checkRepeat = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (valuesSlotFive != null) {
+                                        for (String slot_day : valuesSlotFive) {
+                                            if (dayOfWeekValue == Integer.parseInt(slot_day)) {
+                                                //insert
+                                                LocalDateTime currentDateTime = LocalDateTime.now();
+                                                int result = slotMenteeDAO.createSlotOfScheduleMentee(5, dayOfWeekValue, scheduleMenteeDraft, date, skillID, false);
+                                                if (result != 1) {
+                                                    checkRepeat = false;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                        if (checkRepeat == true) {
+                            messageSchedule = "Updated schedule successfully";
+                        } else {
+                            messageSchedule = "Updated schedule failed";
+                        }
+                    }
+                } else {
+                    messageSchedule = "This week is not selected";
+                }
 
             } else if (button_action_2.equals("submit")) {
 
             }
+            List<Slot> slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
+            List<SlotMentee> slotMentees = new ArrayList<>();
+//            Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
+            slotMentees = slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
             String[] weekDates = new String[7];
             for (int i = 0; i < 7; i++) {
                 weekDates[i] = startOfWeek.plusDays(i).toString();
@@ -450,7 +643,9 @@ public class RequestController extends HttpServlet {
                         lastDayOfWeek_2.getDayOfMonth(), lastDayOfWeek_2.getMonthValue());
                 weeks.add(weekRange);
             }
-            
+
+            request.setAttribute("slots", slots);
+            request.setAttribute("slotMentees", slotMentees);
             request.setAttribute("isFormFilled", true);
             request.setAttribute("messageSchedule", messageSchedule);
             request.setAttribute("weekDates", weekDates);
@@ -459,7 +654,7 @@ public class RequestController extends HttpServlet {
             request.setAttribute("weeks", weeks);
             request.setAttribute("month", month);
             request.setAttribute("currentYear", Integer.parseInt(year));
-            
+
         }
 
         request.getRequestDispatcher("request-booking.jsp").forward(request, response);
@@ -469,6 +664,19 @@ public class RequestController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+
+    public static boolean isDateInWeek(LocalDate date, LocalDate startOfWeek, LocalDate endOfWeek) {
+        return !date.isBefore(startOfWeek) && !date.isAfter(endOfWeek);
+    }
+
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.of(2024, 8, 25);
+        LocalDate startOfWeek = LocalDate.of(2024, 8, 26);
+        LocalDate endOfWeek = LocalDate.of(2024, 9, 1);
+
+        boolean check = isDateInWeek(date, startOfWeek, endOfWeek);
+        System.out.println(check);
     }
 
 }
