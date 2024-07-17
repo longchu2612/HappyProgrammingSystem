@@ -75,27 +75,6 @@
                                         <h4 class="card-title mb-0">Filter</h4>
                                     </div>
                                     <div class="card-body">
-                                        <!--                                        <div class="filter-widget">
-                                                                                    <div class="cal-icon">
-                                                                                        <input type="text" class="form-control datetimepicker"
-                                                                                               placeholder="Select Date">
-                                                                                    </div>
-                                                                                </div>-->
-                                        <!--                                        <div class="filter-widget">
-                                                                                    <h4>Gender</h4>
-                                                                                    <div>
-                                                                                        <label class="custom_check">
-                                                                                            <input type="checkbox" name="gender_type" checked>
-                                                                                            <span class="checkmark"></span> Male
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <label class="custom_check">
-                                                                                            <input type="checkbox" name="gender_type">
-                                                                                            <span class="checkmark"></span> Female
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>-->
                                         <div class="filter-widget">
                                             <h4>Select Courses</h4>
                                             <c:forEach var="skill" items="${requestScope.listSkill}">
@@ -112,36 +91,6 @@
                                                     </label>
                                                 </div>
                                             </c:forEach>
-                                            <!--                                            <div>
-                                                                                            <label class="custom_check">
-                                                                                                <input type="checkbox" name="select_specialist" checked>
-                                                                                                <span class="checkmark"></span> UNIX, Calculus, Trigonometry
-                                                                                            </label>
-                                                                                        </div>-->
-                                            <!--                                            <div>
-                                                                                            <label class="custom_check">
-                                                                                                <input type="checkbox" name="select_specialist">
-                                                                                                <span class="checkmark"></span> Computer Programming
-                                                                                            </label>
-                                                                                        </div>-->
-                                            <!--                                            <div>
-                                                                                            <label class="custom_check">
-                                                                                                <input type="checkbox" name="select_specialist">
-                                                                                                <span class="checkmark"></span> ASP.NET,Computer Gaming
-                                                                                            </label>
-                                                                                        </div>-->
-                                            <!--                                            <div>
-                                                                                            <label class="custom_check">
-                                                                                                <input type="checkbox" name="select_specialist">
-                                                                                                <span class="checkmark"></span> HTML, Css
-                                                                                            </label>
-                                                                                        </div>-->
-                                            <!--                                            <div>
-                                                                                            <label class="custom_check">
-                                                                                                <input type="checkbox" name="select_specialist">
-                                                                                                <span class="checkmark"></span> VB, VB.net
-                                                                                            </label>
-                                                                                        </div>-->
                                         </div>
                                         <div class="btn-search">
                                             <button type="submit" class="btn btn-block w-100">Search</button>

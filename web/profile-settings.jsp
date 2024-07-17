@@ -43,97 +43,7 @@
     <body>
         <form action="profile" method="post" enctype='multipart/form-data'>
             <div class="main-wrapper">
-                <header class="header">
-                    <div class="header-fixed">
-                        <nav class="navbar navbar-expand-lg header-nav">
-                            <div class="navbar-header">
-                                <a id="mobile_btn" href="javascript:void(0);">
-                                    <span class="bar-icon">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </a>
-                                <a href="home" class="navbar-brand logo">
-                                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
-                                </a>
-                            </div>
-                            <div class="main-menu-wrapper">
-                                <div class="menu-header">
-                                    <a href="home" class="menu-logo">
-                                        <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
-                                    </a>
-                                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </div>
-                                <ul class="main-nav">
-
-                                    <c:if test="${sessionScope.account.role.role_id == 2}">
-                                        <li class="has-submenu">
-                                            <a href>Mentor <i class="fas fa-chevron-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="dashboard.html">Mentor Dashboard</a></li>
-                                                <li><a href="profile">Profile</a></li>
-                                                <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                                                <li><a href="invoices.html">Invoices</a></li>
-                                            </ul>
-                                        </li>
-                                    </c:if>
-                                    <c:if test="${sessionScope.account.role.role_id == 1}">
-                                        <li class="has-submenu">
-                                            <a href>Mentee <i class="fas fa-chevron-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="Booking">Search Mentor</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
-                                                <li><a href="bookings-mentee.html">Bookings</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="booking-success.html">Booking Success</a></li>
-                                                <li><a href="dashboard-mentee.html">Mentee Dashboard</a></li>
-                                                <li><a href="profile-settings-mentee.jsp">Profile Settings</a></li>
-                                                <li><a href="changepass.jsp">Change Password</a></li>
-                                            </ul>
-                                        </li>
-                                    </c:if>
-
-                                    <li class="has-submenu">
-                                        <a href>Blog <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog-list.html">Blog List</a></li>
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <ul class="nav header-navbar-rht">
-
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                        <span class="user-img">
-                                            <img class="rounded-circle" src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%" width="31">
-                                        </span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <div class="user-header">
-                                            <div class="avatar avatar-sm">
-                                                <img src="${ac.getAvatar()}" alt="User Image"  style="border-radius: 50%"
-                                                     class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="user-text">
-                                                <h6>${ac.getAccount_name()}</h6>
-                                                <p class="text-muted mb-0">Mentor</p>
-                                            </div>
-                                        </div>
-                                        <a class="dropdown-item" href="dashboard.html">Dashboard</a>
-                                        <a class="dropdown-item" href="profile">Profile Settings</a>
-                                        <a class="dropdown-item" href="account?service=logout2">Logout</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </header>
+                <jsp:include page="header.jsp"></jsp:include>
 
 
                 <div class="breadcrumb-bar">
@@ -202,19 +112,6 @@
                                                             <p class="text-warning"><span><i class="fa fa-clock text-warning"></i></span> ${cv.status}</p>
                                                                     </c:otherwise>
                                                                 </c:choose>
-                                                </div>
-                                                <div>
-                                                    <c:choose>
-                                                        <c:when test="${cv.status == 'Approve'}">
-                                                            <p class="text-success">${cv.note}</p>
-                                                        </c:when>
-                                                        <c:when test="${cv.status == 'Reject'}">
-                                                            <p class="text-danger">${cv.note}</p>
-                                                        </c:when>
-                                                        <c:otherwise>
-
-                                                        </c:otherwise>
-                                                    </c:choose>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-12">

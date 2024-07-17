@@ -17,21 +17,11 @@ public class BookingDAO extends DBContext {
     public ArrayList<Mentor> getAllMentor(String[] selectedSkills) {
         ArrayList<Mentor> list = new ArrayList<>();
         List<Integer> skillIds = new ArrayList<>();
-
         if (selectedSkills != null) {
             for (String skillId : selectedSkills) {
                 skillIds.add(Integer.parseInt(skillId));
             }
         }
-
-//        String query1 = """
-//                       Select acc.id as AccId, cv.id as cvId, acc.fullname, cv.job, acc.address, cv.avatar
-//                       from Account acc
-//                       join CV cv on acc.id = cv.accountID
-//                       join CV_Skill cv_s on cv.id = cv_s.cv_id
-//                       where 1=1 and acc.roleID = 2 and cv.status = 'Approve'
-//                       group by acc.id ,acc.fullname, cv.job, acc.address, cv.id, cv.avatar
-//                       """;
         StringBuilder query1 = new StringBuilder("""
         Select acc.id as AccId, cv.id as cvId, acc.fullname, cv.job, acc.address, cv.avatar
                from Account acc

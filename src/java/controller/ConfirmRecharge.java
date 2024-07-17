@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.*;
 import dao.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -41,6 +43,8 @@ public class ConfirmRecharge extends HttpServlet {
                 int balance = acc.getBalance() + amount;
                 OrderDAO dao = new OrderDAO();
                 dao.updateMoney(acc.getAccount_id(), balance);
+                String content = "+" + amount + " to account";
+                dao.insertBalanceChange(acc.getAccount_id(), content, Timestamp.valueOf(LocalDateTime.now()));
                 acc.setBalance(balance);
                 sess.setAttribute("account", acc);
                 response.sendRedirect("home");

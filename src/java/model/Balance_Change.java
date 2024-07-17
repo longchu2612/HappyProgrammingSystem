@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.time.*;
+
 /**
  *
  * @author catmi
@@ -12,14 +14,16 @@ public class Balance_Change {
     private int id;
     private int acc_id;
     private String content;
+    private LocalDateTime change_date;
 
     public Balance_Change() {
     }
 
-    public Balance_Change(int id, int acc_id, String content) {
+    public Balance_Change(int id, int acc_id, String content, LocalDateTime change_date) {
         this.id = id;
         this.acc_id = acc_id;
         this.content = content;
+        this.change_date = change_date;
     }
 
     public int getId() {
@@ -44,6 +48,14 @@ public class Balance_Change {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDateTime getChange_date() {
+        return change_date;
+    }
+
+    public void setChange_date(LocalDateTime change_date) {
+        this.change_date = change_date;
     }
     
     

@@ -49,11 +49,21 @@ public class HomepageController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         AccountDAO ac = new AccountDAO();
+        SkillDAO skillDAO = new SkillDAO();
         List<Account> list = new ArrayList<>();
         list = ac.getAllUsersByRolleId("2");
         request.setAttribute("list", list);
-        List<Skill> listSkill = new SkillDAO().getAllSkill();
-        request.setAttribute("listS",listSkill );
+        
+        String txtPage = request.getParameter("page");
+        if(txtPage == null){
+            txtPage = "1";
+        }
+        int page = Integer.parseInt(txtPage);
+        ArrayList<Skill> listS = skillDAO.getSkillsByPage(page);
+
+        request.setAttribute("listS", listS);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", skillDAO.getTotalPages());
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
@@ -67,7 +77,7 @@ public class HomepageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /** 

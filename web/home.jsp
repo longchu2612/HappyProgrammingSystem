@@ -79,7 +79,7 @@
                     </div>
                     <div class="section-header h-four text-center aos " data-aos="fade-up">
                         <span>What’s New</span>
-                        <h2>Featured Courses</h2>
+                        <h2>Featured Skill</h2>
                         <p class="sub-title">“Study, learn more, learn forever .”― V.I.Lenin.</p>
                     </div>
                     <div class="featured-course-new aos " data-aos="fade-up">
@@ -124,23 +124,29 @@
                             </c:forEach>
                         </div>
                     </div>
+                    <nav aria-label="Page navigation example" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <c:if test="${currentPage > 1}">
+                                <li class="page-item">
+                                    <a class="page-link" href="home?page=${currentPage - 1}">Previous</a>
+                                </li>
+                            </c:if>
+                            <c:forEach begin="1" end="${totalPages}" var="i">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="home?page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${currentPage < totalPages}">
+                                <li class="page-item">
+                                    <a class="page-link" href="home?page=${currentPage + 1}">Next</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
                     <div class="explore-more text-center aos " data-aos="fade-up">
                         <a href="Booking?service=all_skill" class="btn bg-explore">Show All Categories</a>
                     </div>
                 </div>
-                <nav aria-label="Page navigation example" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </section>
 
 

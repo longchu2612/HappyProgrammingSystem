@@ -5,6 +5,8 @@
 package dao;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import model.*;
 
@@ -144,15 +146,16 @@ public class OrderDAO extends DBContext{
         }
         return false;
     }
-    public boolean insertBalanceChange(int acc_id, String content){
+    public boolean insertBalanceChange(int acc_id, String content, Timestamp change_date){
         String query = """
-                       insert into Balance_Change(acc_id,content) 
-                       values(?,?)""";
+                       insert into Balance_Change(acc_id,content,change_date) 
+                       values(?,?,?)""";
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
             ps.setInt(1, acc_id);
             ps.setString(2, content);
+            ps.setTimestamp(3, change_date);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -223,7 +226,8 @@ public class OrderDAO extends DBContext{
                 int id = rs.getInt("id");
                 int acc_id = rs.getInt("acc_id");
                 String content = rs.getString("content");
-                list.add(new Balance_Change(id, acc_id, content));
+                LocalDateTime change_date = Timestamp.valueOf(rs.getString("change_date")).toLocalDateTime();
+                list.add(new Balance_Change(id, acc_id, content,change_date));
             }
             return list;
         } catch (SQLException e) {

@@ -65,13 +65,20 @@
                                     </ul>
                                 </li>
                                 <li class="has-submenu">
-                                    <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
+                                    <a href>Schedule <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a href="profile">Profile</a></li>
-                                        <li><a href="dashboard.html">Mentor Dashboard</a></li>
                                         <li><a href="createSchedule.jsp">Create schedule</a></li>
                                         <li><a href="schedule_mentor">Schedule Timing</a></li>
                                         <li><a href="my_schedule">My Schedule</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Mentor Dashboard</a></li>
+                                        <li><a href="profile">My Profile</a></li>
+                                        <li><a href="profile">My CV</a></li>
+                                        <li><a href="profile">My Request</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>
                                     </ul>

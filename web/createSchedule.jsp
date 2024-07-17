@@ -34,7 +34,7 @@
     <body>
 
         <div class="main-wrapper">
-            <jsp:include page="layout_header.jsp"/>
+            <jsp:include page="header.jsp"/>
 
 
 

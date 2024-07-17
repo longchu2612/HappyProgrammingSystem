@@ -330,11 +330,93 @@ public class SkillDAO extends DBContext {
         }
         return null;
     }
+    public int getTotalPages(){
+        int countPage = 0;
+        int totalRecords = 0;
+        String query = """
+                       SELECT COUNT(*) FROM Skill
+                       where status = 1
+                       """;
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                totalRecords = rs.getInt(1);
+                countPage = totalRecords / 6;
+                if(totalRecords % 6 != 0){
+                    countPage++;
+                }
+            }
+            return countPage;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return 0;
+    }
+    public ArrayList<Skill> getSkillsByPage(int page) {
+        ArrayList<Skill> list = new ArrayList<>();
+        String query = """
+                       SELECT * 
+                       FROM Skill
+                       where status = 1
+                       ORDER BY id 
+                       OFFSET ? ROWS 
+                       FETCH first 6 ROWS ONLY
+                       """;
+        int start = (page - 1) * 6;
+        try {
+            conn = new DBContext().conn;
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, start);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String image = rs.getString("image");
+                int status = rs.getInt("status");
+                list.add(new Skill(id, name, status, image));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         SkillDAO dao = new SkillDAO();
-        ArrayList<Skill> list = dao.getSkillByCvId("2002");
-        for (Object o : list) {
-            System.out.println(o);
+        ArrayList<Skill> list = dao.getSkillsByPage(2);
+        int page = dao.getTotalPages();
+        for (Skill skill : list) {
+            System.out.println(skill);
         }
     }
 }
