@@ -35,24 +35,22 @@
                         <ul class="main-nav">
                             <c:if test="${sessionScope.account.role.role_id == 1}">
                                 <li class="has-submenu">
+                                    
                                     <a href>Wallet <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a>Balance: ${sessionScope.account.balance} VND</a></li>
+                                        <li><a>Balance: ${sessionScope.account.balance == null ? 0 : sessionScope.account.balance} VND</a></li>
+                                        <li><a>Hold: ${sessionScope.account.hold == null ? 0 : sessionScope.account.hold} VND</a></li>
+                                        <li><a>Available: ${(sessionScope.account.balance == null ? 0 : sessionScope.account.balance)
+                                                - (sessionScope.account.hold == null ? 0 : sessionScope.account.hold)} VND</a></li>
                                         <li><a href="">Volatility</a></li>
                                         <li><a href="recharge.jsp">Recharge</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-submenu">
-                                    <a href>Schedule <i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="my_schedule">My Schedule</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-submenu">
                                     <a href>Hello, ${sessionScope.account.fullname} <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a href="profile">Profile</a></li>
-                                        <li><a href="#">Mentee Dashboard</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/">Home Mentee</a></li>
+                                         <li><a href="profile">Profile</a></li>
                                         <li><a href="Booking">Search Mentor</a></li>
                                         <li><a href="payment-course.jsp">My request</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>

@@ -193,7 +193,7 @@ public class ProfileController extends HttpServlet {
                 String introduction = request.getParameter("introduction");
                 String achievements = request.getParameter("achievements");
                 String avatar = a.getAvatarById(String.valueOf(accountID));
-                if (avatar.equals("")) {
+                if (avatar == null || avatar.equals("")) {
                     avatar = "uploads/0.png";
                 }
                 SkillsDAO s = new SkillsDAO();

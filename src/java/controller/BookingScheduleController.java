@@ -201,10 +201,12 @@ public class BookingScheduleController extends HttpServlet {
             String phone = (String) request.getAttribute("phone");
             Account acc = new AccountDAO().getAccountByAccId(mentorId);
             CV cv = new CVDAO().getCVByAccId(mentorId);
+            ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(cv.getId());
 
             request.setAttribute("mentor", acc);
             request.setAttribute("mentorId", acc.getAccount_id());
             request.setAttribute("phone", phone);
+            request.setAttribute("listS", listS);
             request.setAttribute("mentor_cv", cv);
             request.setAttribute("accountId", accountId);
             request.setAttribute("weeks", weeks);
@@ -252,7 +254,7 @@ public class BookingScheduleController extends HttpServlet {
             String phone = request.getParameter("phone_form_updateweek");
             Account acc = new AccountDAO().getAccountByAccId(mentorId);
             CV cv = new CVDAO().getCVByAccId(mentorId);
-            
+            ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(cv.getId());
 
             request.setAttribute("mentor", acc);
             request.setAttribute("mentorId", acc.getAccount_id());
@@ -260,6 +262,7 @@ public class BookingScheduleController extends HttpServlet {
             request.setAttribute("mentor_cv", cv);
             request.setAttribute("accountId", accountId);
             request.setAttribute("month", month);
+            request.setAttribute("listS", listS);
             request.setAttribute("weeks", weeks);
             request.setAttribute("scheduleId", schedule_id);
             request.setAttribute("slots", slots);

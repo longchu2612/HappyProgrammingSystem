@@ -212,6 +212,25 @@ public class CVDAO extends DBContext {
         return false;
     }
 
+    public int getRateOfCV(int cvId) {
+        int rate = 0;
+        String sql = "SELECT [rate]\n"
+                + "FROM [happy_programming_system].[dbo].[CV]\n"
+                + "WHERE id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, cvId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                rate = rs.getInt("rate");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return rate;
+    }
+
     public CV getCVByAccId(String txtId) {
         String query = """
                        select *
@@ -256,4 +275,10 @@ public class CVDAO extends DBContext {
         }
         return null;
     }
+    public static void main(String[] args) {
+        CVDAO cvDAO = new CVDAO();
+        int result = cvDAO.getRateOfCV(2002);
+        System.out.println(result);
+    }
+
 }

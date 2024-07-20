@@ -556,11 +556,17 @@ public class ScheduleDAO extends DBContext {
 //    }
 
     public static void main(String[] args) {
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
+//        ScheduleDAO scheduleDAO = new ScheduleDAO();
 //        int result = scheduleDAO.getStatusOfSchedule(2);
 //        List<Slot> slots = scheduleDAO.getAllSlotByScheduleId(2);
-        Schedule schedule = scheduleDAO.getLastestSchedule(41);
-        System.out.println(schedule);
+          
+          String unique = "abc";
+          unique = unique + "_mentorId_41"+2+3;
+          boolean check = unique.contains("mentor");
+          System.out.println(check);
+        
+//        Schedule schedule = scheduleDAO.getLastestSchedule(41);
+//        System.out.println(schedule);
 
 //        Integer schedule = null;
 //        List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule, "2024-05-05", "2024-05-07");

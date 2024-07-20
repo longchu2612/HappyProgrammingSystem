@@ -10,6 +10,8 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Slot" %>
+<%@ page import="model.Request" %>
+<%@ page import="model.Account" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.temporal.WeekFields" %>
 <%@ page import="java.time.DayOfWeek" %>
@@ -370,12 +372,29 @@
 
                                                     </div>
                                                 </form>
-                                                <div class="submit-section col-md-2 mb-3 mt-3">                          
-                                                    <form action="request?service=create_request" method="post">
-                                                        <input type="hidden" name="mentorId" value="${requestScope.mentor_cv.accountID}">
-                                                        <input type="hidden" name="cvId" value="${requestScope.mentor_cv.id}">
-                                                        <button type="submit" class="btn btn-primary">Create request</button>
-                                                    </form>
+                                                <div class="submit-section col-md-2 mb-3 mt-3">
+                                                    <%
+                                                        String uniqueId = (String) session.getAttribute("uniqueId");
+                                                        Request req = (Request) session.getAttribute("request_" + uniqueId);
+                                                        String skill = (String) session.getAttribute("skill_" + uniqueId);
+                                                        String mentorId = (String) session.getAttribute("mentorId_" + uniqueId);
+                                                        String cvId = (String) session.getAttribute("cvId_" + uniqueId);
+                                                        Account mentee = (Account) session.getAttribute("account");
+                                                        Account mentor = (Account) request.getAttribute("mentor");
+
+                                                        if (req != null && uniqueId != null && uniqueId.contains("_mentorId" + mentor.getAccount_id() + "_menteeId" + mentee.getAccount_id())) {
+                                                            String title = req.getTitle();
+                                                            String content = req.getContent();
+                                                            String deadline = req.getDeadline().toString();
+                                                    %>
+                                                    <button type="submit" class="btn btn-primary" onclick="window.location.href = 'request?mentorId=${requestScope.mentor_cv.accountID}&cvId=${requestScope.mentor_cv.id}&title=<%= title%>&content=<%= content%>&deadline=<%= deadline%>&skill=<%= skill%>'">Create request</button>
+                                                    <%
+                                                        }else{ 
+                                                    %>
+                                                     <button type="submit" class="btn btn-primary" onclick="window.location.href = 'request?mentorId=${requestScope.mentor_cv.accountID}&cvId=${requestScope.mentor_cv.id}'">Create request</button>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </div>
                                             </div>
                                         </div>

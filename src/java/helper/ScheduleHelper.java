@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import model.Slot;
+import model.SlotMentee;
 
 /**
  *
@@ -65,4 +66,26 @@ public class ScheduleHelper {
         
     }
     
+    public static String isCheckedSlotByDateDisable(List<Slot> slots, int slot, String date){
+        if(slots != null){
+            for(Slot s : slots){
+                if(s.getSlot()== slot && s.getTeach_date().toString().equals(date)){
+                    return "";
+                }
+            }
+        }
+        return "disabled";
+        
+    }
+    
+    public static String isCheckedSlotMenteeByDate(List<SlotMentee> slotMentees, int slot, String date){ 
+        if(slotMentees != null){ 
+            for(SlotMentee slot_mentee : slotMentees){ 
+                if(slot_mentee.getSlot() == slot && slot_mentee.getLearning_date().toString().equals(date)){ 
+                    return "checked";
+                }
+            }
+        }
+        return "";
+    }
 }
