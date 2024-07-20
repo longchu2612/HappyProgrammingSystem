@@ -199,10 +199,10 @@ public class RequestDAO extends DBContext {
         return null;
     }
 
-    public boolean createRequestCourse(int req_id, int toUser_id, int skill_id, int numOfSlot,int schedule_id, String status) {
+    public boolean createRequestCourse(int req_id, int toUser_id, int skill_id, int numOfSlot,int schedule_id, String status, int mentee_id) {
         String query = """
-                       INSERT INTO Request_Course (req_id, toUser_id, skill_id, numOfSlot, schedule_id, status)
-                       VALUES (?, ?, ?, ?, ?, ?)
+                       INSERT INTO Request_Course (req_id, toUser_id, skill_id, numOfSlot, schedule_id, status, mentee_id)
+                       VALUES (?, ?, ?, ?, ?, ?,?)
                        """;
 
         try {
@@ -214,6 +214,7 @@ public class RequestDAO extends DBContext {
             ps.setInt(4, numOfSlot);
             ps.setInt(5, schedule_id);
             ps.setString(6, status);
+            ps.setInt(7, mentee_id);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {

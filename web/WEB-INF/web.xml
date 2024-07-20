@@ -104,6 +104,22 @@
         <servlet-name>BookingScheduleController</servlet-name>
         <servlet-class>controller.BookingScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyRequestController</servlet-name>
+        <servlet-class>controller.MyRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateRequestMentor</servlet-name>
+        <servlet-class>controller.UpdateRequestMentor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRequestDetailController</servlet-name>
+        <servlet-class>controller.ViewRequestDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewScheduleDetailController</servlet-name>
+        <servlet-class>controller.ViewScheduleDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -211,5 +227,21 @@
     <servlet-mapping>
         <servlet-name>BookingScheduleController</servlet-name>
         <url-pattern>/book_schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyRequestController</servlet-name>
+        <url-pattern>/my_request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateRequestMentor</servlet-name>
+        <url-pattern>/update_request_mentor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRequestDetailController</servlet-name>
+        <url-pattern>/view_request_detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewScheduleDetailController</servlet-name>
+        <url-pattern>/view_schedule_detail</url-pattern>
     </servlet-mapping>
 </web-app>

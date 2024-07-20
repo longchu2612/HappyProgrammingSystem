@@ -11,20 +11,22 @@ package model;
 public class Request_Course {
     private int repc_id;
     private Request request;
-    private Account account;
+    private Account mentor;
     private Skill skill;
     private int numOfSlot;
     private Schedule schedule;
     private String status;
+    private Account mentee;
 
-    public Request_Course(int repc_id, Request request, Account account, Skill skill, int numOfSlot, Schedule schedule, String status) {
+    public Request_Course(int repc_id, Request request, Account mentor, Skill skill, int numOfSlot, Schedule schedule, String status, Account mentee) {
         this.repc_id = repc_id;
         this.request = request;
-        this.account = account;
+        this.mentor = mentor;
         this.skill = skill;
         this.numOfSlot = numOfSlot;
         this.schedule = schedule;
         this.status = status;
+        this.mentee = mentee;
     }
 
     public Request_Course() {
@@ -34,63 +36,70 @@ public class Request_Course {
         return repc_id;
     }
 
-    public Request getRequest() {
-        return request;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public Skill getSkill() {
-        return skill;
-    }
-
-    public int getNumOfSlot() {
-        return numOfSlot;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
     public void setRepc_id(int repc_id) {
         this.repc_id = repc_id;
+    }
+
+    public Request getRequest() {
+        return request;
     }
 
     public void setRequest(Request request) {
         this.request = request;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public Account getMentor() {
+        return mentor;
+    }
+
+    public void setMentor(Account mentor) {
+        this.mentor = mentor;
+    }
+
+    public Skill getSkill() {
+        return skill;
     }
 
     public void setSkill(Skill skill) {
         this.skill = skill;
     }
 
+    public int getNumOfSlot() {
+        return numOfSlot;
+    }
+
     public void setNumOfSlot(int numOfSlot) {
         this.numOfSlot = numOfSlot;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+    public Account getMentee() {
+        return mentee;
+    }
+
+    public void setMentee(Account mentee) {
+        this.mentee = mentee;
+    }
+
     @Override
     public String toString() {
-        return "Request_Course{" + "repc_id=" + repc_id + ", request=" + request + ", account=" + account + ", skill=" + skill + ", numOfSlot=" + numOfSlot + ", schedule=" + schedule + ", status=" + status + '}';
+        return "Request_Course{" + "repc_id=" + repc_id + ", request=" + request + ", mentor=" + mentor + ", skill=" + skill + ", numOfSlot=" + numOfSlot + ", schedule=" + schedule + ", status=" + status + ", mentee=" + mentee + '}';
     }
-    
     
     
 }

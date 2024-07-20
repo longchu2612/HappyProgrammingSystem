@@ -265,6 +265,8 @@ public class ScheduleDAO extends DBContext {
         }
         return slots;
     }
+    
+    
 
     public int getMentorIdByScheduleId(int schedule_id) {
         int result = 0;
@@ -458,6 +460,26 @@ public class ScheduleDAO extends DBContext {
             ps.setInt(1, mentor_id);
             rs = ps.executeQuery();
             while (rs.next()) {
+                schedule = new Schedule();
+                schedule.setId(rs.getInt("id"));
+                schedule.setStatus(rs.getString("status"));
+                schedule.setMonth(rs.getInt("month"));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return schedule;
+    }
+    
+    public Schedule getScheduleByScheduleId(int scheduleId){ 
+        Schedule schedule = null;
+        String sql = "select * from dbo.Schedules where id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, scheduleId);
+            rs = ps.executeQuery();
+            while(rs.next()){ 
                 schedule = new Schedule();
                 schedule.setId(rs.getInt("id"));
                 schedule.setStatus(rs.getString("status"));

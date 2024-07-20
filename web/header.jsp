@@ -80,6 +80,7 @@
                                     <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li><a href="#">Mentor Dashboard</a></li>
+                                        <li><a href="my_request">My Request</a></li>
                                         <li><a href="profile">My Profile</a></li>
                                         <li><a href="profile">My CV</a></li>
                                         <li><a href="profile">My Request</a></li>

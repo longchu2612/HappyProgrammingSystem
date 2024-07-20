@@ -673,14 +673,16 @@ public class RequestController extends HttpServlet {
 
                     
                     int requestId = requestDAO.createRequest(titleOfRequest, deadline, contentOfRequest, "1", String.valueOf(createdBy), createdDate);
-                    accountDAO.updateHoldOfAccount(mentee.getAccount_id(), saveTotalPrice + holdOfMentee);
-                    mentee.setHold(saveTotalPrice + holdOfMentee);
-                    session.setAttribute("account", mentee);
+                    
                     String mentorId = (String) session.getAttribute("mentorId_" + uniqueId);
                     String skill = (String) session.getAttribute("skill_" + uniqueId);
                     int numOfSlot = slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft);
-                    boolean checkCreateRequest = requestDAO.createRequestCourse(requestId, Integer.parseInt(mentorId), Integer.parseInt(skill), numOfSlot, scheduleMenteeDraft, "1");
+                    boolean checkCreateRequest = requestDAO.createRequestCourse(requestId, Integer.parseInt(mentorId), Integer.parseInt(skill), numOfSlot, scheduleMenteeDraft, "1",mentee.getAccount_id());
                     if (checkCreateRequest == true) {
+                        
+                        accountDAO.updateHoldOfAccount(mentee.getAccount_id(), saveTotalPrice + holdOfMentee);
+                        mentee.setHold(saveTotalPrice + holdOfMentee);
+                        session.setAttribute("account", mentee);
                         messageSchedule = "You created the request successfully";
 
                         session.removeAttribute("skill_" + uniqueId);
