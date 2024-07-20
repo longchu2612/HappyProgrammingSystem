@@ -43,12 +43,18 @@
                                     </ul>
                                 </li>
                                 <li class="has-submenu">
+                                    <a href>Schedule <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="my_schedule">My Schedule</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
                                     <a href>Hello, ${sessionScope.account.fullname} <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li><a href="profile">Profile</a></li>
                                         <li><a href="#">Mentee Dashboard</a></li>
                                         <li><a href="Booking">Search Mentor</a></li>
-                                        <li><a href="#">My request</a></li>
+                                        <li><a href="payment-course.jsp">My request</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="#">Profile Settings</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>

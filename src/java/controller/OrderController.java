@@ -48,7 +48,7 @@ public class OrderController extends HttpServlet {
 
                 if (pay_method.equals("wallet")) {
                     if (currentBalance >= 0) {
-                        orDao.insertOrder(String.valueOf(account.getAccount_id()), String.valueOf(mentorId), String.valueOf(total), createDate);
+                        orDao.insertOrder(String.valueOf(account.getAccount_id()), "", String.valueOf(total), createDate);
                         orDao.updateHold(account.getAccount_id(), total);
                         response.sendRedirect("booking-success.jsp");
                     }else{
@@ -61,9 +61,6 @@ public class OrderController extends HttpServlet {
                     
                 }
 
-            }
-            case "recharge" -> {
-                
             }
             default -> {
 

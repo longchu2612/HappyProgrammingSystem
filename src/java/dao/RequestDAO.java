@@ -320,7 +320,7 @@ public class RequestDAO extends DBContext {
         //boolean check1 = dao.createRequest("abc", convert, "abc", "1", "2086", convert);
         //boolean check2 = dao.createRequestCourse(dao.getIdNewRequest(), 2078, 6, 4);
         //System.out.println("Id request:" + dao.getIdNewRequest() + ", Request: " + check1 + ", Request course: " + check2);
-        Request req = dao.checkRequestDraft(2086, 2078);
-        System.out.println(req);
+        //Request req = dao.checkRequestDraft(2086, 2078);
+        //System.out.println(check1 +", "+ check2);
     }
 }

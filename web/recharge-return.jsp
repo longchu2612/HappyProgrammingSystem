@@ -50,7 +50,6 @@
                 fields.remove("vnp_SecureHash");
             }
             String signValue = RechargeConfig.hashAllFields(fields);
-            int amount = Integer.parseInt(request.getParameter("vnp_Amount"))/100;
             
         %>
         <!--Begin display -->

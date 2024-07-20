@@ -104,6 +104,10 @@
         <servlet-name>BookingScheduleController</servlet-name>
         <servlet-class>controller.BookingScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfirmPayment</servlet-name>
+        <servlet-class>controller.ConfirmPayment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -211,5 +215,9 @@
     <servlet-mapping>
         <servlet-name>BookingScheduleController</servlet-name>
         <url-pattern>/book_schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmPayment</servlet-name>
+        <url-pattern>/confirmPay</url-pattern>
     </servlet-mapping>
 </web-app>
