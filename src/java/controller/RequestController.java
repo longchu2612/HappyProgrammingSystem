@@ -158,7 +158,10 @@ public class RequestController extends HttpServlet {
                 } else {
                     HttpSession session = request.getSession();
                     session.setMaxInactiveInterval(60 * 60);
+                    Account mentee = (Account)session.getAttribute("account");
+                    int menteeId = mentee.getAccount_id();
                     String uniqueId = UUID.randomUUID().toString();
+                    uniqueId = uniqueId + "_mentorId"+ mentorId + "_menteeId"+menteeId;
                     Account account = (Account) session.getAttribute("account");
                     Request req = new Request();
                     req.setTitle(title);
@@ -166,10 +169,10 @@ public class RequestController extends HttpServlet {
                     req.setDeadline(LocalDateTime.parse(deadline));
                     req.setCreatedBy(account.getAccount_id());
                     req.setCreatedDate(LocalDateTime.now());
-                    session.setAttribute("request_"+uniqueId, req);
-                    session.setAttribute("skill_"+uniqueId, skill);
-                    session.setAttribute("mentorId_"+uniqueId, mentorId);
-                    session.setAttribute("cvId_"+uniqueId, cvId);
+                    session.setAttribute("request_" + uniqueId, req);
+                    session.setAttribute("skill_" + uniqueId, skill);
+                    session.setAttribute("mentorId_" + uniqueId, mentorId);
+                    session.setAttribute("cvId_" + uniqueId, cvId);
                     session.setAttribute("uniqueId", uniqueId);
 
                     request.setAttribute("errorMessage", "Saved");
@@ -182,10 +185,12 @@ public class RequestController extends HttpServlet {
                     request.setAttribute("listS", listS);
                 }
             } else if (button_action.equals("create_schedule")) {
+
                 HttpSession session = request.getSession();
                 String uniqueId = (String) session.getAttribute("uniqueId");
-                Request req = (Request) session.getAttribute("request_"+uniqueId);
-                if (req != null) {
+                Request req = (Request) session.getAttribute("request_" + uniqueId);
+                Account mentee = (Account) session.getAttribute("account");
+                if (req != null && uniqueId.contains("_mentorId"+mentorId+"_menteeId"+mentee.getAccount_id())) {
 
                     int currentYear = Year.now().getValue();
                     WeekFields weekFields = WeekFields.ISO;
@@ -214,6 +219,8 @@ public class RequestController extends HttpServlet {
                     String scheduleId = String.valueOf(schedule.getId());
                     String month = String.valueOf(schedule.getMonth());
                     List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule.getId(), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
+                    
+                    
                     request.setAttribute("isFormFilled", isFormFilled);
                     request.setAttribute("scheduleId", scheduleId);
                     request.setAttribute("errorMessage", "");
@@ -223,10 +230,13 @@ public class RequestController extends HttpServlet {
                     request.setAttribute("weekDates", weekDates);
                     request.setAttribute("isoWeek", isoWeek);
                     request.setAttribute("weeks", weeks);
+                    request.setAttribute("cvId", cvId);
+                    request.setAttribute("listS", listS);
                     request.setAttribute("currentYear", currentYear);
 
                 } else {
                     request.setAttribute("errorMessage", "You have not entered data for the request.");
+
                     request.setAttribute("accountId", mentorId);
                     request.setAttribute("cvId", cvId);
                     request.setAttribute("listS", listS);
@@ -305,8 +315,12 @@ public class RequestController extends HttpServlet {
             String schedule_id = request.getParameter("schedule_id");
             String month = request.getParameter("month_form_updateweek");
 
-            HttpSession session = request.getSession();
+            CVDAO cvDAO = new CVDAO();
 
+            HttpSession session = request.getSession();
+            String uniqueId = (String) session.getAttribute("uniqueId");
+            String cvId = (String) session.getAttribute("cvId_" + uniqueId);
+            int rate = cvDAO.getRateOfCV(Integer.parseInt(cvId));
             SlotMenteeDAO slotMenteeDao = new SlotMenteeDAO();
 
             int week = Integer.parseInt(weekValue);
@@ -334,6 +348,8 @@ public class RequestController extends HttpServlet {
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
             slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
+            
+            
 
             Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
             if (scheduleMenteeDraft == null) {
@@ -341,13 +357,15 @@ public class RequestController extends HttpServlet {
                 String sessionId = UUID.randomUUID().toString();
                 Account mentee = (Account) session.getAttribute("account");
                 int menteeId = mentee.getAccount_id();
-                schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+                schedule_dao.createNewSchedule(menteeId, "1", LocalDateTime.now(), Integer.parseInt(month), sessionId);
                 scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
 
                 session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
             }
             List<SlotMentee> slotMentees = slotMenteeDao.getAllSlotMenteeByDates(scheduleMenteeDraft, firstDay, endDay);
 
+            request.setAttribute("totalOfSlotSaveMentee", slotMenteeDao.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+            request.setAttribute("totalPrice", rate * 2 * (slotMenteeDao.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
             request.setAttribute("month", month);
             request.setAttribute("weeks", weeks);
             request.setAttribute("scheduleId", Integer.parseInt(schedule_id));
@@ -360,6 +378,7 @@ public class RequestController extends HttpServlet {
         }
         if (action.equals("choose_schedule_week")) {
             ScheduleDAO scheduleDAO = new ScheduleDAO();
+            AccountDAO accountDAO = new AccountDAO();
             String month = request.getParameter("month_update_schedule");
             String year = request.getParameter("year_update_schedule");
             String weekValue = request.getParameter("week_update_schedule");
@@ -379,16 +398,21 @@ public class RequestController extends HttpServlet {
                 String sessionId = UUID.randomUUID().toString();
                 Account mentee = (Account) session.getAttribute("account");
                 int menteeId = mentee.getAccount_id();
-                schedule_dao.createNewSchedule(menteeId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+                schedule_dao.createNewSchedule(menteeId, "1", LocalDateTime.now(), Integer.parseInt(month), sessionId);
                 scheduleMenteeDraft = schedule_dao.getScheduleId(menteeId, sessionId);
 
                 session.setAttribute("scheduleMenteeDraft_" + schedule_id, scheduleMenteeDraft);
             }
-            String skillIdString = (String) session.getAttribute("skill");
+            String uniqueId = (String) session.getAttribute("uniqueId");
+            String skillIdString = (String) session.getAttribute("skill_" + uniqueId);
             int skillID = Integer.parseInt(skillIdString);
 
             SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
-
+            CVDAO cvDAO = new CVDAO();
+//            int totalOfSlotSaveMentee = slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft);
+            String cvId = (String) session.getAttribute("cvId_" + uniqueId);
+            int rate = cvDAO.getRateOfCV(Integer.parseInt(cvId));
+//            int totalPrice = rate*2*totalOfSlotSaveMentee;
             String messageSchedule = "";
             LocalDate startOfWeek = LocalDate.of(Integer.parseInt(year), 1, 1)
                     .with(WeekFields.ISO.weekOfWeekBasedYear(), Integer.parseInt(weekValue))
@@ -414,8 +438,8 @@ public class RequestController extends HttpServlet {
                             && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null && slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString()).size() == 0) {
                         checkSave = false;
 
-                    } else if(checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null 
-                            && checkedValuesSlotFour == null && checkedValuesSlotFive == null && slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString()).size() != 0){ 
+                    } else if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
+                            && checkedValuesSlotFour == null && checkedValuesSlotFive == null && slotMenteeDAO.getAllSlotMenteeByDates(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString()).size() != 0) {
                         slotMenteeDAO.deleteSchedule(scheduleMenteeDraft, startOfWeek.toString(), endOfWeek.toString());
                         checkSave = true;
                     } else {
@@ -462,6 +486,8 @@ public class RequestController extends HttpServlet {
                     if (checkSave == false) {
                         messageSchedule = "Save schedule failed";
                     } else {
+                        request.setAttribute("totalOfSlotSaveMentee", slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                        request.setAttribute("totalPrice", rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
                         messageSchedule = "Save schedule successfully";
                     }
                 } else {
@@ -610,18 +636,70 @@ public class RequestController extends HttpServlet {
                             }
 
                         }
-
-                        if (checkRepeat == true) {
-                            messageSchedule = "Updated schedule successfully";
-                        } else {
-                            messageSchedule = "Updated schedule failed";
-                        }
+                    }
+                    if (checkRepeat == true) {
+                        request.setAttribute("totalOfSlotSaveMentee", slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                        request.setAttribute("totalPrice", rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
+                        messageSchedule = "Updated schedule successfully";
+                    } else {
+                        messageSchedule = "Updated schedule failed";
+                        request.setAttribute("totalOfSlotSaveMentee", slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                        request.setAttribute("totalPrice", rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
                     }
                 } else {
                     messageSchedule = "This week is not selected";
                 }
-
             } else if (button_action_2.equals("submit")) {
+                Account mentee = (Account) session.getAttribute("account");
+                int balanceOfMentee = accountDAO.getBalanceOfMentee(mentee.getAccount_id());
+                int holdOfMentee = accountDAO.getHoldOfMentee(mentee.getAccount_id());
+                int saveTotalPrice = rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                int totalSlotSave = slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft);
+                boolean checkSubmit = true;
+                if (balanceOfMentee < saveTotalPrice || balanceOfMentee < (saveTotalPrice + holdOfMentee)) {
+                    messageSchedule = "The current balance is not enough to create new requests. Please add more money to your account.";
+                    checkSubmit = false;
+                } else if (totalSlotSave == 0 || saveTotalPrice == 0) {
+                    messageSchedule = "Create request failed. You have not chosen a class schedule yet";
+                    checkSubmit = false;
+                } else {
+                    Request requestSubmit = (Request) session.getAttribute("request_" + uniqueId);
+                    RequestDAO requestDAO = new RequestDAO();
+                    String titleOfRequest = requestSubmit.getTitle();
+                    Timestamp deadline = Timestamp.valueOf(requestSubmit.getDeadline());
+                    String contentOfRequest = requestSubmit.getContent();
+                    int createdBy = requestSubmit.getCreatedBy();
+                    Timestamp createdDate = Timestamp.valueOf(LocalDateTime.now());
+
+                    
+                    int requestId = requestDAO.createRequest(titleOfRequest, deadline, contentOfRequest, "1", String.valueOf(createdBy), createdDate);
+                    accountDAO.updateHoldOfAccount(mentee.getAccount_id(), saveTotalPrice + holdOfMentee);
+                    mentee.setHold(saveTotalPrice + holdOfMentee);
+                    session.setAttribute("account", mentee);
+                    String mentorId = (String) session.getAttribute("mentorId_" + uniqueId);
+                    String skill = (String) session.getAttribute("skill_" + uniqueId);
+                    int numOfSlot = slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft);
+                    boolean checkCreateRequest = requestDAO.createRequestCourse(requestId, Integer.parseInt(mentorId), Integer.parseInt(skill), numOfSlot, scheduleMenteeDraft, "1");
+                    if (checkCreateRequest == true) {
+                        messageSchedule = "You created the request successfully";
+
+                        session.removeAttribute("skill_" + uniqueId);
+                        session.removeAttribute("request_" + uniqueId);
+                        session.removeAttribute("mentorId_" + uniqueId);
+                        session.removeAttribute("cvId_" + uniqueId);
+                        session.removeAttribute("uniqueId");
+                        session.removeAttribute("scheduleMenteeDraft_" + schedule_id);
+
+                        checkSubmit = true;
+
+                    } else {
+                        messageSchedule = "You created the request failed";
+                        checkSubmit = false;
+                    }
+
+                }
+                request.setAttribute("totalOfSlotSaveMentee", slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                request.setAttribute("totalPrice", rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
 
             }
             List<Slot> slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), startOfWeek.toString(), endOfWeek.toString());
@@ -644,6 +722,8 @@ public class RequestController extends HttpServlet {
                 weeks.add(weekRange);
             }
 
+//            request.setAttribute("totalOfSlotSaveMentee", totalOfSlotSaveMentee);
+//            request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("slots", slots);
             request.setAttribute("slotMentees", slotMentees);
             request.setAttribute("isFormFilled", true);

@@ -98,9 +98,9 @@ public class AccountDAO extends DBContext {
                 String fullname = rs.getString("fullname");
                 int phone_number = Integer.parseInt(rs.getString("phonenumber"));
                 Date dob = rs.getDate("dob");
-                
+
                 Account account = new Account(account_id, account_name, email_2, password, fullname, phone_number, dob, role, rs.getBoolean("status"));
-                 
+
                 return account;
             }
         } catch (Exception e) {
@@ -137,8 +137,8 @@ public class AccountDAO extends DBContext {
                 Account account = new Account(rs.getInt("id"), rs.getString("name"),
                         rs.getString("email"), rs.getString("password"),
                         rs.getString("fullname"), rs.getInt("phonenumber"),
-                        rs.getDate("dob"),rs.getBoolean("sex"), rs.getString("address"),
-                        rs.getString("avatar"),role, rs.getBoolean("status"),rs.getInt("balance"), rs.getInt("hold"));
+                        rs.getDate("dob"), rs.getBoolean("sex"), rs.getString("address"),
+                        rs.getString("avatar"), role, rs.getBoolean("status"), rs.getInt("balance"), rs.getInt("hold"));
                 return account;
             }
         } catch (Exception e) {
@@ -214,8 +214,8 @@ public class AccountDAO extends DBContext {
         if (name.equals("")) {
             return;
         }
-        String sql = "UPDATE Account SET name = ?, email = ?, fullname = ?, phonenumber = ?, dob = ?, sex = ?, address = ?, avatar = ?, modified_at = CURRENT_TIMESTAMP\n"+
-                     "WHERE id = ?";
+        String sql = "UPDATE Account SET name = ?, email = ?, fullname = ?, phonenumber = ?, dob = ?, sex = ?, address = ?, avatar = ?, modified_at = CURRENT_TIMESTAMP\n"
+                + "WHERE id = ?";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
@@ -480,8 +480,8 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-  
-     public List<Account> getAllUsersByRolleId(String roleid) {
+
+    public List<Account> getAllUsersByRolleId(String roleid) {
         Account ac = new Account();
         List<Account> list = new ArrayList<>();
         String sql = "SELECT * FROM Account WHERE   roleID = ?";
@@ -499,7 +499,7 @@ public class AccountDAO extends DBContext {
                 Boolean Sex = rs.getBoolean(8);
                 String Address = rs.getString(9);
                 String Avatar = "";
-                 if (rs.getString(10) == null) {
+                if (rs.getString(10) == null) {
                     Avatar = "uploads/0.png";
                 } else {
                     Avatar = rs.getString(10);
@@ -512,9 +512,8 @@ public class AccountDAO extends DBContext {
         }
         return list;
     }
-     
-     
-     public int getRoleByname(String name) {
+
+    public int getRoleByname(String name) {
         String sql = "select roleID from account where name = ?";
         try {
             ps = conn.prepareStatement(sql);
@@ -528,20 +527,12 @@ public class AccountDAO extends DBContext {
         }
         return -1;
     }
-     
-       public static void main(String[] args) {
-        AccountDAO ac = new AccountDAO();
-        List<Account> list = new ArrayList<>();
-        list = ac.getAllUsersByRolleId("2");
-        for(Account a : list){
-            System.out.println(a);
-        }
-    }
+
     public Account getAccountByAccId(String txtId) {
         String query = """
                        select * 
                        from Account
-                       where id = ?"""  ;
+                       where id = ?""";
         try {
             conn = new DBContext().conn;
             ps = conn.prepareStatement(query);
@@ -558,7 +549,7 @@ public class AccountDAO extends DBContext {
                 boolean sex = rs.getBoolean("sex");
                 String address = rs.getString("address");
                 String avatar = rs.getString("avatar");
-                Role roleID = new Role(); 
+                Role roleID = new Role();
                 roleID.setRole_id(rs.getInt("roleID"));
                 int balance = rs.getInt("balance");
                 boolean status = rs.getBoolean("status");
@@ -586,6 +577,7 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+
     public ArrayList<AccountMentor> getMentorBySkills(String SkillId) {
         ArrayList<AccountMentor> data = new ArrayList<AccountMentor>();
         AccountMentor a = new AccountMentor();
@@ -665,5 +657,66 @@ public class AccountDAO extends DBContext {
         return data;
     }
 
-    
+    public int getBalanceOfMentee(int menteeId) {
+        int balance = 0;
+        String sql = "SELECT [balance]\n"
+                + "FROM [happy_programming_system].[dbo].[Account]\n"
+                + "WHERE [id] = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, menteeId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                balance = rs.getInt("balance");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return balance;
+    }
+
+    public int getHoldOfMentee(int menteeId) {
+        int hold = 0;
+        String sql = "SELECT [hold]\n"
+                + "FROM [happy_programming_system].[dbo].[Account]\n"
+                + "WHERE [id] = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, menteeId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                hold = rs.getInt("hold");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return hold;
+    }
+
+    public int updateHoldOfAccount(int accountId, int hold) {
+        int result = 0;
+        String sql = "UPDATE [happy_programming_system].[dbo].[Account]\n"
+                + "SET [hold] = ?\n"
+                + "WHERE [id] = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hold);
+            ps.setInt(2, accountId);
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        AccountDAO ac = new AccountDAO();
+        int balance = ac.getBalanceOfMentee(42);
+        System.out.println(balance);
+    }
+
 }

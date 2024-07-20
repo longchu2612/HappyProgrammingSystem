@@ -12,14 +12,50 @@ import model.*;
 
 public class RequestDAO extends DBContext {
 
-    public boolean createRequest(String title, Timestamp deadline, String content, String status, String createdBy, Timestamp createdDate) {
+//    public boolean createRequest(String title, LocalDateTime deadline, String content, String status, int createdBy, LocalDateTime createdDate) {
+//        String query = """
+//                       INSERT INTO Request (title, deadline,content,status,createdBy,createdDate)
+//                       values(?,?,?,?,?,?)""";
+//
+//        try {
+//            conn = new DBContext().conn;
+//            ps = conn.prepareStatement(query);
+//            ps.setString(1, title);
+//            ps.setTimestamp(2, Timestamp.valueOf(deadline));
+//            ps.setString(3, content);
+//            ps.setString(4, status);
+//            ps.setInt(5, createdBy);
+//            ps.setTimestamp(6, Timestamp.valueOf(createdDate));
+//            ps.executeUpdate();
+//            return true;
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (ps != null) {
+//                    ps.close();
+//                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        return false;
+//    }
+    
+    public int createRequest(String title, Timestamp deadline, String content, String status, String createdBy, Timestamp createdDate) {
         String query = """
                        INSERT INTO Request (title, deadline,content,status,createdBy,createdDate)
                        values(?,?,?,?,?,?)""";
 
         try {
             conn = new DBContext().conn;
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, title);
             ps.setTimestamp(2, deadline);
             ps.setString(3, content);
@@ -27,7 +63,11 @@ public class RequestDAO extends DBContext {
             ps.setString(5, createdBy);
             ps.setTimestamp(6, createdDate);
             ps.executeUpdate();
-            return true;
+            
+            rs = ps.getGeneratedKeys();
+            if(rs.next()){ 
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -45,7 +85,7 @@ public class RequestDAO extends DBContext {
                 System.out.println(e.getMessage());
             }
         }
-        return false;
+        return -1;
     }
 
     public boolean updateRequest(String id, String title, Timestamp deadline, String content, String status, Timestamp createdDate) {
@@ -159,10 +199,10 @@ public class RequestDAO extends DBContext {
         return null;
     }
 
-    public boolean createRequestCourse(int req_id, int toUser_id, int skill_id, int numOfSlot) {
+    public boolean createRequestCourse(int req_id, int toUser_id, int skill_id, int numOfSlot,int schedule_id, String status) {
         String query = """
-                       Insert into Request_Course(req_id, toUser_id, skill_id, numOfSlot)
-                       values(?,?,?,?)
+                       INSERT INTO Request_Course (req_id, toUser_id, skill_id, numOfSlot, schedule_id, status)
+                       VALUES (?, ?, ?, ?, ?, ?)
                        """;
 
         try {
@@ -172,6 +212,8 @@ public class RequestDAO extends DBContext {
             ps.setInt(2, toUser_id);
             ps.setInt(3, skill_id);
             ps.setInt(4, numOfSlot);
+            ps.setInt(5, schedule_id);
+            ps.setString(6, status);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -316,11 +358,13 @@ public class RequestDAO extends DBContext {
         RequestDAO dao = new RequestDAO();
         //ArrayList<Request> list = dao.getRequestByCreateBy("2068");
         LocalDateTime test = LocalDateTime.now();
+        
+        
         Timestamp convert = Timestamp.valueOf(test);
-        //boolean check1 = dao.createRequest("abc", convert, "abc", "1", "2086", convert);
-        //boolean check2 = dao.createRequestCourse(dao.getIdNewRequest(), 2078, 6, 4);
+        int check1 = dao.createRequest("abc345899", convert, "abc", "3", "2086", convert);
+//        boolean check2 = dao.createRequestCourse(dao.getIdNewRequest(), 2078, 6, 4);
         //System.out.println("Id request:" + dao.getIdNewRequest() + ", Request: " + check1 + ", Request course: " + check2);
-        Request req = dao.checkRequestDraft(2086, 2078);
-        System.out.println(req);
+//        Request req = dao.checkRequestDraft(2086, 2078);
+        System.out.println(check1);
     }
 }

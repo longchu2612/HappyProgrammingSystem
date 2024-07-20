@@ -100,9 +100,29 @@ public class SlotMenteeDAO extends DBContext {
         return slotMentees;
     }
 
+    public int countNumberOfSaveSlotMentee(int schedule_id) {
+        int totalSlot = 0;
+        String sql = "SELECT COUNT(*) AS TotalSlots\n"
+                + "FROM [happy_programming_system].[dbo].[Slot_Mentee]\n"
+                + "WHERE schedule_id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, schedule_id);
+            rs = ps.executeQuery();
+            while(rs.next()){ 
+                totalSlot = rs.getInt("TotalSlots");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return totalSlot;
+    }
+
     public static void main(String[] args) {
         SlotMenteeDAO slot_mentee = new SlotMenteeDAO();
-        slot_mentee.deleteSlotsOutsideDateRange(36, "2024-09-04", "2024-09-06");
-        
+        int result = slot_mentee.countNumberOfSaveSlotMentee(23);
+        System.out.println(result);
+
     }
 }
