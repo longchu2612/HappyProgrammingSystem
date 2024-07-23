@@ -17,6 +17,22 @@ public class Request_Course {
     private Schedule schedule;
     private String status;
     private Account mentee;
+    private String note;
+
+    public Request_Course(int repc_id, Request request, Account mentor, Skill skill, int numOfSlot, Schedule schedule, String status, Account mentee, String note) {
+        this.repc_id = repc_id;
+        this.request = request;
+        this.mentor = mentor;
+        this.skill = skill;
+        this.numOfSlot = numOfSlot;
+        this.schedule = schedule;
+        this.status = status;
+        this.mentee = mentee;
+        this.note = note;
+    }
+    
+    
+    
 
     public Request_Course(int repc_id, Request request, Account mentor, Skill skill, int numOfSlot, Schedule schedule, String status, Account mentee) {
         this.repc_id = repc_id;
@@ -96,10 +112,21 @@ public class Request_Course {
         this.mentee = mentee;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     @Override
     public String toString() {
-        return "Request_Course{" + "repc_id=" + repc_id + ", request=" + request + ", mentor=" + mentor + ", skill=" + skill + ", numOfSlot=" + numOfSlot + ", schedule=" + schedule + ", status=" + status + ", mentee=" + mentee + '}';
+        return "Request_Course{" + "repc_id=" + repc_id + ", request=" + request + ", mentor=" + mentor + ", skill=" + skill + ", numOfSlot=" + numOfSlot + ", schedule=" + schedule + ", status=" + status + ", mentee=" + mentee + ", note=" + note + '}';
     }
+    
+    
+    
     
     
 }

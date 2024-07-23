@@ -35,13 +35,13 @@
                         <ul class="main-nav">
                             <c:if test="${sessionScope.account.role.role_id == 1}">
                                 <li class="has-submenu">
-                                    
+
                                     <a href>Wallet <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a>Balance: ${sessionScope.account.balance == null ? 0 : sessionScope.account.balance} VND</a></li>
-                                        <li><a>Hold: ${sessionScope.account.hold == null ? 0 : sessionScope.account.hold} VND</a></li>
-                                        <li><a>Available: ${(sessionScope.account.balance == null ? 0 : sessionScope.account.balance)
-                                                - (sessionScope.account.hold == null ? 0 : sessionScope.account.hold)} VND</a></li>
+                                        <li><a>Balance: <span id="balance">${sessionScope.account.balance == null ? 0 : sessionScope.account.balance}</span> VND</a></li>
+                                        <li><a>Hold: <span id="hold">${sessionScope.account.hold == null ? 0 : sessionScope.account.hold}</span> VND</a></li>
+                                        <li><a>Available: <span id="available">${(sessionScope.account.balance == null ? 0 : sessionScope.account.balance)
+                                                                                 - (sessionScope.account.hold == null ? 0 : sessionScope.account.hold)}</span> VND</a></li>
                                         <li><a href="">Volatility</a></li>
                                         <li><a href="recharge.jsp">Recharge</a></li>
                                     </ul>
@@ -50,9 +50,10 @@
                                     <a href>Hello, ${sessionScope.account.fullname} <i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li><a href="${pageContext.request.contextPath}/">Home Mentee</a></li>
-                                         <li><a href="profile">Profile</a></li>
+                                        <li><a href="profile">Profile</a></li>
+
                                         <li><a href="Booking">Search Mentor</a></li>
-                                        <li><a href="#">My request</a></li>
+                                        <li><a href="my_request_mentee">My request</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="#">Profile Settings</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>
@@ -106,3 +107,33 @@
         </nav>
     </div>
 </header>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--<script>
+    function updateWalletInfo() {
+        $.ajax({
+            url: 'getAccountInfo', // Đảm bảo URL khớp với ánh xạ servlet
+            type: 'GET',
+            success: function (data) {
+                $('#balance').text(data.balance);
+                $('#hold').text(data.hold);
+                $('#available').text(data.balance - data.hold);
+            },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    // Redirect to login page if unauthorized
+                    window.location.href = 'login.jsp';
+                } else {
+                    console.log('Error fetching account info', xhr.status);
+                }
+            }
+        });
+    }
+
+    // Call the updateWalletInfo function when the page loads
+    $(document).ready(function () {
+        updateWalletInfo();
+        // Set interval to update info every 10 seconds
+        setInterval(updateWalletInfo, 10000);
+    });
+</script>-->

@@ -4,28 +4,25 @@
  */
 package controller;
 
-import dao.AccountDAO;
 import dao.CVDAO;
-import dao.RequestCourseDAO;
-import dao.SlotMenteeDAO;
+import dao.RequestDAO;
+import dao.SkillDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
-import model.Account;
 import model.CV;
-import model.Request_Course;
+import model.Request;
+import model.Skill;
 
 /**
  *
  * @author asus
  */
-public class UpdateRequestMentor extends HttpServlet {
+public class UpdateRequestDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class UpdateRequestMentor extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateRequestMentor</title>");
+            out.println("<title>Servlet UpdateRequestDetailController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateRequestMentor at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateRequestDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,32 +62,22 @@ public class UpdateRequestMentor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String requestIdString = request.getParameter("request_id");
+        int request_id = Integer.parseInt(requestIdString);
+        String mentorIdString = request.getParameter("mentor_id");
+        int mentor_id = Integer.parseInt(mentorIdString);
+        String skill = request.getParameter("skill_id");
         
-        HttpSession session = request.getSession(false);
-        Account mentor = (Account) session.getAttribute("account");
-        RequestCourseDAO requestCourseDAO = new RequestCourseDAO();
-        SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
-        AccountDAO accountDAO = new AccountDAO();
-        List<Request_Course> listRequestOfMentor = new ArrayList<>();
-        listRequestOfMentor = requestCourseDAO.getAllRequestCourseOfMentor(mentor.getAccount_id());
+        CV cv = new CVDAO().getCVByAccId(mentorIdString);
+        ArrayList<Skill> listS = new SkillDAO().getSkillByCvId(cv.getId());
+        RequestDAO requestDAO = new RequestDAO();
+        Request request_detail = requestDAO.getRequestByReqId(request_id);
         
-        
-        String action = request.getParameter("action");
-        String requestIdStr = request.getParameter("requestId");
-        String reason = request.getParameter("reason");
-        int requestId = Integer.parseInt(requestIdStr);
-       
-        
-        if("accept".equalsIgnoreCase(action)){ 
-            requestCourseDAO.updateRequestStatus(requestId, "2", reason);
-            
-        }else if("reject".equalsIgnoreCase(action)){ 
-            requestCourseDAO.updateRequestStatus(requestId, "3", reason);
-            
-        }
-        
-        request.setAttribute("listRequestOfMentor", listRequestOfMentor);
-        request.getRequestDispatcher("myRequest.jsp").forward(request, response);
+        request.setAttribute("request_id", request_id);
+        request.setAttribute("request_detail", request_detail);
+        request.setAttribute("skill", skill);
+        request.setAttribute("listS", listS);
+        request.getRequestDispatcher("update-request-detail.jsp").forward(request, response);
     }
 
     /**
@@ -104,7 +91,7 @@ public class UpdateRequestMentor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

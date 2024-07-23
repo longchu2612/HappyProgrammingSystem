@@ -4,10 +4,7 @@
  */
 package controller;
 
-import dao.AccountDAO;
-import dao.CVDAO;
 import dao.RequestCourseDAO;
-import dao.SlotMenteeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,14 +15,13 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
-import model.CV;
 import model.Request_Course;
 
 /**
  *
  * @author asus
  */
-public class UpdateRequestMentor extends HttpServlet {
+public class MyRequestMenteeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +40,10 @@ public class UpdateRequestMentor extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateRequestMentor</title>");
+            out.println("<title>Servlet MyRequestMenteeController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateRequestMentor at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MyRequestMenteeController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,32 +61,14 @@ public class UpdateRequestMentor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HttpSession session = request.getSession(false);
-        Account mentor = (Account) session.getAttribute("account");
+        Account mentee = (Account) session.getAttribute("account");
+        
+        List<Request_Course> listRequestOfMentee = new ArrayList<>();
         RequestCourseDAO requestCourseDAO = new RequestCourseDAO();
-        SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
-        AccountDAO accountDAO = new AccountDAO();
-        List<Request_Course> listRequestOfMentor = new ArrayList<>();
-        listRequestOfMentor = requestCourseDAO.getAllRequestCourseOfMentor(mentor.getAccount_id());
-        
-        
-        String action = request.getParameter("action");
-        String requestIdStr = request.getParameter("requestId");
-        String reason = request.getParameter("reason");
-        int requestId = Integer.parseInt(requestIdStr);
-       
-        
-        if("accept".equalsIgnoreCase(action)){ 
-            requestCourseDAO.updateRequestStatus(requestId, "2", reason);
-            
-        }else if("reject".equalsIgnoreCase(action)){ 
-            requestCourseDAO.updateRequestStatus(requestId, "3", reason);
-            
-        }
-        
-        request.setAttribute("listRequestOfMentor", listRequestOfMentor);
-        request.getRequestDispatcher("myRequest.jsp").forward(request, response);
+        listRequestOfMentee = requestCourseDAO.getAllRequestCourseOfMentee(mentee.getAccount_id());
+        request.setAttribute("listRequestOfMentee", listRequestOfMentee);
+        request.getRequestDispatcher("myRequestMentee.jsp").forward(request, response);
     }
 
     /**

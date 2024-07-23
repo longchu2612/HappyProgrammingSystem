@@ -1,4 +1,10 @@
 <%-- 
+    Document   : myRequestMentee
+    Created on : Jul 21, 2024, 11:11:48 AM
+    Author     : asus
+--%>
+
+<%-- 
     Document   : myRequest
     Created on : Jul 20, 2024, 11:27:16 AM
     Author     : asus
@@ -59,6 +65,42 @@
 
             .icon-button.view-schedule:hover {
                 color: #218838;
+            }
+            .modal {
+                display: none; /* Ban đầu ẩn modal */
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+                padding-top: 60px;
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 500px;
+                border-radius: 10px;
+            }
+            .modal-header, .modal-body, .modal-footer {
+                padding: 10px;
+            }
+            .modal-header {
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .modal-footer {
+                text-align: right;
+            }
+            .modal-footer button {
+                margin-left: 10px;
             }
         </style>
 
@@ -141,22 +183,23 @@
                                             <table class="table table-hover table-center mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Name Of Mentee</th>
+                                                        <th>Name Of Mentor</th>
                                                         <th>Skill</th>
                                                         <th>Create Date</th>
                                                         <th>Status</th>
-                                                        <th>View</th>
-                                                        <th>Action</th>
+                                                        <th>Note</th>
+                                                        <th>Update</th>
+                                                        <th>Payment</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${requestScope.listRequestOfMentor}" var="request_course">
+                                                    <c:forEach items="${requestScope.listRequestOfMentee}" var="request_course">
                                                         <tr>
 
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="#" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/user/user2.jpg" alt="User Image"></a>
-                                                                    <a href="#">${request_course.getMentee().getAccount_name()}</a>
+                                                                    <a href="#">${request_course.getMentor().getAccount_name()}</a>
                                                                 </h2>
                                                             </td>
 
@@ -188,11 +231,8 @@
 
                                                             </td>
                                                             <td>
-                                                                <button type="button" class="icon-button" onclick="viewRequest(${request_course.getRequest().getId()}, ${request_course.getSkill().getSkillId()})">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </button>
-                                                                <button type="button" class="icon-button view-schedule" onclick="viewSchedule(${request_course.getSchedule().getId()})">
-                                                                    <i class="fas fa-calendar-alt"></i>
+                                                                <button type="button" class="icon-button" onclick="displayNote('${request_course.getNote()}')">
+                                                                    <i class="fas fa-sticky-note"></i>
                                                                 </button>
                                                             </td>
                                                             <td>
@@ -200,25 +240,47 @@
 
                                                                 <c:choose>
                                                                     <c:when test="${request_course.getStatus() == '1'}">
-                                                                        <button type="button" class="btn btn-outline-success" onclick="submitRequest('accept', ${request_course.getRepc_id()})">Accept</button>
-                                                                        <button type="button" class="btn btn-outline-danger" onclick="submitRequest('reject', ${request_course.getRepc_id()})">Reject</button>
+                                                                        No Action
                                                                     </c:when>
                                                                     <c:when test="${request_course.getStatus() == '2'}">
-                                                                        <button type="button" class="btn btn-outline-danger" onclick="submitRequest('reject', ${request_course.getRepc_id()})">Reject</button>
+                                                                        No Action
                                                                     </c:when>
                                                                     <c:when test="${request_course.getStatus() == '3'}">
-                                                                        <button type="button" class="btn btn-outline-success" onclick="submitRequest('accept', ${request_course.getRepc_id()})">Accept</button>
+                                                                        <a href="update_request_detail?request_id=${request_course.getRequest().getId()}&mentor_id=${request_course.getMentor().getAccount_id()}&skill_id=${request_course.getSkill().getSkillId()}" class="btn btn-outline-secondary">
+                                                                            <i class="fas fa-edit"></i> 
+                                                                        </a>
+                                                                        <a href="updateSchedulePage.jsp?request_id=${request_course.getRequest().getId()}" class="btn btn-outline-secondary">
+                                                                            <i class="fas fa-calendar-day"></i>
+                                                                        </a>
+                                                                        <a href="updateStatusServlet?request_id=${request_course.getRequest().getId()}" class="icon-button" title="Update Status">
+                                                                            <i class="fas fa-check"></i>
+                                                                        </a>
                                                                     </c:when>
                                                                     <c:when test="${request_course.getStatus() == '5'}">
-                                                                       
+
                                                                     </c:when>
-                                                                    
+
                                                                 </c:choose>
                                                             </td>
+                                                            <td></td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
+                                            <div id="note-modal" class="modal">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        Note
+                                                    </div>
+                                                    <div id="modal-body" class="modal-body">
+                                                        <!-- Nội dung ghi chú sẽ được hiển thị ở đây -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-outline-secondary" onclick="closeModal()">OK</button>
+                                                        <button class="btn btn-outline-secondary" onclick="closeModal()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -352,43 +414,60 @@
         <script src="assets/js/script.js"></script>
         <script>
 
-                                                                    function viewRequest(requestId, skillId) {
-                                                                        window.location.href = 'view_request_detail?requestId=' + requestId + '&skillId=' + skillId;
-                                                                    }
-                                                                    function viewSchedule(scheduleId) {
-                                                                        window.location.href = 'view_schedule_detail?scheduleId=' + scheduleId;
-                                                                    }
+                                                            function viewRequest(requestId, skillId) {
+                                                                window.location.href = 'view_request_detail?requestId=' + requestId + '&skillId=' + skillId;
+                                                            }
+                                                            function viewSchedule(scheduleId) {
+                                                                window.location.href = 'view_schedule_detail?scheduleId=' + scheduleId;
+                                                            }
 
-                                                                    function submitRequest(action, requestId) {
-                                                                        var reason = prompt("Please enter the reason for " + action + ":");
+                                                            function submitRequest(action, requestId) {
+                                                                var reason = prompt("Please enter the reason for " + action + ":");
 
-                                                                        if (reason !== null && reason.trim() !== "") {
-                                                                            // Tạo dữ liệu cần gửi
-                                                                            var data = new URLSearchParams();
-                                                                            data.append("action", action);
-                                                                            data.append("requestId", requestId);
-                                                                            data.append("reason", reason);
+                                                                if (reason !== null && reason.trim() !== "") {
+                                                                    // Tạo dữ liệu cần gửi
+                                                                    var data = new URLSearchParams();
+                                                                    data.append("action", action);
+                                                                    data.append("requestId", requestId);
+                                                                    data.append("reason", reason);
 
-                                                                            // Sử dụng fetch API để gửi yêu cầu POST đến servlet
-                                                                            fetch('my_request', {
-                                                                                method: 'POST',
-                                                                                headers: {
-                                                                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                                                                },
-                                                                                body: data
+                                                                    // Sử dụng fetch API để gửi yêu cầu POST đến servlet
+                                                                    fetch('my_request', {
+                                                                        method: 'POST',
+                                                                        headers: {
+                                                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                                                        },
+                                                                        body: data
+                                                                    })
+                                                                            .then(response => {
+                                                                                // Sau khi xử lý yêu cầu, chuyển hướng tới trang JSP mong muốn
+                                                                                window.location.href = 'my_request';
                                                                             })
-                                                                                    .then(response => {
-                                                                                        // Sau khi xử lý yêu cầu, chuyển hướng tới trang JSP mong muốn
-                                                                                        window.location.href = 'my_request';
-                                                                                    })
-                                                                                    .catch(error => {
-                                                                                        console.error('Error:', error);
-                                                                                        alert("An error occurred while processing the request.");
-                                                                                    });
-                                                                        } else {
-                                                                            alert("Reason is required to proceed.");
-                                                                        }
-                                                                    }
+                                                                            .catch(error => {
+                                                                                console.error('Error:', error);
+                                                                                alert("An error occurred while processing the request.");
+                                                                            });
+                                                                } else {
+                                                                    alert("Reason is required to proceed.");
+                                                                }
+                                                            }
+
+                                                            function displayNote(note) {
+                                                                if (note && note.trim() !== "") {
+                                                                    document.getElementById('modal-body').innerText = note;
+                                                                    document.getElementById('note-modal').style.display = "block"; // Hiển thị modal khi có nội dung
+                                                                }
+                                                            }
+                                                            function closeModal() {
+                                                                document.getElementById('note-modal').style.display = "none"; // Ẩn modal
+                                                            }
+
+                                                            window.onclick = function (event) {
+                                                                var modal = document.getElementById('note-modal');
+                                                                if (event.target == modal) {
+                                                                    modal.style.display = "none";
+                                                                }
+                                                            }
 
 
         </script>
@@ -396,5 +475,6 @@
 
     <!-- Mirrored from mentoring.dreamguystech.com/html/template/bookings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:32:08 GMT -->
 </html>
+
 
 

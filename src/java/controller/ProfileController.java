@@ -139,7 +139,7 @@ public class ProfileController extends HttpServlet {
                     request.setAttribute("data", data);
                     request.getRequestDispatcher("profile-settings.jsp").forward(request, response);
                 } else if (c.checkCVExistanceById(String.valueOf(accountID)) == false) {
-
+                    request.setAttribute("phone", "0" + String.valueOf(ac.getPhone()));
                     request.getRequestDispatcher("profile-settings-withoutCV.jsp").forward(request, response);
                 }
             } else if (a.getRoleById(String.valueOf(accountID)) == 1) {

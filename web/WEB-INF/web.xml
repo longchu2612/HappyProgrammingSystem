@@ -120,6 +120,18 @@
         <servlet-name>ViewScheduleDetailController</servlet-name>
         <servlet-class>controller.ViewScheduleDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyRequestMenteeController</servlet-name>
+        <servlet-class>controller.MyRequestMenteeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateRequestDetailController</servlet-name>
+        <servlet-class>controller.UpdateRequestDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAccountInfoServlet</servlet-name>
+        <servlet-class>controller.GetAccountInfoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/account</url-pattern>
@@ -244,4 +256,19 @@
         <servlet-name>ViewScheduleDetailController</servlet-name>
         <url-pattern>/view_schedule_detail</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyRequestMenteeController</servlet-name>
+        <url-pattern>/my_request_mentee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateRequestDetailController</servlet-name>
+        <url-pattern>/update_request_detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAccountInfoServlet</servlet-name>
+        <url-pattern>/getAccountInfo</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>60</session-timeout> <!-- Thay đổi giá trị theo yêu cầu của bạn -->
+    </session-config>
 </web-app>
