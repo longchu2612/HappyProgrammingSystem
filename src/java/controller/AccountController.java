@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import jakarta.servlet.http.HttpSession;
+import java.util.UUID;
 import model.Role;
 
 /**
@@ -86,9 +87,10 @@ public class AccountController extends HttpServlet {
             } else {
 
                 account_dao.Register(account_name, email, password, full_name, phone_number, date, sex, address, role_id, false);
-
-                String activationCode = java.util.Base64.getEncoder().encodeToString(email.getBytes());
-                Email.sendEmail(email, activationCode);
+                int account_id = account_dao.getAccountIdByEmail(email);
+                String activationCode = java.util.Base64.getEncoder().encodeToString(Integer.toString(account_id).getBytes());
+                String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+                Email.sendEmail(email, activationCode,baseUrl);
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else if (action.equals("login")) {
@@ -116,6 +118,9 @@ public class AccountController extends HttpServlet {
 
                     session.setAttribute("account", account);
                     session.setMaxInactiveInterval(1800);
+                    // add new token
+                    String token = UUID.randomUUID().toString();
+                    session.setAttribute("token", token);
 
                     session.setAttribute("username", account.getAccount_name());
 

@@ -108,32 +108,51 @@
     </div>
 </header>
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-<!--<script>
-    function updateWalletInfo() {
-        $.ajax({
-            url: 'getAccountInfo', // Đảm bảo URL khớp với ánh xạ servlet
-            type: 'GET',
-            success: function (data) {
-                $('#balance').text(data.balance);
-                $('#hold').text(data.hold);
-                $('#available').text(data.balance - data.hold);
-            },
-            error: function (xhr) {
-                if (xhr.status === 401) {
-                    // Redirect to login page if unauthorized
-                    window.location.href = 'login.jsp';
-                } else {
-                    console.log('Error fetching account info', xhr.status);
-                }
-            }
-        });
-    }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+//    function updateWalletInfo() {
+//        var token = getTokenFromSessionOrCookie(); // Hàm này tùy thuộc vào cách bạn lưu và lấy token
+//
+//        $.ajax({
+//            url: 'getAccountInfo', // Đảm bảo URL khớp với ánh xạ servlet
+//            type: 'GET',
+//            data: {token: token}, // Gửi token cùng với yêu cầu
+//            success: function (data) {
+//                $('#balance').text(data.balance);
+//                $('#hold').text(data.hold);
+//                $('#available').text(data.balance - data.hold);
+//            },
+//            error: function (xhr) {
+//                if (xhr.status === 401) {
+//                    // Redirect to login page if unauthorized
+//                    window.location.href = 'login.jsp';
+//                } else {
+//                    console.log('Error fetching account info', xhr.status);
+//                }
+//            }
+//        });
+//    }
+
+//    function getTokenFromSessionOrCookie() {
+//        var name = "token=";
+//        var decodedCookie = decodeURIComponent(document.cookie);
+//        var ca = decodedCookie.split(';');
+//        for (var i = 0; i < ca.length; i++) {
+//            var c = ca[i];
+//            while (c.charAt(0) === ' ') {
+//                c = c.substring(1);
+//            }
+//            if (c.indexOf(name) === 0) {
+//                return c.substring(name.length, c.length);
+//            }
+//        }
+//        return "";
+//    }
 
     // Call the updateWalletInfo function when the page loads
-    $(document).ready(function () {
-        updateWalletInfo();
-        // Set interval to update info every 10 seconds
-        setInterval(updateWalletInfo, 10000);
-    });
-</script>-->
+//    $(document).ready(function () {
+//        updateWalletInfo();
+//        // Set interval to update info every 10 seconds
+//        setInterval(updateWalletInfo, 10000);
+//    });
+</script>

@@ -25,7 +25,7 @@ public class Email {
     private static final String from = "chuhonglong26122000@gmail.com";
     private static final String password = "gkeegyixpnzgtmjm";
 
-    public static boolean sendEmail(String to, String content) {
+    public static boolean sendEmail(String to, String content,String baseUrl) {
         // Properties: khai bao cac thuoc tinh
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -56,8 +56,9 @@ public class Email {
             //QUy dinh ngay gui
             msg.setSentDate(new Date());
             //Noi dung
-           String link = "http://localhost:9999/HappyProgrammingSystem/verify?code="+ content;
-           
+//           String link = "http://localhost:9999/HappyProgrammingSystem/verify?code="+ content;
+            String link = baseUrl + "/verify?code=" + content;
+
             msg.setText("Please click the following link to activate your account:\n" + link, "UTF-8");
             // Gui email
             Transport.send(msg);
@@ -69,7 +70,7 @@ public class Email {
 
     }
     public static void main(String[] args) {
-        Email.sendEmail("minhpche153232@fpt.edu.vn", "minhpche153232@fpt.edu.vn");
+//        Email.sendEmail("minhpche153232@fpt.edu.vn", "minhpche153232@fpt.edu.vn");
     }
     
 

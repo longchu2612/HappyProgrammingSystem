@@ -58,21 +58,26 @@ public class GetAccountInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Use false to avoid creating a new session
+        HttpSession session = request.getSession(false);
         if (session != null) {
-            Account account = (Account) session.getAttribute("account");
-            if (account != null) {
-                AccountDAO accountDAO = new AccountDAO();
-                int balance = accountDAO.getBalanceOfMentee(account.getAccount_id());
-                int hold = accountDAO.getHoldOfMentee(account.getAccount_id());
+            String sessionToken = (String) session.getAttribute("token");
+            String requestToken = request.getParameter("token");
 
-                response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.print("{\"balance\": " + balance + ", \"hold\": " + hold + "}");
-                out.flush();
-            } else {
+            if (sessionToken == null || !sessionToken.equals(requestToken)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
+
+            // Xử lý yêu cầu nếu token hợp lệ
+            Account account = (Account) session.getAttribute("account");
+            AccountDAO accountDAO = new AccountDAO();
+            int balance = accountDAO.getBalanceOfMentee(account.getAccount_id());
+            int hold = accountDAO.getHoldOfMentee(account.getAccount_id());
+
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print("{\"balance\": " + balance + ", \"hold\": " + hold + "}");
+            out.flush();
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }

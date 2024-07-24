@@ -700,12 +700,49 @@ public class AccountDAO extends DBContext {
         String sql = "UPDATE [happy_programming_system].[dbo].[Account]\n"
                 + "SET [hold] = ?\n"
                 + "WHERE [id] = ?;";
-        
+
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, hold);
             ps.setInt(2, accountId);
             result = ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    public int getAccountIdByEmail(String email) {
+        int result = -1;
+        String sql = "SELECT [id]\n"
+                + "FROM [happy_programming_system].[dbo].[Account]\n"
+                + "WHERE [email] = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt("id");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    public int updateStatusOfAccountById(int id) {
+        int result = 0;
+        String sql = "UPDATE [happy_programming_system].[dbo].[Account]\n"
+                + "SET [status] = 1\n"
+                + "WHERE [id] = ?";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            result = ps.executeUpdate();
+            
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
