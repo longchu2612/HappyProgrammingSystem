@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.AccountDAO;
@@ -48,7 +47,6 @@ public class AccountController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
 
         String action = request.getParameter("action");
         if (action.equals("checkregister")) {
@@ -90,7 +88,7 @@ public class AccountController extends HttpServlet {
                 int account_id = account_dao.getAccountIdByEmail(email);
                 String activationCode = java.util.Base64.getEncoder().encodeToString(Integer.toString(account_id).getBytes());
                 String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-                Email.sendEmail(email, activationCode,baseUrl);
+                Email.sendEmail(email, activationCode, baseUrl);
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else if (action.equals("login")) {
@@ -116,11 +114,16 @@ public class AccountController extends HttpServlet {
 
                 } else {
 
+//                    HttpSession oldSession = request.getSession(false);
+//                    if (oldSession != null) {
+//                        oldSession.invalidate();
+//                    }
+                    HttpSession session = request.getSession(true);
                     session.setAttribute("account", account);
                     session.setMaxInactiveInterval(1800);
                     // add new token
-                    String token = UUID.randomUUID().toString();
-                    session.setAttribute("token", token);
+//                    String token = UUID.randomUUID().toString();
+//                    session.setAttribute("token", token);
 
                     session.setAttribute("username", account.getAccount_name());
 
@@ -173,10 +176,16 @@ public class AccountController extends HttpServlet {
             }
 
         } else if (action.equals("logout")) {
-            session.removeAttribute("account");
+            HttpSession session = request.getSession(false); // Lấy session hiện tại, không tạo mới
+            if (session != null) {
+                session.invalidate(); // Xóa toàn bộ session
+            }
             response.sendRedirect("home");
         } else if (action.equals("logout2")) {
-            session.removeAttribute("account");
+            HttpSession session = request.getSession(false); // Lấy session hiện tại, không tạo mới
+            if (session != null) {
+                session.invalidate(); // Xóa toàn bộ session
+            }
             response.sendRedirect("home");
         }
 

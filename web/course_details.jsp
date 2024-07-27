@@ -34,25 +34,26 @@
         <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
         <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
-
+        
+        <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
 
     <body>
 
         <div class="main-wrapper">
-            <jsp:include page="layout_header.jsp"/>
+            <jsp:include page="header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
+<!--                        <div class="col-md-12 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="home">Home</a></li>
                                     <li class="breadcrumb-item"><a href="Booking?service=all_skill">Back to courses</a></li>
                                 </ol>
                             </nav>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

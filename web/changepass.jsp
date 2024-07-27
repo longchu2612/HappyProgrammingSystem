@@ -21,7 +21,7 @@
 
         <div class="main-wrapper">
 
-            <header class="header">
+<!--            <header class="header">
                 <div class="header-fixed">
                     <nav class="navbar navbar-expand-lg header-nav">
                         <div class="navbar-header">
@@ -167,20 +167,20 @@
                         </ul>
                     </nav>
                 </div>
-            </header>
+            </header>-->
 
-
+            <jsp:include page="header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+<!--                            <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Change Password</li>
                                 </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Change Password</h2>
+                            </nav>-->
+<!--                            <h2 class="breadcrumb-title">Change Password</h2>-->
                         </div>
                     </div>
                 </div>

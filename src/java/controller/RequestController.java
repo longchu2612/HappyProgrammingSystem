@@ -158,10 +158,10 @@ public class RequestController extends HttpServlet {
                 } else {
                     HttpSession session = request.getSession();
                     session.setMaxInactiveInterval(60 * 60);
-                    Account mentee = (Account)session.getAttribute("account");
+                    Account mentee = (Account) session.getAttribute("account");
                     int menteeId = mentee.getAccount_id();
                     String uniqueId = UUID.randomUUID().toString();
-                    uniqueId = uniqueId + "_mentorId"+ mentorId + "_menteeId"+menteeId;
+                    uniqueId = uniqueId + "_mentorId" + mentorId + "_menteeId" + menteeId;
                     Account account = (Account) session.getAttribute("account");
                     Request req = new Request();
                     req.setTitle(title);
@@ -190,7 +190,7 @@ public class RequestController extends HttpServlet {
                 String uniqueId = (String) session.getAttribute("uniqueId");
                 Request req = (Request) session.getAttribute("request_" + uniqueId);
                 Account mentee = (Account) session.getAttribute("account");
-                if (req != null && uniqueId.contains("_mentorId"+mentorId+"_menteeId"+mentee.getAccount_id())) {
+                if (req != null && uniqueId.contains("_mentorId" + mentorId + "_menteeId" + mentee.getAccount_id())) {
 
                     int currentYear = Year.now().getValue();
                     WeekFields weekFields = WeekFields.ISO;
@@ -219,8 +219,16 @@ public class RequestController extends HttpServlet {
                     String scheduleId = String.valueOf(schedule.getId());
                     String month = String.valueOf(schedule.getMonth());
                     List<Slot> slots = scheduleDAO.getAllSlotByDates(schedule.getId(), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
-                    
-                    
+
+                    SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
+                    CVDAO cvDAO = new CVDAO();
+                    int rate = cvDAO.getRateOfCV(Integer.parseInt(cvId));
+                    Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + scheduleId);
+                    if (scheduleMenteeDraft != null) {
+                        request.setAttribute("totalOfSlotSaveMentee", slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft));
+                        request.setAttribute("totalPrice", rate * 2 * (slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft)));
+                    }
+
                     request.setAttribute("isFormFilled", isFormFilled);
                     request.setAttribute("scheduleId", scheduleId);
                     request.setAttribute("errorMessage", "");
@@ -320,9 +328,11 @@ public class RequestController extends HttpServlet {
             HttpSession session = request.getSession();
             String uniqueId = (String) session.getAttribute("uniqueId");
             String cvId = (String) session.getAttribute("cvId_" + uniqueId);
-            int rate = cvDAO.getRateOfCV(Integer.parseInt(cvId));
+            int rate = 0;
+            if (cvId != null) {
+                rate = cvDAO.getRateOfCV(Integer.parseInt(cvId));
+            }
             SlotMenteeDAO slotMenteeDao = new SlotMenteeDAO();
-
             int week = Integer.parseInt(weekValue);
             int year = Integer.parseInt(currentYear);
             LocalDate firstDayOfWeek = LocalDate.of(year, 1, 1)
@@ -348,8 +358,6 @@ public class RequestController extends HttpServlet {
             String firstDay = firstDayOfWeek.toString();
             String endDay = firstDayOfWeek.plusDays(6).toString();
             slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(schedule_id), firstDay, endDay);
-            
-            
 
             Integer scheduleMenteeDraft = (Integer) session.getAttribute("scheduleMenteeDraft_" + schedule_id);
             if (scheduleMenteeDraft == null) {
@@ -405,6 +413,13 @@ public class RequestController extends HttpServlet {
             }
             String uniqueId = (String) session.getAttribute("uniqueId");
             String skillIdString = (String) session.getAttribute("skill_" + uniqueId);
+            if (skillIdString == null) {
+                request.setAttribute("isFormFilled", true);
+                request.setAttribute("messageSchedule", "Choose a failed study schedule");
+                request.setAttribute("errorCode", "sessionExpired");
+                request.getRequestDispatcher("request-booking.jsp").forward(request, response);
+                return;
+            }
             int skillID = Integer.parseInt(skillIdString);
 
             SlotMenteeDAO slotMenteeDAO = new SlotMenteeDAO();
@@ -671,15 +686,14 @@ public class RequestController extends HttpServlet {
                     int createdBy = requestSubmit.getCreatedBy();
                     Timestamp createdDate = Timestamp.valueOf(LocalDateTime.now());
 
-                    
                     int requestId = requestDAO.createRequest(titleOfRequest, deadline, contentOfRequest, "1", String.valueOf(createdBy), createdDate);
-                    
+
                     String mentorId = (String) session.getAttribute("mentorId_" + uniqueId);
                     String skill = (String) session.getAttribute("skill_" + uniqueId);
                     int numOfSlot = slotMenteeDAO.countNumberOfSaveSlotMentee(scheduleMenteeDraft);
-                    boolean checkCreateRequest = requestDAO.createRequestCourse(requestId, Integer.parseInt(mentorId), Integer.parseInt(skill), numOfSlot, scheduleMenteeDraft, "1",mentee.getAccount_id());
+                    boolean checkCreateRequest = requestDAO.createRequestCourse(requestId, Integer.parseInt(mentorId), Integer.parseInt(skill), numOfSlot, scheduleMenteeDraft, "1", mentee.getAccount_id());
                     if (checkCreateRequest == true) {
-                        
+
                         accountDAO.updateHoldOfAccount(mentee.getAccount_id(), saveTotalPrice + holdOfMentee);
                         mentee.setHold(saveTotalPrice + holdOfMentee);
                         session.setAttribute("account", mentee);

@@ -43,13 +43,13 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+<!--                            <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
                                 </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Create Request</h2>
+                            </nav>-->
+<!--                            <h2 class="breadcrumb-title">Create Request</h2>-->
                         </div>
                     </div>
                 </div>
@@ -272,7 +272,13 @@
                                             <input type="hidden" name="schedule_id_schedule" value="${requestScope.scheduleId}"/>
                                             <input type="hidden" name="accountId" value="${requestScope.accountId}"/>
                                             <div class="col-12 col-md-12">
-
+                                            <%
+                                               String errorCode = (String) request.getAttribute("errorCode"); 
+                                            %>
+                                            
+                                            <% if("sessionExpired".equals(errorCode)){ %>
+                                                  <p>Choose a failed study schedule</p>
+                                            <%} else{%>
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -319,12 +325,10 @@
                                                     <tbody>
 
                                                     <h5>${requestScope.message}</h5>
-
                                                     <%
-                                                        List<Slot> slots = (List<Slot>) request.getAttribute("slots");
-                                                    %>
-                                                    <%
+                                                        
                                                         List<SlotMentee> slotMentees = (List<SlotMentee>) request.getAttribute("slotMentees");
+                                                        List<Slot> slots = (List<Slot>) request.getAttribute("slots");
                                                     %>
                                                     <%
                                                         int currentMonth = Integer.parseInt(String.valueOf(request.getAttribute("month")));
@@ -410,6 +414,9 @@
                                                         <button type="submit" name="actionType" value="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
                                                 </div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </form>
                                     </div>

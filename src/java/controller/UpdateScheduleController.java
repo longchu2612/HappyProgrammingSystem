@@ -109,25 +109,27 @@ public class UpdateScheduleController extends HttpServlet {
         List<Slot> slots = scheduleDAO.getAllSlotByDates(Integer.parseInt(scheduleId), firstDayOfWeek_2.toString(), firstDayOfWeek_2.plusDays(6).toString());
         String accountId = request.getParameter("accountId");
         HttpSession session = request.getSession();
-        Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + scheduleId);
-
-        session.setMaxInactiveInterval(3600);
-
-        if (scheduleDraft == null) {
-            ScheduleDAO schedule_dao = new ScheduleDAO();
-            String sessionId = UUID.randomUUID().toString();
-            int mentorId = schedule_dao.getMentorIdByScheduleId(Integer.parseInt(scheduleId));
-            schedule_dao.createNewSchedule(mentorId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
-            scheduleDraft = schedule_dao.getScheduleId(mentorId, sessionId);
-
-            session.setAttribute("scheduleDraft_" + scheduleId, scheduleDraft);
-        }
-
-        List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks_"+scheduleId);
-        if (selectedWeeks == null) {
-            selectedWeeks = new ArrayList<>();
-            session.setAttribute("selectedWeeks_"+scheduleId, selectedWeeks);
-        }
+        
+        //27-07-2024
+//        Integer scheduleDraft = (Integer) session.getAttribute("scheduleDraft_" + scheduleId);
+//
+//        session.setMaxInactiveInterval(3600);
+//
+//        if (scheduleDraft == null) {
+//            ScheduleDAO schedule_dao = new ScheduleDAO();
+//            String sessionId = UUID.randomUUID().toString();
+//            int mentorId = schedule_dao.getMentorIdByScheduleId(Integer.parseInt(scheduleId));
+//            schedule_dao.createNewSchedule(mentorId, "4", LocalDateTime.now(), Integer.parseInt(month), sessionId);
+//            scheduleDraft = schedule_dao.getScheduleId(mentorId, sessionId);
+//
+//            session.setAttribute("scheduleDraft_" + scheduleId, scheduleDraft);
+//        }
+          //27-07-2024
+//        List<WeekRange> selectedWeeks = (List<WeekRange>) session.getAttribute("selectedWeeks_"+scheduleId);
+//        if (selectedWeeks == null) {
+//            selectedWeeks = new ArrayList<>();
+//            session.setAttribute("selectedWeeks_"+scheduleId, selectedWeeks);
+//        }
         NotificationScheduleDAO notificationDAO = new NotificationScheduleDAO();
         String message = notificationDAO.getNoteSchedule(Integer.parseInt(scheduleId));
         int status = scheduleDAO.getStatusOfSchedule(Integer.parseInt(scheduleId));
@@ -414,6 +416,7 @@ public class UpdateScheduleController extends HttpServlet {
                     List<Slot> slotsAfterDraft = slotDAO.getAllSlotByScheduleDarft(scheduleDraft, startOfWeek, endOfWeek);
                     if (checkedValuesSlotOne == null && checkedValuesSlotTwo == null && checkedValuesSlotThree == null
                             && checkedValuesSlotThree == null && checkedValuesSlotFour == null && checkedValuesSlotFive == null) {
+                        slotDAO.deleteSchedule(scheduleDraft, startOfWeek.toString(), endOfWeek.toString());
                         check = true;
 
                     } else {
@@ -447,6 +450,9 @@ public class UpdateScheduleController extends HttpServlet {
                                     for (String slot_day : checkedValues) {
                                         if (dayOfWeekValue == Integer.parseInt(slot_day)) {
                                             int result = scheduleDAO.createSlotOfSchedule(slotNumber, dayOfWeekValue, scheduleDraft, date);
+                                            if(result != 1){ 
+                                                check = false;
+                                            }
                                         }
                                     }
 

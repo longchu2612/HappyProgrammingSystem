@@ -110,6 +110,7 @@ public class MyScheduleController extends HttpServlet {
             request.setAttribute("weekDates", weekDates_2);
             request.setAttribute("weeks", weeks);
             request.setAttribute("currentYear", currentYear);
+            request.setAttribute("checkError", "no_schedule");
             request.getRequestDispatcher("my-schedule.jsp").forward(request, response);
             return;
         }

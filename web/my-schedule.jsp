@@ -39,7 +39,7 @@
     <body>
 
         <div class="main-wrapper">
-            <jsp:include page="layout_header.jsp"/>
+            <jsp:include page="header.jsp"/>
 
 
 
@@ -47,13 +47,13 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+<!--                            <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Profile Settings</h2>
+                            <h2 class="breadcrumb-title">Profile Settings</h2>-->
                         </div>
                     </div>
                 </div>
@@ -115,9 +115,9 @@
                                             <div class="form-group">
                                                 <h4>My Schedule</h4>
                                             </div>
-<!--                                            <h4 style="color: red; align-content: center;">
-                                                
-                                            </h4>-->
+                                            <!--                                            <h4 style="color: red; align-content: center;">
+                                                                                            
+                                                                                        </h4>-->
                                         </div>
                                         <div class="row">   
 
@@ -167,7 +167,7 @@
                                                     <input type="hidden"  name="month_form_updateweek" value="${requestScope.month}"/>
                                                     <input type="hidden"  name="schedule_id" value="${requestScope.scheduleId}"/>
                                                     <input type="hidden" name="value_year" value="${requestScope.currentYear}"/>
-                                                    
+
                                                     <select id="weekSelect" name="selectedWeek" class="form-select" onchange="submitForm()">
                                                         <%
                                                             List<String> weeks = (List<String>) request.getAttribute("weeks");
@@ -203,7 +203,12 @@
                                             <input type="hidden" name="schedule_id_schedule" value="${requestScope.scheduleId}"/>
                                             <input type="hidden" name="accountId" value="${requestScope.accountId}"/>
                                             <div class="col-12 col-md-12">
-
+                                                <%
+                                                    String errorCode = (String) request.getAttribute("checkError");
+                                                %>
+                                                <% if ("no_schedule".equals(errorCode)) { %>
+                                                <p>You don't have any teaching schedule yet</p>
+                                                <%} else {%>
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -248,99 +253,102 @@
                                                     </thead>
 
                                                     <tbody>
-                                                         
+
                                                     <h5>${requestScope.message}</h5>
 
-                                                        <%
-                                                            List<Slot> slots = (List<Slot>) request.getAttribute("slots");
-                                                        %>
-                                                        <%
-                                                            int currentMonth = Integer.parseInt(String.valueOf(request.getAttribute("month")));
-                                                        %>
+                                                    <%
+                                                        List<Slot> slots = (List<Slot>) request.getAttribute("slots");
+                                                    %>
+                                                    <%
+                                                        int currentMonth = Integer.parseInt(String.valueOf(request.getAttribute("month")));
+                                                    %>
 
 
 
-                                                        <tr>
-                                                            <td>Slot 1 (7h30 --> 9h30)</td>
-                                                            <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td>Slot 1 (7h30 --> 9h30)</td>
+                                                        <td><input type="checkbox" id="mon1" name="slot_1" value="1" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
+                                                        <td><input type="checkbox" id="tue1" name="slot_1" value="2" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                        <td><input type="checkbox" id="wed1" name="slot_1" value="3" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                        <td><input type="checkbox" id="thu1" name="slot_1" value="4" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                        <td><input type="checkbox" id="fri1" name="slot_1" value="5" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                        <td><input type="checkbox" id="sat1" name="slot_1" value="6" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                        <td><input type="checkbox" id="sun1" name="slot_1" value="7" data-slot="1" <%= ScheduleHelper.isCheckedSlotByDate(slots, 1, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                    </tr>
 
-                                                        <tr>
-                                                            <td>Slot 2 (9h45 --> 11h45)</td>
-                                                            <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
-                                                            <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1"  ></td>
-                                                            <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2"  ></td>
-                                                            <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3"  ></td>
-                                                            <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4"  ></td>
-                                                            <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5"  ></td>
-                                                            <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Slot 3 (13h30 --> 15h30)</td>
-                                                            <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
-                                                            <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td>Slot 2 (9h45 --> 11h45)</td>
+                                                        <td><input type="checkbox" id="mon2" name="slot_2" value ="1" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
+                                                        <td><input type="checkbox" id="tue2" name="slot_2" value ="2"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1"  ></td>
+                                                        <td><input type="checkbox" id="wed2" name="slot_2" value ="3" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2"  ></td>
+                                                        <td><input type="checkbox" id="thu2" name="slot_2" value ="4" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3"  ></td>
+                                                        <td><input type="checkbox" id="fri2" name="slot_2" value ="5"  data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4"  ></td>
+                                                        <td><input type="checkbox" id="sat2" name="slot_2" value ="6" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5"  ></td>
+                                                        <td><input type="checkbox" id="sun2" name="slot_2" value ="7" data-slot="2" <%= ScheduleHelper.isCheckedSlotByDate(slots, 2, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Slot 3 (13h30 --> 15h30)</td>
+                                                        <td><input type="checkbox" id="mon3" name="slot_3" value ="1" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0"  ></td>
+                                                        <td><input type="checkbox" id="tue3" name="slot_3" value ="2" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                        <td><input type="checkbox" id="wed3" name="slot_3" value ="3" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                        <td><input type="checkbox" id="thu3" name="slot_3" value ="4" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                        <td><input type="checkbox" id="fri3" name="slot_3" value ="5" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                        <td><input type="checkbox" id="sat3" name="slot_3" value ="6" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                        <td><input type="checkbox" id="sun3" name="slot_3" value ="7" data-slot="3" <%= ScheduleHelper.isCheckedSlotByDate(slots, 3, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                    </tr>
 
 
-                                                        <tr>
-                                                            <td>Slot 4 (16h --> 18h)</td>
-                                                            <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td>Slot 4 (16h --> 18h)</td>
+                                                        <td><input type="checkbox" id="mon4" name="slot_4" value ="1" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="0" ></td>
+                                                        <td><input type="checkbox" id="tue4" name="slot_4" value ="2" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="1" ></td>
+                                                        <td><input type="checkbox" id="wed4" name="slot_4" value ="3" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                        <td><input type="checkbox" id="thu4" name="slot_4" value ="4" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                        <td><input type="checkbox" id="fri4" name="slot_4" value ="5" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                        <td><input type="checkbox" id="sat4" name="slot_4" value ="6" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                        <td><input type="checkbox" id="sun4" name="slot_4" value ="7" data-slot="4" <%= ScheduleHelper.isCheckedSlotByDate(slots, 4, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                    </tr>
 
-                                                        <tr>
-                                                            <td>Slot 5 (19h --> 21h)</td>
-                                                            <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
-                                                            <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="1" ></td>
-                                                            <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
-                                                            <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
-                                                            <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
-                                                            <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
-                                                            <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
-                                                        </tr>
-                                                        <!--                                                    <tr>
-                                                                                                                <td>Slot 6</td>
-                                                                                                                <td><input type="checkbox" id="mon6"></td>
-                                                                                                                <td><input type="checkbox" id="tue6"></td>
-                                                                                                                <td><input type="checkbox" id="wed6"></td>
-                                                                                                                <td><input type="checkbox" id="thu6"></td>
-                                                                                                                <td><input type="checkbox" id="fri6"></td>
-                                                                                                                <td><input type="checkbox" id="sat6"></td>
-                                                                                                                <td><input type="checkbox" id="sun6"></td>
-                                                                                                            </tr>-->
+                                                    <tr>
+                                                        <td>Slot 5 (19h --> 21h)</td>
+                                                        <td><input type="checkbox" id="mon5" name="slot_5" value="1" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[0])%> <% if (!weekDates[0].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="0" ></td>
+                                                        <td><input type="checkbox" id="tue5" name="slot_5" value="2" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[1])%> <% if (!weekDates[1].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%>  data-day-index="1" ></td>
+                                                        <td><input type="checkbox" id="wed5" name="slot_5" value ="3" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[2])%> <% if (!weekDates[2].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="2" ></td>
+                                                        <td><input type="checkbox" id="thu5" name="slot_5" value ="4" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[3])%> <% if (!weekDates[3].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="3" ></td>
+                                                        <td><input type="checkbox" id="fri5" name="slot_5" value ="5" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[4])%> <% if (!weekDates[4].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="4" ></td>
+                                                        <td><input type="checkbox" id="sat5" name="slot_5" value ="6" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[5])%> <% if (!weekDates[5].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="5" ></td>
+                                                        <td><input type="checkbox" id="sun5" name="slot_5" value ="7" data-slot="5" <%= ScheduleHelper.isCheckedSlotByDate(slots, 5, weekDates[6])%> <% if (!weekDates[6].substring(5, 7).equals(String.format("%02d", currentMonth))) { %> disabled <% }%> data-day-index="6" ></td>
+                                                    </tr>
+                                                    <!--                                                    <tr>
+                                                                                                            <td>Slot 6</td>
+                                                                                                            <td><input type="checkbox" id="mon6"></td>
+                                                                                                            <td><input type="checkbox" id="tue6"></td>
+                                                                                                            <td><input type="checkbox" id="wed6"></td>
+                                                                                                            <td><input type="checkbox" id="thu6"></td>
+                                                                                                            <td><input type="checkbox" id="fri6"></td>
+                                                                                                            <td><input type="checkbox" id="sat6"></td>
+                                                                                                            <td><input type="checkbox" id="sun6"></td>
+                                                                                                        </tr>-->
                                                     </tbody>
 
                                                 </table>
+                                                <%
+                                                    }
+                                                %>
                                                 <div class="col-12 col-md-8 mt-3">
-<!--                                                    <div class="form-group">
-                                                        <label for="note">Note</label>
-                                                        <textarea class="form-control" id="note" name="note" rows="3" readonly>${requestScope.note}</textarea>
-                                                        
-                                                    </div>-->
+                                                    <!--                                                    <div class="form-group">
+                                                                                                            <label for="note">Note</label>
+                                                                                                            <textarea class="form-control" id="note" name="note" rows="3" readonly>${requestScope.note}</textarea>
+                                                                                                            
+                                                                                                        </div>-->
                                                 </div>
                                                 <div class="row mt-3">
-<!--                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>
-                                                    </div>-->
-<!--                                                    <div class="submit-section col-md-1">
-                                                        <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Update</button>
-                                                    </div>-->
+                                                    <!--                                                    <div class="submit-section col-md-1">
+                                                                                                            <button type="submit" id="createButton" name="button_action" value="draft" class="btn btn-primary">Draft</button>
+                                                                                                        </div>-->
+                                                    <!--                                                    <div class="submit-section col-md-1">
+                                                                                                            <button type="submit" id="createButton" name="button_action" value="update" class="btn btn-primary">Update</button>
+                                                                                                        </div>-->
                                                 </div>
                                             </div>
                                         </form>

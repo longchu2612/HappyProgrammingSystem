@@ -34,18 +34,19 @@
     <body>
 
         <div class="main-wrapper">
+            <jsp:include page="header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
-                        <div class="col-md-8 col-12">
+<!--                        <div class="col-md-8 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="home">Back to home</a></li>
                                 </ol>
                             </nav>
                             <h2 class="breadcrumb-title">${listSize} courses in system:</h2>
-                        </div>
-                        <div class="col-md-4 col-12 d-md-block d-none">
+                        </div>-->
+<!--                        <div class="col-md-4 col-12 d-md-block d-none">
                             <div class="sort-by">
                                 <span class="sort-title">Sort by</span>
                                 <span class="sortby-fliter">
@@ -58,7 +59,7 @@
                                     </select>
                                 </span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -142,7 +143,7 @@
                                                                                                 <span class="checkmark"></span> VB, VB.net
                                                                                             </label>
                                                                                         </div>-->
-                                        </div>
+                                          </div>
                                         <div class="btn-search">
                                             <button type="submit" class="btn btn-block w-100">Search</button>
                                         </div>

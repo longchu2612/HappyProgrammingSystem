@@ -36,12 +36,12 @@
 
 
 
-
+            <jsp:include page="header.jsp"/>
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12 col-12">
-                            <h2 class="breadcrumb-title">Profile Settings</h2>
+<!--                            <h2 class="breadcrumb-title">Profile Settings</h2>-->
                         </div>
                     </div>
                 </div>

@@ -36,13 +36,16 @@
                                 <span><i class="fa fa-cog"></i> Configuration</span>
                             </li>
                             <li>
-                                <a href="admin/settings.html"><span>Settings</span></a>
+<!--                                <a href="admin/settings.html"><span>Settings</span></a>-->
+                                    <a href="#"><span>Settings</span></a>
                             </li>
                             <li class="submenu">
                                 <a href="#"><span> Error Pages </span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="admin/error-404.html">404 Error </a></li>
-                                    <li><a href="admin/error-500.html">500 Error </a></li>
+<!--                                    <li><a href="admin/error-404.html">404 Error </a></li>-->
+                                    <li><a href="#">404 Error </a></li>
+                                    <li><a href="#">500 Error </a></li>
+<!--                                    <li><a href="admin/error-500.html">500 Error </a></li>-->
                                 </ul>
                             </li>
                         </ul>

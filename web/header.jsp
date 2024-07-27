@@ -80,11 +80,11 @@
                                 <li class="has-submenu">
                                     <a href>Hello, ${sessionScope.account.fullname}<i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a href="#">Mentor Dashboard</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/">Home Mentor</a></li>
                                         <li><a href="my_request">My Request</a></li>
                                         <li><a href="profile">My Profile</a></li>
                                         <li><a href="profile">My CV</a></li>
-                                        <li><a href="profile">My Request</a></li>
+                                        <li><a href="profile">My Request CV</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>
                                     </ul>
@@ -108,7 +108,7 @@
     </div>
 </header>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 <script>
 //    function updateWalletInfo() {
 //        var token = getTokenFromSessionOrCookie(); // Hàm này tùy thuộc vào cách bạn lưu và lấy token
@@ -124,15 +124,17 @@
 //            },
 //            error: function (xhr) {
 //                if (xhr.status === 401) {
-//                    // Redirect to login page if unauthorized
-//                    window.location.href = 'login.jsp';
+//                    // Check if redirect has already been triggered
+//                    if (!sessionStorage.getItem('redirected')) {
+//                        sessionStorage.setItem('redirected', 'true');
+//                        window.location.href = '${pageContext.request.contextPath}/home';
+//                    }
 //                } else {
 //                    console.log('Error fetching account info', xhr.status);
 //                }
 //            }
 //        });
 //    }
-
 //    function getTokenFromSessionOrCookie() {
 //        var name = "token=";
 //        var decodedCookie = decodeURIComponent(document.cookie);
@@ -148,11 +150,11 @@
 //        }
 //        return "";
 //    }
-
-    // Call the updateWalletInfo function when the page loads
+//
+//    // Call the updateWalletInfo function when the page loads
 //    $(document).ready(function () {
 //        updateWalletInfo();
-//        // Set interval to update info every 10 seconds
+////        // Set interval to update info every 10 seconds
 //        setInterval(updateWalletInfo, 10000);
 //    });
 </script>
