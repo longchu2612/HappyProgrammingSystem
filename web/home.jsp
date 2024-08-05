@@ -125,10 +125,10 @@
                         </div>
                     </div>
                     <div class="explore-more text-center aos " data-aos="fade-up">
-                        <a href="Booking?service=all_skill" class="btn bg-explore">Show All Categories</a>
+                        <a href="Booking?service=all_skill" class="btn bg-explore">Show All</a>
                     </div>
                 </div>
-                <nav aria-label="Page navigation example" class="mt-4">
+<!--                <nav aria-label="Page navigation example" class="mt-4">
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -140,7 +140,7 @@
                             <a class="page-link" href="#">Next</a>
                         </li>
                     </ul>
-                </nav>
+                </nav>-->
             </section>
 
 

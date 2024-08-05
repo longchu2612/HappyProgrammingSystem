@@ -260,7 +260,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" name="email" class="form-control"
+                                                    <input type="email" name="email" disabled class="form-control"
                                                            value="${ac.getEmail()}">
                                                 </div>
                                             </div>
@@ -284,10 +284,10 @@
                                                     <div class="col-12 col-md-6">
                                                         <div class="form-group">
                                                             <label>Job</label>
-                                                            <input type="text" name="job" value="${cv.getJob()}" class="form-control">
+                                                            <input type="text" name="job" value="${cv.getJob()}" required class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Rate ($/hrs)</label>
+                                                            <label>Rate (VNĐ/hrs)</label>
                                                             <input type="number" name="rate" value="${cv.getRate()}" class="form-control" min="1" step="1">
                                                         </div>
                                                     </div>
@@ -307,13 +307,13 @@
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label>Introduction</label>
-                                                        <textarea class="form-control" name="introduction" rows="10" placeholder="Introduction">${cv.getIntroduction()}</textarea>
+                                                        <textarea class="form-control" name="introduction" rows="10" placeholder="Introduction" required>${cv.getIntroduction()}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label>Achievements</label>
-                                                        <textarea class="form-control" name="achievements" rows="10" placeholder="Achievements">${cv.getAchievements()}</textarea>
+                                                        <textarea class="form-control" name="achievements" rows="10" placeholder="Achievements" required>${cv.getAchievements()}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

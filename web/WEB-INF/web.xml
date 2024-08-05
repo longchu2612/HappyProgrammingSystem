@@ -258,7 +258,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyRequestMenteeController</servlet-name>
-        <url-pattern>/my_request_mentee</url-pattern>
+        <url-pattern>/my_request_mentee_234</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateRequestDetailController</servlet-name>

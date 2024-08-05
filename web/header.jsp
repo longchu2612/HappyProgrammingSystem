@@ -53,7 +53,7 @@
                                         <li><a href="profile">Profile</a></li>
 
                                         <li><a href="Booking">Search Mentor</a></li>
-                                        <li><a href="my_request_mentee">My request</a></li>
+                                        <li><a href="my_request_mentee_234">My request</a></li>
                                         <li><a href="changepass.jsp">Change Password</a></li>
                                         <li><a href="#">Profile Settings</a></li>
                                         <li><a href="account?action=logout">Logout</a></li>

@@ -513,7 +513,7 @@ function CheckPassword(text) {
     var password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     var spanPassword = document.getElementById('span_password');
     if (!password.test(text.value)) {
-        spanPassword.innerHTML = 'Mật khẩu không hợp lệ (Cần có ít nhất 8 ký tự bao gồm viết hoa và ký tự đặc biệt)!';
+        spanPassword.innerHTML = 'Mật khẩu không hợp lệ (Cần có ít nhất 8 ký tự bao gồm viết hoa và ký tự số)!';
         spanPassword.style.color = 'red';
         return false;
     }
